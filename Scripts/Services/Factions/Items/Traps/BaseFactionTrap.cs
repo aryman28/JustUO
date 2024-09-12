@@ -229,7 +229,7 @@ namespace Server.Factions
 
             if (!this.CheckDecay() && this.CheckRange(m.Location, oldLocation, 6))
             {
-                if (Faction.Find(m) != null && ((m.Skills[SkillName.DetectHidden].Value - 80.0) / 20.0) > Utility.RandomDouble())
+                if (Faction.Find(m) != null && ((m.Skills[SkillName.Wykrywanie].Value - 80.0) / 20.0) > Utility.RandomDouble())
                     this.PrivateOverheadLocalizedMessage(m, 1010154, this.MessageHue, "", ""); // [Faction Trap]
             }
         }

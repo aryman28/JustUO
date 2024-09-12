@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Server.Spells.Bushido
+namespace Server.Spells.Fanatyzm
 {
     public class Confidence : SamuraiSpell
     {
@@ -148,7 +148,7 @@ namespace Server.Spells.Bushido
                 : base(TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(1.0))
             {
                 this.m_Mobile = m;
-                this.m_Hits = 15 + (m.Skills.Bushido.Fixed * m.Skills.Bushido.Fixed / 57600);
+                this.m_Hits = 15 + (m.Skills.Fanatyzm.Fixed * m.Skills.Fanatyzm.Fixed / 57600);
                 this.Priority = TimerPriority.TwoFiftyMS;
             }
 

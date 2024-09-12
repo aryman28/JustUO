@@ -4,7 +4,7 @@ namespace Server.Items
 {
     public class SlayerEntry
     {
-        private static readonly int[] m_AosTitles =
+        private static readonly int[] m_AosTitles = new int[]
         {
             1060479, // undead slayer
             1060470, // orc slayer
@@ -32,10 +32,9 @@ namespace Server.Items
             1060459, // blood elemental slayer
             1060476, // snow elemental slayer
             1060464, // elemental slayer
-            1070855 // fey slayer
+            1070855  // fey slayer
         };
-
-        private static readonly int[] m_OldTitles =
+        private static readonly int[] m_OldTitles = new int[]
         {
             1017384, // Silver
             1017385, // Orc Slaying
@@ -63,54 +62,67 @@ namespace Server.Items
             1017407, // Blood Drinking
             1017408, // Summer Wind
             1017409, // Elemental Ban
-            1070855 // fey slayer
+            1070855  // fey slayer
         };
-
         private readonly SlayerName m_Name;
         private readonly Type[] m_Types;
-
+        private SlayerGroup m_Group;
         public SlayerEntry(SlayerName name, params Type[] types)
         {
-            m_Name = name;
-            m_Types = types;
+            this.m_Name = name;
+            this.m_Types = types;
         }
 
-        public SlayerGroup Group { get; set; }
-
+        public SlayerGroup Group
+        {
+            get
+            {
+                return this.m_Group;
+            }
+            set
+            {
+                this.m_Group = value;
+            }
+        }
         public SlayerName Name
         {
-            get { return m_Name; }
+            get
+            {
+                return this.m_Name;
+            }
         }
-
         public Type[] Types
         {
-            get { return m_Types; }
+            get
+            {
+                return this.m_Types;
+            }
         }
-
         public int Title
         {
             get
             {
-                var titles = (Core.AOS ? m_AosTitles : m_OldTitles);
+                int[] titles = (Core.AOS ? m_AosTitles : m_OldTitles);
 
-                return titles[(int) m_Name - 1];
+                return titles[(int)this.m_Name - 1];
             }
         }
-
         public bool Slays(Mobile m)
         {
+
             if (m.SpecialSlayerMechanics)
             {
                 if (m.SlayerVulnerabilities.Contains(m_Name.ToString()))
                     return true;
-                return false;
+                else
+                    return false;
             }
 
-            var t = m.GetType();
+            Type t = m.GetType();
 
-            for (var i = 0; i < m_Types.Length; ++i)
+            for (int i = 0; i < this.m_Types.Length; ++i)
             {
-                if (m_Types[i].IsAssignableFrom(t))
+                if (this.m_Types[i].IsAssignableFrom(t))
                     return true;
             }
 

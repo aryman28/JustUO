@@ -1256,7 +1256,11 @@ namespace Server.Mobiles
 					return "Invalid SKILL format";
 				}
 				SkillName skillname;
+#if Framework_4_0
 				if(Enum.TryParse(keywordargs[1], true, out skillname))
+#else
+				if(TryParse(keywordargs[1], true, out skillname))
+#endif
 				{
 					if(o is Mobile)
 					{
@@ -1621,7 +1625,11 @@ namespace Server.Mobiles
 						return "Invalid SKILL format";
 					}
 					SkillName skillname;
+#if Framework_4_0
 					if(Enum.TryParse(keywordargs[1], true, out skillname))
+#else
+					if(TryParse(keywordargs[1], true, out skillname))
+#endif
 					{
 						if (o is Mobile)
 						{
@@ -3467,7 +3475,11 @@ namespace Server.Mobiles
 
 								if (keywordargs.Length > 1)
 								{
+#if Framework_4_0
 									if(!Enum.TryParse(keywordargs[1], true, out layer))
+#else
+									if(!TryParse(keywordargs[1], true, out layer))
+#endif
 									{ status_str = "Invalid layer"; }
 								}
 
@@ -8023,7 +8035,11 @@ namespace Server.Mobiles
 								if (musicnumber == -1)
 								{
 									MusicName music;
+#if Framework_4_0
 									if(Enum.TryParse(musicstr[1], true, out music))
+#else
+									if(TryParse(musicstr[1], true, out music))
+#endif
 										p.Send(PlayMusic.GetInstance(music));
 								}
 								else
@@ -8052,7 +8068,11 @@ namespace Server.Mobiles
 					if (musicnumber == -1)
 					{
 						MusicName music;
+#if Framework_4_0
 						if(Enum.TryParse(musicstr[1], true, out music))
+#else
+						if(TryParse(musicstr[1], true, out music))
+#endif
 							triggermob.Send(PlayMusic.GetInstance(music));
 					}
 					else

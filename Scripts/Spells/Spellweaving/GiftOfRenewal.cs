@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Server.Targeting;
 
-namespace Server.Spells.Spellweaving
+namespace Server.Spells.Druidyzm
 {
     public class GiftOfRenewalSpell : ArcanistSpell
     {
@@ -70,7 +70,7 @@ namespace Server.Spells.Spellweaving
                 }
                 else
                 {
-                    double skill = this.Caster.Skills[SkillName.Spellweaving].Value;
+                    double skill = this.Caster.Skills[SkillName.Druidyzm].Value;
 
                     int hitsPerRound = 5 + (int)(skill / 24) + this.FocusLevel;
                     TimeSpan duration = TimeSpan.FromSeconds(30 + (this.FocusLevel * 10));

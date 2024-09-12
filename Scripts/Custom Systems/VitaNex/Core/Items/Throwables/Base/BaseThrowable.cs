@@ -118,7 +118,7 @@ namespace VitaNex.Items
 			ImpactSound = -1;
 			ThrowRecovery = TimeSpan.FromSeconds(60.0);
 			ThrowRange = 12;
-			RequiredSkill = SkillName.Throwing;
+			RequiredSkill = SkillName.Rzucanie;
 			RequiredSkillValue = 0;
 		}
 

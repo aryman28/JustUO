@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
 
-namespace Server.Spells.Spellweaving
+namespace Server.Spells.Druidyzm
 {
     public class ArcaneCircleSpell : ArcanistSpell
     {
@@ -68,7 +68,7 @@ namespace Server.Spells.Spellweaving
 
                 List<Mobile> Arcanists = this.GetArcanists();
 
-                TimeSpan duration = TimeSpan.FromHours(Math.Max(1, (int)(this.Caster.Skills.Spellweaving.Value / 24)));
+                TimeSpan duration = TimeSpan.FromHours(Math.Max(1, (int)(this.Caster.Skills.Druidyzm.Value / 24)));
 
                 duration += TimeSpan.FromHours(Math.Min(5, Arcanists.Count));
 
@@ -136,7 +136,7 @@ namespace Server.Spells.Spellweaving
             //OSI Verified: Even enemies/combatants count
             foreach (Mobile m in this.Caster.GetMobilesInRange(1))	//Range verified as 1
             {
-                if (m != this.Caster && m is PlayerMobile && this.Caster.CanBeBeneficial(m, false) && Math.Abs(this.Caster.Skills.Spellweaving.Value - m.Skills.Spellweaving.Value) <= 20 && !(m is Clone))
+                if (m != this.Caster && m is PlayerMobile && this.Caster.CanBeBeneficial(m, false) && Math.Abs(this.Caster.Skills.Druidyzm.Value - m.Skills.Druidyzm.Value) <= 20 && !(m is Clone))
                 {
                     weavers.Add(m);
                 }

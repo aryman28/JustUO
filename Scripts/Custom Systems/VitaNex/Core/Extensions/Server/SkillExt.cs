@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 //   Vorspire    _,-'/-'/  SkillExt.cs
 //   .      __,-; ,'( '/
 //    \.    `-.__`-._`:_,-._       _ , . ``
@@ -127,41 +127,41 @@ namespace Server
 
 		public static readonly SkillName[] CombatSkills = new[]
 		{
-			SkillName.Archery, SkillName.Chivalry, SkillName.Fencing, SkillName.Focus, SkillName.Macing, SkillName.Parry,
-			SkillName.Swords, SkillName.Tactics, SkillName.Wrestling, SkillName.Bushido
+			SkillName.Lucznictwo, SkillName.Rycerstwo, SkillName.WalkaSzpadami, SkillName.Logistyka, SkillName.WalkaObuchami, SkillName.Parowanie,
+			SkillName.WalkaMieczami, SkillName.Taktyka, SkillName.Boks, SkillName.Fanatyzm
 		};
 
-		public static readonly SkillName[] HealingSkills = new[] {SkillName.Healing, SkillName.Veterinary};
+		public static readonly SkillName[] HealingSkills = new[] {SkillName.Leczenie, SkillName.Weterynaria};
 
 		public static readonly SkillName[] MagicSkills = new[]
 		{
-			SkillName.Alchemy, SkillName.EvalInt, SkillName.Inscribe, SkillName.Magery, SkillName.Meditation,
-			SkillName.Necromancy, SkillName.MagicResist, SkillName.Spellweaving, SkillName.SpiritSpeak
+			SkillName.Alchemia, SkillName.Intelekt, SkillName.Inskrypcja, SkillName.Magia, SkillName.Medytacja,
+			SkillName.Nekromancja, SkillName.ObronaPrzedMagia, SkillName.Druidyzm, SkillName.MowaDuchow
 		};
 
 		public static readonly SkillName[] BardicSkills = new[]
-		{SkillName.Discordance, SkillName.Musicianship, SkillName.Peacemaking, SkillName.Provocation};
+		{SkillName.Manipulacja, SkillName.Muzykowanie, SkillName.Uspokajanie, SkillName.Prowokacja};
 
 		public static readonly SkillName[] RogueSkills = new[]
 		{
-			SkillName.Begging, SkillName.DetectHidden, SkillName.Hiding, SkillName.Lockpicking, SkillName.Poisoning,
-			SkillName.RemoveTrap, SkillName.Snooping, SkillName.Stealing, SkillName.Stealth, SkillName.Ninjitsu
+			SkillName.Rolnictwo, SkillName.Wykrywanie, SkillName.Ukrywanie, SkillName.Wlamywanie, SkillName.Zatruwanie,
+			SkillName.UsuwaniePulapek, SkillName.Zagladanie, SkillName.Okradanie, SkillName.Zakradanie, SkillName.Skrytobojstwo
 		};
 
 		public static readonly SkillName[] KnowledgeSkills = new[]
 		{
-			SkillName.Anatomy, SkillName.AnimalLore, SkillName.AnimalTaming, SkillName.ArmsLore, SkillName.Camping,
-			SkillName.Forensics, SkillName.Herding, SkillName.ItemID, SkillName.TasteID, SkillName.Tracking
+			SkillName.Anatomia, SkillName.WiedzaOBestiach, SkillName.Oswajanie, SkillName.WiedzaOUzbrojeniu, SkillName.Obozowanie,
+			SkillName.Kryminalistyka, SkillName.Zielarstwo, SkillName.Identyfikacja, SkillName.OcenaSmaku, SkillName.Tropienie
 		};
 
 		public static readonly SkillName[] CraftSkills = new[]
 		{
-			SkillName.Blacksmith, SkillName.Fletching, SkillName.Carpentry, SkillName.Cooking, SkillName.Cartography,
-			SkillName.Tailoring, SkillName.Tinkering, SkillName.Imbuing
+			SkillName.Kowalstwo, SkillName.Lukmistrzostwo, SkillName.Stolarstwo, SkillName.Gotowanie, SkillName.Kartografia,
+			SkillName.Krawiectwo, SkillName.Majsterkowanie, SkillName.Umagicznianie
 		};
 
 		public static readonly SkillName[] HarvestSkills = new[]
-		{SkillName.Fishing, SkillName.Mining, SkillName.Lumberjacking};
+		{SkillName.Rybactwo, SkillName.Gornictwo, SkillName.Drwalnictwo};
 
 		public static bool IsCombat(this SkillName skill)
 		{

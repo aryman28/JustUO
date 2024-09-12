@@ -414,7 +414,7 @@ namespace Server.Items
             {
                 return 1070963;
             }
-        }// Swords of Prosperity
+        }// WalkaMieczami of Prosperity
         public override void GetDamageTypes(Mobile wielder, out int phys, out int fire, out int cold, out int pois, out int nrgy, out int chaos, out int direct)
         {
             phys = cold = pois = nrgy = chaos = direct = 0;
@@ -501,7 +501,7 @@ namespace Server.Items
             this.LootType = LootType.Regular;
             this.Hue = 0x530;
 
-            this.SkillBonuses.SetValues(0, SkillName.Magery, 15.0);
+            this.SkillBonuses.SetValues(0, SkillName.Magia, 15.0);
             this.Attributes.BonusInt = 8;
             this.Attributes.LowerManaCost = 15;
             this.Attributes.SpellDamage = 15;

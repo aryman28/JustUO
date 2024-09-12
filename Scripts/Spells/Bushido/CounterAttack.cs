@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Server.Items;
 
-namespace Server.Spells.Bushido
+namespace Server.Spells.Fanatyzm
 {
     public class CounterAttack : SamuraiSpell
     {

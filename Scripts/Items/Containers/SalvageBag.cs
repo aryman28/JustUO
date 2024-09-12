@@ -151,7 +151,7 @@ namespace Server.Items
 
                 if (item is DragonBardingDeed || (item is BaseArmor && ((BaseArmor)item).PlayerConstructed) || (item is BaseWeapon && ((BaseWeapon)item).PlayerConstructed) || (item is BaseClothing && ((BaseClothing)item).PlayerConstructed))
                 {
-                    double mining = from.Skills[SkillName.Mining].Value;
+                    double mining = from.Skills[SkillName.Gornictwo].Value;
                     if (mining > 100.0)
                         mining = 100.0;
                     double amount = (((4 + mining) * craftResource.Amount - 4) * 0.0068);
@@ -165,7 +165,7 @@ namespace Server.Items
                     ingot.Amount = 2;
                 }
 				
-                if (difficulty > from.Skills[SkillName.Mining].Value)
+                if (difficulty > from.Skills[SkillName.Gornictwo].Value)
                 {
                     this.m_Failure = true; 
                     ingot.Delete();

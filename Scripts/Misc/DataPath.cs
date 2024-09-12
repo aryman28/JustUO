@@ -13,9 +13,10 @@ namespace Server.Misc
         *  private static string CustomPath = @"C:\Program Files\Ultima Online";
         */
 	#if !MONO
-	private static readonly string CustomPath = StartupReader.GetClientPath();
+	//private static readonly string CustomPath = StartupReader.GetClientPath();
+    private const string CustomPath = @"D:\UO";
 	#else
-        private static readonly string CustomPath = Core.BaseDirectory + "/muls";
+    //    private static readonly string CustomPath = Core.BaseDirectory + "/muls";
 	#endif
 	/* The following is a list of files which a required for proper execution:
         * 

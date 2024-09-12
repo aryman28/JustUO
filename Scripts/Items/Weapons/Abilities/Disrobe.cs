@@ -12,7 +12,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -36,7 +36,7 @@ namespace Server.Items
             {
                 attacker.SendLocalizedMessage(1004001); // You cannot disarm your opponent.
             }
-            else if (this.CheckMana(attacker, true))
+            else if (this.CheckStam(attacker, true))
             {
                 //attacker.SendLocalizedMessage( 1060092 ); // You disarm their weapon!
                 defender.SendLocalizedMessage(1062002); // You can no longer wear your ~1_ARMOR~

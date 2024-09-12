@@ -80,7 +80,7 @@ namespace Server.Items
                 "friends from the sea,",
                 "as I do!",
                 "",
-                "Happy Fishing!"));
+                "Happy Rybactwo!"));
         [Constructable]
         public NewAquariumBook()
             : base(false)

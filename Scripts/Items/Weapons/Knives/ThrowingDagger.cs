@@ -23,7 +23,7 @@ namespace Server.Items
         {
             get
             {
-                return "a throwing dagger";
+                return "Nóż do rzucania";
             }
         }
         public override void Serialize(GenericWriter writer)

@@ -4,7 +4,7 @@ using Server.Spells;
 using Server.Spells.Fifth;
 using Server.Spells.First;
 using Server.Spells.Fourth;
-using Server.Spells.Necromancy;
+using Server.Spells.Nekromancja;
 using Server.Spells.Second;
 using Server.Spells.Seventh;
 using Server.Spells.Sixth;
@@ -67,7 +67,7 @@ namespace Server.Mobiles
         {
             get
             {
-                return (Core.AOS && this.m_Mobile.Skills[SkillName.Necromancy].Value > 50);
+                return (Core.AOS && this.m_Mobile.Skills[SkillName.Nekromancja].Value > 50);
             }
         }
         public override bool Think()
@@ -100,7 +100,7 @@ namespace Server.Mobiles
             {
                 this.m_Mobile.DebugSay("I am going to meditate");
 
-                this.m_Mobile.UseSkill(SkillName.Meditation);
+                this.m_Mobile.UseSkill(SkillName.Medytacja);
             }
             else
             {
@@ -160,7 +160,7 @@ namespace Server.Mobiles
 
         public void OnFailedMove()
         {
-            if (!this.m_Mobile.DisallowAllMoves && (this.SmartAI ? Utility.Random(4) == 0 : this.ScaleBySkill(TeleportChance, SkillName.Magery) > Utility.RandomDouble()))
+            if (!this.m_Mobile.DisallowAllMoves && (this.SmartAI ? Utility.Random(4) == 0 : this.ScaleBySkill(TeleportChance, SkillName.Magia) > Utility.RandomDouble()))
             {
                 if (this.m_Mobile.Target != null)
                     this.m_Mobile.Target.Cancel(this.m_Mobile, TargetCancelType.Canceled);
@@ -196,7 +196,7 @@ namespace Server.Mobiles
         public virtual bool UseNecromancy()
         {
             if (this.IsNecromancer)
-                return (Utility.Random(this.m_Mobile.Skills[SkillName.Magery].BaseFixedPoint + this.m_Mobile.Skills[SkillName.Necromancy].BaseFixedPoint) >= this.m_Mobile.Skills[SkillName.Magery].BaseFixedPoint);
+                return (Utility.Random(this.m_Mobile.Skills[SkillName.Magia].BaseFixedPoint + this.m_Mobile.Skills[SkillName.Nekromancja].BaseFixedPoint) >= this.m_Mobile.Skills[SkillName.Magia].BaseFixedPoint);
 
             return false;
         }
@@ -208,7 +208,7 @@ namespace Server.Mobiles
 
         public virtual Spell GetRandomDamageSpellNecro()
         {
-            int bound = (this.m_Mobile.Skills[SkillName.Necromancy].Value >= 100) ? 5 : 3;
+            int bound = (this.m_Mobile.Skills[SkillName.Nekromancja].Value >= 100) ? 5 : 3;
 
             switch( Utility.Random(bound) )
             {
@@ -232,7 +232,7 @@ namespace Server.Mobiles
 
         public virtual Spell GetRandomDamageSpellMage()
         {
-            int maxCircle = (int)((this.m_Mobile.Skills[SkillName.Magery].Value + 20.0) / (100.0 / 7.0));
+            int maxCircle = (int)((this.m_Mobile.Skills[SkillName.Magia].Value + 20.0) / (100.0 / 7.0));
 
             if (maxCircle < 1)
                 maxCircle = 1;
@@ -291,7 +291,7 @@ namespace Server.Mobiles
 
         public virtual Spell GetRandomCurseSpellMage()
         {
-            if (this.m_Mobile.Skills[SkillName.Magery].Value >= 40.0 && Utility.Random(4) == 0)
+            if (this.m_Mobile.Skills[SkillName.Magia].Value >= 40.0 && Utility.Random(4) == 0)
                 return new CurseSpell(this.m_Mobile, null);
 
             switch( Utility.Random(3) )
@@ -307,7 +307,7 @@ namespace Server.Mobiles
 
         public virtual Spell GetRandomManaDrainSpell()
         {
-            if (this.m_Mobile.Skills[SkillName.Magery].Value >= 80.0 && Utility.RandomBool())
+            if (this.m_Mobile.Skills[SkillName.Magia].Value >= 80.0 && Utility.RandomBool())
                 return new ManaVampireSpell(this.m_Mobile, null);
 
             return new ManaDrainSpell(this.m_Mobile, null);
@@ -317,7 +317,7 @@ namespace Server.Mobiles
         {
             if (!this.SmartAI)
             {
-                if (this.ScaleBySkill(DispelChance, SkillName.Magery) > Utility.RandomDouble())
+                if (this.ScaleBySkill(DispelChance, SkillName.Magia) > Utility.RandomDouble())
                     return new DispelSpell(this.m_Mobile, null);
 
                 return this.ChooseSpell(toDispel);
@@ -351,7 +351,7 @@ namespace Server.Mobiles
 
                 if (this.IsNecromancer)
                 {
-                    double psDamage = ((this.m_Mobile.Skills[SkillName.SpiritSpeak].Value - c.Skills[SkillName.MagicResist].Value) / 10) + (c.Player ? 18 : 30);
+                    double psDamage = ((this.m_Mobile.Skills[SkillName.MowaDuchow].Value - c.Skills[SkillName.ObronaPrzedMagia].Value) / 10) + (c.Player ? 18 : 30);
 
                     if (psDamage > c.Hits)
                         return new PainSpikeSpell(this.m_Mobile, null);
@@ -387,7 +387,7 @@ namespace Server.Mobiles
                         }
                     case 5:	// Paralyze them
                         {
-                            if (c.Paralyzed || this.m_Mobile.Skills[SkillName.Magery].Value <= 50.0)
+                            if (c.Paralyzed || this.m_Mobile.Skills[SkillName.Magia].Value <= 50.0)
                                 goto default;
 
                             this.m_Mobile.DebugSay("Attempting to paralyze");
@@ -453,7 +453,7 @@ namespace Server.Mobiles
                             {
                                 this.m_Mobile.DebugSay("I am going to meditate");
 
-                                this.m_Mobile.UseSkill(SkillName.Meditation);
+                                this.m_Mobile.UseSkill(SkillName.Medytacja);
                             }
                             else if (!c.Poisoned)
                             {
@@ -585,7 +585,7 @@ namespace Server.Mobiles
                 }
             }
 
-            if (!Core.AOS && this.SmartAI && !this.m_Mobile.StunReady && this.m_Mobile.Skills[SkillName.Wrestling].Value >= 80.0 && this.m_Mobile.Skills[SkillName.Anatomy].Value >= 80.0)
+            if (!Core.AOS && this.SmartAI && !this.m_Mobile.StunReady && this.m_Mobile.Skills[SkillName.Boks].Value >= 80.0 && this.m_Mobile.Skills[SkillName.Anatomia].Value >= 80.0)
                 EventSink.InvokeStunRequest(new StunRequestEventArgs(this.m_Mobile));
 
             if (!this.m_Mobile.InRange(c, this.m_Mobile.RangePerception))
@@ -915,7 +915,7 @@ namespace Server.Mobiles
 
             if (!this.SmartAI)
             {
-                if (this.ScaleBySkill(HealChance, SkillName.Magery) < Utility.RandomDouble())
+                if (this.ScaleBySkill(HealChance, SkillName.Magia) < Utility.RandomDouble())
                     return null;
             }
             else
@@ -930,7 +930,7 @@ namespace Server.Mobiles
             {
                 if (this.UseNecromancy())
                 {
-                    this.m_Mobile.UseSkill(SkillName.SpiritSpeak);
+                    this.m_Mobile.UseSkill(SkillName.MowaDuchow);
                 }
                 else
                 {
@@ -965,7 +965,7 @@ namespace Server.Mobiles
             }
             else
             {
-                double del = this.ScaleBySkill(3.0, SkillName.Magery);
+                double del = this.ScaleBySkill(3.0, SkillName.Magia);
                 double min = 6.0 - (del * 0.75);
                 double max = 6.0 - (del * 1.25);
 

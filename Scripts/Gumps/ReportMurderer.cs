@@ -8,12 +8,9 @@ namespace Server.Gumps
 {
     public class ReportMurdererGump : Gump
     {
-        public override int TypeID { get { return 0x3A9A; } }
-
         private readonly List<Mobile> m_Killers;
         private readonly Mobile m_Victum;
         private int m_Idx;
-
         public ReportMurdererGump(Mobile victum, List<Mobile> killers)
             : this(victum, killers, 0)
         {
@@ -133,7 +130,7 @@ namespace Server.Gumps
                                 {
                                     pk.SendLocalizedMessage(502134);//You are now known as a murderer!
                                 }
-                                else if (SkillHandlers.Stealing.SuspendOnMurder && pk.Kills == 1 && pk.NpcGuild == NpcGuild.ThievesGuild)
+                                else if (SkillHandlers.Okradanie.SuspendOnMurder && pk.Kills == 1 && pk.NpcGuild == NpcGuild.ThievesGuild)
                                 {
                                     pk.SendLocalizedMessage(501562); // You have been suspended by the Thieves Guild.
                                 }

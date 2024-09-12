@@ -47,7 +47,7 @@ namespace Server.Items
                 {
                     from.SendLocalizedMessage(501699); // You cannot disguise yourself while polymorphed.
                 }
-                else if (Spells.Ninjitsu.AnimalForm.UnderTransformation(from))
+                else if (Spells.Skrytobojstwo.AnimalForm.UnderTransformation(from))
                 {
                     from.SendLocalizedMessage(1061634); // You cannot disguise yourself while in that form.
                 }

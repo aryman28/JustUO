@@ -1,28 +1,22 @@
 #region References
 using Server.Network;
-using Server.Accounting;
 #endregion
 
 namespace Server
 {
 	public class CurrentExpansion
 	{
-		private static readonly Expansion Expansion = Expansion.TOL;
+		private static readonly Expansion Expansion = Expansion.HS;
 
 		public static void Configure()
 		{
 			Core.Expansion = Expansion;
-			
-			AccountGold.Enabled = Core.TOL;
-			AccountGold.ConvertOnBank = true;
-			AccountGold.ConvertOnTrade = false;
-			VirtualCheck.UseEditGump = true;
 
 			bool Enabled = Core.AOS;
 
-			Mobile.InsuranceEnabled = Enabled;
+			Mobile.InsuranceEnabled = false;
 			ObjectPropertyList.Enabled = Enabled;
-			Mobile.VisibleDamageType = Enabled ? VisibleDamageType.Related : VisibleDamageType.None;
+			Mobile.VisibleDamageType = false ? VisibleDamageType.Related : VisibleDamageType.None;
 			Mobile.GuildClickMessage = !Enabled;
 			Mobile.AsciiClickMessage = !Enabled;
 
@@ -36,7 +30,7 @@ namespace Server
 				}
 
 				Mobile.ActionDelay = 1000;
-				Mobile.AosStatusHandler = AOS.GetStatus;
+				//Mobile.AosStatusHandler = AOS.GetStatus;
 			}
 		}
 	}

@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x143B)
         {
             this.Weight = 10.0;
+            this.Name = "Kościołam";
         }
 
         public Maul(Serial serial)

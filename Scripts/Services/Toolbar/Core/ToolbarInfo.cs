@@ -34,7 +34,7 @@ namespace Services.Toolbar.Core
 		public int Font { get { return _Font; } set { _Font = value; } }
 		public int Skin { get { return _Skin; } set { _Skin = value; } }
 		public bool Phantom { get { return _Phantom; } set { _Phantom = value; } }
-		public bool Stealth { get { return _Stealth; } set { _Stealth = value; } }
+		public bool Zakradanie { get { return _Stealth; } set { _Stealth = value; } }
 		public bool Reverse { get { return _Reverse; } set { _Reverse = value; } }
 		public bool Lock { get { return _Lock; } set { _Lock = value; } }
 		public int Rows { get { return _Dimensions.X; } set { _Dimensions.X = value; } }

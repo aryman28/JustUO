@@ -8,7 +8,7 @@ namespace Server.Spells
         {
             get
             {
-                return SkillName.Ninjitsu;
+                return SkillName.Skrytobojstwo;
             }
         }
         public override void CheckGain(Mobile m)

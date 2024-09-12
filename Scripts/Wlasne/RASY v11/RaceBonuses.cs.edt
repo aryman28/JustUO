@@ -1,0 +1,36 @@
+using System;
+using System.Collections;
+using Server;
+using Server.Mobiles;
+using Server.Network;
+using Server.Commands;
+using Server.Multis;
+
+
+namespace Server.Misc
+{
+    public class RaceBonus
+    {
+        //Setup Section
+        
+		private static bool m_RaceBonus = true;				// If true, vampires and werewolves are an enemies to each other
+
+		//Humans
+        case 0: 
+				{						            
+				  if ( pm.Frakcja == Frakcja.Porzadek || pm.Frakcja == Frakcja.Neutralna )
+                                  { 
+                                  pm.Bóstwo = Bóstwo.Tyr;
+                                  m.CloseGump( typeof ( BóstwaG³ówneGump ) );
+                                  m.SendGump( new SkillBojowyGump());     
+                                  }
+                                  else
+                                  {
+                                  m.SendMessage( 0x35, "Nale¿ysz Do Chaotycznej Frakji!" );
+                                  m.SendGump( new BóstwaG³ówneGump());
+                                  }
+         		          break; 
+				}
+		
+}
+		

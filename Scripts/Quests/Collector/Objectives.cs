@@ -1,4 +1,5 @@
 using System;
+using Server.Mobiles;
 
 namespace Server.Engines.Quests.Collector
 {
@@ -18,6 +19,10 @@ namespace Server.Engines.Quests.Collector
 
     public class FishPearlsObjective : QuestObjective
     {
+        public FishPearlsObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -26,22 +31,23 @@ namespace Server.Engines.Quests.Collector
                 return 1055084;
             }
         }
-
         public override int MaxProgress
         {
-            get { return 6; }
+            get
+            {
+                return 6;
+            }
         }
-
         public override void RenderProgress(BaseQuestGump gump)
         {
-            if (!Completed)
+            if (!this.Completed)
             {
                 // Rainbow pearls collected:
                 gump.AddHtmlObject(70, 260, 270, 100, 1055085, BaseQuestGump.Blue, false, false);
 
-                gump.AddLabel(70, 280, 0x64, CurProgress.ToString());
+                gump.AddLabel(70, 280, 0x64, this.CurProgress.ToString());
                 gump.AddLabel(100, 280, 0x64, "/");
-                gump.AddLabel(130, 280, 0x64, MaxProgress.ToString());
+                gump.AddLabel(130, 280, 0x64, this.MaxProgress.ToString());
             }
             else
             {
@@ -51,12 +57,16 @@ namespace Server.Engines.Quests.Collector
 
         public override void OnComplete()
         {
-            System.AddObjective(new ReturnPearlsObjective());
+            this.System.AddObjective(new ReturnPearlsObjective());
         }
     }
 
     public class ReturnPearlsObjective : QuestObjective
     {
+        public ReturnPearlsObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -67,15 +77,18 @@ namespace Server.Engines.Quests.Collector
                 return 1055088;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new ReturnPearlsConversation());
+            this.System.AddConversation(new ReturnPearlsConversation());
         }
     }
 
     public class FindAlbertaObjective : QuestObjective
     {
+        public FindAlbertaObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -84,10 +97,9 @@ namespace Server.Engines.Quests.Collector
                 return 1055091;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new AlbertaPaintingConversation());
+            this.System.AddConversation(new AlbertaPaintingConversation());
         }
     }
 
@@ -96,10 +108,9 @@ namespace Server.Engines.Quests.Collector
         private static readonly Point3D m_StoolLocation = new Point3D(2899, 706, 0);
         private static readonly Map m_StoolMap = Map.Trammel;
         private DateTime m_Begin;
-
         public SitOnTheStoolObjective()
         {
-            m_Begin = DateTime.MaxValue;
+            this.m_Begin = DateTime.MaxValue;
         }
 
         public override object Message
@@ -112,38 +123,40 @@ namespace Server.Engines.Quests.Collector
                 return 1055093;
             }
         }
-
         public override void CheckProgress()
         {
-            var pm = System.From;
+            PlayerMobile pm = this.System.From;
 
             if (pm.Map == m_StoolMap && pm.Location == m_StoolLocation)
             {
-                if (m_Begin == DateTime.MaxValue)
+                if (this.m_Begin == DateTime.MaxValue)
                 {
-                    m_Begin = DateTime.UtcNow;
+                    this.m_Begin = DateTime.UtcNow;
                 }
-                else if (DateTime.UtcNow - m_Begin > TimeSpan.FromSeconds(30.0))
+                else if (DateTime.UtcNow - this.m_Begin > TimeSpan.FromSeconds(30.0))
                 {
-                    Complete();
+                    this.Complete();
                 }
             }
-            else if (m_Begin != DateTime.MaxValue)
+            else if (this.m_Begin != DateTime.MaxValue)
             {
-                m_Begin = DateTime.MaxValue;
-                pm.SendLocalizedMessage(1055095, "", 0x26);
-                    // You must remain seated on the stool until the portrait is complete. Alberta will now have to start again with a fresh canvas.
+                this.m_Begin = DateTime.MaxValue;
+                pm.SendLocalizedMessage(1055095, "", 0x26); // You must remain seated on the stool until the portrait is complete. Alberta will now have to start again with a fresh canvas.
             }
         }
 
         public override void OnComplete()
         {
-            System.AddConversation(new AlbertaEndPaintingConversation());
+            this.System.AddConversation(new AlbertaEndPaintingConversation());
         }
     }
 
     public class ReturnPaintingObjective : QuestObjective
     {
+        public ReturnPaintingObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -152,15 +165,18 @@ namespace Server.Engines.Quests.Collector
                 return 1055099;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new ReturnPaintingConversation());
+            this.System.AddConversation(new ReturnPaintingConversation());
         }
     }
 
     public class FindGabrielObjective : QuestObjective
     {
+        public FindGabrielObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -171,21 +187,19 @@ namespace Server.Engines.Quests.Collector
                 return 1055101;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new GabrielAutographConversation());
+            this.System.AddConversation(new GabrielAutographConversation());
         }
     }
 
     public class FindSheetMusicObjective : QuestObjective
     {
         private Theater m_Theater;
-
         public FindSheetMusicObjective(bool init)
         {
             if (init)
-                InitTheater();
+                this.InitTheater();
         }
 
         public FindSheetMusicObjective()
@@ -202,33 +216,32 @@ namespace Server.Engines.Quests.Collector
                 return 1055104;
             }
         }
-
         public void InitTheater()
         {
-            switch (Utility.Random(3))
+            switch ( Utility.Random(3) )
             {
                 case 1:
-                    m_Theater = Theater.Britain;
+                    this.m_Theater = Theater.Britain;
                     break;
                 case 2:
-                    m_Theater = Theater.Nujelm;
+                    this.m_Theater = Theater.Nujelm;
                     break;
                 default:
-                    m_Theater = Theater.Jhelom;
+                    this.m_Theater = Theater.Jhelom;
                     break;
             }
         }
 
         public bool IsInRightTheater()
         {
-            var player = System.From;
+            PlayerMobile player = this.System.From;
 
-            var region = Region.Find(player.Location, player.Map);
+            Region region = Region.Find(player.Location, player.Map);
 
             if (region == null)
                 return false;
 
-            switch (m_Theater)
+            switch ( this.m_Theater )
             {
                 case Theater.Britain:
                     return region.IsPartOf("Britain");
@@ -244,26 +257,30 @@ namespace Server.Engines.Quests.Collector
 
         public override void OnComplete()
         {
-            System.AddConversation(new GetSheetMusicConversation());
+            this.System.AddConversation(new GetSheetMusicConversation());
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            m_Theater = (Theater) reader.ReadEncodedInt();
+            this.m_Theater = (Theater)reader.ReadEncodedInt();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.WriteEncodedInt((int) m_Theater);
+            writer.WriteEncodedInt((int)this.m_Theater);
         }
     }
 
     public class ReturnSheetMusicObjective : QuestObjective
     {
+        public ReturnSheetMusicObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -272,15 +289,18 @@ namespace Server.Engines.Quests.Collector
                 return 1055110;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new GabrielSheetMusicConversation());
+            this.System.AddConversation(new GabrielSheetMusicConversation());
         }
     }
 
     public class ReturnAutographObjective : QuestObjective
     {
+        public ReturnAutographObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -289,15 +309,18 @@ namespace Server.Engines.Quests.Collector
                 return 1055114;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new ReturnAutographConversation());
+            this.System.AddConversation(new ReturnAutographConversation());
         }
     }
 
     public class FindTomasObjective : QuestObjective
     {
+        public FindTomasObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -306,24 +329,22 @@ namespace Server.Engines.Quests.Collector
                 return 1055117;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new TomasToysConversation());
+            this.System.AddConversation(new TomasToysConversation());
         }
     }
 
     public class CaptureImagesObjective : QuestObjective
     {
-        private bool[] m_Done;
         private ImageType[] m_Images;
-
+        private bool[] m_Done;
         public CaptureImagesObjective(bool init)
         {
             if (init)
             {
-                m_Images = ImageTypeInfo.RandomList(4);
-                m_Done = new bool[4];
+                this.m_Images = ImageTypeInfo.RandomList(4);
+                this.m_Done = new bool[4];
             }
         }
 
@@ -339,31 +360,29 @@ namespace Server.Engines.Quests.Collector
                 return 1055120;
             }
         }
-
         public override bool Completed
         {
             get
             {
-                for (var i = 0; i < m_Done.Length; i++)
+                for (int i = 0; i < this.m_Done.Length; i++)
                 {
-                    if (!m_Done[i])
+                    if (!this.m_Done[i])
                         return false;
                 }
 
                 return true;
             }
         }
-
         public override bool IgnoreYoungProtection(Mobile from)
         {
-            if (Completed)
+            if (this.Completed)
                 return false;
 
-            var fromType = from.GetType();
+            Type fromType = from.GetType();
 
-            for (var i = 0; i < m_Images.Length; i++)
+            for (int i = 0; i < this.m_Images.Length; i++)
             {
-                var info = ImageTypeInfo.Get(m_Images[i]);
+                ImageTypeInfo info = ImageTypeInfo.Get(this.m_Images[i]);
 
                 if (info.Type == fromType)
                     return true;
@@ -374,42 +393,44 @@ namespace Server.Engines.Quests.Collector
 
         public CaptureResponse CaptureImage(Type type, out ImageType image)
         {
-            for (var i = 0; i < m_Images.Length; i++)
+            for (int i = 0; i < this.m_Images.Length; i++)
             {
-                var info = ImageTypeInfo.Get(m_Images[i]);
+                ImageTypeInfo info = ImageTypeInfo.Get(this.m_Images[i]);
 
                 if (info.Type == type)
                 {
-                    image = m_Images[i];
+                    image = this.m_Images[i];
 
-                    if (m_Done[i])
+                    if (this.m_Done[i])
                     {
                         return CaptureResponse.AlreadyDone;
                     }
-                    m_Done[i] = true;
+                    else
+                    {
+                        this.m_Done[i] = true;
 
-                    CheckCompletionStatus();
+                        this.CheckCompletionStatus();
 
-                    return CaptureResponse.Valid;
+                        return CaptureResponse.Valid;
+                    }
                 }
             }
 
-            image = 0;
+            image = (ImageType)0;
             return CaptureResponse.Invalid;
         }
 
         public override void RenderProgress(BaseQuestGump gump)
         {
-            if (!Completed)
+            if (!this.Completed)
             {
-                for (var i = 0; i < m_Images.Length; i++)
+                for (int i = 0; i < this.m_Images.Length; i++)
                 {
-                    var info = ImageTypeInfo.Get(m_Images[i]);
+                    ImageTypeInfo info = ImageTypeInfo.Get(this.m_Images[i]);
 
-                    gump.AddHtmlObject(70, 260 + 20*i, 200, 100, info.Name, BaseQuestGump.Blue, false, false);
-                    gump.AddLabel(200, 260 + 20*i, 0x64, " : ");
-                    gump.AddHtmlObject(220, 260 + 20*i, 100, 100, m_Done[i] ? 1055121 : 1055122, BaseQuestGump.Blue,
-                        false, false);
+                    gump.AddHtmlObject(70, 260 + 20 * i, 200, 100, info.Name, BaseQuestGump.Blue, false, false);
+                    gump.AddLabel(200, 260 + 20 * i, 0x64, " : ");
+                    gump.AddHtmlObject(220, 260 + 20 * i, 100, 100, this.m_Done[i] ? 1055121 : 1055122, BaseQuestGump.Blue, false, false);
                 }
             }
             else
@@ -420,41 +441,45 @@ namespace Server.Engines.Quests.Collector
 
         public override void OnComplete()
         {
-            System.AddObjective(new ReturnImagesObjective());
+            this.System.AddObjective(new ReturnImagesObjective());
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            var count = reader.ReadEncodedInt();
+            int count = reader.ReadEncodedInt();
 
-            m_Images = new ImageType[count];
-            m_Done = new bool[count];
+            this.m_Images = new ImageType[count];
+            this.m_Done = new bool[count];
 
-            for (var i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
-                m_Images[i] = (ImageType) reader.ReadEncodedInt();
-                m_Done[i] = reader.ReadBool();
+                this.m_Images[i] = (ImageType)reader.ReadEncodedInt();
+                this.m_Done[i] = reader.ReadBool();
             }
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.WriteEncodedInt(m_Images.Length);
+            writer.WriteEncodedInt((int)this.m_Images.Length);
 
-            for (var i = 0; i < m_Images.Length; i++)
+            for (int i = 0; i < this.m_Images.Length; i++)
             {
-                writer.WriteEncodedInt((int) m_Images[i]);
-                writer.Write(m_Done[i]);
+                writer.WriteEncodedInt((int)this.m_Images[i]);
+                writer.Write((bool)this.m_Done[i]);
             }
         }
     }
 
     public class ReturnImagesObjective : QuestObjective
     {
+        public ReturnImagesObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -465,15 +490,18 @@ namespace Server.Engines.Quests.Collector
                 return 1055128;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new ReturnImagesConversation());
+            this.System.AddConversation(new ReturnImagesConversation());
         }
     }
 
     public class ReturnToysObjective : QuestObjective
     {
+        public ReturnToysObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -486,6 +514,10 @@ namespace Server.Engines.Quests.Collector
 
     public class MakeRoomObjective : QuestObjective
     {
+        public MakeRoomObjective()
+        {
+        }
+
         public override object Message
         {
             get

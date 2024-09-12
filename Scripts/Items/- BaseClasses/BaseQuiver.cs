@@ -282,8 +282,8 @@ namespace Server.Items
 
             this.InvalidateWeight();
         }
-
-		public override void OnAdded(IEntity parent)
+		
+        public override void OnAdded(object parent)
         {
             if (parent is Mobile)
             {
@@ -311,7 +311,7 @@ namespace Server.Items
             }
         }
 		
-        public override void OnRemoved(IEntity parent)
+        public override void OnRemoved(object parent)
         {
             if (parent is Mobile)
             {

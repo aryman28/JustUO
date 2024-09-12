@@ -6,6 +6,10 @@ namespace Server.Engines.Quests.Samurai
 {
     public class FindHaochiObjective : QuestObjective
     {
+        public FindHaochiObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -14,15 +18,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1063026;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new FirstTrialIntroConversation());
+            this.System.AddConversation(new FirstTrialIntroConversation());
         }
     }
 
     public class FirstTrialIntroObjective : QuestObjective
     {
+        public FirstTrialIntroObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -31,10 +38,9 @@ namespace Server.Engines.Quests.Samurai
                 return 1063030;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new FirstTrialKillConversation());
+            this.System.AddConversation(new FirstTrialKillConversation());
         }
     }
 
@@ -42,6 +48,9 @@ namespace Server.Engines.Quests.Samurai
     {
         private int m_CursedSoulsKilled;
         private int m_YoungRoninKilled;
+        public FirstTrialKillObjective()
+        {
+        }
 
         public override object Message
         {
@@ -51,67 +60,67 @@ namespace Server.Engines.Quests.Samurai
                 return 1063032;
             }
         }
-
         public override int MaxProgress
         {
-            get { return 3; }
+            get
+            {
+                return 3;
+            }
         }
-
         public override void OnKill(BaseCreature creature, Container corpse)
         {
             if (creature is CursedSoul)
             {
-                if (m_CursedSoulsKilled == 0)
-                    System.AddConversation(new GainKarmaConversation(true));
+                if (this.m_CursedSoulsKilled == 0)
+                    this.System.AddConversation(new GainKarmaConversation(true));
 
-                m_CursedSoulsKilled++;
+                this.m_CursedSoulsKilled++;
 
                 // Cursed Souls killed:  ~1_COUNT~
-                System.From.SendLocalizedMessage(1063038, m_CursedSoulsKilled.ToString());
+                this.System.From.SendLocalizedMessage(1063038, this.m_CursedSoulsKilled.ToString());
             }
             else if (creature is YoungRonin)
             {
-                if (m_YoungRoninKilled == 0)
-                    System.AddConversation(new GainKarmaConversation(false));
+                if (this.m_YoungRoninKilled == 0)
+                    this.System.AddConversation(new GainKarmaConversation(false));
 
-                m_YoungRoninKilled++;
+                this.m_YoungRoninKilled++;
 
                 // Young Ronin killed:  ~1_COUNT~
-                System.From.SendLocalizedMessage(1063039, m_YoungRoninKilled.ToString());
+                this.System.From.SendLocalizedMessage(1063039, this.m_YoungRoninKilled.ToString());
             }
 
-            CurProgress = Math.Max(m_CursedSoulsKilled, m_YoungRoninKilled);
+            this.CurProgress = Math.Max(this.m_CursedSoulsKilled, this.m_YoungRoninKilled);
         }
 
         public override void OnComplete()
         {
-            System.AddObjective(new FirstTrialReturnObjective(m_CursedSoulsKilled > m_YoungRoninKilled));
+            this.System.AddObjective(new FirstTrialReturnObjective(this.m_CursedSoulsKilled > this.m_YoungRoninKilled));
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            m_CursedSoulsKilled = reader.ReadEncodedInt();
-            m_YoungRoninKilled = reader.ReadEncodedInt();
+            this.m_CursedSoulsKilled = reader.ReadEncodedInt();
+            this.m_YoungRoninKilled = reader.ReadEncodedInt();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.WriteEncodedInt(m_CursedSoulsKilled);
-            writer.WriteEncodedInt(m_YoungRoninKilled);
+            writer.WriteEncodedInt(this.m_CursedSoulsKilled);
+            writer.WriteEncodedInt(this.m_YoungRoninKilled);
         }
     }
 
     public class FirstTrialReturnObjective : QuestObjective
     {
-        private bool m_CursedSoul;
-
+        bool m_CursedSoul;
         public FirstTrialReturnObjective(bool cursedSoul)
         {
-            m_CursedSoul = cursedSoul;
+            this.m_CursedSoul = cursedSoul;
         }
 
         public FirstTrialReturnObjective()
@@ -126,29 +135,32 @@ namespace Server.Engines.Quests.Samurai
                 return 1063044;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new SecondTrialIntroConversation(m_CursedSoul));
+            this.System.AddConversation(new SecondTrialIntroConversation(this.m_CursedSoul));
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            m_CursedSoul = reader.ReadBool();
+            this.m_CursedSoul = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(m_CursedSoul);
+            writer.Write((bool)this.m_CursedSoul);
         }
     }
 
     public class SecondTrialIntroObjective : QuestObjective
     {
+        public SecondTrialIntroObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -157,15 +169,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1063047;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new SecondTrialAttackConversation());
+            this.System.AddConversation(new SecondTrialAttackConversation());
         }
     }
 
     public class SecondTrialAttackObjective : QuestObjective
     {
+        public SecondTrialAttackObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -178,9 +193,10 @@ namespace Server.Engines.Quests.Samurai
 
     public class SecondTrialReturnObjective : QuestObjective
     {
+        private bool m_Dragon;
         public SecondTrialReturnObjective(bool dragon)
         {
-            Dragon = dragon;
+            this.m_Dragon = dragon;
         }
 
         public SecondTrialReturnObjective()
@@ -195,31 +211,39 @@ namespace Server.Engines.Quests.Samurai
                 return 1063229;
             }
         }
-
-        public bool Dragon { get; private set; }
-
+        public bool Dragon
+        {
+            get
+            {
+                return this.m_Dragon;
+            }
+        }
         public override void OnComplete()
         {
-            System.AddConversation(new ThirdTrialIntroConversation(Dragon));
+            this.System.AddConversation(new ThirdTrialIntroConversation(this.m_Dragon));
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            Dragon = reader.ReadBool();
+            this.m_Dragon = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(Dragon);
+            writer.Write((bool)this.m_Dragon);
         }
     }
 
     public class ThirdTrialIntroObjective : QuestObjective
     {
+        public ThirdTrialIntroObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -230,41 +254,47 @@ namespace Server.Engines.Quests.Samurai
                 return 1063061;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new ThirdTrialKillConversation());
+            this.System.AddConversation(new ThirdTrialKillConversation());
         }
     }
 
     public class ThirdTrialKillObjective : QuestObjective
     {
+        public ThirdTrialKillObjective()
+        {
+        }
+
         public override object Message
         {
             get
             {
                 /* Use your Honorable Execution skill to finish off the wounded wolf.
-                * Double click the icon in your Book of Bushido to activate the skill.
+                * Double click the icon in your Book of Fanatyzm to activate the skill.
                 * When you are done, return to Daimyo Haochi.
                 */
                 return 1063063;
             }
         }
-
         public override void OnKill(BaseCreature creature, Container corpse)
         {
             if (creature is InjuredWolf)
-                Complete();
+                this.Complete();
         }
 
         public override void OnComplete()
         {
-            System.AddObjective(new ThirdTrialReturnObjective());
+            this.System.AddObjective(new ThirdTrialReturnObjective());
         }
     }
 
     public class ThirdTrialReturnObjective : QuestObjective
     {
+        public ThirdTrialReturnObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -273,15 +303,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1063064;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new FourthTrialIntroConversation());
+            this.System.AddConversation(new FourthTrialIntroConversation());
         }
     }
 
     public class FourthTrialIntroObjective : QuestObjective
     {
+        public FourthTrialIntroObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -290,15 +323,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1063066;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new FourthTrialCatsConversation());
+            this.System.AddConversation(new FourthTrialCatsConversation());
         }
     }
 
     public class FourthTrialCatsObjective : QuestObjective
     {
+        public FourthTrialCatsObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -309,22 +345,22 @@ namespace Server.Engines.Quests.Samurai
                 return 1063068;
             }
         }
-
         public override void OnKill(BaseCreature creature, Container corpse)
         {
             if (creature is DiseasedCat)
             {
-                Complete();
-                System.AddObjective(new FourthTrialReturnObjective(true));
+                this.Complete();
+                this.System.AddObjective(new FourthTrialReturnObjective(true));
             }
         }
     }
 
     public class FourthTrialReturnObjective : QuestObjective
     {
+        private bool m_KilledCat;
         public FourthTrialReturnObjective(bool killedCat)
         {
-            KilledCat = killedCat;
+            this.m_KilledCat = killedCat;
         }
 
         public FourthTrialReturnObjective()
@@ -339,31 +375,40 @@ namespace Server.Engines.Quests.Samurai
                 return 1063242;
             }
         }
-
-        public bool KilledCat { get; private set; }
-
+        public bool KilledCat
+        {
+            get
+            {
+                return this.m_KilledCat;
+            }
+        }
         public override void OnComplete()
         {
-            System.AddConversation(new FifthTrialIntroConversation(KilledCat));
+            this.System.AddConversation(new FifthTrialIntroConversation(this.m_KilledCat));
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            KilledCat = reader.ReadBool();
+            this.m_KilledCat = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(KilledCat);
+            writer.Write((bool)this.m_KilledCat);
         }
     }
 
     public class FifthTrialIntroObjective : QuestObjective
     {
+        private bool m_StolenTreasure;
+        public FifthTrialIntroObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -372,31 +417,43 @@ namespace Server.Engines.Quests.Samurai
                 return 1063072;
             }
         }
-
-        public bool StolenTreasure { get; set; }
-
+        public bool StolenTreasure
+        {
+            get
+            {
+                return this.m_StolenTreasure;
+            }
+            set
+            {
+                this.m_StolenTreasure = value;
+            }
+        }
         public override void OnComplete()
         {
-            System.AddConversation(new FifthTrialReturnConversation());
+            this.System.AddConversation(new FifthTrialReturnConversation());
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            StolenTreasure = reader.ReadBool();
+            this.m_StolenTreasure = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(StolenTreasure);
+            writer.Write((bool)this.m_StolenTreasure);
         }
     }
 
     public class FifthTrialReturnObjective : QuestObjective
     {
+        public FifthTrialReturnObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -409,6 +466,10 @@ namespace Server.Engines.Quests.Samurai
 
     public class SixthTrialIntroObjective : QuestObjective
     {
+        public SixthTrialIntroObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -417,15 +478,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1063078;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddObjective(new SixthTrialReturnObjective());
+            this.System.AddObjective(new SixthTrialReturnObjective());
         }
     }
 
     public class SixthTrialReturnObjective : QuestObjective
     {
+        public SixthTrialReturnObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -434,15 +498,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1063252;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new SeventhTrialIntroConversation());
+            this.System.AddConversation(new SeventhTrialIntroConversation());
         }
     }
 
     public class SeventhTrialIntroObjective : QuestObjective
     {
+        public SeventhTrialIntroObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -453,26 +520,31 @@ namespace Server.Engines.Quests.Samurai
                 return 1063080;
             }
         }
-
         public override int MaxProgress
         {
-            get { return 3; }
+            get
+            {
+                return 3;
+            }
         }
-
         public override void OnKill(BaseCreature creature, Container corpse)
         {
             if (creature is YoungNinja)
-                CurProgress++;
+                this.CurProgress++;
         }
 
         public override void OnComplete()
         {
-            System.AddObjective(new SeventhTrialReturnObjective());
+            this.System.AddObjective(new SeventhTrialReturnObjective());
         }
     }
 
     public class SeventhTrialReturnObjective : QuestObjective
     {
+        public SeventhTrialReturnObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -481,10 +553,9 @@ namespace Server.Engines.Quests.Samurai
                 return 1063253;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new EndConversation());
+            this.System.AddConversation(new EndConversation());
         }
     }
 }

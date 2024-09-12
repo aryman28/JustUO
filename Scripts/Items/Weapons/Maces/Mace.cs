@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0xF5C)
         {
             this.Weight = 14.0;
+            this.Name = "Buzdygan";
         }
 
         public Mace(Serial serial)

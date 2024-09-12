@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using Server.Gumps;
 using Server.Network;
 using Server.Spells;
-using Server.Spells.Necromancy;
+using Server.Spells.Nekromancja;
 
 namespace Server.SkillHandlers
 {
     public delegate bool TrackTypeDelegate(Mobile m);
 
-    public class Tracking
+    public class Tropienie
     {
         private static readonly Dictionary<Mobile, TrackingInfo> m_Table = new Dictionary<Mobile, TrackingInfo>();
         public static void Initialize()
         {
-            SkillInfo.Table[(int)SkillName.Tracking].Callback = new SkillUseCallback(OnUse);
+            SkillInfo.Table[(int)SkillName.Tropienie].Callback = new SkillUseCallback(OnUse);
         }
 
         public static TimeSpan OnUse(Mobile m)
@@ -50,7 +50,7 @@ namespace Server.SkillHandlers
             m_Table.Remove(tracker);	//Reset as of Pub 40, counting it as bug for Core.SE.
 
             if (Core.ML)
-                return Math.Min(bonus, 10 + tracker.Skills.Tracking.Value / 10);
+                return Math.Min(bonus, 10 + tracker.Skills.Tropienie.Value / 10);
 
             return bonus;
         }
@@ -84,7 +84,7 @@ namespace Server.SkillHandlers
             : base(20, 30)
         {
             this.m_From = from;
-            this.m_Success = from.CheckSkill(SkillName.Tracking, 0.0, 21.1);
+            this.m_Success = from.CheckSkill(SkillName.Tropienie, 0.0, 21.1);
 
             this.AddPage(0);
 
@@ -186,9 +186,9 @@ namespace Server.SkillHandlers
 
             TrackTypeDelegate check = m_Delegates[type];
 
-            from.CheckSkill(SkillName.Tracking, 21.1, 100.0); // Passive gain
+            from.CheckSkill(SkillName.Tropienie, 21.1, 100.0); // Passive gain
 
-            int range = 10 + (int)(from.Skills[SkillName.Tracking].Value / 10);
+            int range = 10 + (int)(from.Skills[SkillName.Tropienie].Value / 10);
 
             List<Mobile> list = new List<Mobile>();
 
@@ -228,27 +228,27 @@ namespace Server.SkillHandlers
                 this.m_From.QuestArrow = new TrackArrow(this.m_From, m, this.m_Range * 2);
 
                 if (Core.SE)
-                    Tracking.AddInfo(this.m_From, m);
+                    Tropienie.AddInfo(this.m_From, m);
             }
         }
 
-        // Tracking players uses tracking and detect hidden vs. hiding and stealth 
+        // Tropienie players uses tracking and detect hidden vs. hiding and stealth 
         private static bool CheckDifficulty(Mobile from, Mobile m)
         {
             if (!Core.AOS || !m.Player)
                 return true;
 
-            int tracking = from.Skills[SkillName.Tracking].Fixed;	
-            int detectHidden = from.Skills[SkillName.DetectHidden].Fixed;
+            int tracking = from.Skills[SkillName.Tropienie].Fixed;	
+            int detectHidden = from.Skills[SkillName.Wykrywanie].Fixed;
 
             if (Core.ML && m.Race == Race.Elf)
                 tracking /= 2; //The 'Guide' says that it requires twice as Much tracking SKILL to track an elf.  Not the total difficulty to track.
 
-            int hiding = m.Skills[SkillName.Hiding].Fixed;
-            int stealth = m.Skills[SkillName.Stealth].Fixed;
+            int hiding = m.Skills[SkillName.Ukrywanie].Fixed;
+            int stealth = m.Skills[SkillName.Zakradanie].Fixed;
             int divisor = hiding + stealth;
 
-            // Necromancy forms affect tracking difficulty 
+            // Nekromancja forms affect tracking difficulty 
             if (TransformationSpellHelper.UnderTransformation(m, typeof(HorrificBeastSpell)))
                 divisor -= 200;
             else if (TransformationSpellHelper.UnderTransformation(m, typeof(VampiricEmbraceSpell)) && divisor < 500)
@@ -328,7 +328,7 @@ namespace Server.SkillHandlers
         {
             if (rightClick)
             {
-                Tracking.ClearTrackingInfo(this.m_From);
+                Tropienie.ClearTrackingInfo(this.m_From);
 
                 this.m_From = null;
 
@@ -342,7 +342,7 @@ namespace Server.SkillHandlers
 
             if (this.m_From != null)
             {
-                Tracking.ClearTrackingInfo(this.m_From);
+                Tropienie.ClearTrackingInfo(this.m_From);
 
                 this.m_From.SendLocalizedMessage(503177); // You have lost your quarry.
             }

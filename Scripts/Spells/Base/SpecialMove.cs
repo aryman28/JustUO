@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using Server.Items;
 using Server.Network;
-using Server.Spells.Bushido;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Fanatyzm;
+using Server.Spells.Skrytobojstwo;
 
 namespace Server.Spells
 {
@@ -21,7 +21,7 @@ namespace Server.Spells
         {
             get
             {
-                return SkillName.Bushido;
+                return SkillName.Fanatyzm;
             }
         }
         public virtual double RequiredSkill
@@ -123,7 +123,7 @@ namespace Server.Spells
         {
             double scalar = 1.0;
 
-            if (!Server.Spells.Necromancy.MindRotSpell.GetMindRotScalar(m, ref scalar))
+            if (!Server.Spells.Nekromancja.MindRotSpell.GetMindRotScalar(m, ref scalar))
                 scalar = 1.0;
 
             // Lower Mana Cost = 40%
@@ -179,13 +179,13 @@ namespace Server.Spells
             if (!from.Player)
                 return true;
 
-            if (Bushido.HonorableExecution.IsUnderPenalty(from))
+            if (Fanatyzm.HonorableExecution.IsUnderPenalty(from))
             {
                 from.SendLocalizedMessage(1063024); // You cannot perform this special move right now.
                 return false;
             }
 
-            if (Ninjitsu.AnimalForm.UnderTransformation(from))
+            if (Skrytobojstwo.AnimalForm.UnderTransformation(from))
             {
                 from.SendLocalizedMessage(1063024); // You cannot perform this special move right now.
                 return false;

@@ -5,7 +5,7 @@ namespace Server.Spells
 {
     public class SpellRegistry
     {
-        private static readonly Type[] m_Types = new Type[700];
+        private static readonly Type[] m_Types = new Type[800];
         private static int m_Count;
 
         public static Type[] Types
@@ -143,14 +143,19 @@ namespace Server.Spells
             "Sixth",
             "Seventh",
             "Eighth",
-            "Necromancy",
-            "Chivalry",
-            "Bushido",
-            "Ninjitsu",
-            "Spellweaving",
+            "Nekromancja",
+            "Rycerstwo",
+            "Fanatyzm",
+            "Skrytobojstwo",
+            "Druidyzm",
             #region Stygian Abyss
-            "Mystic"
+            "Mystic",
             #endregion
+            "Druid",
+            "Song",
+            "Msciciel",
+            "Berserker"
+            
         };
 
         public static Spell NewSpell(string name, Mobile caster, Item scroll)

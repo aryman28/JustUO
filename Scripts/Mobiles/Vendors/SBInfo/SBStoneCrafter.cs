@@ -46,7 +46,7 @@ namespace Server.Mobiles
                 this.Add(new GenericBuyInfo(typeof(JointingPlane), 11, 20, 0x1030, 0));
 
                 this.Add(new GenericBuyInfo("Making Valuables With Stonecrafting", typeof(MasonryBook), 10625, 10, 0xFBE, 0));
-                this.Add(new GenericBuyInfo("Mining For Quality Stone", typeof(StoneMiningBook), 10625, 10, 0xFBE, 0));
+                this.Add(new GenericBuyInfo("Gornictwo For Quality Stone", typeof(StoneMiningBook), 10625, 10, 0xFBE, 0));
                 this.Add(new GenericBuyInfo("1044515", typeof(MalletAndChisel), 3, 50, 0x12B3, 0));
             }
         }

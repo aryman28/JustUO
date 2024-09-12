@@ -27,9 +27,6 @@ namespace Server.Targeting
 		}
 
 		[CommandProperty(AccessLevel.Counselor)]
-		public int Height { get { return TileData.ItemTable[m_ItemID].CalcHeight; } }
-
-		[CommandProperty(AccessLevel.Counselor)]
 		public Point3D Location { get { return m_Location; } }
 
 		[CommandProperty(AccessLevel.Counselor)]

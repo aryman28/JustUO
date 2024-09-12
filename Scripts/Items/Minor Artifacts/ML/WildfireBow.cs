@@ -10,7 +10,7 @@ namespace Server.Items
         {
             this.Hue = 0x489;
 			
-            this.SkillBonuses.SetValues(0, SkillName.Archery, 10);
+            this.SkillBonuses.SetValues(0, SkillName.Lucznictwo, 10);
             this.WeaponAttributes.ResistFireBonus = 25;
 			
             this.Velocity = 15;			

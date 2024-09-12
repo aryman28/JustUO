@@ -105,13 +105,9 @@ namespace Server.Items
             if (version == 0)
                 this.LootType = LootType.Blessed;
         }
-		
-#if NEWPARENT
-        public override void OnAdded(IEntity parent)
-#else
+
         public override void OnAdded(object parent)
-#endif
-		{
+        {
             base.OnAdded(parent);
 
             if (this.m_Owner == null)

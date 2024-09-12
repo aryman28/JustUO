@@ -87,6 +87,16 @@ namespace Server.Items
                 return true;
             }
         }
+        public override void OnAdded(object parent)
+        {
+            if (parent is Mobile)
+            {
+                if (((Mobile)parent).Female)
+                    this.ItemID = 0x0289;
+                else
+                    this.ItemID = 0x028A;
+            }
+        }
 
         public override void Serialize(GenericWriter writer)
         {

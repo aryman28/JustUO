@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Engines.Quests.Doom
 {
     public class ChylothShroud : Item
@@ -6,8 +8,8 @@ namespace Server.Engines.Quests.Doom
         public ChylothShroud()
             : base(0x204E)
         {
-            Hue = 0x846;
-            Layer = Layer.OuterTorso;
+            this.Hue = 0x846;
+            this.Layer = Layer.OuterTorso;
         }
 
         public ChylothShroud(Serial serial)
@@ -19,14 +21,14 @@ namespace Server.Engines.Quests.Doom
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

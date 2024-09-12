@@ -13,7 +13,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -22,7 +22,7 @@ namespace Server.Items
         }
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
         {
-            if (!this.Validate(attacker) || !this.CheckMana(attacker, true))
+            if (!this.Validate(attacker) || !this.CheckStam(attacker, true))
                 return;
 
             ClearCurrentAbility(attacker);
@@ -30,7 +30,7 @@ namespace Server.Items
             attacker.SendMessage("You attack by psychic energy"); 
             defender.SendMessage("You attacking by psychic energy");
 
-            //defender.Mana -= Utility.Random( (int)attacker.Skills[SkillName.Anatomy].Value/10, (int)attacker.Skills[SkillName.Anatomy].Value/5 );
+            defender.Mana -= Utility.Random( (int)attacker.Skills[SkillName.Anatomia].Value/10, (int)attacker.Skills[SkillName.Anatomia].Value/5 );
 							
             int toDrain = defender.Mana;
 

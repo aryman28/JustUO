@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x13B9)
         {
             this.Weight = 6.0;
+            this.Name = "Miecz nordycki";
         }
 
         public VikingSword(Serial serial)

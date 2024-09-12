@@ -581,6 +581,7 @@ namespace Server.Items
             : base(0x2798, hue)
         {
             this.Weight = 3.0;
+              this.Name = "Dalekowschodni kapelusz";
         }
 
         public Kasa(Serial serial)
@@ -668,6 +669,7 @@ namespace Server.Items
             : base(0x278F, hue)
         {
             this.Weight = 2.0;
+              this.Name = "Maska skrytobójcy";
         }
 
         public ClothNinjaHood(Serial serial)
@@ -755,6 +757,7 @@ namespace Server.Items
             : base(0x2306, hue)
         {
             this.Weight = 1.0;
+              this.Name = "Kwiecisty wianek";
         }
 
         public FlowerGarland(Serial serial)
@@ -841,6 +844,7 @@ namespace Server.Items
             : base(0x1713, hue)
         {
             this.Weight = 1.0;
+              this.Name = "W¹ski kapelusz";
         }
 
         public FloppyHat(Serial serial)
@@ -927,6 +931,7 @@ namespace Server.Items
             : base(0x1714, hue)
         {
             this.Weight = 1.0;
+            this.Name = "Kowbojski kapelusz";
         }
 
         public WideBrimHat(Serial serial)
@@ -1013,6 +1018,7 @@ namespace Server.Items
             : base(0x1715, hue)
         {
             this.Weight = 1.0;
+            this.Name = "kapelusz";
         }
 
         public Cap(Serial serial)
@@ -1099,6 +1105,7 @@ namespace Server.Items
             : base(0x1544, hue)
         {
             this.Weight = 1.0;
+            this.Name = "Zawi¹zana chusta";
         }
 
         public SkullCap(Serial serial)
@@ -1185,6 +1192,7 @@ namespace Server.Items
             : base(0x1540, hue)
         {
             this.Weight = 1.0;
+            this.Name = "Bandana";
         }
 
         public Bandana(Serial serial)
@@ -1271,6 +1279,7 @@ namespace Server.Items
             : base(0x1545, hue)
         {
             this.Weight = 5.0;
+            this.Name = "Maska niedzwiedzia";
         }
 
         public override bool Dye(Mobile from, DyeTub sender)
@@ -1363,6 +1372,7 @@ namespace Server.Items
             : base(0x1547, hue)
         {
             this.Weight = 4.0;
+            this.Name = "Maska jelenia";
         }
 
         public override bool Dye(Mobile from, DyeTub sender)
@@ -1455,6 +1465,7 @@ namespace Server.Items
             : base(0x1549, hue)
         {
             this.Weight = 2.0;
+            this.Name = "Maska tubylca";
         }
 
         public override bool Dye(Mobile from, DyeTub sender)
@@ -1547,6 +1558,7 @@ namespace Server.Items
             : base(0x154B, hue)
         {
             this.Weight = 2.0;
+            this.Name = "Maska tubylca";
         }
 
         public override bool Dye(Mobile from, DyeTub sender)
@@ -1639,6 +1651,7 @@ namespace Server.Items
             : base(0x1716, hue)
         {
             this.Weight = 1.0;
+            this.Name = "Wysoki s³omkowy kapelusz";
         }
 
         public TallStrawHat(Serial serial)
@@ -1725,6 +1738,7 @@ namespace Server.Items
             : base(0x1717, hue)
         {
             this.Weight = 1.0;
+            this.Name = "S³omiany kapelusz";
         }
 
         public StrawHat(Serial serial)
@@ -1825,6 +1839,7 @@ namespace Server.Items
             : base(0x141B, hue)
         {
             this.Weight = 2.0;
+            this.Name = "Maska Orka";
         }
 
         public override bool CanEquip(Mobile m)
@@ -1841,7 +1856,7 @@ namespace Server.Items
             return true;
         }
 
-		public override void OnAdded(IEntity parent)
+        public override void OnAdded(object parent)
         {
             base.OnAdded(parent);
 
@@ -1871,82 +1886,6 @@ namespace Server.Items
                 this.Hue = 0x8A4;*/
         }
     }
-
-	public class OrcMask : BaseHat
-	{
-		[Constructable]
-		public OrcMask()
-			: this(0)
-		{
-		}
-
-		[Constructable]
-		public OrcMask(int hue)
-			: base(0x141B, hue)
-		{
-			Weight = 2.0;
-		}
-
-		public OrcMask(Serial serial)
-			: base(serial)
-		{
-		}
-
-		public override int BasePhysicalResistance
-		{
-			get { return 1; }
-		}
-
-		public override int BaseFireResistance
-		{
-			get { return 1; }
-		}
-
-		public override int BaseColdResistance
-		{
-			get { return 7; }
-		}
-
-		public override int BasePoisonResistance
-		{
-			get { return 7; }
-		}
-
-		public override int BaseEnergyResistance
-		{
-			get { return 8; }
-		}
-
-		public override int InitMinHits
-		{
-			get { return 36; }
-		}
-
-		public override int InitMaxHits
-		{
-			get { return 48; }
-		}
-
-		public override bool Dye(Mobile from, DyeTub sender)
-		{
-			from.SendLocalizedMessage(sender.FailMessage);
-			return false;
-		}
-
-		public override void Serialize(GenericWriter writer)
-		{
-			base.Serialize(writer);
-
-			writer.Write(0); // version
-		}
-
-		public override void Deserialize(GenericReader reader)
-		{
-			base.Deserialize(reader);
-
-			var version = reader.ReadInt();
-		}
-	}
 
     public class SavageMask : BaseHat
     {
@@ -2028,6 +1967,7 @@ namespace Server.Items
             : base(0x154B, hue)
         {
             this.Weight = 2.0;
+            this.Name = "Maska dzikusa";
         }
 
         public SavageMask(Serial serial)
@@ -2117,6 +2057,7 @@ namespace Server.Items
             : base(0x1718, hue)
         {
             this.Weight = 1.0;
+            this.Name = "Kapelusz maga";
         }
 
         public WizardsHat(Serial serial)
@@ -2233,6 +2174,7 @@ namespace Server.Items
             : base(0x1718, hue)
         {
             this.Weight = 1.0;
+            this.Name = "Magiczny kapelusz";
         }
 
         public MagicWizardsHat(Serial serial)
@@ -2319,6 +2261,7 @@ namespace Server.Items
             : base(0x1719, hue)
         {
             this.Weight = 1.0;
+            this.Name = "Czapka";
         }
 
         public Bonnet(Serial serial)
@@ -2405,6 +2348,7 @@ namespace Server.Items
             : base(0x171A, hue)
         {
             this.Weight = 1.0;
+            this.Name = "Kapelusz z piórkiem";
         }
 
         public FeatheredHat(Serial serial)
@@ -2491,6 +2435,7 @@ namespace Server.Items
             : base(0x171B, hue)
         {
             this.Weight = 1.0;
+            this.Name = "Trójk¹rny kapelusz";
         }
 
         public TricorneHat(Serial serial)
@@ -2577,6 +2522,7 @@ namespace Server.Items
             : base(0x171C, hue)
         {
             this.Weight = 1.0;
+            this.Name = "Czapka b³azna";
         }
 
         public JesterHat(Serial serial)

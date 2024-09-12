@@ -8,11 +8,11 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Farmer()
-            : base("the farmer")
+            : base("- Rolnik")
         {
-            this.SetSkill(SkillName.Lumberjacking, 36.0, 68.0);
-            this.SetSkill(SkillName.TasteID, 36.0, 68.0);
-            this.SetSkill(SkillName.Cooking, 36.0, 68.0);
+            this.SetSkill(SkillName.Drwalnictwo, 36.0, 68.0);
+            this.SetSkill(SkillName.OcenaSmaku, 36.0, 68.0);
+            this.SetSkill(SkillName.Gotowanie, 36.0, 68.0);
         }
 
         public Farmer(Serial serial)

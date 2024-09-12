@@ -7,7 +7,7 @@ namespace Server.Mobiles
         [Constructable]
         public Minter()
         {
-            this.Title = "the minter";
+            this.Title = "- Skarbnik";
         }
 
         public Minter(Serial serial)

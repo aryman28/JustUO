@@ -7,7 +7,7 @@ using Server.Regions;
 
 namespace Server.SkillHandlers
 {
-    public class Snooping
+    public class Zagladanie
     {
         public static void Configure()
         {
@@ -58,7 +58,7 @@ namespace Server.SkillHandlers
                     return;
                 }
 
-                if (root != null && from.IsPlayer() && from.Skills[SkillName.Snooping].Value < Utility.Random(100))
+                if (root != null && from.IsPlayer() && from.Skills[SkillName.Zagladanie].Value < Utility.Random(100))
                 {
                     Map map = from.Map;
 
@@ -81,7 +81,7 @@ namespace Server.SkillHandlers
                 if (from.IsPlayer())
                     Titles.AwardKarma(from, -4, true);
 
-                if (from.IsStaff() || from.CheckTargetSkill(SkillName.Snooping, cont, 0.0, 100.0))
+                if (from.IsStaff() || from.CheckTargetSkill(SkillName.Zagladanie, cont, 0.0, 100.0))
                 {
                     if (cont is TrapableContainer && ((TrapableContainer)cont).ExecuteTrap(from))
                         return;
@@ -92,7 +92,7 @@ namespace Server.SkillHandlers
                 {
                     from.SendLocalizedMessage(500210); // You failed to peek into the container.
 					
-                    if (from.Skills[SkillName.Hiding].Value / 2 < Utility.Random(100))
+                    if (from.Skills[SkillName.Ukrywanie].Value / 2 < Utility.Random(100))
                         from.RevealingAction();
                 }
             }

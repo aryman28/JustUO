@@ -1,4 +1,6 @@
 using System;
+using Server;
+using Server.Engines.XmlSpawner2;
 
 namespace Server.Items
 {
@@ -8,7 +10,23 @@ namespace Server.Items
         public BronzeShield()
             : base(0x1B72)
         {
+            Name = "Okr¹g³a Tarcza";
             this.Weight = 6.0;
+            switch(Utility.Random(1))
+            {
+                    case 0:
+                    // add a specific list of custom defenses like this
+                    XmlAttach.AttachTo(this, 
+                        new XmlCustomDefenses(
+                            new XmlCustomDefenses.SpecialDefenses []
+                            { 
+                                XmlCustomDefenses.SpecialDefenses.SpikeShield,
+                                XmlCustomDefenses.SpecialDefenses.ParalyzingFear
+                            }
+                        )
+                    );
+                    break;
+            }
         }
 
         public BronzeShield(Serial serial)

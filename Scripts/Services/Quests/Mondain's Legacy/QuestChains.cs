@@ -17,25 +17,44 @@ namespace Server.Engines.Quests
         SummonFey,
         SummonFiend,
         TuitionReimbursement,
-        Spellweaving,
+        Druidyzm,
         SpellweavingS,
         UnfadingMemories,
         PercolemTheHunter,
-        KingVernixQuests,
-        DoughtyWarriors,
-        HonorOfDeBoors,
-        LaifemTheWeaver
+        KingVernixQuests
     }
 
     public class BaseChain
     {
+        private Type m_CurrentQuest;
+        private Type m_Quester;
         public BaseChain(Type currentQuest, Type quester)
         {
-            CurrentQuest = currentQuest;
-            Quester = quester;
+            this.m_CurrentQuest = currentQuest;
+            this.m_Quester = quester;
         }
 
-        public Type CurrentQuest { get; set; }
-        public Type Quester { get; set; }
+        public Type CurrentQuest
+        {
+            get
+            {
+                return this.m_CurrentQuest;
+            }
+            set
+            {
+                this.m_CurrentQuest = value;
+            }
+        }
+        public Type Quester
+        {
+            get
+            {
+                return this.m_Quester;
+            }
+            set
+            {
+                this.m_Quester = value;
+            }
+        }
     }
 }

@@ -20,13 +20,14 @@ namespace Server.Regions
         private static readonly List<Rectangle3D> m_RectBuffer2 = new List<Rectangle3D>();
         private static readonly List<Int32> m_SpawnBuffer1 = new List<Int32>();
         private static readonly List<Item> m_SpawnBuffer2 = new List<Item>();
+        private string m_RuneName;
+        private bool m_NoLogoutDelay;
+        private SpawnEntry[] m_Spawns;
+        private SpawnZLevel m_SpawnZLevel;
         private bool m_ExcludeFromParentSpawns;
         private Rectangle3D[] m_Rectangles;
         private int[] m_RectangleWeights;
-        private string m_RuneName;
-        private SpawnEntry[] m_Spawns;
         private int m_TotalWeight;
-
         public BaseRegion(string name, Map map, int priority, params Rectangle2D[] area)
             : base(name, map, priority, area)
         {
@@ -50,121 +51,150 @@ namespace Server.Regions
         public BaseRegion(XmlElement xml, Map map, Region parent)
             : base(xml, map, parent)
         {
-            ReadString(xml["rune"], "name", ref m_RuneName, false);
+            ReadString(xml["rune"], "name", ref this.m_RuneName, false);
 
-            var logoutDelayActive = true;
+            bool logoutDelayActive = true;
             ReadBoolean(xml["logoutDelay"], "active", ref logoutDelayActive, false);
-            NoLogoutDelay = !logoutDelayActive;
+            this.m_NoLogoutDelay = !logoutDelayActive;
 
-            var spawning = xml["spawning"];
+            XmlElement spawning = xml["spawning"];
             if (spawning != null)
             {
-                ReadBoolean(spawning, "excludeFromParent", ref m_ExcludeFromParentSpawns, false);
+                ReadBoolean(spawning, "excludeFromParent", ref this.m_ExcludeFromParentSpawns, false);
 
-                var zLevel = SpawnZLevel.Lowest;
+                SpawnZLevel zLevel = SpawnZLevel.Lowest;
                 ReadEnum(spawning, "zLevel", ref zLevel, false);
-                SpawnZLevel = zLevel;
+                this.m_SpawnZLevel = zLevel;
 
-                var list = new List<SpawnEntry>();
+                List<SpawnEntry> list = new List<SpawnEntry>();
 
                 foreach (XmlNode node in spawning.ChildNodes)
                 {
-                    var el = node as XmlElement;
+                    XmlElement el = node as XmlElement;
 
                     if (el != null)
                     {
-                        var def = SpawnDefinition.GetSpawnDefinition(el);
+                        SpawnDefinition def = SpawnDefinition.GetSpawnDefinition(el);
                         if (def == null)
                             continue;
 
-                        var id = 0;
+                        int id = 0;
                         if (!ReadInt32(el, "id", ref id, true))
                             continue;
 
-                        var amount = 0;
+                        int amount = 0;
                         if (!ReadInt32(el, "amount", ref amount, true))
                             continue;
 
-                        var minSpawnTime = SpawnEntry.DefaultMinSpawnTime;
+                        TimeSpan minSpawnTime = SpawnEntry.DefaultMinSpawnTime;
                         ReadTimeSpan(el, "minSpawnTime", ref minSpawnTime, false);
 
-                        var maxSpawnTime = SpawnEntry.DefaultMaxSpawnTime;
+                        TimeSpan maxSpawnTime = SpawnEntry.DefaultMaxSpawnTime;
                         ReadTimeSpan(el, "maxSpawnTime", ref maxSpawnTime, false);
 
-                        var home = Point3D.Zero;
-                        var range = 0;
+                        Point3D home = Point3D.Zero;
+                        int range = 0;
 
-                        var homeEl = el["home"];
+                        XmlElement homeEl = el["home"];
                         if (ReadPoint3D(homeEl, map, ref home, false))
                             ReadInt32(homeEl, "range", ref range, false);
 
-                        var dir = SpawnEntry.InvalidDirection;
+                        Direction dir = SpawnEntry.InvalidDirection;
                         ReadEnum(el["direction"], "value", ref dir, false);
 
-                        var entry = new SpawnEntry(id, this, home, range, dir, def, amount, minSpawnTime, maxSpawnTime);
+                        SpawnEntry entry = new SpawnEntry(id, this, home, range, dir, def, amount, minSpawnTime, maxSpawnTime);
                         list.Add(entry);
                     }
                 }
 
                 if (list.Count > 0)
                 {
-                    m_Spawns = list.ToArray();
+                    this.m_Spawns = list.ToArray();
                 }
             }
         }
 
         public virtual bool YoungProtected
         {
-            get { return true; }
-        }
-
-        public string RuneName
-        {
-            get { return m_RuneName; }
-            set { m_RuneName = value; }
-        }
-
-        public bool NoLogoutDelay { get; set; }
-
-        public SpawnEntry[] Spawns
-        {
-            get { return m_Spawns; }
-            set
+            get
             {
-                if (m_Spawns != null)
-                {
-                    for (var i = 0; i < m_Spawns.Length; i++)
-                        m_Spawns[i].Delete();
-                }
-
-                m_Spawns = value;
+                return true;
             }
         }
+        public string RuneName
+        {
+            get
+            {
+                return this.m_RuneName;
+            }
+            set
+            {
+                this.m_RuneName = value;
+            }
+        }
+        public bool NoLogoutDelay
+        {
+            get
+            {
+                return this.m_NoLogoutDelay;
+            }
+            set
+            {
+                this.m_NoLogoutDelay = value;
+            }
+        }
+        public SpawnEntry[] Spawns
+        {
+            get
+            {
+                return this.m_Spawns;
+            }
+            set
+            {
+                if (this.m_Spawns != null)
+                {
+                    for (int i = 0; i < this.m_Spawns.Length; i++)
+                        this.m_Spawns[i].Delete();
+                }
 
-        public SpawnZLevel SpawnZLevel { get; set; }
-
+                this.m_Spawns = value;
+            }
+        }
+        public SpawnZLevel SpawnZLevel
+        {
+            get
+            {
+                return this.m_SpawnZLevel;
+            }
+            set
+            {
+                this.m_SpawnZLevel = value;
+            }
+        }
         public bool ExcludeFromParentSpawns
         {
-            get { return m_ExcludeFromParentSpawns; }
-            set { m_ExcludeFromParentSpawns = value; }
+            get
+            {
+                return this.m_ExcludeFromParentSpawns;
+            }
+            set
+            {
+                this.m_ExcludeFromParentSpawns = value;
+            }
         }
-
         public static void Configure()
         {
-            DefaultRegionType = typeof (BaseRegion);
+            Region.DefaultRegionType = typeof(BaseRegion);
         }
 
         public static string GetRuneNameFor(Region region)
         {
             while (region != null)
             {
-                var br = region as BaseRegion;
+                BaseRegion br = region as BaseRegion;
 
                 if (br != null && br.m_RuneName != null)
                     return br.m_RuneName;
-
-                if (br != null && br.Name != null)
-                    return br.Name;
 
                 region = region.Parent;
             }
@@ -179,15 +209,15 @@ namespace Server.Regions
                 if (!region.AllowSpawn())
                     return false;
 
-                var br = region as BaseRegion;
+                BaseRegion br = region as BaseRegion;
 
                 if (br != null)
                 {
                     if (br.Spawns != null)
                     {
-                        for (var i = 0; i < br.Spawns.Length; i++)
+                        for (int i = 0; i < br.Spawns.Length; i++)
                         {
-                            var entry = br.Spawns[i];
+                            SpawnEntry entry = br.Spawns[i];
 
                             if (entry.Definition.CanSpawn(types))
                                 return true;
@@ -208,12 +238,12 @@ namespace Server.Regions
         {
             base.OnUnregister();
 
-            Spawns = null;
+            this.Spawns = null;
         }
 
         public override TimeSpan GetLogoutDelay(Mobile m)
         {
-            if (NoLogoutDelay)
+            if (this.m_NoLogoutDelay)
             {
                 if (m.Aggressors.Count == 0 && m.Aggressed.Count == 0 && !m.Criminal)
                     return TimeSpan.Zero;
@@ -224,9 +254,9 @@ namespace Server.Regions
 
         public override void OnEnter(Mobile m)
         {
-            if (m is PlayerMobile && ((PlayerMobile) m).Young)
+            if (m is PlayerMobile && ((PlayerMobile)m).Young)
             {
-                if (!YoungProtected)
+                if (!this.YoungProtected)
                 {
                     m.SendGump(new YoungDungeonWarning());
                 }
@@ -235,7 +265,7 @@ namespace Server.Regions
 
         public override bool AcceptsSpawnsFrom(Region region)
         {
-            if (region == this || !m_ExcludeFromParentSpawns)
+            if (region == this || !this.m_ExcludeFromParentSpawns)
                 return base.AcceptsSpawnsFrom(region);
 
             return false;
@@ -243,38 +273,38 @@ namespace Server.Regions
 
         public Point3D RandomSpawnLocation(int spawnHeight, bool land, bool water, Point3D home, int range)
         {
-            var map = Map;
+            Map map = this.Map;
 
             if (map == Map.Internal)
                 return Point3D.Zero;
 
-            InitRectangles();
+            this.InitRectangles();
 
-            if (m_TotalWeight <= 0)
+            if (this.m_TotalWeight <= 0)
                 return Point3D.Zero;
 
-            for (var i = 0; i < 10; i++) // Try 10 times
+            for (int i = 0; i < 10; i++) // Try 10 times
             {
                 int x, y, minZ, maxZ;
 
                 if (home == Point3D.Zero)
                 {
-                    var rand = Utility.Random(m_TotalWeight);
+                    int rand = Utility.Random(this.m_TotalWeight);
 
                     x = int.MinValue;
                     y = int.MinValue;
                     minZ = int.MaxValue;
                     maxZ = int.MinValue;
-                    for (var j = 0; j < m_RectangleWeights.Length; j++)
+                    for (int j = 0; j < this.m_RectangleWeights.Length; j++)
                     {
-                        var curWeight = m_RectangleWeights[j];
+                        int curWeight = this.m_RectangleWeights[j];
 
                         if (rand < curWeight)
                         {
-                            var rect = m_Rectangles[j];
+                            Rectangle3D rect = this.m_Rectangles[j];
 
-                            x = rect.Start.X + rand%rect.Width;
-                            y = rect.Start.Y + rand/rect.Width;
+                            x = rect.Start.X + rand % rect.Width;
+                            y = rect.Start.Y + rand / rect.Width;
 
                             minZ = rect.Start.Z;
                             maxZ = rect.End.Z;
@@ -292,9 +322,9 @@ namespace Server.Regions
 
                     minZ = int.MaxValue;
                     maxZ = int.MinValue;
-                    for (var j = 0; j < Area.Length; j++)
+                    for (int j = 0; j < this.Area.Length; j++)
                     {
-                        var rect = Area[j];
+                        Rectangle3D rect = this.Area[j];
 
                         if (x >= rect.Start.X && x < rect.End.X && y >= rect.Start.Y && y < rect.End.Y)
                         {
@@ -311,13 +341,13 @@ namespace Server.Regions
                 if (x < 0 || y < 0 || x >= map.Width || y >= map.Height)
                     continue;
 
-                var lt = map.Tiles.GetLandTile(x, y);
+                LandTile lt = map.Tiles.GetLandTile(x, y);
 
                 int ltLowZ = 0, ltAvgZ = 0, ltTopZ = 0;
                 map.GetAverageZ(x, y, ref ltLowZ, ref ltAvgZ, ref ltTopZ);
 
-                var ltFlags = TileData.LandTable[lt.ID & TileData.MaxLandValue].Flags;
-                var ltImpassable = ((ltFlags & TileFlag.Impassable) != 0);
+                TileFlag ltFlags = TileData.LandTable[lt.ID & TileData.MaxLandValue].Flags;
+                bool ltImpassable = ((ltFlags & TileFlag.Impassable) != 0);
 
                 if (!lt.Ignored && ltAvgZ >= minZ && ltAvgZ < maxZ)
                     if ((ltFlags & TileFlag.Wet) != 0)
@@ -328,13 +358,13 @@ namespace Server.Regions
                     else if (land && !ltImpassable)
                         m_SpawnBuffer1.Add(ltAvgZ);
 
-                var staticTiles = map.Tiles.GetStaticTiles(x, y, true);
+                StaticTile[] staticTiles = map.Tiles.GetStaticTiles(x, y, true);
 
-                for (var j = 0; j < staticTiles.Length; j++)
+                for (int j = 0; j < staticTiles.Length; j++)
                 {
-                    var tile = staticTiles[j];
-                    var id = TileData.ItemTable[tile.ID & TileData.MaxItemValue];
-                    var tileZ = tile.Z + id.CalcHeight;
+                    StaticTile tile = staticTiles[j];
+                    ItemData id = TileData.ItemTable[tile.ID & TileData.MaxItemValue];
+                    int tileZ = tile.Z + id.CalcHeight;
 
                     if (tileZ >= minZ && tileZ < maxZ)
                         if ((id.Flags & TileFlag.Wet) != 0)
@@ -346,11 +376,11 @@ namespace Server.Regions
                             m_SpawnBuffer1.Add(tileZ);
                 }
 
-                var sector = map.GetSector(x, y);
+                Sector sector = map.GetSector(x, y);
 
-                for (var j = 0; j < sector.Items.Count; j++)
+                for (int j = 0; j < sector.Items.Count; j++)
                 {
-                    var item = sector.Items[j];
+                    Item item = sector.Items[j];
 
                     if (!(item is BaseMulti) && item.ItemID <= TileData.MaxItemValue && item.AtWorldPoint(x, y))
                     {
@@ -358,8 +388,8 @@ namespace Server.Regions
 
                         if (!item.Movable)
                         {
-                            var id = item.ItemData;
-                            var itemZ = item.Z + id.CalcHeight;
+                            ItemData id = item.ItemData;
+                            int itemZ = item.Z + id.CalcHeight;
 
                             if (itemZ >= minZ && itemZ < maxZ)
                                 if ((id.Flags & TileFlag.Wet) != 0)
@@ -381,60 +411,60 @@ namespace Server.Regions
                 }
 
                 int z;
-                switch (SpawnZLevel)
+                switch ( this.m_SpawnZLevel )
                 {
                     case SpawnZLevel.Lowest:
-                    {
-                        z = int.MaxValue;
-
-                        for (var j = 0; j < m_SpawnBuffer1.Count; j++)
                         {
-                            var l = m_SpawnBuffer1[j];
+                            z = int.MaxValue;
 
-                            if (l < z)
-                                z = l;
+                            for (int j = 0; j < m_SpawnBuffer1.Count; j++)
+                            {
+                                int l = m_SpawnBuffer1[j];
+
+                                if (l < z)
+                                    z = l;
+                            }
+
+                            break;
                         }
-
-                        break;
-                    }
                     case SpawnZLevel.Highest:
-                    {
-                        z = int.MinValue;
-
-                        for (var j = 0; j < m_SpawnBuffer1.Count; j++)
                         {
-                            var l = m_SpawnBuffer1[j];
+                            z = int.MinValue;
 
-                            if (l > z)
-                                z = l;
+                            for (int j = 0; j < m_SpawnBuffer1.Count; j++)
+                            {
+                                int l = m_SpawnBuffer1[j];
+
+                                if (l > z)
+                                    z = l;
+                            }
+
+                            break;
                         }
-
-                        break;
-                    }
                     default: // SpawnZLevel.Random
-                    {
-                        var index = Utility.Random(m_SpawnBuffer1.Count);
-                        z = m_SpawnBuffer1[index];
+                        {
+                            int index = Utility.Random(m_SpawnBuffer1.Count);
+                            z = m_SpawnBuffer1[index];
 
-                        break;
-                    }
+                            break;
+                        }
                 }
 
                 m_SpawnBuffer1.Clear();
 
-                if (!Find(new Point3D(x, y, z), map).AcceptsSpawnsFrom(this))
+                if (!Region.Find(new Point3D(x, y, z), map).AcceptsSpawnsFrom(this))
                 {
                     m_SpawnBuffer2.Clear();
                     continue;
                 }
 
-                var top = z + spawnHeight;
+                int top = z + spawnHeight;
 
-                var ok = true;
-                for (var j = 0; j < m_SpawnBuffer2.Count; j++)
+                bool ok = true;
+                for (int j = 0; j < m_SpawnBuffer2.Count; j++)
                 {
-                    var item = m_SpawnBuffer2[j];
-                    var id = item.ItemData;
+                    Item item = m_SpawnBuffer2[j];
+                    ItemData id = item.ItemData;
 
                     if ((id.Surface || id.Impassable) && item.Z + id.CalcHeight > z && item.Z < top)
                     {
@@ -451,10 +481,10 @@ namespace Server.Regions
                 if (ltImpassable && ltAvgZ > z && ltLowZ < top)
                     continue;
 
-                for (var j = 0; j < staticTiles.Length; j++)
+                for (int j = 0; j < staticTiles.Length; j++)
                 {
-                    var tile = staticTiles[j];
-                    var id = TileData.ItemTable[tile.ID & TileData.MaxItemValue];
+                    StaticTile tile = staticTiles[j];
+                    ItemData id = TileData.ItemTable[tile.ID & TileData.MaxItemValue];
 
                     if ((id.Surface || id.Impassable) && tile.Z + id.CalcHeight > z && tile.Z < top)
                     {
@@ -466,9 +496,9 @@ namespace Server.Regions
                 if (!ok)
                     continue;
 
-                for (var j = 0; j < sector.Mobiles.Count; j++)
+                for (int j = 0; j < sector.Mobiles.Count; j++)
                 {
-                    var m = sector.Mobiles[j];
+                    Mobile m = sector.Mobiles[j];
 
                     if (m.X == x && m.Y == y && (m.IsPlayer() || !m.Hidden))
                         if (m.Z + 16 > z && m.Z < top)
@@ -487,30 +517,31 @@ namespace Server.Regions
 
         public override string ToString()
         {
-            if (Name != null)
-                return Name;
-            if (RuneName != null)
-                return RuneName;
-            return GetType().Name;
+            if (this.Name != null)
+                return this.Name;
+            else if (this.RuneName != null)
+                return this.RuneName;
+            else
+                return this.GetType().Name;
         }
 
         private void InitRectangles()
         {
-            if (m_Rectangles != null)
+            if (this.m_Rectangles != null)
                 return;
 
             // Test if area rectangles are overlapping, and in that case break them into smaller non overlapping rectangles
-            for (var i = 0; i < Area.Length; i++)
+            for (int i = 0; i < this.Area.Length; i++)
             {
-                m_RectBuffer2.Add(Area[i]);
+                m_RectBuffer2.Add(this.Area[i]);
 
-                for (var j = 0; j < m_RectBuffer1.Count && m_RectBuffer2.Count > 0; j++)
+                for (int j = 0; j < m_RectBuffer1.Count && m_RectBuffer2.Count > 0; j++)
                 {
-                    var comp = m_RectBuffer1[j];
+                    Rectangle3D comp = m_RectBuffer1[j];
 
-                    for (var k = m_RectBuffer2.Count - 1; k >= 0; k--)
+                    for (int k = m_RectBuffer2.Count - 1; k >= 0; k--)
                     {
-                        var rect = m_RectBuffer2[k];
+                        Rectangle3D rect = m_RectBuffer2[k];
 
                         int l1 = rect.Start.X, r1 = rect.End.X, t1 = rect.Start.Y, b1 = rect.End.Y;
                         int l2 = comp.Start.X, r2 = comp.End.X, t2 = comp.Start.Y, b2 = comp.End.Y;
@@ -519,8 +550,8 @@ namespace Server.Regions
                         {
                             m_RectBuffer2.RemoveAt(k);
 
-                            var sz = rect.Start.Z;
-                            var ez = rect.End.X;
+                            int sz = rect.Start.Z;
+                            int ez = rect.End.X;
 
                             if (l1 < l2)
                             {
@@ -534,14 +565,12 @@ namespace Server.Regions
 
                             if (t1 < t2)
                             {
-                                m_RectBuffer2.Add(new Rectangle3D(new Point3D(Math.Max(l1, l2), t1, sz),
-                                    new Point3D(Math.Min(r1, r2), t2, ez)));
+                                m_RectBuffer2.Add(new Rectangle3D(new Point3D(Math.Max(l1, l2), t1, sz), new Point3D(Math.Min(r1, r2), t2, ez)));
                             }
 
                             if (b1 > b2)
                             {
-                                m_RectBuffer2.Add(new Rectangle3D(new Point3D(Math.Max(l1, l2), b2, sz),
-                                    new Point3D(Math.Min(r1, r2), b1, ez)));
+                                m_RectBuffer2.Add(new Rectangle3D(new Point3D(Math.Max(l1, l2), b2, sz), new Point3D(Math.Min(r1, r2), b1, ez)));
                             }
                         }
                     }
@@ -551,17 +580,17 @@ namespace Server.Regions
                 m_RectBuffer2.Clear();
             }
 
-            m_Rectangles = m_RectBuffer1.ToArray();
+            this.m_Rectangles = m_RectBuffer1.ToArray();
             m_RectBuffer1.Clear();
 
-            m_RectangleWeights = new int[m_Rectangles.Length];
-            for (var i = 0; i < m_Rectangles.Length; i++)
+            this.m_RectangleWeights = new int[this.m_Rectangles.Length];
+            for (int i = 0; i < this.m_Rectangles.Length; i++)
             {
-                var rect = m_Rectangles[i];
-                var weight = rect.Width*rect.Height;
+                Rectangle3D rect = this.m_Rectangles[i];
+                int weight = rect.Width * rect.Height;
 
-                m_RectangleWeights[i] = weight;
-                m_TotalWeight += weight;
+                this.m_RectangleWeights[i] = weight;
+                this.m_TotalWeight += weight;
             }
         }
     }

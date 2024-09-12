@@ -7,63 +7,63 @@ namespace Server.Items
     {
         private static readonly SkillName[] m_Skills = new SkillName[]
         {
-            SkillName.Blacksmith,
-            SkillName.Tailoring,
-            SkillName.Swords,
-            SkillName.Fencing,
-            SkillName.Macing,
-            SkillName.Archery,
-            SkillName.Wrestling,
-            SkillName.Parry,
-            SkillName.Tactics,
-            SkillName.Anatomy,
-            SkillName.Healing,
-            SkillName.Magery,
-            SkillName.Meditation,
-            SkillName.EvalInt,
-            SkillName.MagicResist,
-            SkillName.AnimalTaming,
-            SkillName.AnimalLore,
-            SkillName.Veterinary,
-            SkillName.Musicianship,
-            SkillName.Provocation,
-            SkillName.Discordance,
-            SkillName.Peacemaking
+            SkillName.Kowalstwo,
+            SkillName.Krawiectwo,
+            SkillName.WalkaMieczami,
+            SkillName.WalkaSzpadami,
+            SkillName.WalkaObuchami,
+            SkillName.Lucznictwo,
+            SkillName.Boks,
+            SkillName.Parowanie,
+            SkillName.Taktyka,
+            SkillName.Anatomia,
+            SkillName.Leczenie,
+            SkillName.Magia,
+            SkillName.Medytacja,
+            SkillName.Intelekt,
+            SkillName.ObronaPrzedMagia,
+            SkillName.Oswajanie,
+            SkillName.WiedzaOBestiach,
+            SkillName.Weterynaria,
+            SkillName.Muzykowanie,
+            SkillName.Prowokacja,
+            SkillName.Manipulacja,
+            SkillName.Uspokajanie
         };
         private static readonly SkillName[] m_AOSSkills = new SkillName[]
         {
-            SkillName.Chivalry,
-            SkillName.Focus,
-            SkillName.Necromancy,
-            SkillName.Stealing,
-            SkillName.Stealth,
-            SkillName.SpiritSpeak
+            SkillName.Rycerstwo,
+            SkillName.Logistyka,
+            SkillName.Nekromancja,
+            SkillName.Okradanie,
+            SkillName.Zakradanie,
+            SkillName.MowaDuchow
         };
         private static readonly SkillName[] m_SESkills = new SkillName[]
         {
-            SkillName.Ninjitsu,
-            SkillName.Bushido
+            SkillName.Skrytobojstwo,
+            SkillName.Fanatyzm
         };
         private static readonly SkillName[] m_MLSkills = new SkillName[]
         {
-            SkillName.Spellweaving
+            SkillName.Druidyzm
         };
         /*
         private static SkillName[] m_SASkills = new SkillName[]
         {
-        SkillName.Throwing,
-        SkillName.Mysticism,
-        SkillName.Imbuing
+        SkillName.Rzucanie,
+        SkillName.Mistycyzm,
+        SkillName.Umagicznianie
         };
 
         private static SkillName[] m_HSSkills = new SkillName[]
         {
-        SkillName.Fishing
+        SkillName.Rybactwo
         };
         */
         private static readonly List<SkillName> _Skills = new List<SkillName>();
         public PowerScroll()
-            : this(SkillName.Alchemy, 0.0)
+            : this(SkillName.Alchemia, 0.0)
         {
         }
 
@@ -73,7 +73,7 @@ namespace Server.Items
         {
             this.Hue = 0x481;
 
-            if (this.Value == 105.0 || skill == Server.SkillName.Blacksmith || skill == Server.SkillName.Tailoring)
+            if (this.Value == 105.0 || skill == Server.SkillName.Kowalstwo || skill == Server.SkillName.Krawiectwo)
                 this.LootType = LootType.Regular;
         }
 
@@ -164,7 +164,7 @@ namespace Server.Items
             {
                 skillName = Skills[Utility.Random(Skills.Count)];
             }
-            while (skillName == SkillName.Blacksmith || skillName == SkillName.Tailoring);
+            while (skillName == SkillName.Kowalstwo || skillName == SkillName.Krawiectwo);
 
             return new PowerScroll(skillName, 100 + (Utility.RandomMinMax(min, max) * 5));
         }
@@ -245,7 +245,7 @@ namespace Server.Items
 
             int version = (this.InheritsItem ? 0 : reader.ReadInt()); // Required for SpecialScroll insertion
 
-            if (this.Value == 105.0 || this.Skill == SkillName.Blacksmith || this.Skill == SkillName.Tailoring)
+            if (this.Value == 105.0 || this.Skill == SkillName.Kowalstwo || this.Skill == SkillName.Krawiectwo)
             {
                 this.LootType = LootType.Regular;
             }

@@ -2636,7 +2636,7 @@ namespace Server.Engines.ConPVP
                     {
                         Mobile mob = (Mobile)p.Players[j];
 
-                        foreach (Mobile view in mob.GetMobilesInRange(Core.GlobalUpdateRange))
+                        foreach (Mobile view in mob.GetMobilesInRange(18))
                         {
                             if (!mob.CanSee(view))
                                 mob.Send(view.RemovePacket);

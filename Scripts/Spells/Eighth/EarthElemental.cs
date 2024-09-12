@@ -35,6 +35,15 @@ namespace Server.Spells.Eighth
                 this.Caster.SendLocalizedMessage(1049645); // You have too many followers to summon that creature.
                 return false;
             }
+            // Magowie
+            if (this.Caster is PlayerMobile && (((PlayerMobile)this.Caster).Klasa != Klasa.Mag 
+            && ((PlayerMobile)this.Caster).Klasa != Klasa.Adept 
+            && ((PlayerMobile)this.Caster).Klasa != Klasa.Arcymag
+            && ((PlayerMobile)this.Caster).Klasa != Klasa.Czarnoksiê¿nik))
+            {   
+                this.Caster.SendMessage("Tylko magowie mog¹ u¿yæ tego czaru!"); // Only Elves may use this ability
+                return false;
+            }
 
             return true;
         }
@@ -43,7 +52,7 @@ namespace Server.Spells.Eighth
         {
             if (this.CheckSequence())
             {
-                TimeSpan duration = TimeSpan.FromSeconds((2 * this.Caster.Skills.Magery.Fixed) / 5);
+                TimeSpan duration = TimeSpan.FromSeconds((2 * this.Caster.Skills.Magia.Fixed) / 5);
 
                 if (Core.AOS)
                     SpellHelper.Summon(new SummonedEarthElemental(), this.Caster, 0x217, duration, false, false);

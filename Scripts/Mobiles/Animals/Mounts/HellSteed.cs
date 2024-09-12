@@ -1,9 +1,11 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a hellsteed corpse")]
     public class HellSteed : BaseMount
     {
-        [Constructable]
+        [Constructable] 
         public HellSteed()
             : this("a hellsteed")
         {
@@ -23,19 +25,25 @@ namespace Server.Mobiles
 
         public override bool HasBreath
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int BreathChaosDamage
         {
-            get { return 100; }
+            get
+            {
+                return 100;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public static void SetStats(BaseCreature steed)
         {
             steed.SetStr(201, 210);
@@ -53,9 +61,9 @@ namespace Server.Mobiles
             steed.SetResistance(ResistanceType.Fire, 90);
             steed.SetResistance(ResistanceType.Poison, 100);
 
-            steed.SetSkill(SkillName.MagicResist, 90.1, 110.0);
-            steed.SetSkill(SkillName.Tactics, 50.0);
-            steed.SetSkill(SkillName.Wrestling, 90.1, 110.0);
+            steed.SetSkill(SkillName.ObronaPrzedMagia, 90.1, 110.0);
+            steed.SetSkill(SkillName.Taktyka, 50.0);
+            steed.SetSkill(SkillName.Boks, 90.1, 110.0);
 
             steed.Fame = 0;
             steed.Karma = 0;
@@ -65,14 +73,14 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

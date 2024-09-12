@@ -2,15 +2,15 @@ using System;
 using Server.Items;
 
 namespace Server.Engines.Quests
-{
+{ 
     public class Aeluva : MondainQuester
-    {
+    { 
         [Constructable]
         public Aeluva()
             : base("Aeluva", "the arcanist")
-        {
-            SetSkill(SkillName.Meditation, 60.0, 83.0);
-            SetSkill(SkillName.Focus, 60.0, 83.0);
+        { 
+            this.SetSkill(SkillName.Medytacja, 60.0, 83.0);
+            this.SetSkill(SkillName.Logistyka, 60.0, 83.0);
         }
 
         public Aeluva(Serial serial)
@@ -20,41 +20,43 @@ namespace Server.Engines.Quests
 
         public override Type[] Quests
         {
-            get { return new[] {typeof (PatienceQuest)}; }
+            get
+            {
+                return new Type[] { typeof(PatienceQuest) };
+            }
         }
-
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
-
-            Female = true;
-            Race = Race.Elf;
-
-            Hue = 0x8835;
-            HairItemID = 0x2FD0;
-            HairHue = 0x387;
+            this.InitStats(100, 100, 25);
+			
+            this.Female = true;
+            this.Race = Race.Elf;
+			
+            this.Hue = 0x8835;
+            this.HairItemID = 0x2FD0;
+            this.HairHue = 0x387;
         }
 
         public override void InitOutfit()
         {
-            AddItem(new ElvenBoots());
-            AddItem(new ElvenShirt());
-            AddItem(new Skirt());
-            AddItem(new Circlet());
+            this.AddItem(new ElvenBoots());
+            this.AddItem(new ElvenShirt());
+            this.AddItem(new Skirt());
+            this.AddItem(new Circlet());
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

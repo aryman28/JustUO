@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0xF5E)
         {
             this.Weight = 6.0;
+            this.Name = "Pałasz";
         }
 
         public Broadsword(Serial serial)

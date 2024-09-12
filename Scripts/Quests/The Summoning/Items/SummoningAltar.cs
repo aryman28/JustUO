@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -6,7 +7,6 @@ namespace Server.Engines.Quests.Doom
     public class SummoningAltar : AbbatoirAddon
     {
         private BoneDemon m_Daemon;
-
         [Constructable]
         public SummoningAltar()
         {
@@ -19,24 +19,26 @@ namespace Server.Engines.Quests.Doom
 
         public BoneDemon Daemon
         {
-            get { return m_Daemon; }
+            get
+            {
+                return this.m_Daemon;
+            }
             set
             {
-                m_Daemon = value;
-                CheckDaemon();
+                this.m_Daemon = value;
+                this.CheckDaemon();
             }
         }
-
         public void CheckDaemon()
         {
-            if (m_Daemon == null || !m_Daemon.Alive)
+            if (this.m_Daemon == null || !this.m_Daemon.Alive)
             {
-                m_Daemon = null;
-                Hue = 0;
+                this.m_Daemon = null;
+                this.Hue = 0;
             }
             else
             {
-                Hue = 0x66D;
+                this.Hue = 0x66D;
             }
         }
 
@@ -44,20 +46,20 @@ namespace Server.Engines.Quests.Doom
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
 
-            writer.Write(m_Daemon);
+            writer.Write((Mobile)this.m_Daemon);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            m_Daemon = reader.ReadMobile() as BoneDemon;
+            this.m_Daemon = reader.ReadMobile() as BoneDemon;
 
-            CheckDaemon();
+            this.CheckDaemon();
         }
     }
 }

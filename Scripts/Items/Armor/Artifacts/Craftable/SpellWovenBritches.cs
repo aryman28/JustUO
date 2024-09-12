@@ -9,7 +9,7 @@ namespace Server.Items
         {
             this.Hue = 0x487;
 
-            this.SkillBonuses.SetValues(0, SkillName.Meditation, 10.0);
+            this.SkillBonuses.SetValues(0, SkillName.Medytacja, 10.0);
 
             this.Attributes.BonusInt = 8;
             this.Attributes.SpellDamage = 10;

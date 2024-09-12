@@ -68,25 +68,8 @@ namespace Server.Network
 		private readonly string m_ToString;
 		private ClientVersion m_Version;
 		private bool m_BlockAllPackets;
-        #region Enhance Client
-        private bool m_KRClient;
-        #endregion
 
 		private readonly DateTime m_ConnectedOn;
-
-        #region Enhance Client
-        public bool IsKRClient
-        {
-            get
-            {
-                return m_KRClient;
-            }
-            set
-            {
-                m_KRClient = value;
-            }
-        }
-        #endregion
 
 		public DateTime ConnectedOn { get { return m_ConnectedOn; } }
 
@@ -132,11 +115,7 @@ namespace Server.Network
 			{
 				m_Version = value;
 
-				if (value >= m_Version704565)
-				{
-					_ProtocolChanges = ProtocolChanges.Version704565;
-				}
-				else if (value >= m_Version70331)
+				if (value >= m_Version70331)
 				{
 					_ProtocolChanges = ProtocolChanges.Version70331;
 				}
@@ -204,7 +183,6 @@ namespace Server.Network
 		private static readonly ClientVersion m_Version70160 = new ClientVersion("7.0.16.0");
 		private static readonly ClientVersion m_Version70300 = new ClientVersion("7.0.30.0");
 		private static readonly ClientVersion m_Version70331 = new ClientVersion("7.0.33.1");
-		private static readonly ClientVersion m_Version704565 = new ClientVersion("7.0.45.65");
 
 		private ProtocolChanges _ProtocolChanges;
 
@@ -223,7 +201,6 @@ namespace Server.Network
 			NewCharacterCreation = 0x00000400,
 			ExtendedStatus = 0x00000800,
 			NewMobileIncoming = 0x00001000,
-			NewSecureTrading = 0x00002000,
 
 			Version400a = NewSpellbook,
 			Version407a = Version400a | DamagePacket,
@@ -237,8 +214,7 @@ namespace Server.Network
 			Version70130 = Version7090 | NewCharacterList,
 			Version70160 = Version70130 | NewCharacterCreation,
 			Version70300 = Version70160 | ExtendedStatus,
-			Version70331 = Version70300 | NewMobileIncoming,
-			Version704565 = Version70331 | NewSecureTrading
+			Version70331 = Version70300 | NewMobileIncoming
 		}
 
 		public bool NewSpellbook { get { return ((_ProtocolChanges & ProtocolChanges.NewSpellbook) != 0); } }
@@ -249,13 +225,11 @@ namespace Server.Network
 		public bool ContainerGridLines { get { return ((_ProtocolChanges & ProtocolChanges.ContainerGridLines) != 0); } }
 		public bool ExtendedSupportedFeatures { get { return ((_ProtocolChanges & ProtocolChanges.ExtendedSupportedFeatures) != 0); } }
 		public bool StygianAbyss { get { return ((_ProtocolChanges & ProtocolChanges.StygianAbyss) != 0); } }
-		public bool NewMobileAnimation { get { return ((_ProtocolChanges & ProtocolChanges.Version7000) != 0); } }
 		public bool HighSeas { get { return ((_ProtocolChanges & ProtocolChanges.HighSeas) != 0); } }
 		public bool NewCharacterList { get { return ((_ProtocolChanges & ProtocolChanges.NewCharacterList) != 0); } }
 		public bool NewCharacterCreation { get { return ((_ProtocolChanges & ProtocolChanges.NewCharacterCreation) != 0); } }
 		public bool ExtendedStatus { get { return ((_ProtocolChanges & ProtocolChanges.ExtendedStatus) != 0); } }
 		public bool NewMobileIncoming { get { return ((_ProtocolChanges & ProtocolChanges.NewMobileIncoming) != 0); } }
-		public bool NewSecureTrading { get { return ((_ProtocolChanges & ProtocolChanges.NewSecureTrading) != 0); } }
 
 		public bool IsUOTDClient { get { return ((m_Flags & ClientFlags.UOTD) != 0 || (m_Version != null && m_Version.Type == ClientType.UOTD)); } }
 
@@ -621,8 +595,8 @@ namespace Server.Network
 						{
 							_sending = true;
 #if NewAsyncSockets
-							m_SendEventArgs.SetBuffer( gram.Buffer, 0, gram.Length );
-							Send_Start();
+						m_SendEventArgs.SetBuffer( gram.Buffer, 0, gram.Length );
+						Send_Start();
 #else
 							try
 							{
@@ -833,28 +807,28 @@ namespace Server.Network
 
 		public bool Flush() {
 			if ( m_Socket == null )
-				return false;
+					return false;
 
 			lock (_sendL) {
 				if (_sending)
-					return false;
+				return false;
 
-				SendQueue.Gram gram;
-	
-				lock ( m_SendQueue ) {
+			SendQueue.Gram gram;
+
+			lock ( m_SendQueue ) {
 					if (!m_SendQueue.IsFlushReady)
 						return false;
-	
-					gram = m_SendQueue.CheckFlushReady();
-				}
-	
-				if ( gram != null ) {
-					_sending = true;
-					m_SendEventArgs.SetBuffer( gram.Buffer, 0, gram.Length );
-					Send_Start();
-				}
+
+				gram = m_SendQueue.CheckFlushReady();
 			}
-	
+
+			if ( gram != null ) {
+					_sending = true;
+				m_SendEventArgs.SetBuffer( gram.Buffer, 0, gram.Length );
+				Send_Start();
+			}
+			}
+
 			return false;
 		}
 
@@ -1150,6 +1124,7 @@ namespace Server.Network
 			Utility.PopColor();
 
 			Dispose();
+			return;
 		}
 
 		public static void TraceException(Exception ex)
@@ -1235,7 +1210,7 @@ namespace Server.Network
 #if NewAsyncSockets
 			m_ReceiveEventArgs = null;
 			m_SendEventArgs = null;
-#else
+            #else
 			m_OnReceive = null;
 			m_OnSend = null;
 #endif
@@ -1292,7 +1267,6 @@ namespace Server.Network
 				while (breakout < 200 && m_Disposed.Count > 0)
 				{
 					++breakout;
-				
 					NetState ns = m_Disposed.Dequeue();
 
 					Mobile m = ns.m_Mobile;

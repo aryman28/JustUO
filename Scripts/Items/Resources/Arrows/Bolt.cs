@@ -16,6 +16,7 @@ namespace Server.Items
         {
             this.Stackable = true;
             this.Amount = amount;
+            this.Name = "Bełty";
         }
 
         public Bolt(Serial serial)

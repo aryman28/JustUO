@@ -170,7 +170,7 @@ namespace Server
                 m_MedusasLair = value;
             }
         }
-        public static bool Spellweaving
+        public static bool Druidyzm
         {
             get
             {
@@ -266,7 +266,7 @@ namespace Server
                 ReadNode(root, "Sanctuary", ref m_Sanctuary);
                 ReadNode(root, "StygianDragonLair", ref m_StygianDragonLair);
                 ReadNode(root, "MedusasLair", ref m_MedusasLair);
-                ReadNode(root, "Spellweaving", ref m_Spellweaving);
+                ReadNode(root, "Druidyzm", ref m_Spellweaving);
                 ReadNode(root, "PublicDonations", ref m_PublicDonations);
             }
             catch
@@ -303,7 +303,7 @@ namespace Server
                 UpdateNode(root, "Sanctuary", m_Sanctuary);
                 UpdateNode(root, "StygianDragonLair", m_StygianDragonLair);
                 UpdateNode(root, "MedusasLair", m_MedusasLair);
-                UpdateNode(root, "Spellweaving", m_Spellweaving);
+                UpdateNode(root, "Druidyzm", m_Spellweaving);
                 UpdateNode(root, "PublicDonations", m_PublicDonations);
 
                 doc.Save("Data/Mondain's Legacy/Settings.xml");

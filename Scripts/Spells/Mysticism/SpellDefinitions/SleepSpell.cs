@@ -49,7 +49,7 @@ namespace Server.Spells.Mystic
             }
             else if (this.CheckHSequence(target))
             {
-                //duration = 7.0 + (Caster.Skills[SkillName.Mysticism].Value * 0.2);
+                //duration = 7.0 + (Caster.Skills[SkillName.Mistycyzm].Value * 0.2);
                 target.Paralyze(TimeSpan.FromSeconds(12));
                 target.Sleep(TimeSpan.FromSeconds(12));
                 target.Say("ZZZzzzzz");///////

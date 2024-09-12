@@ -9,7 +9,7 @@ namespace Server.Items
         {
             this.Hue = 0x488;
 
-            this.SkillBonuses.SetValues(0, SkillName.MagicResist, 15.0);
+            this.SkillBonuses.SetValues(0, SkillName.ObronaPrzedMagia, 15.0);
 
             this.Attributes.BonusHits = 5;
             this.Attributes.RegenHits = 2;

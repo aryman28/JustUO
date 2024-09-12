@@ -17,7 +17,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -59,7 +59,7 @@ namespace Server.Items
                 return;
             }
 
-            if (!this.CheckMana(attacker, true))
+            if (!this.CheckStam(attacker, true))
                 return;
 
             if (Core.ML && attacker is LesserHiryu && 0.8 >= Utility.RandomDouble())

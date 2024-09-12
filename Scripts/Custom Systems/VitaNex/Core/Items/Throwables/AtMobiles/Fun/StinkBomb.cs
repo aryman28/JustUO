@@ -69,7 +69,7 @@ namespace VitaNex.Items
 
 			ExplosionRange = 5;
 
-			RequiredSkill = SkillName.Alchemy;
+			RequiredSkill = SkillName.Alchemia;
 			RequiredSkillValue = 25.0;
 		}
 

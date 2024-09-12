@@ -7,15 +7,15 @@ using Server.Factions;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
-using Server.Spells.Necromancy;
-using Server.Spells.Spellweaving;
+using Server.Spells.Nekromancja;
+using Server.Spells.Druidyzm;
 using Server.Targeting;
 using Server.XMLConfiguration;
 #endregion
 
 namespace Server.SkillHandlers
 {
-	public class AnimalTaming
+	public class Oswajanie
 	{
 		private static readonly Hashtable m_BeingTamed = new Hashtable();
 		private static bool m_DisableMessage;
@@ -23,7 +23,7 @@ namespace Server.SkillHandlers
 
 		public static void Initialize()
 		{
-			SkillInfo.Table[(int)SkillName.AnimalTaming].Callback = OnUse;
+			SkillInfo.Table[(int)SkillName.Oswajanie].Callback = OnUse;
 		}
 
 		public static TimeSpan OnUse(Mobile m)
@@ -188,7 +188,7 @@ namespace Server.SkillHandlers
 							creature.PrivateOverheadMessage(MessageType.Regular, 0x3B2, 1054025, from.NetState);
 								// You must subdue this creature before you can tame it!
 						}
-						else if (CheckMastery(from, creature) || from.Skills[SkillName.AnimalTaming].Value >= creature.MinTameSkill)
+						else if (CheckMastery(from, creature) || from.Skills[SkillName.Oswajanie].Value >= creature.MinTameSkill)
 						{
 							FactionWarHorse warHorse = creature as FactionWarHorse;
 
@@ -215,6 +215,17 @@ namespace Server.SkillHandlers
 									// You seem to anger the beast!
 								creature.PlaySound(creature.GetAngerSound());
 								creature.Direction = creature.GetDirectionTo(from);
+
+								if (creature.BardPacified && Utility.RandomDouble() > .24)
+								{
+									Timer.DelayCall(TimeSpan.FromSeconds(2.0), new TimerStateCallback(ResetPacify), creature);
+								}
+								else
+								{
+									creature.BardEndTime = DateTime.UtcNow;
+								}
+
+								creature.BardPacified = false;
 
 								if (creature.AIObject != null)
 								{
@@ -368,7 +379,7 @@ namespace Server.SkillHandlers
 
 						if (!alreadyOwned) // Passively check animal lore for gain
 						{
-							m_Tamer.CheckTargetSkill(SkillName.AnimalLore, m_Creature, 0.0, 120.0);
+							m_Tamer.CheckTargetSkill(SkillName.WiedzaOBestiach, m_Creature, 0.0, 120.0);
 						}
 
 						if (m_Creature.Paralyzed)
@@ -389,7 +400,7 @@ namespace Server.SkillHandlers
 
 						if (!alreadyOwned) // Passively check animal lore for gain
 						{
-							m_Tamer.CheckTargetSkill(SkillName.AnimalLore, m_Creature, 0.0, 120.0);
+							m_Tamer.CheckTargetSkill(SkillName.WiedzaOBestiach, m_Creature, 0.0, 120.0);
 						}
 
 						double minSkill = m_Creature.MinTameSkill + (m_Creature.Owners.Count * 6.0);
@@ -405,14 +416,14 @@ namespace Server.SkillHandlers
                             minSkill += XmlMobFactions.GetScaledFaction(m_Tamer, m_Creature, -25, 25, -0.001);
 
 						if (CheckMastery(m_Tamer, m_Creature) || alreadyOwned ||
-							m_Tamer.CheckTargetSkill(SkillName.AnimalTaming, m_Creature, minSkill - 25.0, minSkill + 25.0))
+							m_Tamer.CheckTargetSkill(SkillName.Oswajanie, m_Creature, minSkill - 25.0, minSkill + 25.0))
 						{
 							if (m_Creature.Owners.Count == 0) // First tame
 							{
 								if (m_Creature is GreaterDragon)
 								{
 									ScaleSkills(m_Creature, 0.72, 0.90); // 72% of original skills trainable to 90%
-									m_Creature.Skills[SkillName.Magery].Base = m_Creature.Skills[SkillName.Magery].Cap;
+									m_Creature.Skills[SkillName.Magia].Base = m_Creature.Skills[SkillName.Magia].Cap;
 										// Greater dragons have a 90% cap reduction and 90% skill reduction on magery
 								}
 								else if (m_Paralyzed)

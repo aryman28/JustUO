@@ -1,7 +1,13 @@
+using System;
+
 namespace Server.Engines.Quests.Naturalist
 {
     public class DontOfferConversation : QuestConversation
     {
+        public DontOfferConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -20,15 +26,21 @@ namespace Server.Engines.Quests.Naturalist
                 return 1054052;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class AcceptConversation : QuestConversation
     {
+        public AcceptConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -46,15 +58,18 @@ namespace Server.Engines.Quests.Naturalist
                 return 1054043;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new StudyNestsObjective());
+            this.System.AddObjective(new StudyNestsObjective());
         }
     }
 
     public class NaturalistDuringStudyConversation : QuestConversation
     {
+        public NaturalistDuringStudyConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -76,15 +91,21 @@ namespace Server.Engines.Quests.Naturalist
                 return 1054049;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class EndConversation : QuestConversation
     {
+        public EndConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -113,15 +134,18 @@ namespace Server.Engines.Quests.Naturalist
                 return 1054050;
             }
         }
-
         public override void OnRead()
         {
-            System.Complete();
+            this.System.Complete();
         }
     }
 
     public class SpecialEndConversation : QuestConversation
     {
+        public SpecialEndConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -155,15 +179,18 @@ namespace Server.Engines.Quests.Naturalist
                 return 1054051;
             }
         }
-
         public override void OnRead()
         {
-            System.Complete();
+            this.System.Complete();
         }
     }
 
     public class FullBackpackConversation : QuestConversation
     {
+        public FullBackpackConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -178,10 +205,12 @@ namespace Server.Engines.Quests.Naturalist
                 return 1054053;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 }

@@ -12,19 +12,21 @@ namespace Server.Mobiles
             this.InitStats(31, 41, 51);
 
             this.SpeechHue = Utility.RandomDyedHue();
-            this.Title = "the sculptor";
+            //this.Title = "the sculptor";
             this.Hue = Utility.RandomSkinHue();
 
             if (this.Female = Utility.RandomBool())
             {
                 this.Body = 0x191;
                 this.Name = NameList.RandomName("female");
+                this.Title = "- Rzeübiarka";
                 this.AddItem(new Kilt(Utility.RandomNeutralHue()));
             }
             else
             {
                 this.Body = 0x190;
                 this.Name = NameList.RandomName("male");
+                this.Title = "- Rzeübiarz";
                 this.AddItem(new LongPants(Utility.RandomNeutralHue()));
             }
 

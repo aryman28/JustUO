@@ -60,7 +60,7 @@ namespace Server.Engines.Craft
 
     public class DefBlacksmithy : CraftSystem
     {
-        public override SkillName MainSkill { get { return SkillName.Blacksmith; } }
+        public override SkillName MainSkill { get { return SkillName.Kowalstwo; } }
 
         public override int GumpTitleNumber
         {
@@ -243,15 +243,15 @@ namespace Server.Engines.Craft
 
             if (quality == 0)
             {
-                return 502785; // You were barely able to make this item.  It's quality is below average.
+                //return 502785; // You were barely able to make this item.  It's quality is below average.
             }
 
-            if (makersMark && quality == 2)
+            if (makersMark && quality == 1)
             {
                 return 1044156; // You create an exceptional quality item and affix your maker's mark.
             }
 
-            if (quality == 2)
+            if (quality == 1)
             {
                 return 1044155; // You create an exceptional quality item.
             }
@@ -279,16 +279,16 @@ namespace Server.Engines.Craft
             int index;
 
             #region Ringmail
-            AddCraft(typeof(RingmailGloves), 1011076, 1025099, 12.0, 62.0, typeof(IronIngot), 1044036, 10, 1044037);
-            AddCraft(typeof(RingmailLegs), 1011076, 1025104, 19.4, 69.4, typeof(IronIngot), 1044036, 16, 1044037);
-            AddCraft(typeof(RingmailArms), 1011076, 1025103, 16.9, 66.9, typeof(IronIngot), 1044036, 14, 1044037);
-            AddCraft(typeof(RingmailChest), 1011076, 1025100, 21.9, 71.9, typeof(IronIngot), 1044036, 18, 1044037);
+            AddCraft(typeof(RingmailGloves), 1011076, "Pierścieniowe rękawice", 12.0, 62.0, typeof(IronIngot), 1044036, 10, 1044037);
+            AddCraft(typeof(RingmailLegs), 1011076, "Pierścieniowe nogawice", 19.4, 69.4, typeof(IronIngot), 1044036, 16, 1044037);
+            AddCraft(typeof(RingmailArms), 1011076, "Pierścieniowe naramienniki", 16.9, 66.9, typeof(IronIngot), 1044036, 14, 1044037);
+            AddCraft(typeof(RingmailChest), 1011076, "Pierścieniowa zbroja", 21.9, 71.9, typeof(IronIngot), 1044036, 18, 1044037);
             #endregion
 
             #region Chainmail
-            AddCraft(typeof(ChainCoif), 1011077, 1025051, 14.5, 64.5, typeof(IronIngot), 1044036, 10, 1044037);
-            AddCraft(typeof(ChainLegs), 1011077, 1025054, 36.7, 86.7, typeof(IronIngot), 1044036, 18, 1044037);
-            AddCraft(typeof(ChainChest), 1011077, 1025055, 39.1, 89.1, typeof(IronIngot), 1044036, 20, 1044037);
+            AddCraft(typeof(ChainCoif), 1011077, "Kolczy czepiec", 14.5, 64.5, typeof(IronIngot), 1044036, 10, 1044037);
+            AddCraft(typeof(ChainLegs), 1011077, "Kolcze nogawice", 36.7, 86.7, typeof(IronIngot), 1044036, 18, 1044037);
+            AddCraft(typeof(ChainChest), 1011077, "Kolcza zbroja", 39.1, 89.1, typeof(IronIngot), 1044036, 20, 1044037);
             #endregion
 
             #region Platemail
@@ -306,23 +306,23 @@ namespace Server.Engines.Craft
 
             if (Core.SE)
             {
-                index = AddCraft(typeof(PlateMempo), 1011078, 1030180, 80.0, 130.0, typeof(IronIngot), 1044036, 18, 1044037);
+                index = AddCraft(typeof(PlateMempo), 1011078, 1030180, 50.0, 100.0, typeof(IronIngot), 1044036, 18, 1044037);
                 SetNeededExpansion(index, Expansion.SE);
 
-                index = AddCraft(typeof(PlateDo), 1011078, 1030184, 80.0, 130.0, typeof(IronIngot), 1044036, 28, 1044037);
+                index = AddCraft(typeof(PlateDo), 1011078, 1030184, 60.0, 110.0, typeof(IronIngot), 1044036, 28, 1044037);
                 //Double check skill
                 SetNeededExpansion(index, Expansion.SE);
 
-                index = AddCraft(typeof(PlateHiroSode), 1011078, 1030187, 80.0, 130.0, typeof(IronIngot), 1044036, 16, 1044037);
+                index = AddCraft(typeof(PlateHiroSode), 1011078, 1030187, 60.0, 110.0, typeof(IronIngot), 1044036, 16, 1044037);
                 SetNeededExpansion(index, Expansion.SE);
 
-                index = AddCraft(typeof(PlateSuneate), 1011078, 1030195, 65.0, 115.0, typeof(IronIngot), 1044036, 20, 1044037);
+                index = AddCraft(typeof(PlateSuneate), 1011078, 1030195, 55.0, 105.0, typeof(IronIngot), 1044036, 20, 1044037);
                 SetNeededExpansion(index, Expansion.SE);
 
-                index = AddCraft(typeof(PlateHaidate), 1011078, 1030200, 65.0, 115.0, typeof(IronIngot), 1044036, 20, 1044037);
+                index = AddCraft(typeof(PlateHaidate), 1011078, 1030200, 55.0, 105.0, typeof(IronIngot), 1044036, 20, 1044037);
                 SetNeededExpansion(index, Expansion.SE);
             }
-            if (Core.SA)
+            /*if (Core.SA)
             {
                 #region SA
                 index = AddCraft(typeof(GargishPlateArms), 1011078, 1095336, 66.3, 116.3, typeof(IronIngot), 1044036, 18, 1044037);
@@ -337,43 +337,43 @@ namespace Server.Engines.Craft
                 index = AddCraft(typeof(GargishPlateLegs), 1011078, 1095342, 68.8, 118.8, typeof(IronIngot), 1044036, 20, 1044037);
                 SetNeededExpansion(index, Expansion.SA);
                 #endregion
-            }
+            }*/
             #endregion
 
             #region Helmets
-            AddCraft(typeof(Bascinet), 1011079, 1025132, 8.3, 58.3, typeof(IronIngot), 1044036, 15, 1044037);
-            AddCraft(typeof(CloseHelm), 1011079, 1025128, 37.9, 87.9, typeof(IronIngot), 1044036, 15, 1044037);
-            AddCraft(typeof(Helmet), 1011079, 1025130, 37.9, 87.9, typeof(IronIngot), 1044036, 15, 1044037);
-            AddCraft(typeof(NorseHelm), 1011079, 1025134, 37.9, 87.9, typeof(IronIngot), 1044036, 15, 1044037);
-            AddCraft(typeof(PlateHelm), 1011079, 1025138, 62.6, 112.6, typeof(IronIngot), 1044036, 15, 1044037);
+            AddCraft(typeof(Bascinet), 1011079, "Hełm stozkowy", 8.3, 58.3, typeof(IronIngot), 1044036, 15, 1044037);
+            AddCraft(typeof(CloseHelm), 1011079, "Zamkniety hełm", 37.9, 87.9, typeof(IronIngot), 1044036, 15, 1044037);
+            AddCraft(typeof(Helmet), 1011079, "Hełm", 37.9, 87.9, typeof(IronIngot), 1044036, 15, 1044037);
+            AddCraft(typeof(NorseHelm), 1011079, "Hełm nosowy", 37.9, 87.9, typeof(IronIngot), 1044036, 15, 1044037);
+            AddCraft(typeof(PlateHelm), 1011079, "Płytowy hełm", 62.6, 112.6, typeof(IronIngot), 1044036, 15, 1044037);
 
             if (Core.SE)
             {
-                index = AddCraft(typeof(ChainHatsuburi), 1011079, 1030175, 30.0, 80.0, typeof(IronIngot), 1044036, 20, 1044037);
+                //index = AddCraft(typeof(ChainHatsuburi), 1011079, 1030175, 30.0, 80.0, typeof(IronIngot), 1044036, 20, 1044037);
+                //SetNeededExpansion(index, Expansion.SE);
+
+                //index = AddCraft(typeof(PlateHatsuburi), 1011079, 1030176, 45.0, 95.0, typeof(IronIngot), 1044036, 20, 1044037);
+                //SetNeededExpansion(index, Expansion.SE);
+
+                //index = AddCraft(typeof(HeavyPlateJingasa), 1011079, 1030178, 45.0, 95.0, typeof(IronIngot), 1044036, 20, 1044037);
+                //SetNeededExpansion(index, Expansion.SE);
+
+                //index = AddCraft(typeof(LightPlateJingasa), 1011079, 1030188, 45.0, 95.0, typeof(IronIngot), 1044036, 20, 1044037);
+                //SetNeededExpansion(index, Expansion.SE);
+
+                //index = AddCraft(typeof(SmallPlateJingasa), 1011079, 1030191, 45.0, 95.0, typeof(IronIngot), 1044036, 20, 1044037);
+                //SetNeededExpansion(index, Expansion.SE);
+
+                //index = AddCraft(
+               //     typeof(DecorativePlateKabuto), 1011079, 1030179, 90.0, 140.0, typeof(IronIngot), 1044036, 25, 1044037);
+                //SetNeededExpansion(index, Expansion.SE);
+
+                index = AddCraft(typeof(PlateBattleKabuto), 1011079, "Płytowy bojowy hełm", 90.0, 140.0, typeof(IronIngot), 1044036, 25, 1044037);
                 SetNeededExpansion(index, Expansion.SE);
 
-                index = AddCraft(typeof(PlateHatsuburi), 1011079, 1030176, 45.0, 95.0, typeof(IronIngot), 1044036, 20, 1044037);
-                SetNeededExpansion(index, Expansion.SE);
-
-                index = AddCraft(typeof(HeavyPlateJingasa), 1011079, 1030178, 45.0, 95.0, typeof(IronIngot), 1044036, 20, 1044037);
-                SetNeededExpansion(index, Expansion.SE);
-
-                index = AddCraft(typeof(LightPlateJingasa), 1011079, 1030188, 45.0, 95.0, typeof(IronIngot), 1044036, 20, 1044037);
-                SetNeededExpansion(index, Expansion.SE);
-
-                index = AddCraft(typeof(SmallPlateJingasa), 1011079, 1030191, 45.0, 95.0, typeof(IronIngot), 1044036, 20, 1044037);
-                SetNeededExpansion(index, Expansion.SE);
-
-                index = AddCraft(
-                    typeof(DecorativePlateKabuto), 1011079, 1030179, 90.0, 140.0, typeof(IronIngot), 1044036, 25, 1044037);
-                SetNeededExpansion(index, Expansion.SE);
-
-                index = AddCraft(typeof(PlateBattleKabuto), 1011079, 1030192, 90.0, 140.0, typeof(IronIngot), 1044036, 25, 1044037);
-                SetNeededExpansion(index, Expansion.SE);
-
-                index = AddCraft(
-                    typeof(StandardPlateKabuto), 1011079, 1030196, 90.0, 140.0, typeof(IronIngot), 1044036, 25, 1044037);
-                SetNeededExpansion(index, Expansion.SE);
+                //index = AddCraft(
+                //    typeof(StandardPlateKabuto), 1011079, 1030196, 90.0, 140.0, typeof(IronIngot), 1044036, 25, 1044037);
+                //SetNeededExpansion(index, Expansion.SE);
 
                 /*if (Core.ML)
                 {
@@ -393,20 +393,20 @@ namespace Server.Engines.Craft
             #endregion
 
             #region Shields
-            AddCraft(typeof(Buckler), 1011080, 1027027, -25.0, 25.0, typeof(IronIngot), 1044036, 10, 1044037);
-            AddCraft(typeof(BronzeShield), 1011080, 1027026, -15.2, 34.8, typeof(IronIngot), 1044036, 12, 1044037);
-            AddCraft(typeof(HeaterShield), 1011080, 1027030, 24.3, 74.3, typeof(IronIngot), 1044036, 18, 1044037);
-            AddCraft(typeof(MetalShield), 1011080, 1027035, -10.2, 39.8, typeof(IronIngot), 1044036, 14, 1044037);
-            AddCraft(typeof(MetalKiteShield), 1011080, 1027028, 4.6, 54.6, typeof(IronIngot), 1044036, 16, 1044037);
-            AddCraft(typeof(WoodenKiteShield), 1011080, 1027032, -15.2, 34.8, typeof(IronIngot), 1044036, 8, 1044037);
+            AddCraft(typeof(Buckler), 1011080, "Puklerz", -25.0, 25.0, typeof(IronIngot), 1044036, 10, 1044037);
+            AddCraft(typeof(BronzeShield), 1011080, "Okrągła tarcza", -15.2, 34.8, typeof(IronIngot), 1044036, 12, 1044037);
+            AddCraft(typeof(HeaterShield), 1011080, "Ciężki pawęż", 24.3, 74.3, typeof(IronIngot), 1044036, 18, 1044037);
+            AddCraft(typeof(MetalShield), 1011080, "Metalowa okrągła tarcza", -10.2, 39.8, typeof(IronIngot), 1044036, 14, 1044037);
+            AddCraft(typeof(MetalKiteShield), 1011080, "Trójkątna metalowa tarcza", 4.6, 54.6, typeof(IronIngot), 1044036, 16, 1044037);
+            AddCraft(typeof(WoodenKiteShield), 1011080, "Drewniana trójkątna tarcza", -15.2, 34.8, typeof(IronIngot), 1044036, 8, 1044037);
 
             if (Core.AOS)
             {
-                AddCraft(typeof(ChaosShield), 1011080, 1027107, 85.0, 135.0, typeof(IronIngot), 1044036, 25, 1044037);
-                AddCraft(typeof(OrderShield), 1011080, 1027108, 85.0, 135.0, typeof(IronIngot), 1044036, 25, 1044037);
+                AddCraft(typeof(ChaosShield), 1011080, "Tarcza chaosu", 65.0, 115.0, typeof(IronIngot), 1044036, 25, 1044037);
+                AddCraft(typeof(OrderShield), 1011080, "Tarcza porządku", 65.0, 115.0, typeof(IronIngot), 1044036, 25, 1044037);
             }
 
-            if (Core.SA)
+            /*if (Core.SA)
             {
                 AddCraft(typeof(SmallPlateShield), 1011080, 1095770, -15.2, 34.8, typeof(IronIngot), 1044036, 12, 1044037);
                 AddCraft(typeof(MediumPlateShield), 1011080, 1095771, -10.2, 39.8, typeof(IronIngot), 1044036, 14, 1044037);
@@ -414,20 +414,20 @@ namespace Server.Engines.Craft
                 AddCraft(typeof(GargishKiteShield), 1011080, 1095774, 4.6, 54.6, typeof(IronIngot), 1044036, 16, 1044037);
                 AddCraft(typeof(GargishChaosShield), 1011080, 1095808, 85.0, 135.0, typeof(IronIngot), 1044036, 25, 1044037);
                 AddCraft(typeof(GargishOrderShield), 1011080, 1095810, 85.0, 135.0, typeof(IronIngot), 1044036, 25, 1044037);
-            }
+            }*/
             #endregion
 
-            #region Throwing
+            #region Broñ Rzucana
             if (Core.SA)
             {
                 #region SA
-                index = AddCraft(typeof(Boomerang), 1079508, 1095359, 75.0, 100.0, typeof(IronIngot), 1044036, 5, 1044037);
+                index = AddCraft(typeof(Boomerang), 1079508, "Bumerang", 75.0, 100.0, typeof(IronIngot), 1044036, 5, 1044037);
                 SetNeededExpansion(index, Expansion.SA);
 
-                index = AddCraft(typeof(Cyclone), 1079508, 1095364, 75.0, 100.0, typeof(IronIngot), 1044036, 9, 1044037);
+                index = AddCraft(typeof(Cyclone), 1079508, "Cyklon", 75.0, 100.0, typeof(IronIngot), 1044036, 9, 1044037);
                 SetNeededExpansion(index, Expansion.SA);
 
-                index = AddCraft(typeof(SoulGlaive), 1079508, 1095363, 75.0, 100.0, typeof(IronIngot), 1044036, 9, 1044037);
+                index = AddCraft(typeof(SoulGlaive), 1079508, "Tornado", 75.0, 100.0, typeof(IronIngot), 1044036, 9, 1044037);
                 SetNeededExpansion(index, Expansion.SA);
                 #endregion
             }
@@ -436,78 +436,78 @@ namespace Server.Engines.Craft
             #region Bladed
             if (Core.AOS)
             {
-                AddCraft(typeof(BoneHarvester), 1011081, 1029915, 33.0, 83.0, typeof(IronIngot), 1044036, 10, 1044037);
+                AddCraft(typeof(BoneHarvester), 1011081, "Sierp bojowy", 33.0, 83.0, typeof(IronIngot), 1044036, 10, 1044037);
             }
 
-            AddCraft(typeof(Broadsword), 1011081, 1023934, 35.4, 85.4, typeof(IronIngot), 1044036, 10, 1044037);
+            AddCraft(typeof(Broadsword), 1011081, "Pałasz", 35.4, 85.4, typeof(IronIngot), 1044036, 10, 1044037);
 
             if (Core.AOS)
             {
-                AddCraft(typeof(CrescentBlade), 1011081, 1029921, 45.0, 95.0, typeof(IronIngot), 1044036, 14, 1044037);
+                AddCraft(typeof(CrescentBlade), 1011081, "Ostrze półksiężycowe", 45.0, 95.0, typeof(IronIngot), 1044036, 14, 1044037);
             }
 
-            AddCraft(typeof(Cutlass), 1011081, 1025185, 24.3, 74.3, typeof(IronIngot), 1044036, 8, 1044037);
-            AddCraft(typeof(Dagger), 1011081, 1023921, -0.4, 49.6, typeof(IronIngot), 1044036, 3, 1044037);
-            AddCraft(typeof(Katana), 1011081, 1025119, 44.1, 94.1, typeof(IronIngot), 1044036, 8, 1044037);
-            AddCraft(typeof(Kryss), 1011081, 1025121, 36.7, 86.7, typeof(IronIngot), 1044036, 8, 1044037);
-            AddCraft(typeof(Longsword), 1011081, 1023937, 28.0, 78.0, typeof(IronIngot), 1044036, 12, 1044037);
-            AddCraft(typeof(Scimitar), 1011081, 1025046, 31.7, 81.7, typeof(IronIngot), 1044036, 10, 1044037);
-            AddCraft(typeof(VikingSword), 1011081, 1025049, 24.3, 74.3, typeof(IronIngot), 1044036, 14, 1044037);
+            AddCraft(typeof(Cutlass), 1011081, "Kordelas", 24.3, 74.3, typeof(IronIngot), 1044036, 8, 1044037);
+            AddCraft(typeof(Dagger), 1011081, "Sztylet", -0.4, 49.6, typeof(IronIngot), 1044036, 3, 1044037);
+            AddCraft(typeof(Katana), 1011081, "Katana", 44.1, 94.1, typeof(IronIngot), 1044036, 8, 1044037);
+            AddCraft(typeof(Kryss), 1011081, "Kris", 36.7, 86.7, typeof(IronIngot), 1044036, 8, 1044037);
+            AddCraft(typeof(Longsword), 1011081, "Długi miecz", 28.0, 78.0, typeof(IronIngot), 1044036, 12, 1044037);
+            AddCraft(typeof(Scimitar), 1011081, "Sejmitar", 31.7, 81.7, typeof(IronIngot), 1044036, 10, 1044037);
+            AddCraft(typeof(VikingSword), 1011081, "Miecz nordycki", 24.3, 74.3, typeof(IronIngot), 1044036, 14, 1044037);
 
             if (Core.SE)
             {
-                index = AddCraft(typeof(NoDachi), 1011081, 1030221, 75.0, 125.0, typeof(IronIngot), 1044036, 18, 1044037);
+                index = AddCraft(typeof(NoDachi), 1011081, "Dwuręczne bojowe ostrze", 75.0, 125.0, typeof(IronIngot), 1044036, 18, 1044037);
                 SetNeededExpansion(index, Expansion.SE);
 
-                index = AddCraft(typeof(Wakizashi), 1011081, 1030223, 50.0, 100.0, typeof(IronIngot), 1044036, 8, 1044037);
+                index = AddCraft(typeof(Wakizashi), 1011081, "Jednoręczne bojowe ostrze", 50.0, 100.0, typeof(IronIngot), 1044036, 8, 1044037);
                 SetNeededExpansion(index, Expansion.SE);
 
-                index = AddCraft(typeof(Lajatang), 1011081, 1030226, 80.0, 130.0, typeof(IronIngot), 1044036, 25, 1044037);
+                index = AddCraft(typeof(Lajatang), 1011081, "Póksiężycowe podwójne ostrze", 80.0, 130.0, typeof(IronIngot), 1044036, 25, 1044037);
                 SetNeededExpansion(index, Expansion.SE);
 
-                index = AddCraft(typeof(Daisho), 1011081, 1030228, 60.0, 110.0, typeof(IronIngot), 1044036, 15, 1044037);
+                index = AddCraft(typeof(Daisho), 1011081, "Podwójne bojowe ostrze", 60.0, 110.0, typeof(IronIngot), 1044036, 15, 1044037);
                 SetNeededExpansion(index, Expansion.SE);
 
-                index = AddCraft(typeof(Tekagi), 1011081, 1030230, 55.0, 105.0, typeof(IronIngot), 1044036, 12, 1044037);
+                index = AddCraft(typeof(Tekagi), 1011081, "Naręczne ostrza", 55.0, 105.0, typeof(IronIngot), 1044036, 12, 1044037);
                 SetNeededExpansion(index, Expansion.SE);
 
-                index = AddCraft(typeof(Shuriken), 1011081, 1030231, 45.0, 95.0, typeof(IronIngot), 1044036, 5, 1044037);
+                index = AddCraft(typeof(Shuriken), 1011081, "Shuriken", 45.0, 95.0, typeof(IronIngot), 1044036, 5, 1044037);
                 SetNeededExpansion(index, Expansion.SE);
 
-                index = AddCraft(typeof(Kama), 1011081, 1030232, 40.0, 90.0, typeof(IronIngot), 1044036, 14, 1044037);
+                index = AddCraft(typeof(Kama), 1011081, "Podwójne haki", 40.0, 90.0, typeof(IronIngot), 1044036, 14, 1044037);
                 SetNeededExpansion(index, Expansion.SE);
 
-                index = AddCraft(typeof(Sai), 1011081, 1030234, 50.0, 100.0, typeof(IronIngot), 1044036, 12, 1044037);
+                index = AddCraft(typeof(Sai), 1011081, "Podwójne sztylety", 50.0, 100.0, typeof(IronIngot), 1044036, 12, 1044037);
                 SetNeededExpansion(index, Expansion.SE);
 
                 if (Core.ML)
                 {
-                    index = AddCraft(typeof(RadiantScimitar), 1011081, 1031571, 75.0, 125.0, typeof(IronIngot), 1044036, 15, 1044037);
+                    index = AddCraft(typeof(RadiantScimitar), 1011081, "Promienisty sejmitar", 75.0, 125.0, typeof(IronIngot), 1044036, 15, 1044037);
                     SetNeededExpansion(index, Expansion.ML);
 
-                    index = AddCraft(typeof(WarCleaver), 1011081, 1031567, 70.0, 120.0, typeof(IronIngot), 1044036, 18, 1044037);
+                    index = AddCraft(typeof(WarCleaver), 1011081, "Tasak bojowy", 70.0, 120.0, typeof(IronIngot), 1044036, 18, 1044037);
                     SetNeededExpansion(index, Expansion.ML);
 
-                    index = AddCraft(typeof(ElvenSpellblade), 1011081, 1031564, 70.0, 120.0, typeof(IronIngot), 1044036, 14, 1044037);
+                    index = AddCraft(typeof(ElvenSpellblade), 1011081, "Elfie magiczne ostrze", 70.0, 120.0, typeof(IronIngot), 1044036, 14, 1044037);
                     SetNeededExpansion(index, Expansion.ML);
 
-                    index = AddCraft(typeof(AssassinSpike), 1011081, 1031565, 70.0, 120.0, typeof(IronIngot), 1044036, 9, 1044037);
+                    index = AddCraft(typeof(AssassinSpike), 1011081, "Zabójczy kolec", 70.0, 120.0, typeof(IronIngot), 1044036, 9, 1044037);
                     SetNeededExpansion(index, Expansion.ML);
 
-                    index = AddCraft(typeof(Leafblade), 1011081, 1031566, 70.0, 120.0, typeof(IronIngot), 1044036, 12, 1044037);
+                    index = AddCraft(typeof(Leafblade), 1011081, "Lekkie ostrze", 70.0, 120.0, typeof(IronIngot), 1044036, 12, 1044037);
                     SetNeededExpansion(index, Expansion.ML);
 
-                    index = AddCraft(typeof(RuneBlade), 1011081, 1031570, 70.0, 120.0, typeof(IronIngot), 1044036, 15, 1044037);
+                    index = AddCraft(typeof(RuneBlade), 1011081, "Runiczne ostrze", 70.0, 120.0, typeof(IronIngot), 1044036, 15, 1044037);
                     SetNeededExpansion(index, Expansion.ML);
 
-                    index = AddCraft(typeof(ElvenMachete), 1011081, 1031573, 70.0, 120.0, typeof(IronIngot), 1044036, 14, 1044037);
+                    index = AddCraft(typeof(ElvenMachete), 1011081, "Elfia maczeta", 70.0, 120.0, typeof(IronIngot), 1044036, 14, 1044037);
                     SetNeededExpansion(index, Expansion.ML);
 
-                    index = AddCraft(typeof(RuneCarvingKnife), 1011081, 1072915, 70.0, 120.0, typeof(IronIngot), 1044036, 9, 1044037);
+                    /*index = AddCraft(typeof(RuneCarvingKnife), 1011081, 1072915, 70.0, 120.0, typeof(IronIngot), 1044036, 9, 1044037);
                     AddRes(index, typeof(DreadHornMane), 1032682, 1, 1053098);
                     AddRes(index, typeof(Putrefication), 1032678, 10, 1053098);
                     AddRes(index, typeof(Muculent), 1032680, 10, 1053098);
-                    AddRecipe(index, (int)SmithRecipes.RuneCarvingKnife);
+                    //AddRecipe(index, (int)SmithRecipes.RuneCarvingKnife);
                     ForceNonExceptional(index);
                     SetNeededExpansion(index, Expansion.ML);
 
@@ -690,11 +690,11 @@ namespace Server.Engines.Craft
                     index = AddCraft(typeof(BoneMachete), 1011081, 1020526, 75.0, 125.0, typeof(IronIngot), 1044036, 20, 1044037);
                     AddRes(index, typeof(Bone), 1049064, 6, 1049063);
                     AddRecipe(index, (int)SmithRecipes.BoneMachete);
-                    SetNeededExpansion(index, Expansion.ML);
+                    SetNeededExpansion(index, Expansion.ML);*/
                 }
             }
 
-            if (Core.SA)
+            /*if (Core.SA)
             {
                 #region SA
                 index = AddCraft(typeof(BloodBlade), 1011081, 1095370, 44.1, 125.0, typeof(IronIngot), 1044036, 8, 1044037);
@@ -712,32 +712,32 @@ namespace Server.Engines.Craft
                 index = AddCraft(typeof(Shortblade), 1011081, 1095374, 28.0, 100.0, typeof(IronIngot), 1044036, 12, 1044037);
                 SetNeededExpansion(index, Expansion.SA);
                 #endregion
-            }
+            }*/
             #endregion
 
             #region Axes
-            AddCraft(typeof(Axe), 1011082, 1023913, 34.2, 84.2, typeof(IronIngot), 1044036, 14, 1044037);
-            AddCraft(typeof(BattleAxe), 1011082, 1023911, 30.5, 80.5, typeof(IronIngot), 1044036, 14, 1044037);
-            AddCraft(typeof(DoubleAxe), 1011082, 1023915, 29.3, 79.3, typeof(IronIngot), 1044036, 12, 1044037);
-            AddCraft(typeof(ExecutionersAxe), 1011082, 1023909, 34.2, 84.2, typeof(IronIngot), 1044036, 14, 1044037);
-            AddCraft(typeof(LargeBattleAxe), 1011082, 1025115, 28.0, 78.0, typeof(IronIngot), 1044036, 12, 1044037);
-            AddCraft(typeof(TwoHandedAxe), 1011082, 1025187, 33.0, 83.0, typeof(IronIngot), 1044036, 16, 1044037);
-            AddCraft(typeof(WarAxe), 1011082, 1025040, 39.1, 89.1, typeof(IronIngot), 1044036, 16, 1044037);
+            AddCraft(typeof(Axe), 1011082, "Topór", 34.2, 84.2, typeof(IronIngot), 1044036, 14, 1044037);
+            AddCraft(typeof(BattleAxe), 1011082, "Bojowy topór", 30.5, 80.5, typeof(IronIngot), 1044036, 14, 1044037);
+            AddCraft(typeof(DoubleAxe), 1011082, "Podwójny topór", 29.3, 79.3, typeof(IronIngot), 1044036, 12, 1044037);
+            AddCraft(typeof(ExecutionersAxe), 1011082, "Katowski topór", 34.2, 84.2, typeof(IronIngot), 1044036, 14, 1044037);
+            AddCraft(typeof(LargeBattleAxe), 1011082, "Duży bojowy topór", 28.0, 78.0, typeof(IronIngot), 1044036, 12, 1044037);
+            AddCraft(typeof(TwoHandedAxe), 1011082, "Dwuręczny topór", 33.0, 83.0, typeof(IronIngot), 1044036, 16, 1044037);
+            AddCraft(typeof(WarAxe), 1011082, "Topór wojenny", 39.1, 89.1, typeof(IronIngot), 1044036, 16, 1044037);
 
-            #region SA
+            /*#region SA
             if (Core.SA)
             {
                 index = AddCraft(typeof(DualShortAxes), 1011082, 1095360, 75.0, 125.0, typeof(IronIngot), 1044036, 24, 1044037);
                 SetNeededExpansion(index, Expansion.SA);
             }
-            #endregion
+            #endregion*/
 
             if (Core.ML)
             {
-                index = AddCraft(typeof(OrnateAxe), 1011082, 1031572, 70.0, 120.0, typeof(IronIngot), 1044036, 18, 1044037);
+                index = AddCraft(typeof(OrnateAxe), 1011082, "Zdobiony topór", 70.0, 120.0, typeof(IronIngot), 1044036, 18, 1044037);
                 SetNeededExpansion(index, Expansion.ML);
 
-                index = AddCraft(typeof(GuardianAxe), 1011082, 1073545, 75.0, 125.0, typeof(IronIngot), 1044036, 15, 1044037);
+                /*index = AddCraft(typeof(GuardianAxe), 1011082, 1073545, 75.0, 125.0, typeof(IronIngot), 1044036, 15, 1044037);
                 AddRes(index, typeof(BlueDiamond), 1032696, 1, 1044240);
                 AddRecipe(index, (int)SmithRecipes.GuardianAxe);
                 SetNeededExpansion(index, Expansion.ML);
@@ -755,85 +755,85 @@ namespace Server.Engines.Craft
                 index = AddCraft(typeof(HeavyOrnateAxe), 1011082, 1073548, 75.0, 125.0, typeof(IronIngot), 1044036, 15, 1044037);
                 AddRes(index, typeof(Turquoise), 1032691, 1, 1044240);
                 AddRecipe(index, (int)SmithRecipes.HeavyOrnateAxe);
-                SetNeededExpansion(index, Expansion.ML);
+                SetNeededExpansion(index, Expansion.ML);*/
             }
             #endregion
 
             #region Pole Arms
-            AddCraft(typeof(Bardiche), 1011083, 1023917, 31.7, 81.7, typeof(IronIngot), 1044036, 18, 1044037);
+            AddCraft(typeof(Bardiche), 1011083, "Berdysz", 31.7, 81.7, typeof(IronIngot), 1044036, 18, 1044037);
 
             if (Core.AOS)
             {
-                AddCraft(typeof(BladedStaff), 1011083, 1029917, 40.0, 90.0, typeof(IronIngot), 1044036, 12, 1044037);
+                AddCraft(typeof(BladedStaff), 1011083, "Zaostrzony kij", 40.0, 90.0, typeof(IronIngot), 1044036, 12, 1044037);
             }
 
             if (Core.AOS)
             {
-                AddCraft(typeof(DoubleBladedStaff), 1011083, 1029919, 45.0, 95.0, typeof(IronIngot), 1044036, 16, 1044037);
+                AddCraft(typeof(DoubleBladedStaff), 1011083, "Podwójnie ostrzony kij", 45.0, 95.0, typeof(IronIngot), 1044036, 16, 1044037);
             }
 
-            AddCraft(typeof(Halberd), 1011083, 1025183, 39.1, 89.1, typeof(IronIngot), 1044036, 20, 1044037);
+            AddCraft(typeof(Halberd), 1011083, "Halabarda", 39.1, 89.1, typeof(IronIngot), 1044036, 20, 1044037);
 
             if (Core.AOS)
             {
-                AddCraft(typeof(Lance), 1011083, 1029920, 48.0, 98.0, typeof(IronIngot), 1044036, 20, 1044037);
+                AddCraft(typeof(Lance), 1011083, "Lanca", 48.0, 98.0, typeof(IronIngot), 1044036, 20, 1044037);
             }
 
             if (Core.AOS)
             {
-                AddCraft(typeof(Pike), 1011083, 1029918, 47.0, 97.0, typeof(IronIngot), 1044036, 12, 1044037);
+                AddCraft(typeof(Pike), 1011083, "Pika", 47.0, 97.0, typeof(IronIngot), 1044036, 12, 1044037);
             }
 
-            AddCraft(typeof(ShortSpear), 1011083, 1025123, 45.3, 95.3, typeof(IronIngot), 1044036, 6, 1044037);
+            AddCraft(typeof(ShortSpear), 1011083, "Krótka włocznia", 45.3, 95.3, typeof(IronIngot), 1044036, 6, 1044037);
 
             if (Core.AOS)
             {
-                AddCraft(typeof(Scythe), 1011083, 1029914, 39.0, 89.0, typeof(IronIngot), 1044036, 14, 1044037);
+                AddCraft(typeof(Scythe), 1011083, "Kosa bojowa", 39.0, 89.0, typeof(IronIngot), 1044036, 14, 1044037);
             }
 
-            AddCraft(typeof(Spear), 1011083, 1023938, 49.0, 99.0, typeof(IronIngot), 1044036, 12, 1044037);
-            AddCraft(typeof(WarFork), 1011083, 1025125, 42.9, 92.9, typeof(IronIngot), 1044036, 12, 1044037);
+            AddCraft(typeof(Spear), 1011083, "Włocznia", 49.0, 99.0, typeof(IronIngot), 1044036, 12, 1044037);
+            AddCraft(typeof(WarFork), 1011083, "Krótkie widły bojowe", 42.9, 92.9, typeof(IronIngot), 1044036, 12, 1044037);
 
-            #region SA
+            /*#region SA
             if (Core.SA)
             {
                 index = AddCraft(typeof(DualPointedSpear), 1011083, 1095365, 45.0, 100.0, typeof(IronIngot), 1044036, 16, 1044037);
                 SetNeededExpansion(index, Expansion.SA);
             }
-            #endregion
+            #endregion*/
 
             //Not craftable (is this an AOS change ??)
             //AddCraft( typeof( Pitchfork ), 1011083, 1023720, 36.1, 86.1, typeof( IronIngot ), 1044036, 12, 1044037 );
             #endregion
 
             #region Bashing
-            AddCraft(typeof(HammerPick), 1011084, 1025181, 34.2, 84.2, typeof(IronIngot), 1044036, 16, 1044037);
-            AddCraft(typeof(Mace), 1011084, 1023932, 14.5, 64.5, typeof(IronIngot), 1044036, 6, 1044037);
-            AddCraft(typeof(Maul), 1011084, 1025179, 19.4, 69.4, typeof(IronIngot), 1044036, 10, 1044037);
+            AddCraft(typeof(HammerPick), 1011084, "Młot bojowy", 34.2, 84.2, typeof(IronIngot), 1044036, 16, 1044037);
+            AddCraft(typeof(Mace), 1011084, "Buzdygan", 14.5, 64.5, typeof(IronIngot), 1044036, 6, 1044037);
+            AddCraft(typeof(Maul), 1011084, "Kościołam", 19.4, 69.4, typeof(IronIngot), 1044036, 10, 1044037);
 
             if (Core.AOS)
             {
-                AddCraft(typeof(Scepter), 1011084, 1029916, 21.4, 71.4, typeof(IronIngot), 1044036, 10, 1044037);
+                AddCraft(typeof(Scepter), 1011084, "Berło bojowe", 21.4, 71.4, typeof(IronIngot), 1044036, 10, 1044037);
             }
 
-            AddCraft(typeof(WarMace), 1011084, 1025127, 28.0, 78.0, typeof(IronIngot), 1044036, 14, 1044037);
-            AddCraft(typeof(WarHammer), 1011084, 1025177, 34.2, 84.2, typeof(IronIngot), 1044036, 16, 1044037);
+            AddCraft(typeof(WarMace), 1011084, "Bojowy buzdygan", 28.0, 78.0, typeof(IronIngot), 1044036, 14, 1044037);
+            AddCraft(typeof(WarHammer), 1011084, "Duży młot bojowy", 34.2, 84.2, typeof(IronIngot), 1044036, 16, 1044037);
 
             if (Core.SE)
             {
-                index = AddCraft(typeof(Tessen), 1011084, 1030222, 85.0, 135.0, typeof(IronIngot), 1044036, 16, 1044037);
-                AddSkill(index, SkillName.Tailoring, 50.0, 55.0);
+                index = AddCraft(typeof(Tessen), 1011084, "Bojowe półksiężyce", 85.0, 135.0, typeof(IronIngot), 1044036, 16, 1044037);
+                AddSkill(index, SkillName.Krawiectwo, 50.0, 55.0);
                 AddRes(index, typeof(Cloth), 1044286, 10, 1044287);
                 SetNeededExpansion(index, Expansion.SE);
             }
 
-            #region SA
+            /*#region SA
             if (Core.SA)
             {
                 index = AddCraft(typeof(DiscMace), 1011084, 1095366, 70.0, 100.0, typeof(IronIngot), 1044036, 20, 1044037);
                 SetNeededExpansion(index, Expansion.SA);
             }
-            #endregion
+            #endregion*/
 
             /*if (Core.ML)
 			{
@@ -873,10 +873,10 @@ namespace Server.Engines.Craft
             #region Mondain's Legacy
             if (Core.ML)
             {
-                index = AddCraft(typeof(DiamondMace), 1011084, 1031568, 70.0, 120.0, typeof(IronIngot), 1044036, 20, 1044037);
+                index = AddCraft(typeof(DiamondMace), 1011084, "Diamentowy buzdygan", 70.0, 120.0, typeof(IronIngot), 1044036, 20, 1044037);
                 SetNeededExpansion(index, Expansion.ML);
 
-                index = AddCraft(typeof(ShardThrasher), 1011084, 1072918, 70.0, 120.0, typeof(IronIngot), 1044036, 20, 1044037);
+                /*index = AddCraft(typeof(ShardThrasher), 1011084, 1072918, 70.0, 120.0, typeof(IronIngot), 1044036, 20, 1044037);
                 AddRes(index, typeof(EyeOfTheTravesty), 1073126, 1, 1042081);
                 AddRes(index, typeof(Muculent), 1072139, 10, 1042081);
                 AddRes(index, typeof(Corruption), 1072135, 10, 1042081);
@@ -902,10 +902,10 @@ namespace Server.Engines.Craft
                 index = AddCraft(typeof(SilverEtchedMace), 1011084, 1073532, 75.0, 125.0, typeof(IronIngot), 1044036, 20, 1044037);
                 AddRes(index, typeof(BlueDiamond), 1032696, 1, 1044240);
                 AddRecipe(index, (int)SmithRecipes.SilverEtchedMace);
-                SetNeededExpansion(index, Expansion.ML);
+                SetNeededExpansion(index, Expansion.ML);*/
             }
 
-            #region SA
+            /*#region SA
             if (Core.SA)
             {
                 index = AddCraft(typeof(DiscMace), 1011084, 1029929, 70.0, 100.0, typeof(IronIngot), 1044036, 20, 1044037);
@@ -915,31 +915,31 @@ namespace Server.Engines.Craft
                 SetNeededExpansion(index, Expansion.SA);
 
                 index = AddCraft(typeof(GargishTessen), 1011084, 1097508, 50.0, 100.0, typeof(IronIngot), 1044036, 16, 1044037);
-                AddSkill(index, SkillName.Tailoring, 50.0, 55.0);
+                AddSkill(index, SkillName.Krawiectwo, 50.0, 55.0);
                 AddRes(index, typeof(Cloth), 1044286, 10, 1044287);
                 SetNeededExpansion(index, Expansion.SA);
 
                 index = AddCraft(typeof(GargishWarHammer), 1011084, 1097496, 34.2, 84.2, typeof(IronIngot), 1044036, 16, 1044037);
                 SetNeededExpansion(index, Expansion.SA);
             }
-            #endregion
+            #endregion*/
 
             #endregion
 
             #region Dragon Scale Armor
-            index = AddCraft(typeof(DragonGloves), 1053114, 1029795, 68.9, 118.9, typeof(RedScales), 1060883, 16, 1060884);
+            index = AddCraft(typeof(DragonGloves), 1053114, "Smocze rękawice", 68.9, 118.9, typeof(RedScales), 1060883, 16, 1060884);
             SetUseSubRes2(index, true);
 
-            index = AddCraft(typeof(DragonHelm), 1053114, 1029797, 72.6, 122.6, typeof(RedScales), 1060883, 20, 1060884);
+            index = AddCraft(typeof(DragonHelm), 1053114, "Smoczy hełm", 72.6, 122.6, typeof(RedScales), 1060883, 20, 1060884);
             SetUseSubRes2(index, true);
 
-            index = AddCraft(typeof(DragonLegs), 1053114, 1029799, 78.8, 128.8, typeof(RedScales), 1060883, 28, 1060884);
+            index = AddCraft(typeof(DragonLegs), 1053114, "Smocz nogawice", 78.8, 128.8, typeof(RedScales), 1060883, 28, 1060884);
             SetUseSubRes2(index, true);
 
-            index = AddCraft(typeof(DragonArms), 1053114, 1029815, 76.3, 126.3, typeof(RedScales), 1060883, 24, 1060884);
+            index = AddCraft(typeof(DragonArms), 1053114, "Smocze naramienniki", 76.3, 126.3, typeof(RedScales), 1060883, 24, 1060884);
             SetUseSubRes2(index, true);
 
-            index = AddCraft(typeof(DragonChest), 1053114, 1029793, 85.0, 135.0, typeof(RedScales), 1060883, 36, 1060884);
+            index = AddCraft(typeof(DragonChest), 1053114, "Smocza zbroja", 85.0, 135.0, typeof(RedScales), 1060883, 36, 1060884);
             SetUseSubRes2(index, true);
             #endregion
 
@@ -971,7 +971,7 @@ namespace Server.Engines.Craft
             Repair = true;
             MarkOption = true;
             CanEnhance = Core.AOS;
-			CanAlter = Core.SA;
+            //CanAlter = Core.SA;
         }
     }
 

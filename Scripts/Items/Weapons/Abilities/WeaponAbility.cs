@@ -7,7 +7,7 @@ namespace Server.Items
 {
     public abstract class WeaponAbility
     {
-        public virtual int BaseMana
+        public virtual int BaseStam
         {
             get
             {
@@ -74,35 +74,35 @@ namespace Server.Items
             return 200.0;
         }
 
-        public virtual int CalculateMana(Mobile from)
+        public virtual int CalculateStam(Mobile from)
         {
-            int mana = this.BaseMana;
+            int stam = this.BaseStam;
 
-            double skillTotal = this.GetSkill(from, SkillName.Swords) + this.GetSkill(from, SkillName.Macing) +
-                                this.GetSkill(from, SkillName.Fencing) + this.GetSkill(from, SkillName.Archery) + this.GetSkill(from, SkillName.Parry) +
-                                this.GetSkill(from, SkillName.Lumberjacking) + this.GetSkill(from, SkillName.Stealth) +
-                                this.GetSkill(from, SkillName.Poisoning) + this.GetSkill(from, SkillName.Bushido) + this.GetSkill(from, SkillName.Ninjitsu);
+            double skillTotal = this.GetSkill(from, SkillName.WalkaMieczami) + this.GetSkill(from, SkillName.WalkaObuchami) +
+                                this.GetSkill(from, SkillName.WalkaSzpadami) + this.GetSkill(from, SkillName.Lucznictwo) + this.GetSkill(from, SkillName.Parowanie) +
+                                this.GetSkill(from, SkillName.Drwalnictwo) + this.GetSkill(from, SkillName.Zakradanie) +
+                                this.GetSkill(from, SkillName.Zatruwanie) + this.GetSkill(from, SkillName.Fanatyzm) + this.GetSkill(from, SkillName.Skrytobojstwo);
 
             if (skillTotal >= 300.0)
-                mana -= 10;
+                stam -= 10;
             else if (skillTotal >= 200.0)
-                mana -= 5;
+                stam -= 5;
 
             double scalar = 1.0;
-            if (!Server.Spells.Necromancy.MindRotSpell.GetMindRotScalar(from, ref scalar))
+            if (!Server.Spells.Nekromancja.MindRotSpell.GetMindRotScalar(from, ref scalar))
                 scalar = 1.0;
 
             // Lower Mana Cost = 40%
-            int lmc = Math.Min(AosAttributes.GetValue(from, AosAttribute.LowerManaCost), 40);
+            //int lmc = Math.Min(AosAttributes.GetValue(from, AosAttribute.LowerManaCost), 40);
 
-            scalar -= (double)lmc / 100;
-            mana = (int)(mana * scalar);
+            //scalar -= (double)lmc / 100;
+            //mana = (int)(mana * scalar);
 
             // Using a special move within 3 seconds of the previous special move costs double mana 
-            if (GetContext(from) != null)
-                mana *= 2;
+            //if (GetContext(from) != null)
+            //    mana *= 2;
 
-            return mana;
+            return stam;
         }
 
         public virtual bool CheckWeaponSkill(Mobile from)
@@ -116,7 +116,7 @@ namespace Server.Items
             double reqSkill = this.GetRequiredSkill(from);
             bool reqTactics = Core.ML && this.RequiresTactics(from);
 
-            if (Core.ML && reqTactics && from.Skills[SkillName.Tactics].Base < reqSkill)
+            if (Core.ML && reqTactics && from.Skills[SkillName.Taktyka].Base < reqSkill)
             {
                 from.SendLocalizedMessage(1079308, reqSkill.ToString()); // You need ~1_SKILL_REQUIREMENT~ weapon and tactics skill to perform that attack
                 return false;
@@ -126,7 +126,7 @@ namespace Server.Items
                 return true;
 
             /* <UBWS> */
-            if (weapon.WeaponAttributes.UseBestSkill > 0 && (from.Skills[SkillName.Swords].Base >= reqSkill || from.Skills[SkillName.Macing].Base >= reqSkill || from.Skills[SkillName.Fencing].Base >= reqSkill))
+            if (weapon.WeaponAttributes.UseBestSkill > 0 && (from.Skills[SkillName.WalkaMieczami].Base >= reqSkill || from.Skills[SkillName.WalkaObuchami].Base >= reqSkill || from.Skills[SkillName.WalkaSzpadami].Base >= reqSkill))
                 return true;
             /* </UBWS> */
 
@@ -157,13 +157,13 @@ namespace Server.Items
             return skill.Value;
         }
 
-        public virtual bool CheckMana(Mobile from, bool consume)
+        public virtual bool CheckStam(Mobile from, bool consume)
         {
-            int mana = this.CalculateMana(from);
+            int stam = this.CalculateStam(from);
 
-            if (from.Mana < mana)
+            if (from.Stam < stam)
             {
-                from.SendLocalizedMessage(1060181, mana.ToString()); // You need ~1_MANA_REQUIREMENT~ mana to perform that attack
+                from.SendMessage(33, "Twoja wytrzyma³oœc jest zbyt niska aby wkyonac ten atak !", stam.ToString()); // You need ~1_STAMINA_REQUIREMENT~ stamina to perform that attack
                 return false;
             }
 
@@ -177,7 +177,7 @@ namespace Server.Items
                     AddContext(from, new WeaponAbilityContext(timer));
                 }
 
-                from.Mana -= mana;
+                from.Stam -= stam;
             }
 
             return true;
@@ -199,7 +199,7 @@ namespace Server.Items
                 return false;
             }
 
-            if (Spells.Bushido.HonorableExecution.IsUnderPenalty(from) || Spells.Ninjitsu.AnimalForm.UnderTransformation(from))
+            if (Spells.Fanatyzm.HonorableExecution.IsUnderPenalty(from) || Spells.Skrytobojstwo.AnimalForm.UnderTransformation(from))
             {
                 from.SendLocalizedMessage(1063024); // You cannot perform this special move right now.
                 return false;
@@ -265,7 +265,7 @@ namespace Server.Items
                 return false;
             #endregion
 
-            return this.CheckSkills(from) && this.CheckMana(from, false);
+            return this.CheckSkills(from) && this.CheckStam(from, false);
         }
 
         private static readonly WeaponAbility[] m_Abilities = new WeaponAbility[33]

@@ -36,6 +36,7 @@ namespace Server.Items
         Parasitic,
         Darkglow,
 		ExplodingTarPotion,
+                StaminaRefresh,
     }
 
     public abstract class BasePotion : Item, ICraftable, ICommodity
@@ -211,7 +212,7 @@ namespace Server.Items
         public static int EnhancePotions(Mobile m)
         {
             int EP = AosAttributes.GetValue(m, AosAttribute.EnhancePotions);
-            int skillBonus = m.Skills.Alchemy.Fixed / 330 * 10;
+            int skillBonus = m.Skills.Alchemia.Fixed / 330 * 10;
 
             if (Core.ML && EP > 50 && m.IsPlayer())
                 EP = 50;

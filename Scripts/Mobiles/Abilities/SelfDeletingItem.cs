@@ -1,5 +1,4 @@
 // Created by Peoharen for the Mobile Abilities Package.
-
 using System;
 
 namespace Server.Items
@@ -10,12 +9,12 @@ namespace Server.Items
         public SelfDeletingItem(int id, string name, int duration)
             : base(8391)
         {
-            Weight = 1.0;
-            ItemID = id;
-            Name = "name";
-            Movable = false;
+            this.Weight = 1.0;
+            this.ItemID = id;
+            this.Name = "name";
+            this.Movable = false;
 
-            Timer.DelayCall(TimeSpan.FromSeconds(duration), Expire);
+            Timer.DelayCall(TimeSpan.FromSeconds(duration), new TimerCallback(Expire));
         }
 
         public SelfDeletingItem(Serial serial)
@@ -26,23 +25,23 @@ namespace Server.Items
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(1); // version
+            writer.Write((int)1); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            Timer.DelayCall(TimeSpan.FromSeconds(5), Expire);
+            Timer.DelayCall(TimeSpan.FromSeconds(5), new TimerCallback(Expire));
         }
 
         private void Expire()
         {
-            if (Deleted)
+            if (this.Deleted)
                 return;
 
-            Delete();
+            this.Delete();
         }
     }
 }

@@ -74,7 +74,7 @@ namespace Server.Spells.Fifth
 
                 int itemID = eastToWest ? 0x3915 : 0x3922;
 
-                TimeSpan duration = TimeSpan.FromSeconds(3 + (this.Caster.Skills.Magery.Fixed / 25));
+                TimeSpan duration = TimeSpan.FromSeconds(3 + (this.Caster.Skills.Magia.Fixed / 25));
 
                 for (int i = -2; i <= 2; ++i)
                 {
@@ -177,7 +177,7 @@ namespace Server.Spells.Fifth
 
                 if (Core.AOS)
                 {
-                    int total = (this.m_Caster.Skills.Magery.Fixed + this.m_Caster.Skills.Poisoning.Fixed) / 2;
+                    int total = (this.m_Caster.Skills.Magia.Fixed + this.m_Caster.Skills.Zatruwanie.Fixed) / 2;
 
                     if (total >= 1000)
                         p = Poison.Deadly;

@@ -117,9 +117,9 @@ public override void OnBeforeSpawn( Point3D location, Map m )
            // 15% chance of 2 sockets
            // 50% chance of 1 socket
            // the remainder will be 0 socket (31.4% in this case)
-    // Adding new sockets will require a minimum of 100 Veterinary skill and 30 emeralds
+    // Adding new sockets will require a minimum of 100 Weterynaria skill and 30 emeralds
            if(Tamable)
-               XmlSockets.ConfigureRandom(this, 2.0, 0.1, 0.5, 3.0, 15.0, 50.0, SkillName.Veterinary, 100.0, typeof(Emerald), 30);
+               XmlSockets.ConfigureRandom(this, 2.0, 0.1, 0.5, 3.0, 15.0, 50.0, SkillName.Weterynaria, 100.0, typeof(Emerald), 30);
 // Xml Spawner 3.26c XmlSockets - SOF
 
  base.OnBeforeSpawn( location, m );

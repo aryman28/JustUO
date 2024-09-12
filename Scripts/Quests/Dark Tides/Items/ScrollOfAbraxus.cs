@@ -1,3 +1,4 @@
+using System;
 using Server.Gumps;
 using Server.Mobiles;
 
@@ -9,7 +10,7 @@ namespace Server.Engines.Quests.Necro
         public ScrollOfAbraxus()
             : base(0x227B)
         {
-            Weight = 1.0;
+            this.Weight = 1.0;
         }
 
         public ScrollOfAbraxus(Serial serial)
@@ -19,12 +20,14 @@ namespace Server.Engines.Quests.Necro
 
         public override int LabelNumber
         {
-            get { return 1028827; }
-        } // Scroll of Abraxus
-
+            get
+            {
+                return 1028827;
+            }
+        }// Scroll of Abraxus
         public override bool CanDrop(PlayerMobile player)
         {
-            var qs = player.Quest as DarkTidesQuest;
+            DarkTidesQuest qs = player.Quest as DarkTidesQuest;
 
             if (qs == null)
                 return true;
@@ -33,19 +36,19 @@ namespace Server.Engines.Quests.Necro
             return false;
         }
 
-        public override void OnAdded(IEntity parent)
+        public override void OnAdded(object parent)
         {
             base.OnAdded(parent);
 
-            var pm = RootParent as PlayerMobile;
+            PlayerMobile pm = this.RootParent as PlayerMobile;
 
             if (pm != null)
             {
-                var qs = pm.Quest;
+                QuestSystem qs = pm.Quest;
 
                 if (qs is DarkTidesQuest)
                 {
-                    var obj = qs.FindObjective(typeof (RetrieveAbraxusScrollObjective));
+                    QuestObjective obj = qs.FindObjective(typeof(RetrieveAbraxusScrollObjective));
 
                     if (obj != null && !obj.Completed)
                         obj.Complete();
@@ -55,19 +58,19 @@ namespace Server.Engines.Quests.Necro
 
         public override void OnDoubleClick(Mobile from)
         {
-            if (IsChildOf(from.Backpack))
+            if (this.IsChildOf(from.Backpack))
             {
                 from.SendGump(new ScrollOfAbraxusGump());
 
-                var pm = from as PlayerMobile;
+                PlayerMobile pm = from as PlayerMobile;
 
                 if (pm != null)
                 {
-                    var qs = pm.Quest;
+                    QuestSystem qs = pm.Quest;
 
                     if (qs is DarkTidesQuest)
                     {
-                        var obj = qs.FindObjective(typeof (ReadAbraxusScrollObjective));
+                        QuestObjective obj = qs.FindObjective(typeof(ReadAbraxusScrollObjective));
 
                         if (obj != null && !obj.Completed)
                             obj.Complete();
@@ -84,14 +87,14 @@ namespace Server.Engines.Quests.Necro
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 
@@ -100,10 +103,10 @@ namespace Server.Engines.Quests.Necro
         public ScrollOfAbraxusGump()
             : base(150, 50)
         {
-            AddPage(0);
+            this.AddPage(0);
 
-            AddImage(0, 0, 1228);
-            AddImage(340, 255, 9005);
+            this.AddImage(0, 0, 1228);
+            this.AddImage(340, 255, 9005);
 
             /* Security at the Crystal Cave<BR><BR>
             * 
@@ -141,7 +144,7 @@ namespace Server.Engines.Quests.Necro
             * 
             * <I>- Frater Melkeer</I>
             */
-            AddHtmlLocalized(25, 36, 350, 210, 1060116, 1, false, true);
+            this.AddHtmlLocalized(25, 36, 350, 210, 1060116, 1, false, true);
         }
     }
 }

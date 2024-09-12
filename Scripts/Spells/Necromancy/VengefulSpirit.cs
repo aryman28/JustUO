@@ -2,7 +2,7 @@ using System;
 using Server.Mobiles;
 using Server.Targeting;
 
-namespace Server.Spells.Necromancy
+namespace Server.Spells.Nekromancja
 {
     public class VengefulSpiritSpell : NecromancerSpell
     {
@@ -70,7 +70,7 @@ namespace Server.Spells.Necromancy
 
                 /* Summons a Revenant which haunts the target until either the target or the Revenant is dead.
                 * Revenants have the ability to track down their targets wherever they may travel.
-                * A Revenant's strength is determined by the Necromancy and Spirit Speak skills of the Caster.
+                * A Revenant's strength is determined by the Nekromancja and Spirit Speak skills of the Caster.
                 * The effect lasts for ((Spirit Speak skill level * 80) / 120) + 10 seconds.
                 */
 

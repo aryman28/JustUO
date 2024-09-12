@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Items
 {
     public class GamanHorns : Item
@@ -12,11 +14,11 @@ namespace Server.Items
         public GamanHorns(int amount)
             : base(0x1084)
         {
-            LootType = LootType.Blessed;
-            Stackable = true;
-            Amount = amount;
-            Weight = 1;
-            Hue = 0x395;
+            this.LootType = LootType.Blessed;
+            this.Stackable = true;
+            this.Amount = amount;
+            this.Weight = 1;
+            this.Hue = 0x395;
         }
 
         public GamanHorns(Serial serial)
@@ -26,21 +28,23 @@ namespace Server.Items
 
         public override int LabelNumber
         {
-            get { return 1074557; }
-        } // Gaman Horns
-
+            get
+            {
+                return 1074557;
+            }
+        }// Gaman Horns
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

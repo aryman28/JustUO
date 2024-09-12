@@ -1,10 +1,10 @@
 #region References
 using System;
-
+using Server.Mobiles;
 using Server.Network;
 #endregion
 
-namespace Server.Spells.Chivalry
+namespace Server.Spells.Rycerstwo
 {
 	public abstract class PaladinSpell : Spell
 	{
@@ -16,8 +16,8 @@ namespace Server.Spells.Chivalry
 		public abstract int RequiredMana { get; }
 		public abstract int RequiredTithing { get; }
 		public abstract int MantraNumber { get; }
-		public override SkillName CastSkill { get { return SkillName.Chivalry; } }
-		public override SkillName DamageSkill { get { return SkillName.Chivalry; } }
+		public override SkillName CastSkill { get { return SkillName.Rycerstwo; } }
+		public override SkillName DamageSkill { get { return SkillName.Rycerstwo; } }
 		public override bool ClearHandsOnCast { get { return false; } }
 		//public override int CastDelayBase{ get{ return 1; } }
 		public override int CastRecoveryBase { get { return 7; } }
@@ -29,7 +29,7 @@ namespace Server.Spells.Chivalry
 				return 0;
 			}
 
-			int v = (int)Math.Sqrt(from.Karma + 20000 + (from.Skills.Chivalry.Fixed * 10));
+			int v = (int)Math.Sqrt(from.Karma + 20000 + (from.Skills.Rycerstwo.Fixed * 10));
 
 			return v / div;
 		}
@@ -37,6 +37,17 @@ namespace Server.Spells.Chivalry
 		public override bool CheckCast()
 		{
 			int mana = ScaleMana(RequiredMana);
+
+			// Sprawdzenie klasy postaci
+			if (this.Caster is PlayerMobile && 
+        		((PlayerMobile)this.Caster).Klasa != Klasa.Giermek && 
+        		((PlayerMobile)this.Caster).Klasa != Klasa.Rycerz && 
+        		((PlayerMobile)this.Caster).Klasa != Klasa.Paladyn && 
+        		((PlayerMobile)this.Caster).Klasa != Klasa.Mœciciel)
+    		{
+        		this.Caster.SendMessage("Tylko Giermkowie, Rycerze, Paladyni i Mœciciele mog¹ u¿ywaæ tych zdolnoœci."); 
+        		return false;
+    		}
 
 			if (!base.CheckCast())
 			{

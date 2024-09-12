@@ -8,13 +8,13 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Furtrader()
-            : base("the furtrader")
+            : base("- Sprzedawca Skór")
         {
-            this.SetSkill(SkillName.Camping, 55.0, 78.0);
-            //SetSkill( SkillName.Alchemy, 60.0, 83.0 );
-            this.SetSkill(SkillName.AnimalLore, 85.0, 100.0);
-            this.SetSkill(SkillName.Cooking, 45.0, 68.0);
-            this.SetSkill(SkillName.Tracking, 36.0, 68.0);
+            this.SetSkill(SkillName.Obozowanie, 55.0, 78.0);
+            //SetSkill( SkillName.Alchemia, 60.0, 83.0 );
+            this.SetSkill(SkillName.WiedzaOBestiach, 85.0, 100.0);
+            this.SetSkill(SkillName.Gotowanie, 45.0, 68.0);
+            this.SetSkill(SkillName.Tropienie, 36.0, 68.0);
         }
 
         public Furtrader(Serial serial)

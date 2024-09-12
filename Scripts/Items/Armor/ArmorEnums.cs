@@ -4,9 +4,45 @@ namespace Server.Items
 {
     public enum ArmorQuality
     {
-        Low,
-        Regular,
-        Exceptional
+        None,
+        S³ab,
+        Przeciêtn,
+        Zwyk³,
+        Dobr,
+        Doskona³,
+        Wspania³,
+        Wyj¹tkow,
+        Niezwyk³,
+        Cudown,
+        Mistyczn,
+        Legendarn
+    }
+
+    public enum ArmorCechy
+    {
+        None,
+//tarcze
+        Obronn,
+        Waleczn,
+//ogolne (zbroja i tarcza)
+        Wytrzyma³,
+        Odbijaj¹c,
+//zbroje
+        Witaln,
+        M¹dr,
+        Stabiln,
+        Ochronn,
+        Szczêœliw,
+        Oszczêdn,
+//bizuteria
+        Niewidzialn,
+        Jasn,
+        Ciemn,
+        Mocn,
+        Zrêczn,
+        Inteligentn,
+        Umiejêtn,
+        Mia¿dz¹c
     }
 
     public enum ArmorDurabilityLevel

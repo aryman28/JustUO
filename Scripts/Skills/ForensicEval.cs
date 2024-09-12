@@ -10,7 +10,7 @@ namespace Server.SkillHandlers
     {
         public static void Initialize()
         {
-            SkillInfo.Table[(int)SkillName.Forensics].Callback = new SkillUseCallback(OnUse);
+            SkillInfo.Table[(int)SkillName.Kryminalistyka].Callback = new SkillUseCallback(OnUse);
         }
 
         public static TimeSpan OnUse(Mobile m)
@@ -34,7 +34,7 @@ namespace Server.SkillHandlers
             {
                 if (target is Mobile)
                 {
-                    if (from.CheckTargetSkill(SkillName.Forensics, target, 40.0, 100.0))
+                    if (from.CheckTargetSkill(SkillName.Kryminalistyka, target, 40.0, 100.0))
                     {
                         if (target is PlayerMobile && ((PlayerMobile)target).NpcGuild == NpcGuild.ThievesGuild)
                             from.SendLocalizedMessage(501004);//That individual is a thief!
@@ -48,7 +48,7 @@ namespace Server.SkillHandlers
                 }
                 else if (target is Corpse)
                 {
-                    if (from.CheckTargetSkill(SkillName.Forensics, target, 0.0, 100.0))
+                    if (from.CheckTargetSkill(SkillName.Kryminalistyka, target, 0.0, 100.0))
                     {
                         Corpse c = (Corpse)target;
 

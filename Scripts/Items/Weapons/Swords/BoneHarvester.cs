@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x26BB)
         {
             this.Weight = 3.0;
+            this.Name = "Sierp bojowy";
         }
 
         public BoneHarvester(Serial serial)

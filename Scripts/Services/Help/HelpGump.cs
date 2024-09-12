@@ -139,7 +139,7 @@ namespace Server.Engines.Help
             * <BR>
             * PHYSICAL HARASSMENT<BR>
             * Use this option when another player is harassing your character using game mechanics.
-            * Physical harassment includes but is not limited to luring, Kill Stealing, and any act that causes a players death in Trammel.
+            * Physical harassment includes but is not limited to luring, Kill Okradanie, and any act that causes a players death in Trammel.
             * Before you submit a complaint be sure you understand what constitutes harassment
             * <A HREF="http://uo.custhelp.com/cgi-bin/uo.cfg/php/enduser/std_adp.php?p_faqid=59"> – what is physical harassment?</A>
             * and that you have followed these steps:<BR>

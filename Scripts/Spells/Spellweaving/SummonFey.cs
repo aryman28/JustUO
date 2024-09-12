@@ -1,7 +1,7 @@
 using System;
 using Server.Mobiles;
 
-namespace Server.Spells.Spellweaving
+namespace Server.Spells.Druidyzm
 {
     public class SummonFeySpell : ArcaneSummon<ArcaneFey>
     {

@@ -238,11 +238,11 @@ namespace Server.Items
 		{
 			if (!m.Player && (m.Body.IsMonster || m.Body.IsAnimal))
 			{
-				return SkillName.Veterinary;
+				return SkillName.Weterynaria;
 			}
 			else
 			{
-				return SkillName.Healing;
+				return SkillName.Leczenie;
 			}
 		}
 
@@ -250,11 +250,11 @@ namespace Server.Items
 		{
 			if (!m.Player && (m.Body.IsMonster || m.Body.IsAnimal))
 			{
-				return SkillName.AnimalLore;
+				return SkillName.WiedzaOBestiach;
 			}
 			else
 			{
-				return SkillName.Anatomy;
+				return SkillName.Anatomia;
 			}
 		}
 
@@ -573,7 +573,7 @@ namespace Server.Items
 				}
 				else
 				{
-					if (Core.AOS && GetPrimarySkill(patient) == SkillName.Veterinary)
+					if (Core.AOS && GetPrimarySkill(patient) == SkillName.Weterynaria)
 					{
 						seconds = 2.0;
 					}

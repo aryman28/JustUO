@@ -40,10 +40,28 @@ namespace Server.Mobiles
             {
                 BaseArmor armor = (BaseArmor)item;
 
-                if (armor.Quality == ArmorQuality.Low)
-                    price = (int)(price * 0.60);
-                else if (armor.Quality == ArmorQuality.Exceptional)
+                if (armor.Quality == ArmorQuality.S³ab)
+                    price = (int)(price * 0.50);
+                else if (armor.Quality == ArmorQuality.Przeciêtn)
+                    price = (int)(price * 0.75);
+                else if (armor.Quality == ArmorQuality.Zwyk³)
+                    price = (int)(price * 1.00);
+                else if (armor.Quality == ArmorQuality.Dobr)
                     price = (int)(price * 1.25);
+                else if (armor.Quality == ArmorQuality.Doskona³)
+                    price = (int)(price * 1.50);
+                else if (armor.Quality == ArmorQuality.Wspania³)
+                    price = (int)(price * 1.75);
+                else if (armor.Quality == ArmorQuality.Wyj¹tkow)
+                    price = (int)(price * 2.00);
+                else if (armor.Quality == ArmorQuality.Niezwyk³)
+                    price = (int)(price * 2.25);
+                else if (armor.Quality == ArmorQuality.Cudown)
+                    price = (int)(price * 2.50);
+                else if (armor.Quality == ArmorQuality.Mistyczn)
+                    price = (int)(price * 2.75);
+                else if (armor.Quality == ArmorQuality.Legendarn)
+                    price = (int)(price * 3.00);
 
                 price += 100 * (int)armor.Durability;
 
@@ -56,10 +74,28 @@ namespace Server.Mobiles
             {
                 BaseWeapon weapon = (BaseWeapon)item;
 
-                if (weapon.Quality == WeaponQuality.Low)
-                    price = (int)(price * 0.60);
-                else if (weapon.Quality == WeaponQuality.Exceptional)
+                if (weapon.Quality == WeaponQuality.S³ab)
+                    price = (int)(price * 0.50);
+                else if (weapon.Quality == WeaponQuality.Przeciêtn)
+                    price = (int)(price * 0.75);
+                else if (weapon.Quality == WeaponQuality.Zwyk³)
+                    price = (int)(price * 1.00);
+                else if (weapon.Quality == WeaponQuality.Dobr)
                     price = (int)(price * 1.25);
+                else if (weapon.Quality == WeaponQuality.Doskona³)
+                    price = (int)(price * 1.50);
+                else if (weapon.Quality == WeaponQuality.Wspania³)
+                    price = (int)(price * 1.75);
+                else if (weapon.Quality == WeaponQuality.Wyj¹tkow)
+                    price = (int)(price * 2.00);
+                else if (weapon.Quality == WeaponQuality.Niezwyk³)
+                    price = (int)(price * 2.25);
+                else if (weapon.Quality == WeaponQuality.Cudown)
+                    price = (int)(price * 2.50);
+                else if (weapon.Quality == WeaponQuality.Mistyczn)
+                    price = (int)(price * 2.75);
+                else if (weapon.Quality == WeaponQuality.Legendarn)
+                    price = (int)(price * 3.00);
 
                 price += 100 * (int)weapon.DurabilityLevel;
 

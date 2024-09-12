@@ -22,8 +22,6 @@ namespace Server.Network
 {
 	public class PacketReader
 	{
-		public static bool LogBadPackets = true;
-
 		private readonly byte[] m_Data;
 		private readonly int m_Size;
 		private int m_Index;
@@ -43,11 +41,6 @@ namespace Server.Network
 		{
 			try
 			{
-				if (!LogBadPackets)
-				{
-					return;
-				}
-
 				using (var sw = new StreamWriter("Packets.log", true))
 				{
 					byte[] buffer = m_Data;

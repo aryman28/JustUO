@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x13FF)
         {
             this.Weight = 6.0;
+            this.Name = "Katana";
         }
 
         public Katana(Serial serial)

@@ -6,7 +6,7 @@ using Server.Spells;
 using Server.Spells.Fifth;
 using Server.Spells.First;
 using Server.Spells.Fourth;
-using Server.Spells.Necromancy;
+using Server.Spells.Nekromancja;
 using Server.Spells.Second;
 using Server.Spells.Seventh;
 using Server.Spells.Sixth;
@@ -88,12 +88,12 @@ namespace Server.Mobiles
 
         public virtual double ScaleByNecromancy(double v)
         {
-            return this.m_Mobile.Skills[SkillName.Necromancy].Value * v * 0.1;
+            return this.m_Mobile.Skills[SkillName.Nekromancja].Value * v * 0.1;
         }
 
         public virtual double ScaleByMagery(double v)
         {
-            return this.m_Mobile.Skills[SkillName.Magery].Value * v * 0.01;
+            return this.m_Mobile.Skills[SkillName.Magia].Value * v * 0.01;
         }
 
         public override bool DoActionWander()
@@ -111,7 +111,7 @@ namespace Server.Mobiles
             {
                 this.m_Mobile.DebugSay("I am going to meditate");
 
-                this.m_Mobile.UseSkill(SkillName.Meditation);
+                this.m_Mobile.UseSkill(SkillName.Medytacja);
             }
             else
             {
@@ -128,7 +128,7 @@ namespace Server.Mobiles
                 else if (!this.m_Mobile.Summoned)
                 {
                     if (this.m_Mobile.Hits < this.m_Mobile.HitsMax)
-                        this.m_Mobile.UseSkill(SkillName.SpiritSpeak);
+                        this.m_Mobile.UseSkill(SkillName.MowaDuchow);
                 }
             }
 
@@ -201,8 +201,8 @@ namespace Server.Mobiles
 
         public virtual Spell GetRandomDamageSpell()
         {
-            int necro = (int)Math.Min(5, (this.m_Mobile.Skills[SkillName.Necromancy].Value - 50) / 10);
-            int mage = (int)Math.Min(7, this.m_Mobile.Skills[SkillName.Magery].Value / 10);
+            int necro = (int)Math.Min(5, (this.m_Mobile.Skills[SkillName.Nekromancja].Value - 50) / 10);
+            int mage = (int)Math.Min(7, this.m_Mobile.Skills[SkillName.Magia].Value / 10);
 
             if (necro >= 0 && Utility.Random(4) < 3)
             {
@@ -244,8 +244,8 @@ namespace Server.Mobiles
 
         public virtual Spell GetRandomCurseSpell()
         {
-            int necro = (int)Math.Min(5, (this.m_Mobile.Skills[SkillName.Necromancy].Value - 20) / 10);
-            int mage = (int)Math.Min(5, this.m_Mobile.Skills[SkillName.Magery].Value / 10);
+            int necro = (int)Math.Min(5, (this.m_Mobile.Skills[SkillName.Nekromancja].Value - 20) / 10);
+            int mage = (int)Math.Min(5, this.m_Mobile.Skills[SkillName.Magia].Value / 10);
 
             if (necro >= 0 && Utility.Random(3) < 2)
             {
@@ -283,7 +283,7 @@ namespace Server.Mobiles
         {
             if (Utility.RandomBool())
             {
-                if (this.m_Mobile.Skills[SkillName.Magery].Value >= 80.0)
+                if (this.m_Mobile.Skills[SkillName.Magia].Value >= 80.0)
                     return new ManaVampireSpell(this.m_Mobile, null);
             }
 
@@ -305,7 +305,7 @@ namespace Server.Mobiles
             if (spell != null)
                 return spell;
 				
-            double damage = ((this.m_Mobile.Skills[SkillName.SpiritSpeak].Value - c.Skills[SkillName.MagicResist].Value) / 10) + (c.Player ? 18 : 30);
+            double damage = ((this.m_Mobile.Skills[SkillName.MowaDuchow].Value - c.Skills[SkillName.ObronaPrzedMagia].Value) / 10) + (c.Player ? 18 : 30);
 			
             if (damage > c.Hits)
                 return new PainSpikeSpell(this.m_Mobile, null);
@@ -343,7 +343,7 @@ namespace Server.Mobiles
                     {
                         this.m_Mobile.DebugSay("Attempting to paralyze");
 
-                        if (this.m_Mobile.Skills[SkillName.Magery].Value > 50.0)
+                        if (this.m_Mobile.Skills[SkillName.Magia].Value > 50.0)
                             spell = new ParalyzeSpell(this.m_Mobile, null);
 
                         break;
@@ -360,7 +360,7 @@ namespace Server.Mobiles
                     {
                         this.m_Mobile.DebugSay("Attempting to blood oath");
 										
-                        if (this.m_Mobile.Skills[SkillName.Necromancy].Value > 30 && BloodOathSpell.GetBloodOath(c) != this.m_Mobile)
+                        if (this.m_Mobile.Skills[SkillName.Nekromancja].Value > 30 && BloodOathSpell.GetBloodOath(c) != this.m_Mobile)
                             spell = new BloodOathSpell(this.m_Mobile, null);
 						
                         break;
@@ -370,7 +370,7 @@ namespace Server.Mobiles
                     {
                         this.m_Mobile.DebugSay("Attempting to animate dead");
 
-                        if ((this.m_Animated == null || !this.m_Animated.Alive) && this.m_Mobile.Skills[SkillName.Necromancy].Value > 40)
+                        if ((this.m_Animated == null || !this.m_Animated.Alive) && this.m_Mobile.Skills[SkillName.Nekromancja].Value > 40)
                             spell = new AnimateDeadSpell(this.m_Mobile, null);
 
                         break;
@@ -380,7 +380,7 @@ namespace Server.Mobiles
                     {
                         this.m_Mobile.DebugSay("Attempting to cast vengeful spirit");
 
-                        if (this.m_Mobile.Skills[SkillName.Necromancy].Value > 80 && (this.m_Mobile.Followers + 3) < this.m_Mobile.FollowersMax)
+                        if (this.m_Mobile.Skills[SkillName.Nekromancja].Value > 80 && (this.m_Mobile.Followers + 3) < this.m_Mobile.FollowersMax)
                             spell = new VengefulSpiritSpell(this.m_Mobile, null);
 
                         break;
@@ -500,7 +500,7 @@ namespace Server.Mobiles
                 }
             }
 
-            if (!this.m_Mobile.StunReady && this.m_Mobile.Skills[SkillName.Wrestling].Value >= 80.0 && this.m_Mobile.Skills[SkillName.Anatomy].Value >= 80.0)
+            if (!this.m_Mobile.StunReady && this.m_Mobile.Skills[SkillName.Boks].Value >= 80.0 && this.m_Mobile.Skills[SkillName.Anatomia].Value >= 80.0)
                 EventSink.InvokeStunRequest(new StunRequestEventArgs(this.m_Mobile));
 
             if (!this.m_Mobile.InRange(c, this.m_Mobile.RangePerception))
@@ -644,7 +644,7 @@ namespace Server.Mobiles
                     if (this.ScaleByNecromancy(HealChance) > Utility.RandomDouble())
                     {
                         if (this.m_Mobile.Hits < (this.m_Mobile.HitsMax - 30))
-                            this.m_Mobile.UseSkill(SkillName.SpiritSpeak);
+                            this.m_Mobile.UseSkill(SkillName.MowaDuchow);
                     }
                     else if (this.ScaleByMagery(HealChance) > Utility.RandomDouble())
                     {
@@ -866,7 +866,7 @@ namespace Server.Mobiles
                 return null;
 
             if (this.m_Mobile.Hits < this.m_Mobile.HitsMax)
-                this.m_Mobile.UseSkill(SkillName.SpiritSpeak);
+                this.m_Mobile.UseSkill(SkillName.MowaDuchow);
 			
             double delay;
 

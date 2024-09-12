@@ -6,26 +6,26 @@ namespace Server.Engines.Quests.Ambitious
 {
     public class AmbitiousQueenQuest : QuestSystem
     {
-        private static readonly Type[] m_TypeReferenceTable =
+        private static readonly Type[] m_TypeReferenceTable = new Type[]
         {
-            typeof (DontOfferConversation),
-            typeof (AcceptConversation),
-            typeof (DuringKillQueensConversation),
-            typeof (GatherFungiConversation),
-            typeof (DuringFungiGatheringConversation),
-            typeof (EndConversation),
-            typeof (FullBackpackConversation),
-            typeof (End2Conversation),
-            typeof (KillQueensObjective),
-            typeof (ReturnAfterKillsObjective),
-            typeof (GatherFungiObjective),
-            typeof (GetRewardObjective)
+            typeof(Ambitious.DontOfferConversation),
+            typeof(Ambitious.AcceptConversation),
+            typeof(Ambitious.DuringKillQueensConversation),
+            typeof(Ambitious.GatherFungiConversation),
+            typeof(Ambitious.DuringFungiGatheringConversation),
+            typeof(Ambitious.EndConversation),
+            typeof(Ambitious.FullBackpackConversation),
+            typeof(Ambitious.End2Conversation),
+            typeof(Ambitious.KillQueensObjective),
+            typeof(Ambitious.ReturnAfterKillsObjective),
+            typeof(Ambitious.GatherFungiObjective),
+            typeof(Ambitious.GetRewardObjective)
         };
-
+        private bool m_RedSolen;
         public AmbitiousQueenQuest(PlayerMobile from, bool redSolen)
             : base(from)
         {
-            RedSolen = redSolen;
+            this.m_RedSolen = redSolen;
         }
 
         // Serialization
@@ -35,9 +35,11 @@ namespace Server.Engines.Quests.Ambitious
 
         public override Type[] TypeReferenceTable
         {
-            get { return m_TypeReferenceTable; }
+            get
+            {
+                return m_TypeReferenceTable;
+            }
         }
-
         public override object Name
         {
             get
@@ -46,7 +48,6 @@ namespace Server.Engines.Quests.Ambitious
                 return 1054146;
             }
         }
-
         public override object OfferMessage
         {
             get
@@ -78,26 +79,35 @@ namespace Server.Engines.Quests.Ambitious
                 return 1054060;
             }
         }
-
         public override TimeSpan RestartDelay
         {
-            get { return TimeSpan.Zero; }
+            get
+            {
+                return TimeSpan.Zero;
+            }
         }
-
         public override bool IsTutorial
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override int Picture
         {
-            get { return 0x15C9; }
+            get
+            {
+                return 0x15C9;
+            }
         }
-
-        public bool RedSolen { get; private set; }
-
-        public static void GiveRewardTo(PlayerMobile player, ref bool bagOfSending, ref bool powderOfTranslocation,
-            ref bool gold)
+        public bool RedSolen
+        {
+            get
+            {
+                return this.m_RedSolen;
+            }
+        }
+        public static void GiveRewardTo(PlayerMobile player, ref bool bagOfSending, ref bool powderOfTranslocation, ref bool gold)
         {
             if (bagOfSending)
             {
@@ -147,23 +157,23 @@ namespace Server.Engines.Quests.Ambitious
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            RedSolen = reader.ReadBool();
+            this.m_RedSolen = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(RedSolen);
+            writer.Write((bool)this.m_RedSolen);
         }
 
         public override void Accept()
         {
             base.Accept();
 
-            AddConversation(new AcceptConversation());
+            this.AddConversation(new AcceptConversation());
         }
     }
 }

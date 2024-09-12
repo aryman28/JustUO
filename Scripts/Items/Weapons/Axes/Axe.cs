@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0xF49)
         {
             this.Weight = 4.0;
+            this.Name = "Topór";
         }
 
         public Axe(Serial serial)

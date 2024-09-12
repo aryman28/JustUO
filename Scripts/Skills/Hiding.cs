@@ -4,7 +4,7 @@ using Server.Network;
 
 namespace Server.SkillHandlers
 {
-    public class Hiding
+    public class Ukrywanie
     {
         private static bool m_CombatOverride;
         public static bool CombatOverride
@@ -62,11 +62,11 @@ namespace Server.SkillHandlers
                     bonus = 50.0;
             }
 
-			//int range = Core.GlobalUpdateRange - (int)(m.Skills[SkillName.Hiding].Value / 10);
-            int range = Math.Min((int)((100 - m.Skills[SkillName.Hiding].Value) / 2) + 8, Core.GlobalUpdateRange);	//Range cap not OSI-exact, intentional difference
+            //int range = 18 - (int)(m.Skills[SkillName.Ukrywanie].Value / 10);
+            int range = Math.Min((int)((100 - m.Skills[SkillName.Ukrywanie].Value) / 2) + 8, 18);	//Cap of 18 not OSI-exact, intentional difference
 
             bool badCombat = (!m_CombatOverride && m.Combatant != null && m.InRange(m.Combatant.Location, range) && m.Combatant.InLOS(m));
-            bool ok = (!badCombat /*&& m.CheckSkill( SkillName.Hiding, 0.0 - bonus, 100.0 - bonus )*/);
+            bool ok = (!badCombat /*&& m.CheckSkill( SkillName.Ukrywanie, 0.0 - bonus, 100.0 - bonus )*/);
 
             if (ok)
             {
@@ -83,7 +83,7 @@ namespace Server.SkillHandlers
                     }
                 }
 
-                ok = (!badCombat && m.CheckSkill(SkillName.Hiding, 0.0 - bonus, 100.0 - bonus));
+                ok = (!badCombat && m.CheckSkill(SkillName.Ukrywanie, 0.0 - bonus, 100.0 - bonus));
             }
 
             if (badCombat)

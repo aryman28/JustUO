@@ -1,5 +1,4 @@
 // Created by Peoharen
-
 using System;
 using System.Collections.Generic;
 
@@ -7,27 +6,24 @@ namespace Server
 {
     public class EnhancementAttributes
     {
-        public SAAbsorptionAttributes AbsorptionAttributes;
-        public AosArmorAttributes ArmorAttributes;
-        public AosAttributes Attributes;
         public string Title;
+        public AosAttributes Attributes;
         public AosWeaponAttributes WeaponAttributes;
-
+        public AosArmorAttributes ArmorAttributes;
+        public SAAbsorptionAttributes AbsorptionAttributes;
         public EnhancementAttributes(string title)
         {
-            Title = title;
-            Attributes = new AosAttributes(null);
-            WeaponAttributes = new AosWeaponAttributes(null);
-            ArmorAttributes = new AosArmorAttributes(null);
-            AbsorptionAttributes = new SAAbsorptionAttributes(null);
+            this.Title = title;
+            this.Attributes = new AosAttributes(null);
+            this.WeaponAttributes = new AosWeaponAttributes(null);
+            this.ArmorAttributes = new AosArmorAttributes(null);
+            this.AbsorptionAttributes = new SAAbsorptionAttributes(null);
         }
     }
 
     public class Enhancement
     {
-        public static Dictionary<Mobile, EnhancementAttributes> EnhancementList =
-            new Dictionary<Mobile, EnhancementAttributes>();
-
+        public static Dictionary<Mobile, EnhancementAttributes> EnhancementList = new Dictionary<Mobile, EnhancementAttributes>();
         public static bool AddMobile(Mobile m, string title)
         {
             if (!EnhancementList.ContainsKey(m))
@@ -54,7 +50,8 @@ namespace Server
         {
             if (EnhancementList.ContainsKey(m))
                 return EnhancementList[m].Attributes[att];
-            return 0;
+            else
+                return 0;
         }
 
         public static void SetValue(Mobile m, AosAttribute att, int value, string title)
@@ -88,7 +85,8 @@ namespace Server
         {
             if (EnhancementList.ContainsKey(m))
                 return EnhancementList[m].WeaponAttributes[att];
-            return 0;
+            else
+                return 0;
         }
 
         public static void SetValue(Mobile m, AosWeaponAttribute att, int value, string title)
@@ -106,7 +104,8 @@ namespace Server
         {
             if (EnhancementList.ContainsKey(m))
                 return EnhancementList[m].ArmorAttributes[att];
-            return 0;
+            else
+                return 0;
         }
 
         public static void SetValue(Mobile m, AosArmorAttribute att, int value, string title)
@@ -124,7 +123,8 @@ namespace Server
         {
             if (EnhancementList.ContainsKey(m))
                 return EnhancementList[m].AbsorptionAttributes[att];
-            return 0;
+            else
+                return 0;
         }
 
         public static void SetValue(Mobile m, SAAbsorptionAttribute att, int value, string title)
@@ -139,7 +139,6 @@ namespace Server
         }
     }
 }
-
 /*
 AOS.cs
 MagicalEnhancements.GetValue( m, attribute );

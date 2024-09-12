@@ -4,7 +4,7 @@ using Server.Gumps;
 using Server.Mobiles;
 using Server.Network;
 
-namespace Server.Spells.Necromancy
+namespace Server.Spells.Nekromancja
 {
     public class SummonFamiliarSpell : NecromancerSpell
     {
@@ -177,8 +177,8 @@ namespace Server.Spells.Necromancy
 
             this.AddHtmlLocalized(30, 26, 200, 20, 1060147, EnabledColor16, false, false); // Chose thy familiar...
 
-            double necro = from.Skills[SkillName.Necromancy].Value;
-            double spirit = from.Skills[SkillName.SpiritSpeak].Value;
+            double necro = from.Skills[SkillName.Nekromancja].Value;
+            double spirit = from.Skills[SkillName.MowaDuchow].Value;
 
             for (int i = 0; i < entries.Length; ++i)
             {
@@ -205,8 +205,8 @@ namespace Server.Spells.Necromancy
             {
                 SummonFamiliarEntry entry = this.m_Entries[index];
 
-                double necro = this.m_From.Skills[SkillName.Necromancy].Value;
-                double spirit = this.m_From.Skills[SkillName.SpiritSpeak].Value;
+                double necro = this.m_From.Skills[SkillName.Nekromancja].Value;
+                double spirit = this.m_From.Skills[SkillName.MowaDuchow].Value;
 
                 BaseCreature check = (BaseCreature)SummonFamiliarSpell.Table[this.m_From];
 
@@ -221,7 +221,7 @@ namespace Server.Spells.Necromancy
                 }
                 else if (necro < entry.ReqNecromancy || spirit < entry.ReqSpiritSpeak)
                 {
-                    // That familiar requires ~1_NECROMANCY~ Necromancy and ~2_SPIRIT~ Spirit Speak.
+                    // That familiar requires ~1_NECROMANCY~ Nekromancja and ~2_SPIRIT~ Spirit Speak.
                     this.m_From.SendLocalizedMessage(1061606, String.Format("{0:F1}\t{1:F1}", entry.ReqNecromancy, entry.ReqSpiritSpeak));
 
                     this.m_From.CloseGump(typeof(SummonFamiliarGump));
@@ -240,7 +240,7 @@ namespace Server.Spells.Necromancy
                     {
                         BaseCreature bc = (BaseCreature)Activator.CreateInstance(entry.Type);
 
-                        bc.Skills.MagicResist = this.m_From.Skills.MagicResist;
+                        bc.Skills.ObronaPrzedMagia = this.m_From.Skills.ObronaPrzedMagia;
 
                         if (BaseCreature.Summon(bc, this.m_From, this.m_From.Location, -1, TimeSpan.FromDays(1.0)))
                         {

@@ -1,3 +1,4 @@
+using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Necro
@@ -8,8 +9,8 @@ namespace Server.Engines.Quests.Necro
         public VaultOfSecretsBarrier()
             : base(0x49E)
         {
-            Movable = false;
-            Visible = false;
+            this.Movable = false;
+            this.Visible = false;
         }
 
         public VaultOfSecretsBarrier(Serial serial)
@@ -22,7 +23,7 @@ namespace Server.Engines.Quests.Necro
             if (m.IsStaff())
                 return true;
 
-            var pm = m as PlayerMobile;
+            PlayerMobile pm = m as PlayerMobile;
 
             if (pm != null && pm.Profession == 4)
             {
@@ -37,14 +38,14 @@ namespace Server.Engines.Quests.Necro
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

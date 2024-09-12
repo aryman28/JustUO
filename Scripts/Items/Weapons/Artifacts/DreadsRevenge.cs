@@ -33,7 +33,7 @@ namespace Server.Items
         {
             this.Hue = 0x3A;
 			
-            this.SkillBonuses.SetValues(0, SkillName.Fencing, 20.0);
+            this.SkillBonuses.SetValues(0, SkillName.WalkaSzpadami, 20.0);
 			
             this.WeaponAttributes.HitPoisonArea = 30;
             this.Attributes.AttackChance = 15;

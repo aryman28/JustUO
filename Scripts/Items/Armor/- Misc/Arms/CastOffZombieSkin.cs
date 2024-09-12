@@ -12,8 +12,8 @@ namespace Server.Items
             this.Hue = 1893;	
 			this.Weight = 4;
 		
-            this.SkillBonuses.SetValues(0, SkillName.Necromancy, 5.0);	
-            this.SkillBonuses.SetValues(1, SkillName.SpiritSpeak, 5.0);	
+            this.SkillBonuses.SetValues(0, SkillName.Nekromancja, 5.0);	
+            this.SkillBonuses.SetValues(1, SkillName.MowaDuchow, 5.0);	
             this.Attributes.LowerManaCost = 5;
             this.Attributes.LowerRegCost = 8;
             this.Attributes.IncreasedKarmaLoss = 5;
@@ -86,6 +86,16 @@ namespace Server.Items
             get
             {
                 return true;
+            }
+        }
+        public override void OnAdded(object parent)
+        {
+            if (parent is Mobile)
+            {
+                if (((Mobile)parent).Female)
+                    this.ItemID = 0x0301;
+                else
+                    this.ItemID = 0x0302;
             }
         }
 

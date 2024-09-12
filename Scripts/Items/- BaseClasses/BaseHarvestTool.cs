@@ -151,7 +151,7 @@ namespace Server.Items
 
         public static void AddContextMenuEntries(Mobile from, Item item, List<ContextMenuEntry> list, HarvestSystem system)
         {
-            if (system != Mining.System)
+            if (system != Gornictwo.System)
                 return;
 
             if (!item.IsChildOf(from.Backpack) && item.Parent != from)
@@ -193,8 +193,8 @@ namespace Server.Items
                 this.m_Valuestone = valuestone;
                 this.m_Valuegem = valuegem;
 
-                bool stoneMining = (mobile.StoneMining && mobile.Skills[SkillName.Mining].Base >= 100.0);
-                bool gemMining = (mobile.GemMining && mobile.Skills[SkillName.Mining].Base >= 100.0);
+                bool stoneMining = (mobile.StoneMining && mobile.Skills[SkillName.Gornictwo].Base >= 100.0);
+                bool gemMining = (mobile.GemMining && mobile.Skills[SkillName.Gornictwo].Base >= 100.0);
 
                 if (valuestone && mobile.ToggleMiningStone == valuestone || (valuestone && !stoneMining))
                     this.Flags |= CMEFlags.Disabled;
@@ -215,7 +215,7 @@ namespace Server.Items
                     {
                         this.m_Mobile.SendLocalizedMessage(1054023); // You are already set to mine both ore and stone!
                     }
-                    else if (!this.m_Mobile.StoneMining || this.m_Mobile.Skills[SkillName.Mining].Base < 100.0)
+                    else if (!this.m_Mobile.StoneMining || this.m_Mobile.Skills[SkillName.Gornictwo].Base < 100.0)
                     {
                         this.m_Mobile.SendLocalizedMessage(1054024); // You have not learned how to mine stone or you do not have enough skill!
                     }
@@ -232,7 +232,7 @@ namespace Server.Items
                     {
                         this.m_Mobile.SendLocalizedMessage(1112235); // You are already set to mine both ore and gems!
                     }
-                    else if (!this.m_Mobile.GemMining || this.m_Mobile.Skills[SkillName.Mining].Base < 100.0)
+                    else if (!this.m_Mobile.GemMining || this.m_Mobile.Skills[SkillName.Gornictwo].Base < 100.0)
                     {
                         this.m_Mobile.SendLocalizedMessage(1112234); // You have not learned how to mine gems or you do not have enough skill!
                     }

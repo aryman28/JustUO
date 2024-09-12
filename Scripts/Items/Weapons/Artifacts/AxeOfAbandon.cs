@@ -18,7 +18,8 @@ namespace Server.Items
             this.Attributes.DefendChance = 10;	
             this.Attributes.CastSpeed = 1;	
             this.Attributes.WeaponSpeed = 30;
-            this.Attributes.WeaponDamage = 50;		
+            this.Attributes.WeaponDamage = 50;
+            this.Attributes.CritChance = 7;			
         }
 
         public AxeOfAbandon(Serial serial)

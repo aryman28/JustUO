@@ -24,29 +24,28 @@ namespace Server.Engines.Quests.Hag
 
     public class IngredientInfo
     {
-        private static readonly IngredientInfo[] m_Table =
+        private static readonly IngredientInfo[] m_Table = new IngredientInfo[]
         {
             // sheep liver
-            new IngredientInfo(1055020, 5, typeof (Sheep)),
+            new IngredientInfo(1055020, 5, typeof(Sheep)),
             // rabbit's foot
-            new IngredientInfo(1055021, 5, typeof (Rabbit), typeof (JackRabbit)),
+            new IngredientInfo(1055021, 5, typeof(Rabbit), typeof(JackRabbit)),
             // mongbat wing
-            new IngredientInfo(1055022, 5, typeof (Mongbat), typeof (GreaterMongbat)),
+            new IngredientInfo(1055022, 5, typeof(Mongbat), typeof(GreaterMongbat)),
             // chicken gizzard
-            new IngredientInfo(1055023, 5, typeof (Chicken)),
+            new IngredientInfo(1055023, 5, typeof(Chicken)),
             // rat tail
-            new IngredientInfo(1055024, 5, typeof (Rat), typeof (GiantRat), typeof (Sewerrat)),
+            new IngredientInfo(1055024, 5, typeof(Rat), typeof(GiantRat), typeof(Sewerrat)),
             // frog's leg
-            new IngredientInfo(1055025, 5, typeof (BullFrog)),
+            new IngredientInfo(1055025, 5, typeof(BullFrog)),
             // deer heart
-            new IngredientInfo(1055026, 5, typeof (Hind), typeof (GreatHart)),
+            new IngredientInfo(1055026, 5, typeof(Hind), typeof(GreatHart)),
             // lizard tongue
-            new IngredientInfo(1055027, 5, typeof (LavaLizard), typeof (Lizardman)),
+            new IngredientInfo(1055027, 5, typeof(LavaLizard), typeof(Lizardman)),
             // slime ooze
-            new IngredientInfo(1055028, 5, typeof (Slime)),
+            new IngredientInfo(1055028, 5, typeof(Slime)),
             // spirit essence
-            new IngredientInfo(1055029, 5, typeof (Ghoul), typeof (Spectre), typeof (Shade), typeof (Wraith),
-                typeof (Bogle)),
+            new IngredientInfo(1055029, 5, typeof(Ghoul), typeof(Spectre), typeof(Shade), typeof(Wraith), typeof(Bogle)),
             // Swamp Water
             new IngredientInfo(1055030, 1),
             // Freshly Cut Red Mushrooms
@@ -58,53 +57,58 @@ namespace Server.Engines.Quests.Hag
             // Captain Blackheart's Whiskey
             new IngredientInfo(1055034, 1)
         };
-
-        private readonly Type[] m_Creatures;
         private readonly int m_Name;
+        private readonly Type[] m_Creatures;
         private readonly int m_Quantity;
-
         private IngredientInfo(int name, int quantity, params Type[] creatures)
         {
-            m_Name = name;
-            m_Creatures = creatures;
-            m_Quantity = quantity;
+            this.m_Name = name;
+            this.m_Creatures = creatures;
+            this.m_Quantity = quantity;
         }
 
         public int Name
         {
-            get { return m_Name; }
+            get
+            {
+                return this.m_Name;
+            }
         }
-
         public Type[] Creatures
         {
-            get { return m_Creatures; }
+            get
+            {
+                return this.m_Creatures;
+            }
         }
-
         public int Quantity
         {
-            get { return m_Quantity; }
+            get
+            {
+                return this.m_Quantity;
+            }
         }
-
         public static IngredientInfo Get(Ingredient ingredient)
         {
-            var index = (int) ingredient;
+            int index = (int)ingredient;
 
             if (index >= 0 && index < m_Table.Length)
                 return m_Table[index];
-            return m_Table[0];
+            else
+                return m_Table[0];
         }
 
         public static Ingredient RandomIngredient(Ingredient[] oldIngredients)
         {
-            var length = m_Table.Length - oldIngredients.Length;
-            var ingredients = new Ingredient[length];
+            int length = m_Table.Length - oldIngredients.Length;
+            Ingredient[] ingredients = new Ingredient[length];
 
             for (int i = 0, n = 0; i < m_Table.Length && n < ingredients.Length; i++)
             {
-                var currIngredient = (Ingredient) i;
+                Ingredient currIngredient = (Ingredient)i;
 
-                var found = false;
-                for (var j = 0; !found && j < oldIngredients.Length; j++)
+                bool found = false;
+                for (int j = 0; !found && j < oldIngredients.Length; j++)
                 {
                     if (oldIngredients[j] == currIngredient)
                         found = true;
@@ -114,7 +118,7 @@ namespace Server.Engines.Quests.Hag
                     ingredients[n++] = currIngredient;
             }
 
-            var index = Utility.Random(ingredients.Length);
+            int index = Utility.Random(ingredients.Length);
 
             return ingredients[index];
         }

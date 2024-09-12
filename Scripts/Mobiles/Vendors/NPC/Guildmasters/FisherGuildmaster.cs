@@ -6,9 +6,9 @@ namespace Server.Mobiles
     {
         [Constructable]
         public FisherGuildmaster()
-            : base("fisher")
+            : base("- Mistrz Gildii Rybactwa")
         {
-            this.SetSkill(SkillName.Fishing, 80.0, 100.0);
+            this.SetSkill(SkillName.Rybactwo, 120.0, 150.0);
         }
 
         public FisherGuildmaster(Serial serial)

@@ -4,9 +4,18 @@ namespace Server.Items
 {
     public enum WeaponQuality
     {
-        Low,
-        Regular,
-        Exceptional
+        None,
+        S³ab,
+        Przeciêtn,
+        Zwyk³,
+        Dobr,
+        Doskona³,
+        Wspania³,
+        Wyj¹tkow,
+        Niezwyk³,
+        Cudown,
+        Mistyczn,
+        Legendarn
     }
 
     public enum WeaponType

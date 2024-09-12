@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Server.Items;
 
-namespace Server.Spells.Spellweaving
+namespace Server.Spells.Druidyzm
 {
     public class ImmolatingWeaponSpell : ArcanistSpell
     {
@@ -101,7 +101,7 @@ namespace Server.Spells.Spellweaving
 
                 if (!IsImmolating(weapon)) // On OSI, the effect is not re-applied
                 {
-                    double skill = this.Caster.Skills.Spellweaving.Value;
+                    double skill = this.Caster.Skills.Druidyzm.Value;
 
                     int duration = 10 + (int)(skill / 24) + this.FocusLevel;
                     int damage = 5 + (int)(skill / 24) + this.FocusLevel;

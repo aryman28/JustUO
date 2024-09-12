@@ -7,13 +7,13 @@ namespace Server.Mobiles
         [Constructable]
         public EvilHealer()
         {
-            this.Title = "the healer";
+            this.Title = "- Uzdrowiciel (chaos)";
 
             this.Karma = -10000;
 
-            this.SetSkill(SkillName.Forensics, 80.0, 100.0);
-            this.SetSkill(SkillName.SpiritSpeak, 80.0, 100.0);
-            this.SetSkill(SkillName.Swords, 80.0, 100.0);
+            this.SetSkill(SkillName.Kryminalistyka, 80.0, 100.0);
+            this.SetSkill(SkillName.MowaDuchow, 80.0, 100.0);
+            this.SetSkill(SkillName.WalkaMieczami, 80.0, 100.0);
         }
 
         public EvilHealer(Serial serial)
@@ -47,10 +47,10 @@ namespace Server.Mobiles
             if (!base.CheckTeach(skill, from))
                 return false;
 
-            return (skill == SkillName.Forensics) ||
-                   (skill == SkillName.Healing) ||
-                   (skill == SkillName.SpiritSpeak) ||
-                   (skill == SkillName.Swords);
+            return (skill == SkillName.Kryminalistyka) ||
+                   (skill == SkillName.Leczenie) ||
+                   (skill == SkillName.MowaDuchow) ||
+                   (skill == SkillName.WalkaMieczami);
         }
 
         public override void InitSBInfo()

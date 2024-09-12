@@ -90,98 +90,98 @@ namespace Server.Engines.BulkOrders
         {
             get
             {
-                return GetEntries("Tailoring", "boneset");
+                return GetEntries("Krawiectwo", "boneset");
             }
         }
         public static SmallBulkEntry[] Farmer
         {
             get
             {
-                return GetEntries("Tailoring", "farmer");
+                return GetEntries("Krawiectwo", "farmer");
             }
         }
         public static SmallBulkEntry[] FemaleLeatherSet
         {
             get
             {
-                return GetEntries("Tailoring", "femaleleatherset");
+                return GetEntries("Krawiectwo", "femaleleatherset");
             }
         }
         public static SmallBulkEntry[] FisherGirl
         {
             get
             {
-                return GetEntries("Tailoring", "fishergirl");
+                return GetEntries("Krawiectwo", "fishergirl");
             }
         }
         public static SmallBulkEntry[] Gypsy
         {
             get
             {
-                return GetEntries("Tailoring", "gypsy");
+                return GetEntries("Krawiectwo", "gypsy");
             }
         }
         public static SmallBulkEntry[] HatSet
         {
             get
             {
-                return GetEntries("Tailoring", "hatset");
+                return GetEntries("Krawiectwo", "hatset");
             }
         }
         public static SmallBulkEntry[] Jester
         {
             get
             {
-                return GetEntries("Tailoring", "jester");
+                return GetEntries("Krawiectwo", "jester");
             }
         }
         public static SmallBulkEntry[] Lady
         {
             get
             {
-                return GetEntries("Tailoring", "lady");
+                return GetEntries("Krawiectwo", "lady");
             }
         }
         public static SmallBulkEntry[] MaleLeatherSet
         {
             get
             {
-                return GetEntries("Tailoring", "maleleatherset");
+                return GetEntries("Krawiectwo", "maleleatherset");
             }
         }
         public static SmallBulkEntry[] Pirate
         {
             get
             {
-                return GetEntries("Tailoring", "pirate");
+                return GetEntries("Krawiectwo", "pirate");
             }
         }
         public static SmallBulkEntry[] ShoeSet
         {
             get
             {
-                return GetEntries("Tailoring", "shoeset");
+                return GetEntries("Krawiectwo", "shoeset");
             }
         }
         public static SmallBulkEntry[] StuddedSet
         {
             get
             {
-                return GetEntries("Tailoring", "studdedset");
+                return GetEntries("Krawiectwo", "studdedset");
             }
         }
         public static SmallBulkEntry[] TownCrier
         {
             get
             {
-                return GetEntries("Tailoring", "towncrier");
+                return GetEntries("Krawiectwo", "towncrier");
             }
         }
         public static SmallBulkEntry[] Wizard
         {
             get
             {
-                return GetEntries("Tailoring", "wizard");
+                return GetEntries("Krawiectwo", "wizard");
             }
         }
         public LargeBOD Owner

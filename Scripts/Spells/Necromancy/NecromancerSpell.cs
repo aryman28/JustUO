@@ -1,7 +1,8 @@
 using System;
+using Server.Mobiles;
 using Server.Items;
 
-namespace Server.Spells.Necromancy
+namespace Server.Spells.Nekromancja
 {
     public abstract class NecromancerSpell : Spell
     {
@@ -16,14 +17,14 @@ namespace Server.Spells.Necromancy
         {
             get
             {
-                return SkillName.Necromancy;
+                return SkillName.Nekromancja;
             }
         }
         public override SkillName DamageSkill
         {
             get
             {
-                return SkillName.SpiritSpeak;
+                return SkillName.MowaDuchow;
             }
         }
         //public override int CastDelayBase{ get{ return base.CastDelayBase; } } // Reference, 3
@@ -51,6 +52,23 @@ namespace Server.Spells.Necromancy
                 karma += AOS.Scale(karma, AosAttributes.GetValue(this.Caster, AosAttribute.IncreasedKarmaLoss));
 
             return karma;
+        }
+
+        // Sprawdzenie klasy postaci przed rzuceniem czaru
+        public override bool CheckCast()
+        {
+            if (this.Caster is PlayerMobile && 
+                ((PlayerMobile)this.Caster).Klasa != Klasa.Kultysta && 
+        		((PlayerMobile)this.Caster).Klasa != Klasa.Nekromanta && 
+        		
+        		((PlayerMobile)this.Caster).Klasa != Klasa.Czarnoksiê¿nik)
+
+            {
+                this.Caster.SendMessage("Tylko Kultyœci, Nekromanci i Czarnoksiê¿nicy mog¹ u¿ywaæ tych zaklêæ."); 
+                return false;
+            }
+
+            return base.CheckCast();
         }
 
         public override void GetCastSkills(out double min, out double max)

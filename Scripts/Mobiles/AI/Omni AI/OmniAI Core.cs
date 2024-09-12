@@ -5,8 +5,8 @@ using Server.Engines.PartySystem;
 using Server.Guilds;
 using Server.Items;
 using Server.Spells;
-using Server.Spells.Necromancy;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Nekromancja;
+using Server.Spells.Skrytobojstwo;
 using Server.Spells.Sixth;
 using Server.Spells.Third;
 using Server.Targeting;
@@ -34,7 +34,7 @@ namespace Server.Mobiles
         {
             get
             {
-                return (this.m_Mobile.Skills[SkillName.Musicianship].Base > 10.0);
+                return (this.m_Mobile.Skills[SkillName.Muzykowanie].Base > 10.0);
             }
         }
 
@@ -42,7 +42,7 @@ namespace Server.Mobiles
         {
             get
             {
-                return (this.m_Mobile.Skills[SkillName.Bushido].Base > 10.0);
+                return (this.m_Mobile.Skills[SkillName.Fanatyzm].Base > 10.0);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Server.Mobiles
         {
             get
             {
-                return (this.m_Mobile.Skills[SkillName.Chivalry].Base > 10.0);
+                return (this.m_Mobile.Skills[SkillName.Rycerstwo].Base > 10.0);
             }
         }
 
@@ -58,7 +58,7 @@ namespace Server.Mobiles
         {
             get
             {
-                return (this.m_Mobile.Skills[SkillName.Magery].Base > 10.0);
+                return (this.m_Mobile.Skills[SkillName.Magia].Base > 10.0);
             }
         }
 
@@ -66,7 +66,7 @@ namespace Server.Mobiles
         {
             get
             {
-                return (this.m_Mobile.Skills[SkillName.Necromancy].Base > 10.0);
+                return (this.m_Mobile.Skills[SkillName.Nekromancja].Base > 10.0);
             }
         }
 
@@ -74,7 +74,7 @@ namespace Server.Mobiles
         {
             get
             {
-                return (this.m_Mobile.Skills[SkillName.Ninjitsu].Base > 10.0);
+                return (this.m_Mobile.Skills[SkillName.Skrytobojstwo].Base > 10.0);
             }
         }
 
@@ -82,7 +82,7 @@ namespace Server.Mobiles
         {
             get
             {
-                return (this.m_Mobile.Skills[SkillName.Spellweaving].Base >= 10.0);
+                return (this.m_Mobile.Skills[SkillName.Druidyzm].Base >= 10.0);
             }
         }
 
@@ -90,7 +90,7 @@ namespace Server.Mobiles
         {
             get
             {
-                return (this.m_Mobile.Skills[SkillName.Mysticism].Base >= 10.0);
+                return (this.m_Mobile.Skills[SkillName.Mistycyzm].Base >= 10.0);
             }
         }
 
@@ -162,7 +162,7 @@ namespace Server.Mobiles
                 this.m_Mobile.DebugSay("I have no combatant");
 
             if (!this.m_Mobile.Hidden && !this.m_Mobile.Poisoned && this.m_CanUseNinjitsu)
-                this.m_Mobile.UseSkill(SkillName.Hiding);
+                this.m_Mobile.UseSkill(SkillName.Ukrywanie);
 
             if (this.AcquireFocusMob(this.m_Mobile.RangePerception, this.m_Mobile.FightMode, false, false, true))
             {
@@ -172,12 +172,12 @@ namespace Server.Mobiles
                 this.m_Mobile.Combatant = this.m_Mobile.FocusMob;
                 this.Action = ActionType.Combat;
             }
-            else if (this.m_Mobile.Mana < this.m_Mobile.ManaMax && this.m_Mobile.Skills[SkillName.Meditation].Value > 60.0)
+            else if (this.m_Mobile.Mana < this.m_Mobile.ManaMax && this.m_Mobile.Skills[SkillName.Medytacja].Value > 60.0)
             {
                 if (this.m_Mobile.Debug)
                     this.m_Mobile.DebugSay("I am going to meditate");
 
-                this.m_Mobile.UseSkill(SkillName.Meditation);
+                this.m_Mobile.UseSkill(SkillName.Medytacja);
             }
             else
             {
@@ -375,7 +375,7 @@ namespace Server.Mobiles
         public override bool DoActionGuard()
         {
             if (!this.m_Mobile.Hidden && !this.m_Mobile.Poisoned && this.m_CanUseNinjitsu)
-                this.m_Mobile.UseSkill(SkillName.Hiding);
+                this.m_Mobile.UseSkill(SkillName.Ukrywanie);
 
             if (this.AcquireFocusMob(this.m_Mobile.RangePerception, this.m_Mobile.FightMode, false, false, true))
             {
@@ -414,7 +414,7 @@ namespace Server.Mobiles
 
                 this.m_Mobile.Mana -= 10;
                 this.m_Mobile.Hidden = true;
-                Server.SkillHandlers.Stealth.OnUse(this.m_Mobile);
+                Server.SkillHandlers.Zakradanie.OnUse(this.m_Mobile);
                 this.m_Mobile.FixedParticles(0x3709, 1, 30, 9904, 1108, 6, EffectLayer.RightFoot);
                 this.m_Mobile.PlaySound(0x22F);
             }
@@ -429,7 +429,7 @@ namespace Server.Mobiles
         {
             if (this.m_Mobile.Hidden && !this.m_Mobile.Poisoned && this.m_CanUseNinjitsu)
             {
-                Server.SkillHandlers.Stealth.OnUse(this.m_Mobile);
+                Server.SkillHandlers.Zakradanie.OnUse(this.m_Mobile);
 
                 if (base.MoveTo(m, false, range) == false)
                 {
@@ -492,7 +492,7 @@ namespace Server.Mobiles
         {
             if (this.m_Mobile.Hidden && !this.m_Mobile.Poisoned && this.m_CanUseNinjitsu)
             {
-                Server.SkillHandlers.Stealth.OnUse(this.m_Mobile);
+                Server.SkillHandlers.Zakradanie.OnUse(this.m_Mobile);
 
                 return base.WalkMobileRange(m, iSteps, false, iWantDistMin, iWantDistMax);
             }
@@ -503,7 +503,7 @@ namespace Server.Mobiles
         public override void WalkRandom(int iChanceToNotMove, int iChanceToDir, int iSteps)
         {
             if (this.m_Mobile.Hidden && this.m_CanUseNinjitsu)
-                Server.SkillHandlers.Stealth.OnUse(this.m_Mobile);
+                Server.SkillHandlers.Zakradanie.OnUse(this.m_Mobile);
 			
             base.WalkRandom(iChanceToNotMove, iChanceToDir, iSteps);
         }

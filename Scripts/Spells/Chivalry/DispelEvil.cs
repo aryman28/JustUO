@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
-using Server.Spells.Necromancy;
+using Server.Spells.Nekromancja;
 
-namespace Server.Spells.Chivalry
+namespace Server.Spells.Rycerstwo
 {
     public class DispelEvilSpell : PaladinSpell
     {
@@ -89,7 +89,7 @@ namespace Server.Spells.Chivalry
 
                 int dispelSkill = this.ComputePowerValue(2);
 
-                double chiv = this.Caster.Skills.Chivalry.Value;
+                double chiv = this.Caster.Skills.Rycerstwo.Value;
 
                 for (int i = 0; i < targets.Count; ++i)
                 {
@@ -135,7 +135,7 @@ namespace Server.Spells.Chivalry
                     if (context != null && context.Spell is NecromancerSpell)	//Trees are not evil!	TODO: OSI confirm?
                     {
                         // transformed ..
-                        double drainChance = 0.5 * (this.Caster.Skills.Chivalry.Value / Math.Max(m.Skills.Necromancy.Value, 1));
+                        double drainChance = 0.5 * (this.Caster.Skills.Rycerstwo.Value / Math.Max(m.Skills.Nekromancja.Value, 1));
 
                         if (drainChance > Utility.RandomDouble())
                         {

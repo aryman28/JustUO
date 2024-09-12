@@ -8,12 +8,28 @@ namespace Server.Items
         public GargishNecklace()
             : base(0x4210)
         {
-            //Weight = 0.1;
+            this.Name = "Demoni Naszyjnik";
+            this.Weight = 0.1;
         }
 
         public GargishNecklace(Serial serial)
             : base(serial)
         {
+        }
+
+        public override int InitMinHits
+        {
+            get
+            {
+                return 12;
+            }
+        }
+        public override int InitMaxHits
+        {
+            get
+            {
+                return 12;
+            }
         }
 
         public override Race RequiredRace

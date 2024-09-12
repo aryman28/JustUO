@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -30,15 +31,15 @@ namespace Server.Mobiles
             SetResistance(ResistanceType.Poison, 25, 35);
             SetResistance(ResistanceType.Energy, 25, 35);
 
-            SetSkill(SkillName.MagicResist, 80.2, 98.0);
-            SetSkill(SkillName.Tactics, 80.2, 98.0);
-            SetSkill(SkillName.Wrestling, 80.2, 98.0);
+            SetSkill(SkillName.ObronaPrzedMagia, 80.2, 98.0);
+            SetSkill(SkillName.Taktyka, 80.2, 98.0);
+            SetSkill(SkillName.Boks, 80.2, 98.0);
 
             Fame = 10000;
             Karma = -10000;
-            VirtualArmor = 50;
 
             QLPoints = 20;
+            VirtualArmor = 50;
 
             PackItem(new DaemonBone(5));
         }
@@ -50,24 +51,32 @@ namespace Server.Mobiles
 
         public override bool AlwaysMurderer
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool AutoDispel
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool BardImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override void GenerateLoot()
         {
             AddLoot(LootPack.FilthyRich, 1);
@@ -109,13 +118,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

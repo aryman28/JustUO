@@ -4,16 +4,16 @@ using Server.Network;
 
 namespace Server.Engines.Harvest
 {
-    public class Lumberjacking : HarvestSystem
+    public class Drwalnictwo : HarvestSystem
     {
-        private static Lumberjacking m_System;
+        private static Drwalnictwo m_System;
 
-        public static Lumberjacking System
+        public static Drwalnictwo System
         {
             get
             {
                 if (m_System == null)
-                    m_System = new Lumberjacking();
+                    m_System = new Drwalnictwo();
 
                 return m_System;
             }
@@ -29,12 +29,12 @@ namespace Server.Engines.Harvest
             }
         }
 
-        private Lumberjacking()
+        private Drwalnictwo()
         {
             HarvestResource[] res;
             HarvestVein[] veins;
 
-            #region Lumberjacking
+            #region Drwalnictwo
             HarvestDefinition lumber = new HarvestDefinition();
 
             // Resource banks are every 4x3 tiles
@@ -49,8 +49,8 @@ namespace Server.Engines.Harvest
             lumber.MinRespawn = TimeSpan.FromMinutes(20.0);
             lumber.MaxRespawn = TimeSpan.FromMinutes(30.0);
 
-            // Skill checking is done on the Lumberjacking skill
-            lumber.Skill = SkillName.Lumberjacking;
+            // Skill checking is done on the Drwalnictwo skill
+            lumber.Skill = SkillName.Drwalnictwo;
 
             // Set the list of harvestable tiles
             lumber.Tiles = m_TreeTiles;

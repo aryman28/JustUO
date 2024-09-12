@@ -34,12 +34,12 @@ namespace Server.Mobiles
             this.SetResistance(ResistanceType.Poison, 30, 40);
             this.SetResistance(ResistanceType.Energy, 20, 30);
 
-            this.SetSkill(SkillName.EvalInt, 120.0);
-            this.SetSkill(SkillName.Magery, 120.0);
-            this.SetSkill(SkillName.Meditation, 120.0);
-            this.SetSkill(SkillName.MagicResist, 150.0);
-            this.SetSkill(SkillName.Tactics, 97.6, 100.0);
-            this.SetSkill(SkillName.Wrestling, 97.6, 100.0);
+            this.SetSkill(SkillName.Intelekt, 120.0);
+            this.SetSkill(SkillName.Magia, 120.0);
+            this.SetSkill(SkillName.Medytacja, 120.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 150.0);
+            this.SetSkill(SkillName.Taktyka, 97.6, 100.0);
+            this.SetSkill(SkillName.Boks, 97.6, 100.0);
 
             this.Fame = 22500;
             this.Karma = -22500;
@@ -55,7 +55,7 @@ namespace Server.Mobiles
 
             Scimitar weapon = new Scimitar();
 
-            weapon.Skill = SkillName.Wrestling;
+            weapon.Skill = SkillName.Boks;
             weapon.Hue = 38;
             weapon.Movable = false;
 

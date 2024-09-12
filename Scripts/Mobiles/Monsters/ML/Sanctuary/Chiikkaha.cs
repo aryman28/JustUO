@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a Chiikkaha the Toothed corpse")]
@@ -24,11 +26,11 @@ namespace Server.Mobiles
             SetResistance(ResistanceType.Poison, 10, 20);
             SetResistance(ResistanceType.Energy, 100);
 
-            SetSkill(SkillName.EvalInt, 70.1, 80.0);
-            SetSkill(SkillName.Magery, 70.1, 90.0);
-            SetSkill(SkillName.MagicResist, 65.1, 96.0);
-            SetSkill(SkillName.Tactics, 50.1, 75.0);
-            SetSkill(SkillName.Wrestling, 50.1, 75.0);
+            SetSkill(SkillName.Intelekt, 70.1, 80.0);
+            SetSkill(SkillName.Magia, 70.1, 90.0);
+            SetSkill(SkillName.ObronaPrzedMagia, 65.1, 96.0);
+            SetSkill(SkillName.Taktyka, 50.1, 75.0);
+            SetSkill(SkillName.Boks, 50.1, 75.0);
 
             Fame = 7500;
             Karma = -7500;
@@ -39,18 +41,26 @@ namespace Server.Mobiles
         {
         }
 
+        public override bool AllureImmune
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

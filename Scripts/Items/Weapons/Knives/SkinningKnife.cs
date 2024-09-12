@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0xEC4)
         {
             this.Weight = 1.0;
+            this.Name = "Nóż do skór";
         }
 
         public SkinningKnife(Serial serial)

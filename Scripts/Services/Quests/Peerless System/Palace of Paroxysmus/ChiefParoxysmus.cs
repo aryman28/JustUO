@@ -30,11 +30,11 @@ namespace Server.Mobiles
             this.SetResistance(ResistanceType.Poison, 55, 65);
             this.SetResistance(ResistanceType.Energy, 50, 60);
 			
-            this.SetSkill(SkillName.Wrestling, 120.0);
-            this.SetSkill(SkillName.Tactics, 120.0);
-            this.SetSkill(SkillName.MagicResist, 120.0);
-            this.SetSkill(SkillName.Anatomy, 120.0);
-            this.SetSkill(SkillName.Poisoning, 120.0);
+            this.SetSkill(SkillName.Boks, 120.0);
+            this.SetSkill(SkillName.Taktyka, 120.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 120.0);
+            this.SetSkill(SkillName.Anatomia, 120.0);
+            this.SetSkill(SkillName.Zatruwanie, 120.0);
 			
             this.SpawnBulbous();
 			

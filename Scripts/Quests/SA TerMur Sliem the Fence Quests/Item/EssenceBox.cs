@@ -1,20 +1,4 @@
-/*                                                             .---.
-/  .  \
-|\_/|   |
-|   |  /|
-.----------------------------------------------------------------' |
-/  .-.                                                              |
-|  /   \         Contribute To The Orbsydia SA Project               |
-| |\_.  |                                                            |
-|\|  | /|                        By Lotar84                          |
-| `---' |                                                            |
-|       |       (Orbanised by Orb SA Core Development Team)          | 
-|       |                                                           /
-|       |----------------------------------------------------------'
-\       |
-\     /
-`---'
-*/
+using System;
 
 namespace Server.Items
 {
@@ -22,137 +6,138 @@ namespace Server.Items
     {
         [Constructable]
         public EssenceBox()
+            : base()
         {
-            Movable = true;
-            Hue = 1161;
+            this.Movable = true;
+            this.Hue = 1161;
 
             switch (Utility.Random(42))
             {
                 case 0:
-                    DropItem(new EssencePrecision());
+                    this.DropItem(new EssencePrecision());
                     break;
                 case 1:
-                    DropItem(new EssenceAchievement());
+                    this.DropItem(new EssenceAchievement());
                     break;
                 case 2:
-                    DropItem(new EssenceBalance());
+                    this.DropItem(new EssenceBalance());
                     break;
                 case 3:
-                    DropItem(new EssenceControl());
+                    this.DropItem(new EssenceControl());
                     break;
                 case 4:
-                    DropItem(new EssenceDiligence());
+                    this.DropItem(new EssenceDiligence());
                     break;
                 case 5:
-                    DropItem(new EssenceDirection());
+                    this.DropItem(new EssenceDirection());
                     break;
                 case 6:
-                    DropItem(new EssenceFeeling());
+                    this.DropItem(new EssenceFeeling());
                     break;
                 case 7:
-                    DropItem(new EssenceOrder());
+                    this.DropItem(new EssenceOrder());
                     break;
                 case 8:
-                    DropItem(new EssencePassion());
+                    this.DropItem(new EssencePassion());
                     break;
                 case 9:
-                    DropItem(new EssencePersistence());
+                    this.DropItem(new EssencePersistence());
                     break;
                 case 10:
-                    DropItem(new EssenceSingularity());
+                    this.DropItem(new EssenceSingularity());
                     break;
                 case 11:
-                    DropItem(new FeyWings());
+                    this.DropItem(new FeyWings());
                     break;
                 case 12:
-                    DropItem(new FaeryDust());
+                    this.DropItem(new FaeryDust());
                     break;
                 case 13:
-                    DropItem(new Fur());
+                    this.DropItem(new Fur());
                     break;
                 case 14:
-                    DropItem(new GoblinBlood());
+                    this.DropItem(new GoblinBlood());
                     break;
                 case 15:
-                    DropItem(new HornAbyssalInferno());
+                    this.DropItem(new HornAbyssalInferno());
                     break;
                 case 16:
-                    DropItem(new KepetchWax());
+                    this.DropItem(new KepetchWax());
                     break;
                 case 17:
-                    DropItem(new LavaSerpenCrust());
+                    this.DropItem(new LavaSerpenCrust());
                     break;
                 case 18:
-                    DropItem(new MedusaBlood());
+                    this.DropItem(new MedusaBlood());
                     break;
                 case 19:
-                    DropItem(new PowderedIron());
+                    this.DropItem(new PowderedIron());
                     break;
                 case 20:
-                    DropItem(new PrimalLichDust());
+                    this.DropItem(new PrimalLichDust());
                     break;
                 case 21:
-                    DropItem(new RaptorTeeth());
+                    this.DropItem(new RaptorTeeth());
                     break;
                 case 22:
-                    DropItem(new ReflectiveWolfEye());
+                    this.DropItem(new ReflectiveWolfEye());
                     break;
                 case 23:
-                    DropItem(new SeedRenewal());
+                    this.DropItem(new SeedRenewal());
                     break;
                 case 24:
-                    DropItem(new SilverSerpentVenom());
+                    this.DropItem(new SilverSerpentVenom());
                     break;
                 case 25:
-                    DropItem(new SilverSnakeSkin());
+                    this.DropItem(new SilverSnakeSkin());
                     break;
                 case 26:
-                    DropItem(new SlithEye());
+                    this.DropItem(new SlithEye());
                     break;
                 case 27:
-                    DropItem(new SlithTongue());
+                    this.DropItem(new SlithTongue());
                     break;
                 case 28:
-                    DropItem(new SpiderCarapace());
+                    this.DropItem(new SpiderCarapace());
                     break;
                 case 29:
-                    DropItem(new ScouringToxin());
+                    this.DropItem(new ScouringToxin());
                     break;
                 case 30:
-                    DropItem(new ToxicVenomSac());
+                    this.DropItem(new ToxicVenomSac());
                     break;
                 case 31:
-                    DropItem(new UndyingFlesh());
+                    this.DropItem(new UndyingFlesh());
                     break;
                 case 32:
-                    DropItem(new VialVitirol());
+                    this.DropItem(new VialVitirol());
                     break;
                 case 33:
-                    DropItem(new DelicateScales());
+                    this.DropItem(new DelicateScales());
                     break;
                 case 34:
-                    DropItem(new VoidCore());
+                    this.DropItem(new VoidCore());
                     break;
                 case 35:
-                    DropItem(new VoidEssence());
+                    this.DropItem(new VoidEssence());
                     break;
                 case 36:
-                    DropItem(new BottleIchor());
+                    this.DropItem(new BottleIchor());
                     break;
                 case 37:
-                    DropItem(new ChagaMushroom());
+                    this.DropItem(new ChagaMushroom());
                     break;
                 case 38:
-                    DropItem(new CrushedGlass());
+                    this.DropItem(new CrushedGlass());
                     break;
                 case 39:
-                    DropItem(new CrystalShards());
+                    this.DropItem(new CrystalShards());
                     break;
                 case 40:
-                    DropItem(new CrystallineBlackrock());
+                    this.DropItem(new CrystallineBlackrock());
                     break;
                 case 41:
-                    DropItem(new DaemonClaw());
+                    this.DropItem(new DaemonClaw());
                     break;
             }
         }
@@ -164,21 +149,23 @@ namespace Server.Items
 
         public override int LabelNumber
         {
-            get { return 1113770; }
-        } //Essence Box
-
+            get
+            {
+                return 1113770;
+            }
+        }//Essence Box
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

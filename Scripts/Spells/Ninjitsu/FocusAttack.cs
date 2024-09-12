@@ -1,7 +1,7 @@
 using System;
 using Server.Items;
 
-namespace Server.Spells.Ninjitsu
+namespace Server.Spells.Skrytobojstwo
 {
     public class FocusAttack : NinjaMove
     {
@@ -54,14 +54,14 @@ namespace Server.Spells.Ninjitsu
 
         public override double GetDamageScalar(Mobile attacker, Mobile defender)
         {
-            double ninjitsu = attacker.Skills[SkillName.Ninjitsu].Value;
+            double ninjitsu = attacker.Skills[SkillName.Skrytobojstwo].Value;
 
             return 1.0 + (ninjitsu * ninjitsu) / 43636;
         }
 
         public override double GetPropertyBonus(Mobile attacker)
         {
-            double ninjitsu = attacker.Skills[SkillName.Ninjitsu].Value;
+            double ninjitsu = attacker.Skills[SkillName.Skrytobojstwo].Value;
 
             double bonus = (ninjitsu * ninjitsu) / 43636;
 

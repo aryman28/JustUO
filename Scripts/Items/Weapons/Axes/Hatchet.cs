@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0xF43)
         {
             this.Weight = 4.0;
+            this.Name = "Siekiera";
         }
 
         public Hatchet(Serial serial)

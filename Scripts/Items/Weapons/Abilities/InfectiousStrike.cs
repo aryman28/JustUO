@@ -7,7 +7,7 @@ namespace Server.Items
     /// Now, only certain weapon types — those that have Infectious Strike as an available special move — will be able to be poisoned.
     /// Targets will no longer be poisoned at random when hit by poisoned weapons.
     /// Instead, the wielder must use this ability to deliver the venom.
-    /// While no skill in Poisoning is directly required to use this ability, being knowledgeable in the application and use of toxins
+    /// While no skill in Zatruwanie is directly required to use this ability, being knowledgeable in the application and use of toxins
     /// will allow a character to use Infectious Strike at reduced mana cost and with a chance to inflict more deadly poison on his victim.
     /// With this change, weapons will no longer be corroded by poison.
     /// Level 5 poison will be possible when using this special move.
@@ -18,7 +18,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -50,7 +50,7 @@ namespace Server.Items
                 return;
             }
 
-            if (!this.CheckMana(attacker, true))
+            if (!this.CheckStam(attacker, true))
                 return;
 
             --weapon.PoisonCharges;
@@ -59,29 +59,29 @@ namespace Server.Items
             int maxLevel = 0;
             if (p == Poison.DarkGlow)
             {
-            	maxLevel = 10 + (attacker.Skills[SkillName.Poisoning].Fixed / 333);
+            	maxLevel = 10 + (attacker.Skills[SkillName.Zatruwanie].Fixed / 333);
             	if (maxLevel > 13)
             		maxLevel = 13;
             }
             else if (p == Poison.Parasitic)
             {
-            	maxLevel = 14 + (attacker.Skills[SkillName.Poisoning].Fixed / 250);
+            	maxLevel = 14 + (attacker.Skills[SkillName.Zatruwanie].Fixed / 250);
             	if (maxLevel > 18)
             		maxLevel = 18;
             }
 			else            
 			{
-				maxLevel = attacker.Skills[SkillName.Poisoning].Fixed / 200;
+				maxLevel = attacker.Skills[SkillName.Zatruwanie].Fixed / 200;
 				if (maxLevel > 5)
 					maxLevel = 5;
 			}
 			
             if (maxLevel < 0)
                 maxLevel = 0;
-            if (p.Level > maxLevel) // If they don't have enough Poisoning Skill for the potion strength, lower it.
+            if (p.Level > maxLevel) // If they don't have enough Zatruwanie Skill for the potion strength, lower it.
                 p = Poison.GetPoison(maxLevel);
 
-            if ((attacker.Skills[SkillName.Poisoning].Value / 100.0) > Utility.RandomDouble())
+            if ((attacker.Skills[SkillName.Zatruwanie].Value / 100.0) > Utility.RandomDouble())
             {
             	if (p !=null && p.Level + 1 <= maxLevel)
             	{

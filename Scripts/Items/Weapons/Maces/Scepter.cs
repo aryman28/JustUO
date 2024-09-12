@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x26BC)
         {
             this.Weight = 8.0;
+            this.Name = "Berło bojowe";
         }
 
         public Scepter(Serial serial)

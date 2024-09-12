@@ -24,7 +24,7 @@ To move it, you must first store it in your pack.  To do this, select the Backpa
 The Next/Previous options allow you to change the facing of the cannon.  The cannon can target objects in a 90 degree arc in front of it.  
 To use the cannon, first you must load a cannonball into it by double clicking a cannonball, then selecting the cannon.
 Once a cannonball is loaded, you can fire the cannon by double clicking it and then selecting a target object (either a mobile or item).  You must be nearby to do this.
-The accuracy of the shot depends on the distance of the object, the ArmsLore skill of the operator, and the type of cannonball used.
+The accuracy of the shot depends on the distance of the object, the WiedzaOUzbrojeniu skill of the operator, and the type of cannonball used.
 The maximum range of the shot depends on the type of munition used.  
 Different cannonball types will have different accuracy modifiers, range, area damage, damage types, and firing speed.
 The minimum time between shots will be affected by the firing speed of the ammunition and the dexterity of the operator.

@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x2D21)
         {
             this.Weight = 4.0;
+            this.Name = "Zabójczy kolec";
         }
 
         public AssassinSpike(Serial serial)
@@ -105,7 +106,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Fencing;
+                return SkillName.WalkaSzpadami;
             }
         }
         public override int InitMinHits

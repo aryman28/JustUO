@@ -70,7 +70,7 @@ namespace Server.Spells.Third
                             from.SendLocalizedMessage(501666); // You can't unlock that!
                         else
                         {
-                            int level = (int)(from.Skills[SkillName.Magery].Value * 0.8) - 4;
+                            int level = (int)(from.Skills[SkillName.Magia].Value * 0.8) - 4;
 
                             if (level >= cont.RequiredSkill && !(cont is TreasureMapChest && ((TreasureMapChest)cont).Level > 2))
                             {

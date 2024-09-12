@@ -225,7 +225,7 @@ namespace Server.Items
                         return;
                     }
 
-                    if (this.m_From.CheckSkill(SkillName.Cooking, 0, 10))
+                    if (this.m_From.CheckSkill(SkillName.Gotowanie, 0, 10))
                     {
                         if (this.m_From.AddToBackpack(new Muffins()))
                             this.m_From.PlaySound(0x57);
@@ -582,7 +582,7 @@ namespace Server.Items
 				}
 				else if ( targeted is TribalBerry )
 				{
-					if ( from.Skills[SkillName.Cooking].Base >= 80.0 )
+					if ( from.Skills[SkillName.Gotowanie].Base >= 80.0 )
 					{
 						m_Item.Delete();
 						((TribalBerry)targeted).Delete();

@@ -82,11 +82,11 @@ namespace Server.Mobiles
 
             this.PackGold(250, 500);
 
-            this.Skills[SkillName.Anatomy].Base = 120.0;
-            this.Skills[SkillName.Tactics].Base = 120.0;
-            this.Skills[SkillName.Swords].Base = 120.0;
-            this.Skills[SkillName.MagicResist].Base = 120.0;
-            this.Skills[SkillName.DetectHidden].Base = 100.0;
+            this.Skills[SkillName.Anatomia].Base = 120.0;
+            this.Skills[SkillName.Taktyka].Base = 120.0;
+            this.Skills[SkillName.WalkaMieczami].Base = 120.0;
+            this.Skills[SkillName.ObronaPrzedMagia].Base = 120.0;
+            this.Skills[SkillName.Wykrywanie].Base = 100.0;
         }
 
         public BaseShieldGuard(Serial serial)

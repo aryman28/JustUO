@@ -11,13 +11,13 @@ using Server.XMLConfiguration;
 
 namespace Server.SkillHandlers
 {
-	public class Discordance
+	public class Manipulacja
 	{
 		private static readonly Hashtable m_Table = new Hashtable();
 
 		public static void Initialize()
 		{
-			SkillInfo.Table[(int)SkillName.Discordance].Callback = OnUse;
+			SkillInfo.Table[(int)SkillName.Manipulacja].Callback = OnUse;
 		}
 
 		public static TimeSpan OnUse(Mobile m)
@@ -65,7 +65,7 @@ namespace Server.SkillHandlers
 			else
 			{
 				int range = (int)targ.GetDistanceToSqrt(from);
-				int maxRange = BaseInstrument.GetBardRange(from, SkillName.Discordance);
+				int maxRange = BaseInstrument.GetBardRange(from, SkillName.Manipulacja);
 
 				if (from.Map != targ.Map || range > maxRange)
 				{
@@ -105,7 +105,7 @@ namespace Server.SkillHandlers
 			private readonly BaseInstrument m_Instrument;
 
 			public DiscordanceTarget(Mobile from, BaseInstrument inst)
-				: base(BaseInstrument.GetBardRange(from, SkillName.Discordance), false, TargetFlags.None)
+				: base(BaseInstrument.GetBardRange(from, SkillName.Manipulacja), false, TargetFlags.None)
 			{
 				m_Instrument = inst;
 			}
@@ -136,7 +136,7 @@ namespace Server.SkillHandlers
 					else if (!targ.Player)
 					{
 						double diff = m_Instrument.GetDifficultyFor(targ) - 10.0;
-						double music = from.Skills[SkillName.Musicianship].Value;
+						double music = from.Skills[SkillName.Muzykowanie].Value;
 
                         if (XmlConfig.XmlMobFactionsEnabled) 
                             diff += XmlMobFactions.GetScaledFaction(from, targ, -25, 25, -0.001);
@@ -152,7 +152,7 @@ namespace Server.SkillHandlers
 							m_Instrument.PlayInstrumentBadly(from);
 							m_Instrument.ConsumeUse(from);
 						}
-						else if (from.CheckTargetSkill(SkillName.Discordance, target, diff - 25.0, diff + 25.0))
+						else if (from.CheckTargetSkill(SkillName.Manipulacja, target, diff - 25.0, diff + 25.0))
 						{
 							from.SendLocalizedMessage(1049539); // You play the song surpressing your targets strength
 							m_Instrument.PlayInstrumentWell(from);
@@ -164,7 +164,7 @@ namespace Server.SkillHandlers
 
 							if (Core.AOS)
 							{
-								double discord = from.Skills[SkillName.Discordance].Value;
+								double discord = from.Skills[SkillName.Manipulacja].Value;
 
 								if (discord > 100.0)
 								{
@@ -198,7 +198,7 @@ namespace Server.SkillHandlers
 							}
 							else
 							{
-								effect = (int)(from.Skills[SkillName.Discordance].Value / -5.0);
+								effect = (int)(from.Skills[SkillName.Manipulacja].Value / -5.0);
 								scalar = effect * 0.01;
 
 								mods.Add(new StatMod(StatType.Str, "DiscordanceStr", (int)(targ.RawStr * scalar), TimeSpan.Zero));

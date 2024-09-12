@@ -29,9 +29,9 @@ namespace Server.Mobiles
             this.SetResistance(ResistanceType.Poison, 17);
             this.SetResistance(ResistanceType.Energy, 30);
 
-            this.SetSkill(SkillName.Anatomy, 78.5);
-            this.SetSkill(SkillName.MagicResist, 82.5);
-            this.SetSkill(SkillName.Tactics, 65.3);
+            this.SetSkill(SkillName.Anatomia, 78.5);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 82.5);
+            this.SetSkill(SkillName.Taktyka, 65.3);
 
             this.AddItem(new Bow());
             this.PackItem(new Arrow(Utility.RandomMinMax(60, 80)));

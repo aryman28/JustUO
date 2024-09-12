@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -18,29 +19,31 @@ namespace Server.Engines.Quests.Samurai
 
         public override int TalkNumber
         {
-            get { return -1; }
+            get
+            {
+                return -1;
+            }
         }
-
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
+            this.InitStats(100, 100, 25);
 
-            Hue = 0x83FF;
+            this.Hue = 0x83FF;
 
-            Female = true;
-            Body = 0x191;
-            Name = "Disheveled Relnia";
+            this.Female = true;
+            this.Body = 0x191;
+            this.Name = "Disheveled Relnia";
         }
 
         public override void InitOutfit()
         {
-            HairItemID = 0x203C;
-            HairHue = 0x654;
+            this.HairItemID = 0x203C;
+            this.HairHue = 0x654;
 
-            AddItem(new ThighBoots(0x901));
-            AddItem(new FancyShirt(0x5F3));
-            AddItem(new SkullCap(0x6A7));
-            AddItem(new Skirt(0x544));
+            this.AddItem(new ThighBoots(0x901));
+            this.AddItem(new FancyShirt(0x5F3));
+            this.AddItem(new SkullCap(0x6A7));
+            this.AddItem(new Skirt(0x544));
         }
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
@@ -49,26 +52,26 @@ namespace Server.Engines.Quests.Samurai
 
         public override bool OnDragDrop(Mobile from, Item dropped)
         {
-            var player = from as PlayerMobile;
+            PlayerMobile player = from as PlayerMobile;
 
             if (player != null)
             {
-                var qs = player.Quest;
+                QuestSystem qs = player.Quest;
 
                 if (qs is HaochisTrialsQuest)
                 {
-                    var obj = qs.FindObjective(typeof (FourthTrialCatsObjective));
+                    QuestObjective obj = qs.FindObjective(typeof(FourthTrialCatsObjective));
 
                     if (obj != null && !obj.Completed)
                     {
-                        var gold = dropped as Gold;
+                        Gold gold = dropped as Gold;
 
                         if (gold != null)
                         {
                             obj.Complete();
                             qs.AddObjective(new FourthTrialReturnObjective(false));
 
-                            SayTo(from, 1063241); // I thank thee.  This gold will be a great help to me and mine!
+                            this.SayTo(from, 1063241); // I thank thee.  This gold will be a great help to me and mine!
 
                             gold.Consume(); // Intentional difference from OSI: don't take all the gold of poor newbies!
                             return gold.Deleted;
@@ -91,7 +94,7 @@ namespace Server.Engines.Quests.Samurai
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
         }
     }
 }

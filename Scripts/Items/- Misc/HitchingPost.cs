@@ -166,9 +166,9 @@ namespace Server.Items
 
         public static int GetMaxStabled(Mobile from)
         {
-            double taming = from.Skills[SkillName.AnimalTaming].Value;
-            double anlore = from.Skills[SkillName.AnimalLore].Value;
-            double vetern = from.Skills[SkillName.Veterinary].Value;
+            double taming = from.Skills[SkillName.Oswajanie].Value;
+            double anlore = from.Skills[SkillName.WiedzaOBestiach].Value;
+            double vetern = from.Skills[SkillName.Weterynaria].Value;
             double sklsum = taming + anlore + vetern;
 
             int max;

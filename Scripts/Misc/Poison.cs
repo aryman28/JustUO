@@ -6,8 +6,8 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
-using Server.Spells.Necromancy;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Nekromancja;
+using Server.Spells.Skrytobojstwo;
 #endregion
 
 namespace Server

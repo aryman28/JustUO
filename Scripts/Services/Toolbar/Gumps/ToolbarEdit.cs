@@ -110,7 +110,7 @@ namespace Services.Toolbar.Gumps
 						module.ToolbarInfo.Entries = AnalyzeEntries();
 						
 						module.ToolbarInfo.Phantom = info.IsSwitched(21);
-						module.ToolbarInfo.Stealth = info.IsSwitched(23);
+						module.ToolbarInfo.Zakradanie = info.IsSwitched(23);
 						module.ToolbarInfo.Reverse = info.IsSwitched(25);
 						module.ToolbarInfo.Lock = info.IsSwitched(27);
 
@@ -120,7 +120,7 @@ namespace Services.Toolbar.Gumps
 						}
 
 						m.CloseGump(typeof(ToolbarGump));
-						m.SendGump(new ToolbarGump(module.ToolbarInfo, m));
+						m.SendGump(new ToolbarGump(module.ToolbarInfo));
 
 						break;
 					}
@@ -145,7 +145,7 @@ namespace Services.Toolbar.Gumps
 				case 22:
 					{
 						m.SendGump(new ToolbarEdit(_Info, _Expanded));
-						m.SendMessage(2101, "Stealth mode makes the toolbar automatically minimize when you click a button.");
+						m.SendMessage(2101, "Zakradanie mode makes the toolbar automatically minimize when you click a button.");
 						break;
 					}
 				case 24:
@@ -303,9 +303,9 @@ namespace Services.Toolbar.Gumps
 			AddLabel(389, 11, 0, "Phantom");
 			AddButton(446, 13, 22153, 22155, 20, GumpButtonType.Reply, 0);
 			AddCheck(469, 11, 210, 211, _Info.Phantom, 21);
-			AddLabel(389, 36, 0, "Stealth");
+			AddLabel(389, 36, 0, "Zakradanie");
 			AddButton(446, 38, 22153, 22155, 22, GumpButtonType.Reply, 0);
-			AddCheck(469, 36, 210, 211, _Info.Stealth, 23);
+			AddCheck(469, 36, 210, 211, _Info.Zakradanie, 23);
 			AddLabel(389, 61, 0, "Reverse");
 			AddButton(446, 63, 22153, 22155, 24, GumpButtonType.Reply, 0);
 			AddCheck(469, 61, 210, 211, _Info.Reverse, 25);

@@ -3,7 +3,7 @@ using Server.Mobiles;
 using Server.Network;
 using Server.Targeting;
 
-namespace Server.Spells.Chivalry
+namespace Server.Spells.Rycerstwo
 {
     public class CloseWoundsSpell : PaladinSpell
     {

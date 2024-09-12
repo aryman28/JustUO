@@ -27,14 +27,14 @@ using Server.Regions;
 using Server.Services.Loyalty_System;
 using Server.SkillHandlers;
 using Server.Spells;
-using Server.Spells.Bushido;
+using Server.Spells.Fanatyzm;
 using Server.Spells.Fifth;
 using Server.Spells.Fourth;
-using Server.Spells.Necromancy;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Nekromancja;
+using Server.Spells.Skrytobojstwo;
 using Server.Spells.Seventh;
 using Server.Spells.Sixth;
-using Server.Spells.Spellweaving;
+using Server.Spells.Druidyzm;
 using Server.Targeting;
 using Server.XMLConfiguration;
 
@@ -65,7 +65,7 @@ namespace Server.Mobiles
 		HasStatReward = 0x00002000,
 		Bedlam = 0x00010000,
 		LibraryFriend = 0x00020000,
-		Spellweaving = 0x00040000,
+		Druidyzm = 0x00040000,
 		GemMining = 0x00080000,
 		ToggleMiningGem = 0x00100000,
 		BasketWeaving = 0x00200000,
@@ -99,6 +99,120 @@ namespace Server.Mobiles
 		Red,
 		Black
 	}
+
+        public enum Race1
+	{
+		None,
+		Cz³owiek,
+		Elf,
+		WysokiElf,
+		LeœnyElf,
+		SzaryElf,
+		NocnyElf,
+		MrocznyElf,
+                Drow,
+		KrwawyElf,
+		Krasnolud,
+		SkalnyKrasnolud, 
+		GórskiKrasnolud,
+                Duergar,
+		Nizio³ek,
+		Hobbita,
+		Gnom,
+		Ork,		
+		Wilko³ak,
+		Wampir,
+                Dampir,
+                Demon,
+                Sukkub,
+		Driada,
+		Pó³Elf,
+		Pó³Krasnolud,
+		Pó³Cz³owiek,
+		Pó³Ork,
+                Pó³Demon,
+		Cieñ,
+		Nieumar³y
+	}	
+
+        public enum Klasa
+  	{
+  	None,
+	Berserker,
+	Obroñca,
+	Wojownik,
+	Giermek,
+	Rycerz,
+	Paladyn,
+	Mœciciel,
+	Myœliwy,
+	£ucznik,
+	£owca,
+	Adept,
+	Mag,
+	Arcymag,
+	£otr,
+	Z³odziej,
+	Skrytobójca,
+	Kultysta,
+	Nekromanta,
+	Czarnoksiê¿nik,
+	Czeladnik,
+	Rzemieœlnik,
+	Mistrz_Rzemiso³a,
+	Zbieracz,
+	Awanturnik,
+	Kolekcjoner,
+	Dzikus,
+	Oswajacz,
+	Poskramiacz_Bestii,
+	Znachor,
+	Lekarz,
+	Uzdrowiciel,
+	Szaman,
+	Druid,
+	Grajek,
+        Bard,
+        Artysta,
+        Smakosz,
+        Kucharz
+        
+	}
+
+        public enum Frakcja
+  	{
+  	None,
+	Porzadek,
+	Neutralna,
+	Chaos
+	}
+
+        public enum P³eæ
+  	{
+  	None,
+	Kobieta,
+	Mê¿czyzna,
+        Bezp³uciowy
+	}
+
+        public enum Bóstwo
+  	{
+  	None,
+  	Ateista,
+        Tyr,
+        Kelemvor,
+        Lathander,
+        Mystra,
+        Silvanus,
+        Oghma,
+        Grumbar,
+        Sune,
+        Cyric,
+        Shar,
+        Talos,
+        Beshaba,
+	}
+
 	#endregion
 
 	public class PlayerMobile : Mobile, IHonorTarget
@@ -129,8 +243,8 @@ namespace Server.Mobiles
 				Freeze(TimeSpan.FromSeconds(1));
 				Animate(61, 10, 1, true, false, 0);
 				Flying = false;
-				BuffInfo.RemoveBuff(this, BuffIcon.Flying);
-				SendMessage("You have landed.");
+				BuffInfo.RemoveBuff(this, BuffIcon.Fly);
+				SendMessage("Wyl¹dowa³eœ.");
 
 				BaseMount.Dismount(this);
 				return;
@@ -181,7 +295,7 @@ namespace Server.Mobiles
 				else
 				{
 					Flying = false;
-					BuffInfo.RemoveBuff(this, BuffIcon.Flying);
+					BuffInfo.RemoveBuff(this, BuffIcon.Fly);
 				}
 			}
 		}
@@ -205,6 +319,1674 @@ namespace Server.Mobiles
 			}
 		}
 
+      public override void AddNameProperties( ObjectPropertyList list ) 
+      { 
+      base.AddNameProperties(list); 
+ 
+if ( this.m_DisplayRaceTitle == false && this.m_DisplayKlasaTitle == true && this.m_RaceType == Race1.None )
+{
+ 	list.Add( "(Nieznana)" );
+}
+ 
+                try
+                {
+		     switch( Race1 )
+	             {
+////PRAWORZ¥DNE
+			case Server.Mobiles.Race1.None:
+			{
+                            if ( this.m_DisplayRaceTitle == true )
+                            {
+				list.Add( "(Nieznana)" );
+                            }
+                            break;
+			}
+			case Server.Mobiles.Race1.Cz³owiek:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Cz³owiek)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Cz³owiek)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Cz³owiek)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Cz³owiek)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Cz³owiek)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Cz³owiek)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Cz³owiek)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Cz³owiek)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Elf:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Elf)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Elf)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Krasnolud:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Krasnolud)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Krasnolud)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Krasnolud)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Krasnolud)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Krasnolud)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Krasnolud)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Krasnolud)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Krasnolud)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Pó³Elf:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Pó³ Elf)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Pó³ Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Pó³ Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Pó³ Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Pó³ Elf)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Pó³ Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Pó³ Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Pó³ Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Nizio³ek:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Nizio³ek)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Nizio³ek)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Nizio³ek)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Nizio³ek)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Nizio³ek)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Nizio³ek)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Nizio³ek)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Nizio³ek)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+////PRAWORZADNE Z VIP
+			case Server.Mobiles.Race1.WysokiElf:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Wysoki Elf)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Wysoki Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Wysoki Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Wysoki Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Wysoki Elf)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Wysoki Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Wysoki Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Wysoki Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.LeœnyElf:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Leœny Elf)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Leœny Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Leœny Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Leœny Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Leœny Elf)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Leœny Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Leœny Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Leœny Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.SzaryElf:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Szary Elf)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Szary Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Szary Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Szary Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Szary Elf)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Szary Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Szary Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Szary Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.NocnyElf:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Nocny Elf)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Nocny Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Nocny Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Nocny Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Nocny Elf)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Nocny Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Nocny Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Nocny Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.GórskiKrasnolud:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Górski Krasnolud)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Górski Krasnolud)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Górski Krasnolud)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Górski Krasnolud)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Górski Krasnolud)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Górski Krasnolud)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Górski Krasnolud)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Górski Krasnolud)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Hobbita:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Hobbita)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Hobbita)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Hobbita)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Hobbita)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Hobbita)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Hobbita)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Hobbita)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Hobbita)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+////NEUTRALNE
+			case Server.Mobiles.Race1.SkalnyKrasnolud:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Skalny Krasnolud)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Skalny Krasnolud)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Skalny Krasnolud)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Skalny Krasnolud)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Skalny Krasnolud)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Skalny Krasnolud)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Skalny Krasnolud)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Skalny Krasnolud)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Gnom:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Gnom)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Gnom)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Gnom)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Gnom)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Gnom)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Gnom)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Gnom)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Gnom)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+////NEUTRALNE VIP
+			case Server.Mobiles.Race1.Dampir:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Dampir)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Dampir)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Dampir)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Dampir)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Dampir)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Dampir)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Dampir)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Dampir)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Driada:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Driada)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Driada)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Driada)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Driada)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Driada)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Driada)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Driada)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Driada)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Pó³Krasnolud:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Pó³ Krasnolud)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Pó³ Krasnolud)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Pó³ Krasnolud)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Pó³ Krasnolud)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Pó³ Krasnolud)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Pó³ Krasnolud)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Pó³ Krasnolud)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Pó³ Krasnolud)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Pó³Cz³owiek:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Pó³ Cz³owiek)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Pó³ Cz³owiek)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Pó³ Cz³owiek)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Pó³ Cz³owiek)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Pó³ Cz³owiek)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Pó³ Cz³owiek)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Pó³ Cz³owiek)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Pó³ Cz³owiek)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+////CHAOTYCZNE
+			case Server.Mobiles.Race1.MrocznyElf:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Mroczny Elf)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Mroczny Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Mroczny Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Mroczny Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Mroczny Elf)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Mroczny Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Mroczny Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Mroczny Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Duergar:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Duergar)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Duergar)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Duergar)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Duergar)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Duergar)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Duergar)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Duergar)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Duergar)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Pó³Ork:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Pó³ Ork)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Pó³ Ork)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Pó³ Ork)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Pó³ Ork)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Pó³ Ork)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Pó³ Ork)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Pó³ Ork)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Pó³ Ork)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+////CHAOTYCZNE VIP
+			case Server.Mobiles.Race1.Ork:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Ork)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Ork)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Ork)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Ork)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Ork)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Ork)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Ork)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Ork)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Drow:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Drow)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Drow)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Drow)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Drow)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Drow)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Drow)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Drow)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Drow)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Wilko³ak:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Wilko³ak)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Wilko³ak)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Wilko³ak)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Wilko³ak)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Wilko³ak)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Wilko³ak)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Wilko³ak)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Wilko³ak)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Wampir:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Wampir)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Wampir)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Wampir)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Wampir)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Wampir)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Wampir)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Wampir)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Wampir)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.KrwawyElf:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Krwawy Elf)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Krwawy Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Krwawy Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Krwawy Elf)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Krwawy Elf)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Krwawy Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Krwawy Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Krwawy Elf)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Demon:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Demon)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Demon)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Demon)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Demon)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Demon)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Demon)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Demon)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Demon)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Sukkub:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Sukkub)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Sukkub)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Sukkub)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Sukkub)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Sukkub)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Sukkub)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Sukkub)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Sukkub)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Pó³Demon:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Pó³ Demon)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Pó³ Demon)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Pó³ Demon)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Pó³ Demon)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Pó³ Demon)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Pó³ Demon)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Pó³ Demon)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Pó³ Demon)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Cieñ:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Cieñ)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Cieñ)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Cieñ)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Cieñ)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Cieñ)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Cieñ)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Cieñ)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Cieñ)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+			case Server.Mobiles.Race1.Nieumar³y:
+			{
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "(Nieumar³y)" );
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#3399FF>(Nieumar³y)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#CCCCCC>(Nieumar³y)<BASEFONT COLOR=#FFFFFF>" );
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayRaceTitle == true && this.m_DisplayKlasaTitle == false )
+{
+				list.Add( "<BASEFONT COLOR=#990000>(Nieumar³y)<BASEFONT COLOR=#FFFFFF>" );
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "(Nieumar³y)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#3399FF>(Nieumar³y)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+ list.Add(1041522, "<BASEFONT COLOR=#CCCCCC>(Nieumar³y)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == true )
+{
+list.Add(1041522, "<BASEFONT COLOR=#990000>(Nieumar³y)<BASEFONT COLOR=#FFFFFF>\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+////
+if ( m_FrakcjaType == Frakcja.None && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Porzadek && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Neutralna && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+ list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+if ( m_FrakcjaType == Frakcja.Chaos && this.m_DisplayKlasaTitle == true && this.m_DisplayRaceTitle == false )
+{
+list.Add(1041522, "(Nieznana)\t{1}\t{2}", m_RaceType == Race1.None ? " " : m_RaceType.ToString(), " ", m_KlasaType == Klasa.None ? " " : m_KlasaType.ToString(), " ");
+}
+				break;
+			}
+                   }
+              }
+	                catch( Exception e )
+	                {
+			list.Add( string.Format( "B³¹d: {0},{1}",e.Message,e.Source ) );
+	                }
+        //}
+//}
+ 			XmlPoints a = (XmlPoints)XmlAttach.FindAttachment(this, typeof(XmlPoints));
+ 
+ 			XmlData XmlPointsTitle = (XmlData)XmlAttach.FindAttachment(this, typeof(XmlData), "XmlPointsTitle");
+ 
+ 			if ((XmlPointsTitle != null && XmlPointsTitle.Data == "True") || a == null)
+ 			{
+ 				return;
+ 			}
+             
+             if (XmlConfig.XmlPointsEnabled)
+ 				list.Add(1070722, "Kills {0} / Deaths {1} : Rank={2}", a.Kills, a.Deaths, a.Rank);
+ }
+
 		private DesignContext m_DesignContext;
 
 		private NpcGuild m_NpcGuild;
@@ -212,6 +1994,15 @@ namespace Server.Mobiles
 		private TimeSpan m_NpcGuildGameTime;
 		private PlayerFlag m_Flags;
 		private int m_Profession;
+
+private bool m_DisplayRaceTitle;
+private bool m_DisplayKlasaTitle;
+private bool m_TworzeniePostaci;
+private Race1 m_RaceType;
+private Klasa m_KlasaType;
+private Frakcja m_FrakcjaType;
+private P³eæ m_P³eæType;
+private Bóstwo m_BóstwoType;
 
         private int m_NonAutoreinsuredItems;
 		// number of items that could not be automaitically reinsured because gold in bank was not enough
@@ -385,6 +2176,75 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool HasStatReward { get { return GetFlag(PlayerFlag.HasStatReward); } set { SetFlag(PlayerFlag.HasStatReward, value); } }
 
+
+[CommandProperty(AccessLevel.GameMaster)]     ////do ras////
+public bool TworzeniePostaci
+{
+get { return m_TworzeniePostaci; }
+set
+{
+m_TworzeniePostaci = value;
+InvalidateProperties();
+  }
+}
+
+[CommandProperty(AccessLevel.GameMaster)]     ////do ras////
+public bool DisplayRaceTitle
+{
+get { return m_DisplayRaceTitle; }
+set
+{
+m_DisplayRaceTitle = value;
+InvalidateProperties();
+  }
+}
+
+[CommandProperty(AccessLevel.GameMaster)]     ////do ras////
+public bool DisplayKlasaTitle
+{
+get { return m_DisplayKlasaTitle; }
+set
+{
+m_DisplayKlasaTitle = value;
+InvalidateProperties();
+  }
+}
+
+[CommandProperty( AccessLevel.GameMaster )]    ////do ras////
+public Race1 Race1
+{
+get{ return m_RaceType; }
+set { m_RaceType = value; }
+}
+
+[CommandProperty( AccessLevel.GameMaster )]   ////do klas////
+public Klasa Klasa
+{
+get{ return m_KlasaType; }
+set { m_KlasaType = value; }
+}
+
+[CommandProperty( AccessLevel.GameMaster )]   ////do frakcji////
+public Frakcja Frakcja
+{
+get{ return m_FrakcjaType; }
+set { m_FrakcjaType = value; }
+}
+
+[CommandProperty( AccessLevel.GameMaster )]   ////do p³uci////
+public P³eæ P³eæ
+{
+get{ return m_P³eæType; }
+set { m_P³eæType = value; }
+}
+
+[CommandProperty( AccessLevel.GameMaster )]   ////do bóstw////
+public Bóstwo Bóstwo
+{
+get{ return m_BóstwoType; }
+set { m_BóstwoType = value; }
+}
+
 		#region QueensLoyaltySystem
 		private long m_LevelExp; // Experience Needed for next Experience Level
 
@@ -543,7 +2403,7 @@ namespace Server.Mobiles
 		public bool LibraryFriend { get { return GetFlag(PlayerFlag.LibraryFriend); } set { SetFlag(PlayerFlag.LibraryFriend, value); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Spellweaving { get { return GetFlag(PlayerFlag.Spellweaving); } set { SetFlag(PlayerFlag.Spellweaving, value); } }
+		public bool Druidyzm { get { return GetFlag(PlayerFlag.Druidyzm); } set { SetFlag(PlayerFlag.Druidyzm, value); } }
 		#endregion
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -752,7 +2612,7 @@ namespace Server.Mobiles
 
 		public override void OnSkillInvalidated(Skill skill)
 		{
-			if (Core.AOS && skill.SkillName == SkillName.MagicResist)
+			if (Core.AOS && skill.SkillName == SkillName.ObronaPrzedMagia)
 			{
 				UpdateResistances();
 			}
@@ -771,11 +2631,88 @@ namespace Server.Mobiles
 			{
 				max = 60;
 			}
-
-			if (Core.ML && Race == Race.Elf && type == ResistanceType.Energy)
+/// Zmiany bonusy do resistów ///
+			if (Race1 == Race1.Cz³owiek && type == ResistanceType.Physical)
 			{
 				max += 5; //Intended to go after the 60 max from curse
 			}
+			else if (Race1 == Race1.Cz³owiek && type == ResistanceType.Cold)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.Elf && type == ResistanceType.Fire)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.Elf && type == ResistanceType.Energy)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.Pó³Elf && type == ResistanceType.Physical)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.Pó³Elf && type == ResistanceType.Energy)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}else if (Race1 == Race1.Krasnolud && type == ResistanceType.Physical)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.Krasnolud && type == ResistanceType.Cold)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.Nizio³ek && type == ResistanceType.Fire)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.Nizio³ek && type == ResistanceType.Energy)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.SkalnyKrasnolud && type == ResistanceType.Cold)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.SkalnyKrasnolud && type == ResistanceType.Fire)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.Gnom && type == ResistanceType.Fire)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.Gnom && type == ResistanceType.Poison)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.MrocznyElf && type == ResistanceType.Fire)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.MrocznyElf && type == ResistanceType.Poison)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.Duergar && type == ResistanceType.Physical)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.Duergar && type == ResistanceType.Poison)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.Pó³Ork && type == ResistanceType.Cold)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+			else if (Race1 == Race1.Pó³Ork && type == ResistanceType.Physical)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+/// Koniec bonusów do resistow rasowych
+			
 
 			return max;
 		}
@@ -844,7 +2781,7 @@ namespace Server.Mobiles
 
 		public override int GetMinResistance(ResistanceType type)
 		{
-			int magicResist = (int)(Skills[SkillName.MagicResist].Value * 10);
+			int magicResist = (int)(Skills[SkillName.ObronaPrzedMagia].Value * 10);
 			int min = int.MinValue;
 
 			if (magicResist >= 1000)
@@ -868,6 +2805,7 @@ namespace Server.Mobiles
 				min = baseMin;
 			}
 
+
 			return min;
 		}
 
@@ -888,6 +2826,16 @@ namespace Server.Mobiles
 			Mobile from = e.Mobile;
 
 			CheckAtrophies(from);
+
+////Age System
+if (from.AccessLevel == AccessLevel.Player && ((Account)from.Account).GetTag( "Age of " + (from.RawName) ) == null )
+{
+int age = 19;
+((Account)from.Account).SetTag( "Age of " + (from.RawName), (age + 1).ToString() );
+((Account)from.Account).SetTag( "LastRenewAge " + (from.RawName), (DateTime.Now).ToString() );
+from.SendMessage( Utility.RandomMinMax(2,600), "Dzis masz urodziny! Masz teraz {0} lat! Gratulacje!", (age + 1) );
+}
+////AgeSystem
 
 			if (AccountHandler.LockdownLevel > AccessLevel.VIP)
 			{
@@ -1326,7 +3274,7 @@ namespace Server.Mobiles
 			DisguiseTimers.StopTimer(from);
 		}
 
-		public override void RevealingAction(bool disruptive)
+		public override void RevealingAction()
 		{
 			if (m_DesignContext != null)
 			{
@@ -1335,7 +3283,7 @@ namespace Server.Mobiles
 
 			InvisibilitySpell.RemoveTimer(this);
 
-			base.RevealingAction(disruptive);
+			base.RevealingAction();
 		}
 
 		public override void OnHiddenChanged()
@@ -1487,8 +3435,8 @@ namespace Server.Mobiles
 		}
 
 		#region [Stats]Max
-		[CommandProperty(AccessLevel.GameMaster)]
-		public override int HitsMax
+		//[CommandProperty(AccessLevel.GameMaster)]
+		/*public override int HitsMax
 		{
 			get
 			{
@@ -1518,17 +3466,109 @@ namespace Server.Mobiles
 
 				return (strBase / 2) + 50 + strOffs;
 			}
+		}*/
+		[CommandProperty(AccessLevel.GameMaster)]
+		public override int HitsMax 
+		{ 
+			get
+			{
+				/*return base.HitsMax + AosAttributes.GetValue(this, AosAttribute.BonusHits) + 
+				((Race1 == Race1.Cz³owiek 
+				|| Race1 == Race1.Krasnolud 
+				|| Race1 == Race1.SkalnyKrasnolud
+				|| Race1 == Race1.Pó³Ork
+				|| Race1 == Race1.Duergar
+
+				|| AnimalForm.UnderTransformation(this, typeof(BakeKitsune)) 
+				|| AnimalForm.UnderTransformation(this, typeof(GreyWolf)) ) ? 10 : 0);*/
+
+				int max = base.HitsMax + AosAttributes.GetValue(this, AosAttribute.BonusHits);
+				
+				if (Race1 == Race1.Cz³owiek 
+				|| Race1 == Race1.Krasnolud 
+				|| Race1 == Race1.Pó³Ork
+				|| Race1 == Race1.Duergar)
+				{
+					max += 10;
+				}
+				else if (Race1 == Race1.SkalnyKrasnolud)
+				{
+					max += 20;
+				}
+				
+				return max;
+				
+			}
+			 
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public override int StamMax { get { return base.StamMax + AosAttributes.GetValue(this, AosAttribute.BonusStam); } }
+		public override int StamMax 
+		{ 
+			get
+			{
+				/*return base.StamMax + AosAttributes.GetValue(this, AosAttribute.BonusStam) + 
+				((Race1 == Race1.Cz³owiek 
+				|| Race1 == Race1.Krasnolud 
+				|| Race1 == Race1.SkalnyKrasnolud
+				|| Race1 == Race1.Elf 
+				|| Race1 == Race1.Pó³Elf
+				//|| Race1 == Race1.Gnom
+				|| Race1 == Race1.Nizio³ek
+				|| Race1 == Race1.MrocznyElf
+				|| Race1 == Race1.Duergar
+				|| Race1 == Race1.Pó³Ork ) ? 10 : 0);*/
+
+				int max = base.StamMax + AosAttributes.GetValue(this, AosAttribute.BonusStam);
+				
+				if (Race1 == Race1.Cz³owiek 
+				|| Race1 == Race1.Krasnolud 
+				|| Race1 == Race1.Elf 
+				|| Race1 == Race1.Pó³Ork
+				|| Race1 == Race1.Duergar 
+				|| Race1 == Race1.Pó³Elf)
+				{
+					max += 10;
+				}
+				else if (Race1 == Race1.Nizio³ek)
+				{
+					max += 20;
+				}
+				
+				return max;
+			}
+			 
+		}	
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public override int ManaMax { get
-		{
-			return base.ManaMax + AosAttributes.GetValue(this, AosAttribute.BonusMana) +
-				   ((Core.ML && Race == Race.Elf) ? 20 : 0);
-		} }
+		public override int ManaMax 
+		{ 
+			get
+			{
+				int max = base.ManaMax + AosAttributes.GetValue(this, AosAttribute.BonusMana);
+				
+				if (Race1 == Race1.Cz³owiek 
+				|| Race1 == Race1.Krasnolud 
+				|| Race1 == Race1.SkalnyKrasnolud
+				|| Race1 == Race1.Pó³Ork
+				|| Race1 == Race1.Duergar)
+				{
+					max += 0;
+				}
+				else if (Race1 == Race1.Elf 
+				|| Race1 == Race1.MrocznyElf 
+				|| Race1 == Race1.Pó³Elf)
+				{
+					max += 10;
+				}
+				else if (Race1 == Race1.Gnom)
+				{
+					max += 20;
+				}
+				return max;
+			}
+			 
+		}
 		#endregion
 
 		#region Stat Getters/Setters
@@ -1661,9 +3701,9 @@ namespace Server.Mobiles
 
 		private readonly SkillName[] m_AnimalFormRestrictedSkills = new[]
 		{
-			SkillName.ArmsLore, SkillName.Begging, SkillName.Discordance, SkillName.Forensics, SkillName.Inscribe,
-			SkillName.ItemID, SkillName.Meditation, SkillName.Peacemaking, SkillName.Provocation, SkillName.RemoveTrap,
-			SkillName.SpiritSpeak, SkillName.Stealing, SkillName.TasteID
+			SkillName.WiedzaOUzbrojeniu, SkillName.Rolnictwo, SkillName.Manipulacja, SkillName.Kryminalistyka, SkillName.Inskrypcja,
+			SkillName.Identyfikacja, SkillName.Medytacja, SkillName.Uspokajanie, SkillName.Prowokacja, SkillName.UsuwaniePulapek,
+			SkillName.MowaDuchow, SkillName.Okradanie, SkillName.OcenaSmaku
 		};
 
 		public override bool AllowSkillUse(SkillName skill)
@@ -1677,7 +3717,7 @@ namespace Server.Mobiles
 						#region Mondain's Legacy
 						AnimalFormContext context = AnimalForm.GetContext(this);
 
-						if (skill == SkillName.Stealing && context.StealingMod != null && context.StealingMod.Value > 0)
+						if (skill == SkillName.Okradanie && context.StealingMod != null && context.StealingMod.Value > 0)
 						{
 							continue;
 						}
@@ -1823,20 +3863,8 @@ namespace Server.Mobiles
 				}
 				#endregion
 			}
-			else
+			if (from != this)
 			{
-				if (Core.TOL && from.InRange(this, 2))
-				{
-					/* TODO:
-					 * Find a cliloc in the 3000000+ range that has the text "Trade"; 
-					 * OSI may add this at some point for TOL.
-					 * There is a "Trade" cliloc below 3000000 that can be used (1077728)
-					 * but using it will suppress custom coloring support.
-					 */
-					//list.Add(new CallbackEntry(6113, () => OpenTrade(from, null))); // Transfer
-					// Osi uses this one
-					list.Add(new CallbackEntry(1077728, () => OpenTrade(from))); // Trade 
-				}
 				if (Alive && Core.Expansion >= Expansion.AOS)
 				{
 					Party theirParty = from.Party as Party;
@@ -2257,7 +4285,7 @@ namespace Server.Mobiles
 				}
 			}
 
-			if (msgNum == 0 && item != null)
+			if (msgNum == 0)
 			{
 				if (cont != null)
 				{
@@ -2279,24 +4307,17 @@ namespace Server.Mobiles
 				}
 			}
 
-			if (msgNum == 0)
+			if (msgNum != 0)
 			{
-				return true;
-			}
-			if (!message)
-			{
+				if (message)
+				{
+					SendLocalizedMessage(msgNum);
+				}
+
 				return false;
 			}
-			if (msgNum == 1154111)
-			{
-				SendLocalizedMessage(msgNum, RawName);
-			}
-			else
-			{
-				SendLocalizedMessage(msgNum);
-			}
 
-			return false;
+			return true;
 		}
 
 		private static int CheckContentForTrade(Item item)
@@ -2601,7 +4622,7 @@ namespace Server.Mobiles
 		{
 			if (!item.Deleted && (item.LootType == LootType.Blessed || item.Insured))
 			{
-				if (Backpack != item.Parent)
+				if (Backpack != item.ParentEntity)
 				{
 					return true;
 				}
@@ -2795,7 +4816,7 @@ namespace Server.Mobiles
 			if (Flying)
 			{
 				Flying = false;
-				BuffInfo.RemoveBuff(this, BuffIcon.Flying);
+				BuffInfo.RemoveBuff(this, BuffIcon.Fly);
 			}
 			#endregion
 
@@ -2810,7 +4831,7 @@ namespace Server.Mobiles
 					((Corpse)c).Criminal = true;
 				}
 
-				if (Stealing.ClassicMode)
+				if (Okradanie.ClassicMode)
 				{
 					Criminal = true;
 				}
@@ -3054,7 +5075,7 @@ namespace Server.Mobiles
 				return false;
 			}
 
-			if (Core.ML && Skills[SkillName.SpiritSpeak].Value >= 100.0)
+			if (Core.ML && Skills[SkillName.MowaDuchow].Value >= 100.0)
 			{
 				return false;
 			}
@@ -3065,7 +5086,7 @@ namespace Server.Mobiles
 				{
 					Mobile m = hears[i];
 
-					if (m != this && m.Skills[SkillName.SpiritSpeak].Value >= 100.0)
+					if (m != this && m.Skills[SkillName.MowaDuchow].Value >= 100.0)
 					{
 						return false;
 					}
@@ -3167,7 +5188,7 @@ namespace Server.Mobiles
 
 				if (Core.ML)
 				{
-					from.Damage((int)(amount * (1 - (((from.Skills.MagicResist.Value * .5) + 10) / 100))), this);
+					from.Damage((int)(amount * (1 - (((from.Skills.ObronaPrzedMagia.Value * .5) + 10) / 100))), this);
 				}
 				else
 				{
@@ -3256,7 +5277,7 @@ namespace Server.Mobiles
 
 		public override bool IsHarmfulCriminal(Mobile target)
 		{
-			if (Stealing.ClassicMode && target is PlayerMobile && ((PlayerMobile)target).m_PermaFlags.Count > 0)
+			if (Okradanie.ClassicMode && target is PlayerMobile && ((PlayerMobile)target).m_PermaFlags.Count > 0)
 			{
 				int noto = Notoriety.Compute(this, target);
 
@@ -3341,7 +5362,29 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
-                case 29:
+
+                               case 30:
+                               {
+                                 m_TworzeniePostaci = reader.ReadBool();
+
+			         m_DisplayRaceTitle = reader.ReadBool();
+
+			         m_DisplayKlasaTitle = reader.ReadBool();
+
+                                 m_RaceType = (Race1)reader.ReadEncodedInt();
+
+                                 m_KlasaType = (Klasa)reader.ReadEncodedInt();
+
+                                 m_FrakcjaType = (Frakcja)reader.ReadEncodedInt();
+
+                                 m_P³eæType = (P³eæ)reader.ReadEncodedInt();
+
+                                 m_BóstwoType = (Bóstwo)reader.ReadEncodedInt();
+								
+                                 goto case 29;
+		               }
+
+                                        case 29:
 					{
 						m_GauntletPoints = reader.ReadDouble();
 
@@ -3716,7 +5759,7 @@ namespace Server.Mobiles
 
 			CheckAtrophies(this);
 
-			if (Hidden) //Hiding is the only buff where it has an effect that's serialized.
+			if (Hidden) //Ukrywanie is the only buff where it has an effect that's serialized.
 			{
 				AddBuff(new BuffInfo(BuffIcon.HidingAndOrStealth, 1075655));
 			}
@@ -3748,9 +5791,26 @@ namespace Server.Mobiles
 
 			base.Serialize(writer);
 
-			writer.Write(29); // version old 28
+			writer.Write(30); // version old 29
 
-			// Version 29
+			// Version 30
+
+            writer.Write(m_TworzeniePostaci);
+
+            writer.Write(m_DisplayRaceTitle);
+
+            writer.Write(m_DisplayKlasaTitle);
+
+            writer.WriteEncodedInt((int)m_RaceType);
+
+            writer.WriteEncodedInt((int)m_KlasaType);
+
+            writer.WriteEncodedInt((int)m_FrakcjaType);
+
+            writer.WriteEncodedInt((int)m_P³eæType);
+
+            writer.WriteEncodedInt((int)m_BóstwoType);
+
 			writer.Write(m_GauntletPoints);
 
 			#region Plant System
@@ -4041,23 +6101,6 @@ namespace Server.Mobiles
 
 		public static event PlayerPropertiesEventHandler PlayerProperties;
 
-		public override void AddNameProperties(ObjectPropertyList list)
-		{
-			base.AddNameProperties(list);
-
-			XmlPoints a = (XmlPoints)XmlAttach.FindAttachment(this, typeof(XmlPoints));
-
-			XmlData XmlPointsTitle = (XmlData)XmlAttach.FindAttachment(this, typeof(XmlData), "XmlPointsTitle");
-
-			if ((XmlPointsTitle != null && XmlPointsTitle.Data == "True") || a == null)
-			{
-				return;
-			}
-            
-            if (XmlConfig.XmlPointsEnabled)
-				list.Add(1070722, "Kills {0} / Deaths {1} : Rank={2}", a.Kills, a.Deaths, a.Rank);
-		}
-
 		public class PlayerPropertiesEventArgs : EventArgs
 		{
 			public PlayerMobile Player = null;
@@ -4175,15 +6218,15 @@ namespace Server.Mobiles
 						color = "#FFD700";
 						break;
 				}
-				if (IsStaff())
-				{
-					list.Add(
-						1060658, "{0}\t{1}", "Staff", String.Format("<BASEFONT COLOR={0}>{1}", color, GetAccessLevelName(AccessLevel)));
-				}
-				else
-				{
-					list.Add(1060658, "VIP");
-				}
+				//if (IsStaff())
+				//{
+				//	list.Add(
+				//		1060658, "{0}\t{1}", "Ekipa", String.Format("<BASEFONT COLOR={0}>{1}", color, GetAccessLevelName(AccessLevel)));
+				//}
+				//else
+				//{
+					//list.Add(1060658, "VIP");
+				//}
 			}
 
 			if (PlayerProperties != null)
@@ -4258,7 +6301,7 @@ namespace Server.Mobiles
 
 			if (Hidden && DesignContext.Find(this) == null) //Hidden & NOT customizing a house
 			{
-				if (!Mounted && Skills.Stealth.Value >= 25.0)
+				if (!Mounted && Skills.Zakradanie.Value >= 25.0)
 				{
 					bool running = (d & Direction.Running) != 0;
 
@@ -4271,7 +6314,7 @@ namespace Server.Mobiles
 					}
 					else if (AllowedStealthSteps-- <= 0)
 					{
-						Stealth.OnUse(this);
+						Zakradanie.OnUse(this);
 					}
 				}
 				else
@@ -4311,7 +6354,7 @@ namespace Server.Mobiles
 			}
 		}
 
-		#region Mysticism
+		#region Mistycyzm
 		[CommandProperty(AccessLevel.GameMaster)]
 		public override bool Asleep
 		{
@@ -4869,11 +6912,11 @@ namespace Server.Mobiles
 			{
 				if (suffix.Length == 0)
 				{
-					suffix = "(Young)";
+					suffix = "(M³ody)";
 				}
 				else
 				{
-					suffix = String.Concat(suffix, " (Young)");
+					suffix = String.Concat(suffix, " (M³ody)");
 				}
 			}
 

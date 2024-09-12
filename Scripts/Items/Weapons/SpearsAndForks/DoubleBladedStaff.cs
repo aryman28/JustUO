@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x26BF)
         {
             this.Weight = 2.0;
+            this.Name = "Podwójnie zaostrzony kij";
         }
 
         public DoubleBladedStaff(Serial serial)

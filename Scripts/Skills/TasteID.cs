@@ -5,11 +5,11 @@ using Server.Targeting;
 
 namespace Server.SkillHandlers
 {
-    public class TasteID
+    public class OcenaSmaku
     {
         public static void Initialize()
         {
-            SkillInfo.Table[(int)SkillName.TasteID].Callback = new SkillUseCallback(OnUse);
+            SkillInfo.Table[(int)SkillName.OcenaSmaku].Callback = new SkillUseCallback(OnUse);
         }
 
         public static TimeSpan OnUse(Mobile m)
@@ -40,7 +40,7 @@ namespace Server.SkillHandlers
                 {
                     Food food = (Food)targeted;
 
-                    if (from.CheckTargetSkill(SkillName.TasteID, food, 0, 100))
+                    if (from.CheckTargetSkill(SkillName.OcenaSmaku, food, 0, 100))
                     {
                         if (food.Poison != null)
                         {

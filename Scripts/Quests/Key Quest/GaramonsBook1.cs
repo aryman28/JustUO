@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Items
 {
     public class GaramonsBook1 : BrownBook
@@ -37,7 +39,6 @@ namespace Server.Items
                 "from my mind. They are",
                 "like poison. We cannot let",
                 "this fiend divide us."));
-
         [Constructable]
         public GaramonsBook1()
             : base(false)
@@ -51,21 +52,23 @@ namespace Server.Items
 
         public override BookContent DefaultContent
         {
-            get { return Content; }
+            get
+            {
+                return Content;
+            }
         }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
         }
     }
 }

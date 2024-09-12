@@ -7,12 +7,11 @@ namespace Server.Engines.Quests.Samurai
     public class HonorCandle : CandleLong
     {
         private static readonly TimeSpan LitDuration = TimeSpan.FromSeconds(20.0);
-
         [Constructable]
         public HonorCandle()
         {
-            Movable = false;
-            Duration = LitDuration;
+            this.Movable = false;
+            this.Duration = LitDuration;
         }
 
         public HonorCandle(Serial serial)
@@ -22,51 +21,55 @@ namespace Server.Engines.Quests.Samurai
 
         public override int LitSound
         {
-            get { return 0; }
+            get
+            {
+                return 0;
+            }
         }
-
         public override int UnlitSound
         {
-            get { return 0; }
+            get
+            {
+                return 0;
+            }
         }
-
         public override void OnDoubleClick(Mobile from)
         {
-            var wasBurning = Burning;
+            bool wasBurning = this.Burning;
 
             base.OnDoubleClick(from);
 
-            if (!wasBurning && Burning)
+            if (!wasBurning && this.Burning)
             {
-                var player = from as PlayerMobile;
+                PlayerMobile player = from as PlayerMobile;
 
                 if (player == null)
                     return;
 
-                var qs = player.Quest;
+                QuestSystem qs = player.Quest;
 
                 if (qs != null && qs is HaochisTrialsQuest)
                 {
-                    var obj = qs.FindObjective(typeof (SixthTrialIntroObjective));
+                    QuestObjective obj = qs.FindObjective(typeof(SixthTrialIntroObjective));
 
                     if (obj != null && !obj.Completed)
                         obj.Complete();
 
-                    SendLocalizedMessageTo(from, 1063251); // You light a candle in honor.
+                    this.SendLocalizedMessageTo(from, 1063251); // You light a candle in honor.
                 }
             }
         }
 
         public override void Burn()
         {
-            Douse();
+            this.Douse();
         }
 
         public override void Douse()
         {
             base.Douse();
 
-            Duration = LitDuration;
+            this.Duration = LitDuration;
         }
 
         public override void Serialize(GenericWriter writer)
@@ -80,7 +83,7 @@ namespace Server.Engines.Quests.Samurai
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
         }
     }
 }

@@ -142,7 +142,7 @@ namespace Server.Items
 			{
                 if (IsBlacksmithOnly)
                 {
-                    if (m_BlacksmithValidated || (from.Skills[SkillName.Blacksmith].Value >= LevelItems.BlacksmithSkillRequired))
+                    if (m_BlacksmithValidated || (from.Skills[SkillName.Kowalstwo].Value >= LevelItems.BlacksmithSkillRequired))
                     {
                         from.SendMessage("Which levelable item would you like to level up?");
                         from.Target = new LevelItemTarget(this); // Call our target
@@ -235,7 +235,7 @@ namespace Server.Items
                 {
                     //check if bs skill is high enough
                     Mobile smith = (Mobile)target;
-                    if (smith.Skills[SkillName.Blacksmith].Value < LevelItems.BlacksmithSkillRequired)
+                    if (smith.Skills[SkillName.Kowalstwo].Value < LevelItems.BlacksmithSkillRequired)
                     {
                         from.SendMessage("This players blacksmith skill is not high enough to increase levels on items.");
                     }

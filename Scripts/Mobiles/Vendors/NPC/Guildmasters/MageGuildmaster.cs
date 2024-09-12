@@ -6,15 +6,15 @@ namespace Server.Mobiles
     {
         [Constructable]
         public MageGuildmaster()
-            : base("mage")
+            : base("- Mistrz Gildii Magów")
         {
-            this.SetSkill(SkillName.EvalInt, 85.0, 100.0);
-            this.SetSkill(SkillName.Inscribe, 65.0, 88.0);
-            this.SetSkill(SkillName.MagicResist, 64.0, 100.0);
-            this.SetSkill(SkillName.Magery, 90.0, 100.0);
-            this.SetSkill(SkillName.Wrestling, 60.0, 83.0);
-            this.SetSkill(SkillName.Meditation, 85.0, 100.0);
-            this.SetSkill(SkillName.Macing, 36.0, 68.0);
+            this.SetSkill(SkillName.Intelekt, 120.0, 150.0);
+            this.SetSkill(SkillName.Inskrypcja, 65.0, 88.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 120.0, 150.0);
+            this.SetSkill(SkillName.Magia, 90.0, 100.0);
+            this.SetSkill(SkillName.Boks, 60.0, 83.0);
+            this.SetSkill(SkillName.Medytacja, 120.0, 150.0);
+            this.SetSkill(SkillName.WalkaObuchami, 36.0, 68.0);
         }
 
         public MageGuildmaster(Serial serial)

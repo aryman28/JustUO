@@ -215,14 +215,14 @@ namespace Server
 
             BaseInstrument.SetInstrument(from, inst);
 
-            if (from.Skills[SkillName.Discordance].Base == 0)
-                from.Skills[SkillName.Discordance].Base = 100.0;
+            if (from.Skills[SkillName.Manipulacja].Base == 0)
+                from.Skills[SkillName.Manipulacja].Base = 100.0;
 
-            if (from.Skills[SkillName.Peacemaking].Base == 0)
-                from.Skills[SkillName.Peacemaking].Base = 100.0;
+            if (from.Skills[SkillName.Uspokajanie].Base == 0)
+                from.Skills[SkillName.Uspokajanie].Base = 100.0;
 
-            if (from.Skills[SkillName.Provocation].Base == 0)
-                from.Skills[SkillName.Provocation].Base = 100.0;
+            if (from.Skills[SkillName.Prowokacja].Base == 0)
+                from.Skills[SkillName.Prowokacja].Base = 100.0;
 
             return true;
         }
@@ -234,10 +234,10 @@ namespace Server
 
             //int effect = 0.0;
 
-            //if ( SkillHandlers.Discordance.GetEffect( from.Combatant, ref effect ) )
+            //if ( SkillHandlers.Manipulacja.GetEffect( from.Combatant, ref effect ) )
             //return;
 
-            if (!from.UseSkill(SkillName.Discordance))
+            if (!from.UseSkill(SkillName.Manipulacja))
                 return;
 
             if (from.Combatant is BaseCreature)
@@ -245,8 +245,8 @@ namespace Server
                     from.Target.Invoke(from, from.Combatant);
                 else
                 {
-                    double effect = -(from.Skills[SkillName.Discordance].Value / 5.0);
-                    TimeSpan duration = TimeSpan.FromSeconds(from.Skills[SkillName.Discordance].Value * 2);
+                    double effect = -(from.Skills[SkillName.Manipulacja].Value / 5.0);
+                    TimeSpan duration = TimeSpan.FromSeconds(from.Skills[SkillName.Manipulacja].Value * 2);
 
                     ResistanceMod[] mods = 
                     {
@@ -257,7 +257,7 @@ namespace Server
                         new ResistanceMod(ResistanceType.Energy, (int)(effect * 0.01))
                     };
 
-                    TimedResistanceMod.AddMod(from.Combatant, "Discordance", mods, duration);
+                    TimedResistanceMod.AddMod(from.Combatant, "Manipulacja", mods, duration);
                     from.Combatant.AddStatMod(new StatMod(StatType.Str, "DiscordanceStr", (int)(from.Combatant.RawStr * effect), duration));
                     from.Combatant.AddStatMod(new StatMod(StatType.Int, "DiscordanceInt", (int)(from.Combatant.RawInt * effect), duration));
                     from.Combatant.AddStatMod(new StatMod(StatType.Dex, "DiscordanceDex", (int)(from.Combatant.RawDex * effect), duration));
@@ -295,7 +295,7 @@ namespace Server
             if (from.Combatant == null || !CanUse(from) || !CheckBarding(from))
                 return;
 
-            if (!from.UseSkill(SkillName.Peacemaking))
+            if (!from.UseSkill(SkillName.Uspokajanie))
                 return;
 
             if (from.Combatant is PlayerMobile)
@@ -304,7 +304,7 @@ namespace Server
                                 PlayerMobile pm = (PlayerMobile)from.Combatant;
                                 if ( pm.PeacedUntil <= DateTime.UtcNow )
                                 {
-                                        pm.PeacedUntil = DateTime.UtcNow + TimeSpan.FromSeconds( (int)(from.Skills[SkillName.Peacemaking].Value / 5) );
+                                        pm.PeacedUntil = DateTime.UtcNow + TimeSpan.FromSeconds( (int)(from.Skills[SkillName.Uspokajanie].Value / 5) );
                                         pm.SendLocalizedMessage( 500616 ); // You hear lovely music, and forget to continue battling!                                   
                                 }
                 #endif
@@ -321,7 +321,7 @@ namespace Server
             if (!CanUse(from))
                 return;
 
-            if (!from.UseSkill(SkillName.Provocation))
+            if (!from.UseSkill(SkillName.Prowokacja))
                 return;
 
             Mobile targetone = FindRandomTarget(from, randomly);

@@ -14,6 +14,7 @@ namespace Server.Items
             : base(0xE81)
         {
             this.Weight = 4.0;
+            this.Name = "Kij pasterski";
         }
 
         public ShepherdsCrook(Serial serial)
@@ -185,7 +186,7 @@ namespace Server.Items
                     return false;
 
                 if (bc.Tamable)
-                    return true;
+                    return false;
 
                 Map map = bc.Map;
 
@@ -224,11 +225,11 @@ namespace Server.Items
                         double min = this.m_Creature.MinTameSkill - 30;
                         double max = this.m_Creature.MinTameSkill + 30 + Utility.Random(10);
 
-                        if (max <= from.Skills[SkillName.Herding].Value)
+                        if (max <= from.Skills[SkillName.Zielarstwo].Value)
                             this.m_Creature.PrivateOverheadMessage(MessageType.Regular, 0x3B2, 502471, from.NetState); // That wasn't even challenging.
 
-                        if (from.CheckTargetSkill(SkillName.Herding, this.m_Creature, min, max))
-                        {
+                        //if (from.CheckTargetSkill(SkillName.Zielarstwo, this.m_Creature, min, max))
+                        //{
                             IPoint2D p = (IPoint2D)targ;
 
                             if (targ != from)
@@ -236,11 +237,11 @@ namespace Server.Items
 
                             this.m_Creature.TargetLocation = p;
                             from.SendLocalizedMessage(502479); // The animal walks where it was instructed to.
-                        }
-                        else
-                        {
-                            from.SendLocalizedMessage(502472); // You don't seem to be able to persuade that to move.
-                        }
+                        //}
+                        //else
+                        //{
+                        //    from.SendLocalizedMessage(502472); // You don't seem to be able to persuade that to move.
+                        //}
                     }
                 }
             }

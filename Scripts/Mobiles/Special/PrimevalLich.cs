@@ -38,14 +38,14 @@ namespace Server.Mobiles
             this.SetResistance(ResistanceType.Poison, 20);
             this.SetResistance(ResistanceType.Energy, 20);
 
-            this.SetSkill(SkillName.EvalInt, 90, 120.0);
-            this.SetSkill(SkillName.Magery, 90, 120.0);
-            this.SetSkill(SkillName.Meditation, 100, 120.0);
-            this.SetSkill(SkillName.Necromancy, 120.0);
-            this.SetSkill(SkillName.SpiritSpeak, 120.0);
-            this.SetSkill(SkillName.MagicResist, 120, 140.0);
-            this.SetSkill(SkillName.Tactics, 90, 120);
-            this.SetSkill(SkillName.Wrestling, 100, 120);
+            this.SetSkill(SkillName.Intelekt, 90, 120.0);
+            this.SetSkill(SkillName.Magia, 90, 120.0);
+            this.SetSkill(SkillName.Medytacja, 100, 120.0);
+            this.SetSkill(SkillName.Nekromancja, 120.0);
+            this.SetSkill(SkillName.MowaDuchow, 120.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 120, 140.0);
+            this.SetSkill(SkillName.Taktyka, 90, 120);
+            this.SetSkill(SkillName.Boks, 100, 120);
 
             this.Fame = 22500;
             this.Karma = -22500;
@@ -239,15 +239,15 @@ namespace Server.Mobiles
         {
             if (Utility.RandomDouble() < 0.9)
             {
-                target.AddSkillMod(new TimedSkillMod(SkillName.Magery, true, this.Combatant.Skills.Magery.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
-                target.AddSkillMod(new TimedSkillMod(SkillName.Necromancy, true, this.Combatant.Skills.Necromancy.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
-                target.AddSkillMod(new TimedSkillMod(SkillName.Tactics, true, this.Combatant.Skills.Tactics.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
-                target.AddSkillMod(new TimedSkillMod(SkillName.Swords, true, this.Combatant.Skills.Swords.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
-                target.AddSkillMod(new TimedSkillMod(SkillName.Meditation, true, this.Combatant.Skills.Meditation.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
-                target.AddSkillMod(new TimedSkillMod(SkillName.Focus, true, this.Combatant.Skills.Focus.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
-                target.AddSkillMod(new TimedSkillMod(SkillName.Chivalry, true, this.Combatant.Skills.Chivalry.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
-                target.AddSkillMod(new TimedSkillMod(SkillName.Wrestling, true, this.Combatant.Skills.Wrestling.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
-                target.AddSkillMod(new TimedSkillMod(SkillName.Spellweaving, true, this.Combatant.Skills.Spellweaving.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
+                target.AddSkillMod(new TimedSkillMod(SkillName.Magia, true, this.Combatant.Skills.Magia.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
+                target.AddSkillMod(new TimedSkillMod(SkillName.Nekromancja, true, this.Combatant.Skills.Nekromancja.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
+                target.AddSkillMod(new TimedSkillMod(SkillName.Taktyka, true, this.Combatant.Skills.Taktyka.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
+                target.AddSkillMod(new TimedSkillMod(SkillName.WalkaMieczami, true, this.Combatant.Skills.WalkaMieczami.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
+                target.AddSkillMod(new TimedSkillMod(SkillName.Medytacja, true, this.Combatant.Skills.Medytacja.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
+                target.AddSkillMod(new TimedSkillMod(SkillName.Logistyka, true, this.Combatant.Skills.Logistyka.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
+                target.AddSkillMod(new TimedSkillMod(SkillName.Rycerstwo, true, this.Combatant.Skills.Rycerstwo.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
+                target.AddSkillMod(new TimedSkillMod(SkillName.Boks, true, this.Combatant.Skills.Boks.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
+                target.AddSkillMod(new TimedSkillMod(SkillName.Druidyzm, true, this.Combatant.Skills.Druidyzm.Base * this.DiscordModifier * -1, TimeSpan.FromSeconds(this.DiscordDuration)));
 
                 Timer.DelayCall(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), (int)this.DiscordDuration, new TimerStateCallback(Animate), target);
 

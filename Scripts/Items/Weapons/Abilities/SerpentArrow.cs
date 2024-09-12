@@ -8,7 +8,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -17,14 +17,14 @@ namespace Server.Items
         }
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
         {
-            if (!this.Validate(attacker) || !this.CheckMana(attacker, true))
+            if (!this.Validate(attacker) || !this.CheckStam(attacker, true))
                 return;
 
             ClearCurrentAbility(attacker);
 
             int level;
 
-            double total = attacker.Skills[SkillName.Poisoning].Value + attacker.Skills[SkillName.Archery].Value + attacker.Dex;
+            double total = attacker.Skills[SkillName.Zatruwanie].Value + attacker.Skills[SkillName.Lucznictwo].Value + attacker.Dex;
 
             if (total >= 275.0 && 2 > Utility.Random(10))
                 level = 3;
@@ -45,8 +45,8 @@ namespace Server.Items
                 defender.FixedParticles(0x374A, 10, 15, 5021, EffectLayer.Waist);
                 defender.PlaySound(0x474);
 
-                //Possible to get Poisoning Gain
-                attacker.CheckSkill(SkillName.Poisoning, 0, 100);
+                //Possible to get Zatruwanie Gain
+                attacker.CheckSkill(SkillName.Zatruwanie, 0, 100);
             }
             else
             {

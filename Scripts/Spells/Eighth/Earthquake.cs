@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Server.Mobiles;
 
 namespace Server.Spells.Eighth
 {
@@ -26,6 +27,23 @@ namespace Server.Spells.Eighth
                 return SpellCircle.Eighth;
             }
         }
+        public override bool CheckCast()
+        {
+            //if (!base.CheckCast())
+            //    return false;
+
+            // Magowie
+            if (this.Caster is PlayerMobile && (((PlayerMobile)this.Caster).Klasa != Klasa.Mag 
+            && ((PlayerMobile)this.Caster).Klasa != Klasa.Adept 
+            && ((PlayerMobile)this.Caster).Klasa != Klasa.Arcymag
+            && ((PlayerMobile)this.Caster).Klasa != Klasa.Czarnoksiê¿nik))
+            {   
+                this.Caster.SendMessage("Tylko magowie mog¹ u¿yæ tego czaru!"); // Only Elves may use this ability
+                return false;
+            }
+
+            return base.CheckCast();
+        }
         public override bool DelayedDamage
         {
             get
@@ -42,7 +60,7 @@ namespace Server.Spells.Eighth
                 Map map = this.Caster.Map;
 
                 if (map != null)
-                    foreach (Mobile m in this.Caster.GetMobilesInRange(1 + (int)(this.Caster.Skills[SkillName.Magery].Value / 15.0)))
+                    foreach (Mobile m in this.Caster.GetMobilesInRange(1 + (int)(this.Caster.Skills[SkillName.Magia].Value / 15.0)))
                         if (this.Caster != m && SpellHelper.ValidIndirectTarget(this.Caster, m) && this.Caster.CanBeHarmful(m, false) && (!Core.AOS || this.Caster.InLOS(m)))
                             targets.Add(m);
 

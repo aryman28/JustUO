@@ -29,7 +29,7 @@ namespace Server.Items
         {
             get
             {
-                return "an Alchemy Kit";
+                return "an Alchemia Kit";
             }
         }
         public override void Serialize(GenericWriter writer)

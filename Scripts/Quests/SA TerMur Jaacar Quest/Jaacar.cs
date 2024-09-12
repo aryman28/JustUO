@@ -1,22 +1,5 @@
-/*                                                             .---.
-/  .  \
-|\_/|   |
-|   |  /|
-.----------------------------------------------------------------' |
-/  .-.                                                              |
-|  /   \         Contribute To The Orbsydia SA Project               |
-| |\_.  |                                                            |
-|\|  | /|                        By Lotar84                          |
-| `---' |                                                            |
-|       |       (Orbanised by Orb SA Core Development Team)          | 
-|       |                                                           /
-|       |----------------------------------------------------------'
-\       |
-\     /
-`---'
-*/
-
 using System;
+using Server.Items;
 
 namespace Server.Engines.Quests
 {
@@ -37,32 +20,32 @@ namespace Server.Engines.Quests
         {
             get
             {
-                return new[]
+                return new Type[] 
                 {
-                    typeof (BadCompany)
+                    typeof(BadCompany)
                 };
             }
         }
 
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
-            Body = 334;
-            Female = false;
+            this.InitStats(100, 100, 25);
+            this.Body = 334;
+            this.Female = false;
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

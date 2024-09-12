@@ -21,11 +21,11 @@ namespace Server.Mobiles
 
         [Constructable]
         public AnimalTrainer()
-            : base("the animal trainer")
+            : base("- Treser zwierzat")
         {
-            this.SetSkill(SkillName.AnimalLore, 64.0, 100.0);
-            this.SetSkill(SkillName.AnimalTaming, 90.0, 100.0);
-            this.SetSkill(SkillName.Veterinary, 65.0, 88.0);
+            this.SetSkill(SkillName.WiedzaOBestiach, 64.0, 100.0);
+            this.SetSkill(SkillName.Oswajanie, 90.0, 100.0);
+            this.SetSkill(SkillName.Weterynaria, 65.0, 88.0);
         }
 
         public override void InitSBInfo()
@@ -147,9 +147,9 @@ namespace Server.Mobiles
 
         public static int GetMaxStabled(Mobile from)
         {
-            double taming = from.Skills[SkillName.AnimalTaming].Value;
-            double anlore = from.Skills[SkillName.AnimalLore].Value;
-            double vetern = from.Skills[SkillName.Veterinary].Value;
+            double taming = from.Skills[SkillName.Oswajanie].Value;
+            double anlore = from.Skills[SkillName.WiedzaOBestiach].Value;
+            double vetern = from.Skills[SkillName.Weterynaria].Value;
             double sklsum = taming + anlore + vetern;
 
             int max;
@@ -327,8 +327,12 @@ namespace Server.Mobiles
             {
                 this.SayTo(from, 1042565); // You have too many pets in the stables!
             }
-            else if((from.Backpack != null && from.Backpack.ConsumeTotal(typeof(Gold), 30)) || Banker.Withdraw(from, 30))
+            else
             {
+                Container bank = from.FindBankNoCreate();
+
+                if ((from.Backpack != null && from.Backpack.ConsumeTotal(typeof(Gold), 30)) || (bank != null && bank.ConsumeTotal(typeof(Gold), 30)))
+                {
                     pet.ControlTarget = null;
                     pet.ControlOrder = OrderType.Stay;
                     pet.Internalize();
@@ -345,12 +349,12 @@ namespace Server.Mobiles
                     from.Stabled.Add(pet);
 
                     this.SayTo(from, Core.AOS ? 1049677 : 502679); // [AOS: Your pet has been stabled.] Very well, thy pet is stabled. Thou mayst recover it by saying 'claim' to me. In one real world week, I shall sell it off if it is not claimed!
-            }  
-            else
-            {
-                this.SayTo(from, 502677); // But thou hast not the funds in thy bank account!
+                }
+                else
+                {
+                    this.SayTo(from, 502677); // But thou hast not the funds in thy bank account!
+                }
             }
-            
         }
 
         public void Claim(Mobile from)

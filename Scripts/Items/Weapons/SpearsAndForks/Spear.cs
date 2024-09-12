@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0xF62)
         {
             this.Weight = 7.0;
+            this.Name = "Włócznia";
         }
 
         public Spear(Serial serial)

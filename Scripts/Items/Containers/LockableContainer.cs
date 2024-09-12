@@ -231,8 +231,8 @@ namespace Server.Items
 
             return base.TryDropItem(from, dropped, sendFullMessage);
         }
-        #region Enhance Client
-        public override bool OnDragDropInto(Mobile from, Item item, Point3D p, byte gridloc)
+
+        public override bool OnDragDropInto(Mobile from, Item item, Point3D p)
         {
             if (from.AccessLevel < AccessLevel.GameMaster && this.m_Locked)
             {
@@ -240,9 +240,8 @@ namespace Server.Items
                 return false;
             }
 
-            return base.OnDragDropInto(from, item, p, gridloc);
+            return base.OnDragDropInto(from, item, p);
         }
-        #endregion
 
         public override bool CheckLift(Mobile from, Item item, ref LRReason reject)
         {
@@ -368,7 +367,7 @@ namespace Server.Items
 
         public int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
         {
-            if (from.CheckSkill(SkillName.Tinkering, -5.0, 15.0))
+            if (from.CheckSkill(SkillName.Majsterkowanie, -5.0, 15.0))
             {
                 from.SendLocalizedMessage(500636); // Your tinker skill was sufficient to make the item lockable.
 
@@ -377,7 +376,7 @@ namespace Server.Items
                 this.KeyValue = key.KeyValue;
                 this.DropItem(key);
 
-                double tinkering = from.Skills[SkillName.Tinkering].Value;
+                double tinkering = from.Skills[SkillName.Majsterkowanie].Value;
                 int level = (int)(tinkering * 0.8);
 
                 this.RequiredSkill = level - 4;

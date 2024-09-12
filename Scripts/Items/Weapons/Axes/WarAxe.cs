@@ -11,6 +11,7 @@ namespace Server.Items
             : base(0x13B0)
         {
             this.Weight = 8.0;
+            this.Name = "Wojenny topór";
         }
 
         public WarAxe(Serial serial)
@@ -127,7 +128,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Macing;
+                return SkillName.WalkaObuchami;
             }
         }
         public override WeaponType DefType

@@ -11,7 +11,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -27,7 +27,7 @@ namespace Server.Items
         }
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
         {
-            if (!this.Validate(attacker) || !this.CheckMana(attacker, true))
+            if (!this.Validate(attacker) || !this.CheckStam(attacker, true))
                 return;
 
             ClearCurrentAbility(attacker);

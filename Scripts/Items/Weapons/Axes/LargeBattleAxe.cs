@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x13FB)
         {
             this.Weight = 6.0;
+            this.Name = "Duży bojowy topór";
         }
 
         public LargeBattleAxe(Serial serial)

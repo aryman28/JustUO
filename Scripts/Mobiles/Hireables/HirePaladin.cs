@@ -22,7 +22,7 @@ namespace Server.Mobiles
                 this.Name = NameList.RandomName("male");
                 this.AddItem(new ShortPants(Utility.RandomNeutralHue()));
             }
-            this.Title = "the paladin";
+            this.Title = "- Rycerz (najemnik)";
             this.HairItemID = this.Race.RandomHair(this.Female);
             this.HairHue = this.Race.RandomHairHue();
             this.Race.RandomFacialHair(this);
@@ -51,14 +51,14 @@ namespace Server.Mobiles
 
             this.SetDamage(10, 23);
 
-            this.SetSkill(SkillName.Swords, 66.0, 97.5);
-            this.SetSkill(SkillName.Anatomy, 65.0, 87.5);
-            this.SetSkill(SkillName.MagicResist, 25.0, 47.5);
-            this.SetSkill(SkillName.Healing, 65.0, 87.5);
-            this.SetSkill(SkillName.Tactics, 65.0, 87.5);
-            this.SetSkill(SkillName.Wrestling, 15.0, 37.5);
-            this.SetSkill(SkillName.Parry, 45.0, 60.5);
-            this.SetSkill(SkillName.Chivalry, 85, 100);
+            this.SetSkill(SkillName.WalkaMieczami, 66.0, 97.5);
+            this.SetSkill(SkillName.Anatomia, 65.0, 87.5);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 25.0, 47.5);
+            this.SetSkill(SkillName.Leczenie, 65.0, 87.5);
+            this.SetSkill(SkillName.Taktyka, 65.0, 87.5);
+            this.SetSkill(SkillName.Boks, 15.0, 37.5);
+            this.SetSkill(SkillName.Parowanie, 45.0, 60.5);
+            this.SetSkill(SkillName.Rycerstwo, 85, 100);
 
             this.Fame = 100;
             this.Karma = 250;

@@ -1,134 +1,164 @@
 using System;
+using Server;
+
+using Server.Mobiles;
+using Server.Accounting;
+using Server.Misc;
+using Server.Network;
 
 namespace Server.Items
 {
-    public enum HeadType
-    {
-        Regular,
-        Duel,
-        Tournament
-    }
+	public enum HeadType
+	{
+		Regular,
+		Duel,
+		Tournament
+	}
 
-    public class Head : Item
-    {
-        private string m_PlayerName;
-        private HeadType m_HeadType;
-        [Constructable]
-        public Head()
-            : this(null)
-        {
-        }
+	public class Head : Item
+	{
 
-        [Constructable]
-        public Head(string playerName)
-            : this(HeadType.Regular, playerName)
-        {
-        }
+//bount system here
+		private DateTime m_CreationTime;
+		private Mobile m_Owner;
+		private Mobile m_Killer;
+		private bool m_Player;
 
-        [Constructable]
-        public Head(HeadType headType, string playerName)
-            : base(0x1DA0)
-        {
-            this.m_HeadType = headType;
-            this.m_PlayerName = playerName;
-        }
+		[CommandProperty( AccessLevel.GameMaster )]
+		public DateTime CreationTime
+		{
+			get{ return m_CreationTime; }
+			set{ m_CreationTime = value; }
+		}
 
-        public Head(Serial serial)
-            : base(serial)
-        {
-        }
+		[CommandProperty( AccessLevel.GameMaster )]
+		public Mobile Owner
+		{
+			get{ return m_Owner; }
+			set{ m_Owner = value; }
+		}
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public string PlayerName
-        {
-            get
-            {
-                return this.m_PlayerName;
-            }
-            set
-            {
-                this.m_PlayerName = value;
-            }
-        }
-        [CommandProperty(AccessLevel.GameMaster)]
-        public HeadType HeadType
-        {
-            get
-            {
-                return this.m_HeadType;
-            }
-            set
-            {
-                this.m_HeadType = value;
-            }
-        }
-        public override string DefaultName
-        {
-            get
-            {
-                if (this.m_PlayerName == null)
-                    return base.DefaultName;
+		[CommandProperty( AccessLevel.GameMaster )]
+		public Mobile Killer
+		{
+			get{ return m_Killer; }
+			set{ m_Killer = value; }
+		}
 
-                switch ( this.m_HeadType )
-                {
-                    default:
-                        return String.Format("the head of {0}", this.m_PlayerName);
+		[CommandProperty( AccessLevel.GameMaster )]
+		public bool IsPlayer
+		{
+			get{ return m_Player; }
+			set{ m_Player = value; }
+		}
+//end bounty system
 
-                    case HeadType.Duel:
-                        return String.Format("the head of {0}, taken in a duel", this.m_PlayerName);
+		[Constructable]
+		public Head()
+			: this( null )
+		{
+		}
 
-                    case HeadType.Tournament:
-                        return String.Format("the head of {0}, taken in a tournament", this.m_PlayerName);
-                }
-            }
-        }
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		[Constructable]
+		public Head( string playerName )
+			: this( HeadType.Regular, playerName )
+		{
+		}
 
-            writer.Write((int)1); // version
+		[Constructable]
+		public Head( HeadType headType, string playerName )
+			: base( 0x1DA0 )
+		{
+			//m_HeadType = headType;
+			//m_PlayerName = playerName;
+		}
 
-            writer.Write((string)this.m_PlayerName);
-            writer.WriteEncodedInt((int)this.m_HeadType);
-        }
+		public Head( Serial serial )
+			: base( serial )
+		{
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+public override void GetProperties( ObjectPropertyList list )
+{
+base.GetProperties( list );
 
-            int version = reader.ReadInt();
+  if ( m_Killer != null )
+  {
+         //list.Add( "Zabity przez {0}", m_Killer );
+         if ( m_Killer is PlayerMobile )
+         {
+         list.Add( "Zamordowany" );
+         }
 
-            switch ( version )
-            {
-                case 1:
-                    this.m_PlayerName = reader.ReadString();
-                    this.m_HeadType = (HeadType)reader.ReadEncodedInt();
-                    break;
-                case 0:
-                    string format = this.Name;
+         if ( m_Killer is BaseCreature )
+         {
+         list.Add( "Rozszarpany przez jakas bestie" );
+         }
+  }
+}
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
 
-                    if (format != null)
-                    {
-                        if (format.StartsWith("the head of "))
-                            format = format.Substring("the head of ".Length);
+			writer.Write( (int) 1 ); // version
+			
+			//writer.Write( (string) m_PlayerName );
+			//writer.WriteEncodedInt( (int) m_HeadType );
+//bounty system
 
-                        if (format.EndsWith(", taken in a duel"))
-                        {
-                            format = format.Substring(0, format.Length - ", taken in a duel".Length);
-                            this.m_HeadType = HeadType.Duel;
-                        }
-                        else if (format.EndsWith(", taken in a tournament"))
-                        {
-                            format = format.Substring(0, format.Length - ", taken in a tournament".Length);
-                            this.m_HeadType = HeadType.Tournament;
-                        }
-                    }
+			writer.Write( m_Player );
+			writer.Write( m_CreationTime );
 
-                    this.m_PlayerName = format;
-                    this.Name = null;
+			//if( m_Player )
+			//{
+				writer.Write(  m_Owner );
+				writer.Write(  m_Killer );
+			//}
+//end bounty system
 
-                    break;
-            }
-        }
-    }
+//bounty system
+			m_Player = false;
+			m_Owner = null;
+			m_Killer = null;
+			m_CreationTime = DateTime.Now;
+//end bounty system
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			int version = reader.ReadInt();
+
+//bounty system
+			switch( version )
+			{
+				case 1:
+				{
+					m_Player = reader.ReadBool();
+					m_CreationTime = reader.ReadDateTime();
+					//if( m_Player )
+					//{
+						m_Owner = reader.ReadMobile();
+						m_Killer = reader.ReadMobile();
+					//}
+
+					goto case 0;
+				}
+				case 0:
+				{
+					if( version == 0 )
+					{
+						m_Owner = null;
+						m_Killer = null;
+						m_Player = false;
+						m_CreationTime = DateTime.Now;
+					}
+
+					break;
+				}
+			}
+//end bounty system
+		}
+	}
 }

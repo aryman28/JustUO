@@ -82,7 +82,7 @@ namespace Server.Engines.BulkOrders
         {
             SmallBulkEntry[] entries;
             
-            double theirSkill = m.Skills[SkillName.Tailoring].Base;
+            double theirSkill = m.Skills[SkillName.Krawiectwo].Base;
             
             bool useMaterials = Utility.RandomBool() ;
             

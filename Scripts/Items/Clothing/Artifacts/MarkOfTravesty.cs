@@ -18,64 +18,64 @@ namespace Server.Items
             switch( Utility.Random(15) )
             {
                 case 0: 
-                    this.SkillBonuses.SetValues(0, SkillName.EvalInt, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.Magery, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.Intelekt, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.Magia, 10);
                     break;
                 case 1: 
-                    this.SkillBonuses.SetValues(0, SkillName.AnimalLore, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.AnimalTaming, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.WiedzaOBestiach, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.Oswajanie, 10);
                     break;
                 case 2: 
-                    this.SkillBonuses.SetValues(0, SkillName.Swords, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.Tactics, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.WalkaMieczami, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.Taktyka, 10);
                     break;
                 case 3: 
-                    this.SkillBonuses.SetValues(0, SkillName.Discordance, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.Musicianship, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.Manipulacja, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.Muzykowanie, 10);
                     break;
                 case 4: 
-                    this.SkillBonuses.SetValues(0, SkillName.Fencing, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.Tactics, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.WalkaSzpadami, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.Taktyka, 10);
                     break;
                 case 5: 
-                    this.SkillBonuses.SetValues(0, SkillName.Chivalry, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.MagicResist, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.Rycerstwo, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.ObronaPrzedMagia, 10);
                     break;
                 case 6: 
-                    this.SkillBonuses.SetValues(0, SkillName.Anatomy, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.Healing, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.Anatomia, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.Leczenie, 10);
                     break;
                 case 7: 
-                    this.SkillBonuses.SetValues(0, SkillName.Ninjitsu, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.Stealth, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.Skrytobojstwo, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.Zakradanie, 10);
                     break;
                 case 8: 
-                    this.SkillBonuses.SetValues(0, SkillName.Bushido, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.Parry, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.Fanatyzm, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.Parowanie, 10);
                     break;
                 case 9: 
-                    this.SkillBonuses.SetValues(0, SkillName.Archery, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.Tactics, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.Lucznictwo, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.Taktyka, 10);
                     break;
                 case 10: 
-                    this.SkillBonuses.SetValues(0, SkillName.Macing, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.Tactics, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.WalkaObuchami, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.Taktyka, 10);
                     break;
                 case 11: 
-                    this.SkillBonuses.SetValues(0, SkillName.Necromancy, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.SpiritSpeak, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.Nekromancja, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.MowaDuchow, 10);
                     break;
                 case 12: 
-                    this.SkillBonuses.SetValues(0, SkillName.Stealth, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.Stealing, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.Zakradanie, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.Okradanie, 10);
                     break;
                 case 13: 
-                    this.SkillBonuses.SetValues(0, SkillName.Peacemaking, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.Musicianship, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.Uspokajanie, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.Muzykowanie, 10);
                     break;
                 case 14:
-                    this.SkillBonuses.SetValues(0, SkillName.Provocation, 10);
-                    this.SkillBonuses.SetValues(1, SkillName.Musicianship, 10);
+                    this.SkillBonuses.SetValues(0, SkillName.Prowokacja, 10);
+                    this.SkillBonuses.SetValues(1, SkillName.Muzykowanie, 10);
                     break;
             }
         }

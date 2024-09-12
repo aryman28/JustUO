@@ -9,12 +9,12 @@ namespace Server.Items
         public TreatiseonAlchemyTalisman()
             : base(0x2F58)
         { 
-            this.Skill = SkillName.Alchemy;
+            this.Skill = SkillName.Alchemia;
             this.SuccessBonus = GetRandomSuccessful();
             this.Blessed = GetRandomBlessed();	
 			
             this.Attributes.EnhancePotions = 15;			
-            this.SkillBonuses.SetValues(0, SkillName.Magery, 5.0);
+            this.SkillBonuses.SetValues(0, SkillName.Magia, 5.0);
         }
 
         public TreatiseonAlchemyTalisman(Serial serial)
@@ -28,7 +28,7 @@ namespace Server.Items
             {
                 return 1073353;
             }
-        }// Library Talisman - Treatise on Alchemy
+        }// Library Talisman - Treatise on Alchemia
         public override bool ForceShowName
         {
             get
@@ -109,7 +109,7 @@ namespace Server.Items
         { 
             this.Blessed = GetRandomBlessed();	
 			
-            this.Skill = SkillName.Inscribe;
+            this.Skill = SkillName.Inskrypcja;
             this.SuccessBonus = GetRandomSuccessful();			
             this.ExceptionalBonus = GetRandomExceptional();	
 			
@@ -159,8 +159,8 @@ namespace Server.Items
         { 
             this.Blessed = GetRandomBlessed();	
 			
-            this.SkillBonuses.SetValues(0, SkillName.SpiritSpeak, 3.0);
-            this.SkillBonuses.SetValues(1, SkillName.EvalInt, 5.0);
+            this.SkillBonuses.SetValues(0, SkillName.MowaDuchow, 3.0);
+            this.SkillBonuses.SetValues(1, SkillName.Intelekt, 5.0);
 			
             this.Removal = TalismanRemoval.Ward;
             this.MaxChargeTime = 1200;
@@ -210,8 +210,8 @@ namespace Server.Items
             this.Protection = GetRandomProtection();
             this.Summoner = new TalismanAttribute(typeof(SummonedOrcBrute), 0, 1072414);
 			
-            this.SkillBonuses.SetValues(0, SkillName.MagicResist, 5.0);
-            this.SkillBonuses.SetValues(1, SkillName.Anatomy, 7.0);
+            this.SkillBonuses.SetValues(0, SkillName.ObronaPrzedMagia, 5.0);
+            this.SkillBonuses.SetValues(1, SkillName.Anatomia, 7.0);
 			
             this.MaxChargeTime = 1800;
         }
@@ -259,8 +259,8 @@ namespace Server.Items
             this.Blessed = GetRandomBlessed();	
             this.Slayer = TalismanSlayerName.Bird;
 			
-            this.SkillBonuses.SetValues(0, SkillName.AnimalTaming, 5.0);
-            this.SkillBonuses.SetValues(1, SkillName.AnimalLore, 5.0);
+            this.SkillBonuses.SetValues(0, SkillName.Oswajanie, 5.0);
+            this.SkillBonuses.SetValues(1, SkillName.WiedzaOBestiach, 5.0);
 			
             this.MaxChargeTime = 1800;
         }
@@ -313,8 +313,8 @@ namespace Server.Items
             this.Blessed = GetRandomBlessed();	
             this.Protection = GetRandomProtection();
 			
-            this.SkillBonuses.SetValues(0, SkillName.Provocation, 5.0);
-            this.SkillBonuses.SetValues(1, SkillName.Musicianship, 5.0);
+            this.SkillBonuses.SetValues(0, SkillName.Prowokacja, 5.0);
+            this.SkillBonuses.SetValues(1, SkillName.Muzykowanie, 5.0);
 			
             this.Removal = TalismanRemoval.Curse;
             this.MaxChargeTime = 1200;		

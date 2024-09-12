@@ -48,6 +48,7 @@ namespace Server.Items
             : base(0x230C, hue)
         {
             this.Weight = 3.0;
+            this.Name = "Skórzana spódnica";
         }
 
         public FurSarong(Serial serial)
@@ -87,6 +88,7 @@ namespace Server.Items
             : base(0x1516, hue)
         {
             this.Weight = 4.0;
+            this.Name = "Spódnica";
         }
 
         public Skirt(Serial serial)
@@ -123,6 +125,7 @@ namespace Server.Items
             : base(0x1537, hue)
         {
             this.Weight = 2.0;
+            this.Name = "Kilt";
         }
 
         public Kilt(Serial serial)
@@ -215,10 +218,8 @@ namespace Server.Items
                 return true;
             }
         }
-		public override void OnAdded(IEntity parent)
-		{
-			base.OnAdded(parent);
-
+        public override void OnAdded(object parent)
+        {
             if (parent is Mobile)
             {
                 if (((Mobile)parent).Female)

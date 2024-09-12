@@ -62,10 +62,12 @@ namespace Server.Items
             {
                 return this.m_InRange;
             }
-	        set
-	        {
-		        this.m_InRange = Math.Max(0, Math.Min(Core.GlobalUpdateRange, value));
-	        }
+            set
+            {
+                if (value > 18)
+                    value = 18;
+                this.m_InRange = value;
+            }
         }
         [CommandProperty(AccessLevel.GameMaster)]
         public int OutRange
@@ -76,7 +78,9 @@ namespace Server.Items
             }
             set
             {
-				this.m_OutRange = Math.Max(0, Math.Min(Core.GlobalUpdateRange, value));
+                if (value > 18)
+                    value = 18;
+                this.m_OutRange = value;
             }
         }
         [CommandProperty(AccessLevel.GameMaster)]

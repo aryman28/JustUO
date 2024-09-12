@@ -52,7 +52,7 @@ namespace Server.Spells.Mystic
         {
             if (this.CheckSequence())
             {
-                TimeSpan duration = TimeSpan.FromSeconds((2 * this.Caster.Skills[SkillName.Imbuing].Fixed) / 5);
+                TimeSpan duration = TimeSpan.FromSeconds((2 * this.Caster.Skills[SkillName.Umagicznianie].Fixed) / 5);
                 SpellHelper.Summon(new AnimatedWeapon(), this.Caster, 0x216, duration, false, false);
             }
 

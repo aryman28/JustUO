@@ -65,7 +65,7 @@ namespace Server.Items
         private AosSkillBonuses m_AosSkillBonuses;
         private AosElementAttributes m_AosResistances;
 
-        #region Imbuing
+        #region Umagicznianie
         private int m_TimesImbued;
         #endregion
 
@@ -161,7 +161,7 @@ namespace Server.Items
             }
         }
 		
-        #region Imbuing
+        #region Umagicznianie
         [CommandProperty(AccessLevel.GameMaster)]
         public int TimesImbued
         {
@@ -443,7 +443,8 @@ namespace Server.Items
                 #region Stygian Abyss
                 if (from.Race == Race.Gargoyle && !this.CanBeWornByGargoyles)
                 {
-                    from.SendLocalizedMessage(1111708); // Gargoyles can't wear this.
+                    //from.SendLocalizedMessage(1111708); // Gargoyles can't wear this.
+                    from.SendMessage("Demony nie mog¹ tego nosiæ.");
                     return false;
                 }
                 #endregion
@@ -655,7 +656,7 @@ namespace Server.Items
             return this.m_AosClothingAttributes.LowerStatReq;
         }
 
-		public override void OnAdded(IEntity parent)
+        public override void OnAdded(object parent)
         {
             Mobile mob = parent as Mobile;
 
@@ -684,7 +685,7 @@ namespace Server.Items
             base.OnAdded(parent);
         }
 
-		public override void OnRemoved(IEntity parent)
+        public override void OnRemoved(object parent)
         {
             Mobile mob = parent as Mobile;
 
@@ -944,7 +945,7 @@ namespace Server.Items
         {
             base.GetProperties(list);
 
-            #region Imbuing
+            #region Umagicznianie
             if (this.m_TimesImbued > 0)
                 list.Add(1080418); // (Imbued)
             #endregion
@@ -1168,7 +1169,7 @@ namespace Server.Items
             Crafter = 0x00000100,
             Quality = 0x00000200,
             StrReq = 0x00000400,
-            #region Imbuing
+            #region Umagicznianie
             TimesImbued = 0x12000000,
             #endregion
         }
@@ -1211,7 +1212,7 @@ namespace Server.Items
             writer.Write(6); // version
 
             // Version 6
-            writer.Write((int)this.m_TimesImbued); // Imbuing
+            writer.Write((int)this.m_TimesImbued); // Umagicznianie
             writer.Write(this.m_BlessedBy);
 
             #region Mondain's Legacy Sets
@@ -1279,7 +1280,7 @@ namespace Server.Items
             SetSaveFlag(ref flags, SaveFlag.Crafter, this.m_Crafter != null);
             SetSaveFlag(ref flags, SaveFlag.Quality, this.m_Quality != ClothingQuality.Regular);
             SetSaveFlag(ref flags, SaveFlag.StrReq, this.m_StrReq != -1);
-            #region Imbuing
+            #region Umagicznianie
             SetSaveFlag(ref flags, SaveFlag.TimesImbued, this.m_TimesImbued != 0);
             #endregion
 

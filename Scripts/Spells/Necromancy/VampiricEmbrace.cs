@@ -1,7 +1,7 @@
 using System;
 using Server.Items;
 
-namespace Server.Spells.Necromancy
+namespace Server.Spells.Nekromancja
 {
     public class VampiricEmbraceSpell : TransformationSpell
     {

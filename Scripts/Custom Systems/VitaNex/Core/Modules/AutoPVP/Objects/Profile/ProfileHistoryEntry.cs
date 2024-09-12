@@ -209,8 +209,8 @@ namespace VitaNex.Modules.AutoPvP
 			html.AppendLine("* Resurrections: {0}", _Resurrections.ToString("#,0"));
 			html.AppendLine("* Damage Taken: {0}", _DamageTaken.ToString("#,0"));
 			html.AppendLine("* Damage Done: {0}", _DamageDone.ToString("#,0"));
-			html.AppendLine("* Healing Taken: {0}", _HealingTaken.ToString("#,0"));
-			html.AppendLine("* Healing Done: {0}", _HealingDone.ToString("#,0"));
+			html.AppendLine("* Leczenie Taken: {0}", _HealingTaken.ToString("#,0"));
+			html.AppendLine("* Leczenie Done: {0}", _HealingDone.ToString("#,0"));
 			html.AppendLine();
 
 			html.Append("".WrapUOHtmlColor(Color.GreenYellow, false));

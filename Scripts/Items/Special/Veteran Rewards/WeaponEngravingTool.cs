@@ -94,11 +94,11 @@ namespace Server.Items
             }
             else 
             {
-                if (from.Skills.Tinkering.Value == 0)
+                if (from.Skills.Majsterkowanie.Value == 0)
                 {
                     from.SendLocalizedMessage(1076179); // Since you have no tinkering skill, you will need to find an NPC tinkerer to repair this for you.					
                 }
-                else if (from.Skills.Tinkering.Value < 75.0)
+                else if (from.Skills.Majsterkowanie.Value < 75.0)
                 { 
                     from.SendLocalizedMessage(1076178); // Your tinkering skill is too low to fix this yourself.  An NPC tinkerer can help you repair this for a fee.
                 }
@@ -171,11 +171,11 @@ namespace Server.Items
                 }
                 else
                 { 
-                    if (from.Skills.Tinkering.Value == 0)
+                    if (from.Skills.Majsterkowanie.Value == 0)
                     {
                         from.SendLocalizedMessage(1076179); // Since you have no tinkering skill, you will need to find an NPC tinkerer to repair this for you.					
                     }
-                    else if (from.Skills.Tinkering.Value < 75.0)
+                    else if (from.Skills.Majsterkowanie.Value < 75.0)
                     { 
                         from.SendLocalizedMessage(1076178); // Your tinkering skill is too low to fix this yourself.  An NPC tinkerer can help you repair this for a fee.
                     }
@@ -183,7 +183,7 @@ namespace Server.Items
                     {
                         diamond.Consume();
 						
-                        if (Utility.RandomDouble() < from.Skills.Tinkering.Value / 100)
+                        if (Utility.RandomDouble() < from.Skills.Majsterkowanie.Value / 100)
                         { 
                             this.UsesRemaining = 10;			
                             from.SendLocalizedMessage(1076165); // Your weapon engraver should be good as new! ?????

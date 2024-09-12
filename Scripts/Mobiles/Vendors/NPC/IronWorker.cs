@@ -12,15 +12,15 @@ namespace Server.Mobiles
 
 		[Constructable]
 		public IronWorker()
-			: base("the iron worker")
+			: base("- Œlusarz")
 		{
-			SetSkill(SkillName.ArmsLore, 36.0, 68.0);
-			SetSkill(SkillName.Blacksmith, 65.0, 88.0);
-			SetSkill(SkillName.Fencing, 60.0, 83.0);
-			SetSkill(SkillName.Macing, 61.0, 93.0);
-			SetSkill(SkillName.Swords, 60.0, 83.0);
-			SetSkill(SkillName.Tactics, 60.0, 83.0);
-			SetSkill(SkillName.Parry, 61.0, 93.0);
+			SetSkill(SkillName.WiedzaOUzbrojeniu, 36.0, 68.0);
+			SetSkill(SkillName.Kowalstwo, 65.0, 88.0);
+			SetSkill(SkillName.WalkaSzpadami, 60.0, 83.0);
+			SetSkill(SkillName.WalkaObuchami, 61.0, 93.0);
+			SetSkill(SkillName.WalkaMieczami, 60.0, 83.0);
+			SetSkill(SkillName.Taktyka, 60.0, 83.0);
+			SetSkill(SkillName.Parowanie, 61.0, 93.0);
 		}
 
 		public IronWorker(Serial serial)

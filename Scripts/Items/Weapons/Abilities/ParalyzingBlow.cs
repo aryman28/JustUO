@@ -17,7 +17,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -60,7 +60,7 @@ namespace Server.Items
         if ( !(from.Weapon is Fists) )
         return true;
 
-        Skill skill = from.Skills[SkillName.Anatomy];
+        Skill skill = from.Skills[SkillName.Anatomia];
 
         if ( skill != null && skill.Base >= 80.0 )
         return true;
@@ -76,7 +76,7 @@ namespace Server.Items
             if (weapon == null)
                 return true;
 
-            return weapon.Skill != SkillName.Wrestling;
+            return weapon.Skill != SkillName.Boks;
         }
 
         public override bool OnBeforeSwing(Mobile attacker, Mobile defender)
@@ -92,7 +92,7 @@ namespace Server.Items
 
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
         {
-            if (!this.Validate(attacker) || !this.CheckMana(attacker, true))
+            if (!this.Validate(attacker) || !this.CheckStam(attacker, true))
                 return;
 
             ClearCurrentAbility(attacker);

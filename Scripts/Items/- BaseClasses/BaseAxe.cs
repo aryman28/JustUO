@@ -43,7 +43,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Swords;
+                return SkillName.WalkaMieczami;
             }
         }
         public override WeaponType DefType
@@ -64,7 +64,7 @@ namespace Server.Items
         {
             get
             {
-                return Lumberjacking.System;
+                return Drwalnictwo.System;
             }
         }
         [CommandProperty(AccessLevel.GameMaster)]
@@ -95,8 +95,14 @@ namespace Server.Items
         }
         public virtual int GetUsesScalar()
         {
-            if (this.Quality == WeaponQuality.Exceptional)
+            if (this.Quality == WeaponQuality.Dobr)
                 return 200;
+            
+            if (this.Quality == WeaponQuality.Doskona³)
+                return 200; 
+                
+            if (this.Quality == WeaponQuality.Wspania³)
+                return 200;  
 
             return 100;
         }
@@ -139,7 +145,7 @@ namespace Server.Items
                 return;
             }
 			
-            if (!(this.HarvestSystem is Mining))
+            if (!(this.HarvestSystem is Gornictwo))
                 from.SendLocalizedMessage(1010018); // What do you want to use this item on?
 
             this.HarvestSystem.BeginHarvesting(from, this);
@@ -196,7 +202,7 @@ namespace Server.Items
         {
             base.OnHit(attacker, defender, damageBonus);
 
-            if (!Core.AOS && (attacker.Player || attacker.Body.IsHuman) && this.Layer == Layer.TwoHanded && (attacker.Skills[SkillName.Anatomy].Value / 400.0) >= Utility.RandomDouble() && Engines.ConPVP.DuelContext.AllowSpecialAbility(attacker, "Concussion Blow", false))
+            if (!Core.AOS && (attacker.Player || attacker.Body.IsHuman) && this.Layer == Layer.TwoHanded && (attacker.Skills[SkillName.Anatomia].Value / 400.0) >= Utility.RandomDouble() && Engines.ConPVP.DuelContext.AllowSpecialAbility(attacker, "Concussion Blow", false))
             {
                 StatMod mod = defender.GetStatMod("Concussion");
 

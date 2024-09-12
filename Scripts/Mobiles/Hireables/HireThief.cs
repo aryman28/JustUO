@@ -32,7 +32,7 @@ namespace Server.Mobiles
                 this.Name = NameList.RandomName("male");
                 this.AddItem(new ShortPants(Utility.RandomNeutralHue()));
             }
-            this.Title = "the thief";
+            this.Title = "- Z³odziej (najemnik)";
             this.HairItemID = this.Race.RandomHair(this.Female);
             this.HairHue = this.Race.RandomHairHue();
             this.Race.RandomFacialHair(this);
@@ -43,16 +43,16 @@ namespace Server.Mobiles
 
             this.SetDamage(10, 23);
 
-            this.SetSkill(SkillName.Stealing, 66.0, 97.5);
-            this.SetSkill(SkillName.Peacemaking, 65.0, 87.5);
-            this.SetSkill(SkillName.MagicResist, 25.0, 47.5);
-            this.SetSkill(SkillName.Healing, 65.0, 87.5);
-            this.SetSkill(SkillName.Tactics, 65.0, 87.5);
-            this.SetSkill(SkillName.Fencing, 65.0, 87.5);
-            this.SetSkill(SkillName.Parry, 45.0, 60.5);
-            this.SetSkill(SkillName.Lockpicking, 65, 87);
-            this.SetSkill(SkillName.Hiding, 65, 87);
-            this.SetSkill(SkillName.Snooping, 65, 87);	
+            this.SetSkill(SkillName.Okradanie, 66.0, 97.5);
+            this.SetSkill(SkillName.Uspokajanie, 65.0, 87.5);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 25.0, 47.5);
+            this.SetSkill(SkillName.Leczenie, 65.0, 87.5);
+            this.SetSkill(SkillName.Taktyka, 65.0, 87.5);
+            this.SetSkill(SkillName.WalkaSzpadami, 65.0, 87.5);
+            this.SetSkill(SkillName.Parowanie, 45.0, 60.5);
+            this.SetSkill(SkillName.Wlamywanie, 65, 87);
+            this.SetSkill(SkillName.Ukrywanie, 65, 87);
+            this.SetSkill(SkillName.Zagladanie, 65, 87);	
             this.Fame = 100;
             this.Karma = 0;
 

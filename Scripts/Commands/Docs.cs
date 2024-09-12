@@ -507,7 +507,7 @@ namespace Server.Commands
                 AddIndexLink(html, "bodies.html", "Body List", "Every usable body number and name. Table is generated from a UO:3D client datafile. If you do not have UO:3D installed, this may be blank.");
                 AddIndexLink(html, "overview.html", "Class Overview", "Scripting reference. Contains every class type and contained methods in the core and scripts.");
                 AddIndexLink(html, "bods/bod_smith_rewards.html", "Bulk Order Rewards: Smithing", "Reference table for large and small smithing bulk order deed rewards.");
-                AddIndexLink(html, "bods/bod_tailor_rewards.html", "Bulk Order Rewards: Tailoring", "Reference table for large and small tailoring bulk order deed rewards.");
+                AddIndexLink(html, "bods/bod_tailor_rewards.html", "Bulk Order Rewards: Krawiectwo", "Reference table for large and small tailoring bulk order deed rewards.");
 
                 html.WriteLine("   </body>");
                 html.WriteLine("</html>");

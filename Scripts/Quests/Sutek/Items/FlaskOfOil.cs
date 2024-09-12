@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Items
 {
     public class FlaskOfOil : Item
@@ -12,10 +14,10 @@ namespace Server.Items
         public FlaskOfOil(int amount)
             : base(0xEFF)
         {
-            Stackable = true;
-            Weight = 1.0;
-            Amount = amount;
-            Hue = 33;
+            this.Stackable = true;
+            this.Weight = 1.0;
+            this.Amount = amount;
+            this.Hue = 33;
         }
 
         public FlaskOfOil(Serial serial)
@@ -25,21 +27,23 @@ namespace Server.Items
 
         public override int LabelNumber
         {
-            get { return 1027199; }
+            get
+            {
+                return 1027199;
+            }
         }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

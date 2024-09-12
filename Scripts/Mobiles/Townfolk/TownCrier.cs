@@ -56,8 +56,8 @@ namespace Server.Mobiles
             CommandSystem.Register("TownCriers", AccessLevel.GameMaster, new CommandEventHandler(TownCriers_OnCommand));
         }
 
-        [Usage("TownCriers")]
-        [Description("Manages the global town crier list.")]
+        [Usage("- Krzykacz miejski")]
+        [Description("Zarz¹dza globaln¹ list¹ tematów.")]
         public static void TownCriers_OnCommand(CommandEventArgs e)
         {
             e.Mobile.SendGump(new TownCrierGump(e.Mobile, Instance));
@@ -167,7 +167,7 @@ namespace Server.Mobiles
 
             if (!TimeSpan.TryParse(text, out ts))
             {
-                from.SendMessage("Value was not properly formatted. Use: <hours:minutes:seconds>");
+                from.SendMessage("Nieprawid³owa wartoœæ. U¿yj komendy tak: <godziny:minuty:sekundy>");
                 from.SendGump(new TownCrierGump(from, this.m_Owner));
                 return;
             }
@@ -175,8 +175,8 @@ namespace Server.Mobiles
             if (ts < TimeSpan.Zero)
                 ts = TimeSpan.Zero;
 
-            from.SendMessage("Duration set to: {0}", ts);
-            from.SendMessage("Enter the first line to shout:");
+            from.SendMessage("Czas og³oszenia ustawiono na: {0}", ts);
+            from.SendMessage("Podaj pierwsz¹ liniê og³oszenia:");
 
             from.Prompt = new TownCrierLinesPrompt(this.m_Owner, null, new List<String>(), ts);
         }
@@ -206,7 +206,7 @@ namespace Server.Mobiles
         {
             this.m_Lines.Add(text);
 
-            from.SendMessage("Enter the next line to shout, or press <ESC> if the message is finished.");
+            from.SendMessage("Podaj kolejn¹ liniê, lub naciœnij <ESC> je¿eli to koniec wiadomoœci.");
             from.Prompt = new TownCrierLinesPrompt(this.m_Owner, this.m_Entry, this.m_Lines, this.m_Duration);
         }
 
@@ -218,12 +218,12 @@ namespace Server.Mobiles
             if (this.m_Lines.Count > 0)
             {
                 this.m_Owner.AddEntry(this.m_Lines.ToArray(), this.m_Duration);
-                from.SendMessage("Message has been set.");
+                from.SendMessage("Wiadomoœc zosta³a ustawiona.");
             }
             else
             {
                 if (this.m_Entry != null)
-                    from.SendMessage("Message deleted.");
+                    from.SendMessage("Wiadomoœc usuniêta.");
                 else
                     from.SendLocalizedMessage(502980); // Message entry cancelled.
             }
@@ -258,13 +258,13 @@ namespace Server.Mobiles
             this.AddImageTiled(0, 0, 300, 38 + (count == 0 ? 20 : (count * 85)), 0xA40);
             this.AddAlphaRegion(1, 1, 298, 36 + (count == 0 ? 20 : (count * 85)));
 
-            this.AddHtml(8, 8, 300 - 8 - 30, 20, "<basefont color=#FFFFFF><center>TOWN CRIER MESSAGES</center></basefont>", false, false);
+            this.AddHtml(8, 8, 300 - 8 - 30, 20, "<basefont color=#FFFFFF><center>KRZYKACZ MIEJSKI - oG£OSZENIA</center></basefont>", false, false);
 
             this.AddButton(300 - 8 - 30, 8, 0xFAB, 0xFAD, 1, GumpButtonType.Reply, 0);
 
             if (count == 0)
             {
-                this.AddHtml(8, 30, 284, 20, "<basefont color=#FFFFFF>The crier has no news.</basefont>", false, false);
+                this.AddHtml(8, 30, 284, 20, "<basefont color=#FFFFFF>Krzykacz nie ma nowych wieœci.</basefont>", false, false);
             }
             else
             {
@@ -279,7 +279,7 @@ namespace Server.Mobiles
 
                     StringBuilder sb = new StringBuilder();
 
-                    sb.Append("[Expires: ");
+                    sb.Append("[Wygasa: ");
 
                     if (toExpire.TotalHours >= 1)
                     {
@@ -316,7 +316,7 @@ namespace Server.Mobiles
         {
             if (info.ButtonID == 1)
             {
-                this.m_From.SendMessage("Enter the duration for the new message. Format: <hours:minutes:seconds>");
+                this.m_From.SendMessage("Podaj jak d³ugo ma wyœwietlaæ siê ma wiadomoœæ. Format: <godziny:minuty:sekundy>");
                 this.m_From.Prompt = new TownCrierDurationPrompt(this.m_Owner);
             }
             else if (info.ButtonID > 1)
@@ -332,8 +332,8 @@ namespace Server.Mobiles
                     if (ts < TimeSpan.Zero)
                         ts = TimeSpan.Zero;
 
-                    this.m_From.SendMessage("Editing entry #{0}.", index + 1);
-                    this.m_From.SendMessage("Enter the first line to shout:");
+                    this.m_From.SendMessage("Edytuj  #{0}.", index + 1);
+                    this.m_From.SendMessage("Podaj pierwsz¹ liniê wiadomoœci:");
                     this.m_From.Prompt = new TownCrierLinesPrompt(this.m_Owner, tce, new List<String>(), ts);
                 }
             }
@@ -353,7 +353,7 @@ namespace Server.Mobiles
 
             this.InitStats(100, 100, 25);
 
-            this.Title = "the town crier";
+            this.Title = "- Krzykacz miejski";
             this.Hue = Utility.RandomSkinHue();
 
             if (!Core.AOS)

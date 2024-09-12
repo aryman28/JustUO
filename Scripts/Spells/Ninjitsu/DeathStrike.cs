@@ -3,7 +3,7 @@ using System.Collections;
 using Server.Items;
 using Server.SkillHandlers;
 
-namespace Server.Spells.Ninjitsu
+namespace Server.Spells.Skrytobojstwo
 {
     public class DeathStrike : NinjaMove
     {
@@ -56,7 +56,7 @@ namespace Server.Spells.Ninjitsu
 
             ClearCurrentMove(attacker);
 
-            double ninjitsu = attacker.Skills[SkillName.Ninjitsu].Value;
+            double ninjitsu = attacker.Skills[SkillName.Skrytobojstwo].Value;
 
             double chance;
             bool isRanged = false; // should be defined onHit method, what if the player hit and remove the weapon before process? ;)
@@ -86,7 +86,7 @@ namespace Server.Spells.Ninjitsu
                 info = (DeathStrikeInfo)m_Table[defender];
 
                 if (info.m_Steps > 0)
-                    damageBonus = attacker.Skills[SkillName.Ninjitsu].Fixed / 150;
+                    damageBonus = attacker.Skills[SkillName.Skrytobojstwo].Fixed / 150;
 
                 if (info.m_Timer != null)
                     info.m_Timer.Stop();
@@ -122,12 +122,12 @@ namespace Server.Spells.Ninjitsu
 
             int maxDamage, damage = 0;
 
-            double ninjitsu = info.m_Attacker.Skills[SkillName.Ninjitsu].Value;
-            double stalkingBonus = Tracking.GetStalkingBonus(info.m_Attacker, info.m_Target);
+            double ninjitsu = info.m_Attacker.Skills[SkillName.Skrytobojstwo].Value;
+            double stalkingBonus = Tropienie.GetStalkingBonus(info.m_Attacker, info.m_Target);
 
             if (Core.ML)
             {
-                double scalar = (info.m_Attacker.Skills[SkillName.Hiding].Value + info.m_Attacker.Skills[SkillName.Stealth].Value) / 220;
+                double scalar = (info.m_Attacker.Skills[SkillName.Ukrywanie].Value + info.m_Attacker.Skills[SkillName.Zakradanie].Value) / 220;
 
                 if (scalar > 1)
                     scalar = 1;

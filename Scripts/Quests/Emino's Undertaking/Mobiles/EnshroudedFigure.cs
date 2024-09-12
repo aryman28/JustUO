@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -17,23 +18,25 @@ namespace Server.Engines.Quests.Ninja
 
         public override int TalkNumber
         {
-            get { return -1; }
+            get
+            {
+                return -1;
+            }
         }
-
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
+            this.InitStats(100, 100, 25);
 
-            Hue = 0x8401;
-            Female = false;
-            Body = 0x190;
-            Name = "enshrouded figure";
+            this.Hue = 0x8401;
+            this.Female = false;
+            this.Body = 0x190;
+            this.Name = "enshrouded figure";
         }
 
         public override void InitOutfit()
         {
-            AddItem(new DeathShroud());
-            AddItem(new ThighBoots());
+            this.AddItem(new DeathShroud());
+            this.AddItem(new ThighBoots());
         }
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
@@ -51,7 +54,7 @@ namespace Server.Engines.Quests.Ninja
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Server.Mobiles
 			}
 			else
 			{
-				Title = "the gypsy animal herder";
+				Title = "Cygañski Treser Zwierz¹t";
 			}
 		}
 

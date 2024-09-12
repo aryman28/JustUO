@@ -18,10 +18,10 @@ using Server.Network;
 using Server.Regions;
 using Server.SkillHandlers;
 using Server.Spells;
-using Server.Spells.Bushido;
-using Server.Spells.Necromancy;
+using Server.Spells.Fanatyzm;
+using Server.Spells.Nekromancja;
 using Server.Spells.Sixth;
-using Server.Spells.Spellweaving;
+using Server.Spells.Druidyzm;
 using Server.Targeting;
 using Server.XMLConfiguration;
 #endregion
@@ -40,7 +40,11 @@ namespace Server.Mobiles
 		Strongest, // Attack the strongest
 		Weakest, // Attack the weakest
 		Closest, // Attack the closest
-		Evil // Only attack aggressor -or- negative karma
+		Evil, // Only attack aggressor -or- negative karma
+		Blue,
+		Good,
+		Crim,
+		Red
 	}
 
 	public enum OrderType
@@ -1072,14 +1076,14 @@ namespace Server.Mobiles
 
 			double dMinTameSkill = m_dMinTameSkill;
 
-			if (dMinTameSkill > -24.9 && AnimalTaming.CheckMastery(m, this))
+			if (dMinTameSkill > -24.9 && Oswajanie.CheckMastery(m, this))
 			{
 				dMinTameSkill = -24.9;
 			}
 
 			int taming =
-				(int)((useBaseSkill ? m.Skills[SkillName.AnimalTaming].Base : m.Skills[SkillName.AnimalTaming].Value) * 10);
-			int lore = (int)((useBaseSkill ? m.Skills[SkillName.AnimalLore].Base : m.Skills[SkillName.AnimalLore].Value) * 10);
+				(int)((useBaseSkill ? m.Skills[SkillName.Oswajanie].Base : m.Skills[SkillName.Oswajanie].Value) * 10);
+			int lore = (int)((useBaseSkill ? m.Skills[SkillName.WiedzaOBestiach].Base : m.Skills[SkillName.WiedzaOBestiach].Value) * 10);
 			int bonus = 0, chance = 700;
 
 			if (Core.ML)
@@ -2285,7 +2289,7 @@ namespace Server.Mobiles
 
 		public virtual bool IsHumanInTown()
 		{
-			return (Body.IsHuman && Region.IsPartOf(typeof(GuardedRegion)));
+			return (Body.IsHuman && Region.IsPartOf(typeof(GuardedRegion)) || Body.IsHuman && Region.IsPartOf(typeof(NowaBrytania)) );
 		}
 
 		public virtual bool CheckGold(Mobile from, Item dropped)
@@ -2503,8 +2507,8 @@ namespace Server.Mobiles
 
 							if (master != null && master == from) //So friends can't start the bonding process
 							{
-								if (m_dMinTameSkill <= 29.1 || master.Skills[SkillName.AnimalTaming].Base >= m_dMinTameSkill ||
-									OverrideBondingReqs() || (Core.ML && master.Skills[SkillName.AnimalTaming].Value >= m_dMinTameSkill))
+								if (m_dMinTameSkill <= 29.1 || master.Skills[SkillName.Oswajanie].Base >= m_dMinTameSkill ||
+									OverrideBondingReqs() || (Core.ML && master.Skills[SkillName.Oswajanie].Value >= m_dMinTameSkill))
 								{
 									if (BondingBegin == DateTime.MinValue)
 									{
@@ -2632,6 +2636,21 @@ namespace Server.Mobiles
 				case AIType.AI_Spellbinder:
 					m_AI = new SpellbinderAI(this);
 					break;
+				case AIType.AI_Guard:
+					m_AI = new SpellbinderAI(this);
+					break;	
+				case AIType.AI_Necro:
+					m_AI = new SpellbinderAI(this);
+					break;	
+				//case AIType.AI_NecroMag:
+					//m_AI = new SpellbinderAI(this);
+					//break;
+				case AIType.AI_Paladin:
+					m_AI = new SpellbinderAI(this);
+					break;
+				case AIType.AI_Ninja:
+					m_AI = new SpellbinderAI(this);
+					break;			
 			}
 		}
 
@@ -2743,11 +2762,11 @@ namespace Server.Mobiles
 			}
 		}
 
-		public override void RevealingAction(bool disruptive)
+		public override void RevealingAction()
 		{
 			InvisibilitySpell.RemoveTimer(this);
 
-			base.RevealingAction(disruptive);
+			base.RevealingAction();
 		}
 
 		public void RemoveFollowers()
@@ -3000,7 +3019,7 @@ namespace Server.Mobiles
 
 				if (Controlled)
 				{
-					CheckSkill(SkillName.Poisoning, 0, Skills[SkillName.Poisoning].Cap);
+					CheckSkill(SkillName.Zatruwanie, 0, Skills[SkillName.Zatruwanie].Cap);
 				}
 			}
 
@@ -3069,7 +3088,7 @@ namespace Server.Mobiles
 				switch (acqType)
 				{
 					case FightMode.Strongest:
-						return (m.Skills[SkillName.Tactics].Value + m.Str); //returns strongest mobile
+						return (m.Skills[SkillName.Taktyka].Value + m.Str); //returns strongest mobile
 
 					case FightMode.Weakest:
 						return -m.Hits; // returns weakest mobile
@@ -3157,14 +3176,14 @@ namespace Server.Mobiles
 				}
 
 				Owner.From.TargetLocked = true;
-				AnimalTaming.DisableMessage = true;
+				Oswajanie.DisableMessage = true;
 
-				if (Owner.From.UseSkill(SkillName.AnimalTaming))
+				if (Owner.From.UseSkill(SkillName.Oswajanie))
 				{
 					Owner.From.Target.Invoke(Owner.From, m_Mobile);
 				}
 
-				AnimalTaming.DisableMessage = false;
+				Oswajanie.DisableMessage = false;
 				Owner.From.TargetLocked = false;
 			}
 		}
@@ -3179,18 +3198,18 @@ namespace Server.Mobiles
 				return false;
 			}
 
-			if (skill == SkillName.Stealth && from.Skills[SkillName.Hiding].Base < Stealth.HidingRequirement)
+			if (skill == SkillName.Zakradanie && from.Skills[SkillName.Ukrywanie].Base < Zakradanie.HidingRequirement)
 			{
 				return false;
 			}
 
-			if (skill == SkillName.RemoveTrap &&
-				(from.Skills[SkillName.Lockpicking].Base < 50.0 || from.Skills[SkillName.DetectHidden].Base < 50.0))
+			if (skill == SkillName.UsuwaniePulapek &&
+				(from.Skills[SkillName.Wlamywanie].Base < 50.0 || from.Skills[SkillName.Wykrywanie].Base < 50.0))
 			{
 				return false;
 			}
 
-			if (!Core.AOS && (skill == SkillName.Focus || skill == SkillName.Chivalry || skill == SkillName.Necromancy))
+			if (!Core.AOS && (skill == SkillName.Logistyka || skill == SkillName.Rycerstwo || skill == SkillName.Nekromancja))
 			{
 				return false;
 			}
@@ -5854,7 +5873,7 @@ namespace Server.Mobiles
 		}
 		#endregion
 
-		#region Healing
+		#region Leczenie
 		public virtual bool CanHeal { get { return false; } }
 		public virtual bool CanHealOwner { get { return false; } }
 		public virtual double HealScalar { get { return 1.0; } }
@@ -5921,8 +5940,8 @@ namespace Server.Mobiles
 			{
 				int poisonLevel = patient.Poison.Level;
 
-				double healing = Skills.Healing.Value;
-				double anatomy = Skills.Anatomy.Value;
+				double healing = Skills.Leczenie.Value;
+				double anatomy = Skills.Anatomia.Value;
 				double chance = (healing - 30.0) / 50.0 - poisonLevel * 0.1;
 
 				if ((healing >= 60.0 && anatomy >= 60.0) && chance > Utility.RandomDouble())
@@ -5931,8 +5950,8 @@ namespace Server.Mobiles
 					{
 						patient.SendLocalizedMessage(1010059); // You have been cured of all poisons.
 
-						CheckSkill(SkillName.Healing, 0.0, 60.0 + poisonLevel * 10.0); // TODO: Verify formula
-						CheckSkill(SkillName.Anatomy, 0.0, 100.0);
+						CheckSkill(SkillName.Leczenie, 0.0, 60.0 + poisonLevel * 10.0); // TODO: Verify formula
+						CheckSkill(SkillName.Anatomia, 0.0, 100.0);
 					}
 				}
 			}
@@ -5943,8 +5962,8 @@ namespace Server.Mobiles
 			}
 			else
 			{
-				double healing = Skills.Healing.Value;
-				double anatomy = Skills.Anatomy.Value;
+				double healing = Skills.Leczenie.Value;
+				double anatomy = Skills.Anatomia.Value;
 				double chance = (healing + 10.0) / 100.0;
 
 				if (chance > Utility.RandomDouble())
@@ -5965,8 +5984,8 @@ namespace Server.Mobiles
 
 					patient.Heal((int)toHeal);
 
-					CheckSkill(SkillName.Healing, 0.0, 90.0);
-					CheckSkill(SkillName.Anatomy, 0.0, 100.0);
+					CheckSkill(SkillName.Leczenie, 0.0, 90.0);
+					CheckSkill(SkillName.Anatomia, 0.0, 100.0);
 				}
 			}
 

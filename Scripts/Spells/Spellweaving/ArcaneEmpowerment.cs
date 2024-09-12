@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Server.Spells.Spellweaving
+namespace Server.Spells.Druidyzm
 {
     public class ArcaneEmpowermentSpell : ArcanistSpell
     {
@@ -74,7 +74,7 @@ namespace Server.Spells.Spellweaving
                 this.Caster.PlaySound(0x5C1);
 				
                 int level = GetFocusLevel(this.Caster);
-                double skill = this.Caster.Skills[SkillName.Spellweaving].Value;
+                double skill = this.Caster.Skills[SkillName.Druidyzm].Value;
 				
                 TimeSpan duration = TimeSpan.FromSeconds(15 + (int)(skill / 24) + level * 2);
                 int bonus = (int)Math.Floor(skill / 12) + level * 5;

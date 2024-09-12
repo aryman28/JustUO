@@ -131,14 +131,14 @@ namespace Server.Items
                     return;
                 }
 
-                if (from.Skills[SkillName.Alchemy].Base < 75.0 && from.Skills[SkillName.Cooking].Base < 75.0)
+                if (from.Skills[SkillName.Alchemia].Base < 75.0 && from.Skills[SkillName.Gotowanie].Base < 75.0)
                 {
                     from.SendLocalizedMessage(1112214); // You lack the alchemy or cooking skills to mix plant pigments.
                 }
                 else if ((PlantPigmentHue.White == pigment.PigmentHue || PlantPigmentHue.Black == pigment.PigmentHue ||
                           PlantPigmentHue.White == this.m_Item.PigmentHue || PlantPigmentHue.Black == this.m_Item.PigmentHue) &&
-                         from.Skills[SkillName.Alchemy].Base < 100.0 &&
-                         from.Skills[SkillName.Cooking].Base < 100.0)
+                         from.Skills[SkillName.Alchemia].Base < 100.0 &&
+                         from.Skills[SkillName.Gotowanie].Base < 100.0)
                 {
                     from.SendLocalizedMessage(1112213); // You lack the alchemy or cooking skills to mix so unstable a pigment.
                 }

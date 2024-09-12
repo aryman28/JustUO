@@ -42,7 +42,7 @@ namespace VitaNex.Items
 			InstantKillForced = false;
 			InstantKillChance = 1.0;
 
-			Name = "Throwing Axe";
+			Name = "Rzucanie Axe";
 			Usage = "When thrown, has a slight chance to decapitate the target.";
 			Token = "BOOM! Head Shot!";
 
@@ -67,7 +67,7 @@ namespace VitaNex.Items
 
 			ThrowRecovery = TimeSpan.FromMinutes(2.0);
 
-			RequiredSkill = SkillName.Tactics;
+			RequiredSkill = SkillName.Taktyka;
 			RequiredSkillValue = 50.0;
 		}
 

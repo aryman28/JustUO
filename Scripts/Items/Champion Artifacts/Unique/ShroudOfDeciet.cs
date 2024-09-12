@@ -13,7 +13,7 @@ namespace Server.Items
 
             this.ArmorAttributes.MageArmor = 1;
 
-            this.SkillBonuses.Skill_1_Name = SkillName.MagicResist;
+            this.SkillBonuses.Skill_1_Name = SkillName.ObronaPrzedMagia;
             this.SkillBonuses.Skill_1_Value = 10;
         }
 

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Server.Spells.Spellweaving
+namespace Server.Spells.Druidyzm
 {
     public class ThunderstormSpell : ArcanistSpell
     {
@@ -59,7 +59,7 @@ namespace Server.Spells.Spellweaving
             {
                 this.Caster.PlaySound(0x5CE);
 
-                double skill = this.Caster.Skills[SkillName.Spellweaving].Value;
+                double skill = this.Caster.Skills[SkillName.Druidyzm].Value;
 
                 int damage = Math.Max(11, 10 + (int)(skill / 24)) + this.FocusLevel;
 

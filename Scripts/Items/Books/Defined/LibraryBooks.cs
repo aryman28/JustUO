@@ -922,7 +922,7 @@ namespace Server.Items
                 "Gold coins on green",
                 "field.",
                 "",
-                "  Mining Cooperative.",
+                "  Gornictwo Cooperative.",
                 "A gold cross,",
                 "quartering blue and"),
             new BookPageInfo(
@@ -4641,7 +4641,7 @@ namespace Server.Items
                 "Affiliations: Guild of",
                 "Arcane Arts"),
             new BookPageInfo(
-                "Mining Cooperative",
+                "Gornictwo Cooperative",
                 "Members: miners",
                 "Colors: blue and black",
                 "checkers, with a gold",
@@ -4671,7 +4671,7 @@ namespace Server.Items
                 "engineers",
                 "Colors: Blue, gold, and",
                 "purple vertical bars",
-                "Affiliations: Mining",
+                "Affiliations: Gornictwo",
                 "Cooperative"),
             new BookPageInfo(
                 "Society of Clothiers",
@@ -5043,11 +5043,11 @@ namespace Server.Items
     }
     #endregion
 
-    #region Treatise on Alchemy
+    #region Treatise on Alchemia
     public class TreatiseOnAlchemy : BaseBook
     {
         public static readonly BookContent Content = new BookContent(
-            "Treatise on Alchemy", "Felicia Hierophant",
+            "Treatise on Alchemia", "Felicia Hierophant",
             new BookPageInfo(
                 "    The alchemical",
                 "arts are notable for",

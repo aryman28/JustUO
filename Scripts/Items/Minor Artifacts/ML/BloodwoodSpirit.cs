@@ -15,8 +15,8 @@ namespace Server.Items
             this.Blessed = GetRandomBlessed();
             this.Protection = GetRandomProtection(false);
 
-            this.SkillBonuses.SetValues(0, SkillName.SpiritSpeak, 10.0);
-            this.SkillBonuses.SetValues(1, SkillName.Necromancy, 5.0);
+            this.SkillBonuses.SetValues(0, SkillName.MowaDuchow, 10.0);
+            this.SkillBonuses.SetValues(1, SkillName.Nekromancja, 5.0);
         }
 
         public BloodwoodSpirit(Serial serial)

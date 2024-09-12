@@ -4,7 +4,7 @@ using Server.Gumps;
 using Server.Mobiles;
 using Server.Targeting;
 
-namespace Server.Spells.Spellweaving
+namespace Server.Spells.Druidyzm
 {
     public class GiftOfLifeSpell : ArcanistSpell
     {
@@ -42,7 +42,7 @@ namespace Server.Spells.Spellweaving
         {
             get
             {
-                return ((this.Caster.Skills.Spellweaving.Value / 2.4) + this.FocusLevel) / 100;
+                return ((this.Caster.Skills.Druidyzm.Value / 2.4) + this.FocusLevel) / 100;
             }
         }
         public static void Initialize()
@@ -110,7 +110,7 @@ namespace Server.Spells.Spellweaving
                 m.FixedParticles(0x3709, 1, 30, 0x26ED, 5, 2, EffectLayer.Waist);
                 m.FixedParticles(0x376A, 1, 30, 0x251E, 5, 3, EffectLayer.Waist);
 
-                double skill = this.Caster.Skills[SkillName.Spellweaving].Value;
+                double skill = this.Caster.Skills[SkillName.Druidyzm].Value;
 
                 TimeSpan duration = TimeSpan.FromMinutes(((int)(skill / 24)) * 2 + this.FocusLevel);
 

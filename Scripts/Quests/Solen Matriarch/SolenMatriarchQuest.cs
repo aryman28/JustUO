@@ -6,29 +6,29 @@ namespace Server.Engines.Quests.Matriarch
 {
     public class SolenMatriarchQuest : QuestSystem
     {
-        private static readonly Type[] m_TypeReferenceTable =
+        private static readonly Type[] m_TypeReferenceTable = new Type[]
         {
-            typeof (DontOfferConversation),
-            typeof (AcceptConversation),
-            typeof (DuringKillInfiltratorsConversation),
-            typeof (GatherWaterConversation),
-            typeof (DuringWaterGatheringConversation),
-            typeof (ProcessFungiConversation),
-            typeof (DuringFungiProcessConversation),
-            typeof (FullBackpackConversation),
-            typeof (EndConversation),
-            typeof (KillInfiltratorsObjective),
-            typeof (ReturnAfterKillsObjective),
-            typeof (GatherWaterObjective),
-            typeof (ReturnAfterWaterObjective),
-            typeof (ProcessFungiObjective),
-            typeof (GetRewardObjective)
+            typeof(Matriarch.DontOfferConversation),
+            typeof(Matriarch.AcceptConversation),
+            typeof(Matriarch.DuringKillInfiltratorsConversation),
+            typeof(Matriarch.GatherWaterConversation),
+            typeof(Matriarch.DuringWaterGatheringConversation),
+            typeof(Matriarch.ProcessFungiConversation),
+            typeof(Matriarch.DuringFungiProcessConversation),
+            typeof(Matriarch.FullBackpackConversation),
+            typeof(Matriarch.EndConversation),
+            typeof(Matriarch.KillInfiltratorsObjective),
+            typeof(Matriarch.ReturnAfterKillsObjective),
+            typeof(Matriarch.GatherWaterObjective),
+            typeof(Matriarch.ReturnAfterWaterObjective),
+            typeof(Matriarch.ProcessFungiObjective),
+            typeof(Matriarch.GetRewardObjective)
         };
-
+        private bool m_RedSolen;
         public SolenMatriarchQuest(PlayerMobile from, bool redSolen)
             : base(from)
         {
-            RedSolen = redSolen;
+            this.m_RedSolen = redSolen;
         }
 
         // Serialization
@@ -38,9 +38,11 @@ namespace Server.Engines.Quests.Matriarch
 
         public override Type[] TypeReferenceTable
         {
-            get { return m_TypeReferenceTable; }
+            get
+            {
+                return m_TypeReferenceTable;
+            }
         }
-
         public override object Name
         {
             get
@@ -49,12 +51,11 @@ namespace Server.Engines.Quests.Matriarch
                 return 1054147;
             }
         }
-
         public override object OfferMessage
         {
             get
             {
-                if (IsFriend(From, RedSolen))
+                if (IsFriend(this.From, this.RedSolen))
                 {
                     /* <I>The Solen Matriarch smiles happily as you greet her.</I><BR><BR>
                     * 
@@ -76,7 +77,9 @@ namespace Server.Engines.Quests.Matriarch
                     */
                     return 1054083;
                 }
-                /* <I>The Solen Matriarch smiles happily as she eats the seed you offered.</I><BR><BR>
+                else
+                {
+                    /* <I>The Solen Matriarch smiles happily as she eats the seed you offered.</I><BR><BR>
                     * 
                     * I think you for that seed. I was quite delicious. So full of flavor.<BR><BR>
                     * 
@@ -99,66 +102,81 @@ namespace Server.Engines.Quests.Matriarch
                     * 
                     * Will you accept my offer?
                     */
-                return 1054082;
+                    return 1054082;
+                }
             }
         }
-
         public override TimeSpan RestartDelay
         {
-            get { return TimeSpan.Zero; }
+            get
+            {
+                return TimeSpan.Zero;
+            }
         }
-
         public override bool IsTutorial
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override int Picture
         {
-            get { return 0x15C9; }
+            get
+            {
+                return 0x15C9;
+            }
         }
-
-        public bool RedSolen { get; private set; }
-
+        public bool RedSolen
+        {
+            get
+            {
+                return this.m_RedSolen;
+            }
+        }
         public static bool IsFriend(PlayerMobile player, bool redSolen)
         {
             if (redSolen)
                 return player.SolenFriendship == SolenFriendship.Red;
-            return player.SolenFriendship == SolenFriendship.Black;
+            else
+                return player.SolenFriendship == SolenFriendship.Black;
         }
 
         public static bool GiveRewardTo(PlayerMobile player)
         {
-            var gold = new Gold(Utility.RandomMinMax(250, 350));
+            Gold gold = new Gold(Utility.RandomMinMax(250, 350));
 
             if (player.PlaceInBackpack(gold))
             {
                 player.SendLocalizedMessage(1054076); // You have been given some gold.
                 return true;
             }
-            gold.Delete();
-            return false;
+            else
+            {
+                gold.Delete();
+                return false;
+            }
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            RedSolen = reader.ReadBool();
+            this.m_RedSolen = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(RedSolen);
+            writer.Write((bool)this.m_RedSolen);
         }
 
         public override void Accept()
         {
             base.Accept();
 
-            AddConversation(new AcceptConversation());
+            this.AddConversation(new AcceptConversation());
         }
     }
 }

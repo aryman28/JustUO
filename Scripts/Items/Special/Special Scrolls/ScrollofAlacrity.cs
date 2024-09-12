@@ -34,7 +34,7 @@ namespace Server.Items
         }
 
         public ScrollofAlacrity()
-            : this(SkillName.Alchemy)
+            : this(SkillName.Alchemia)
         {
         }
 		

@@ -22,8 +22,6 @@ using Server.Mobiles;
 using Server.Network;
 #endregion
 
-#pragma warning disable 109
-
 namespace VitaNex.SuperGumps
 {
 	public abstract partial class SuperGump : Gump, IEquatable<SuperGump>, IDisposable
@@ -78,8 +76,8 @@ namespace VitaNex.SuperGumps
 		private DateTime _UtcNow = DateTime.UtcNow;
 
 		protected int NextButtonID = 1;
-		protected int NextSwitchID;
-		protected int NextTextInputID;
+		protected int NextSwitchID = 0;
+		protected int NextTextInputID = 0;
 
 		private bool _Modal;
 		private bool _EnablePolling;
@@ -339,7 +337,7 @@ namespace VitaNex.SuperGumps
 			AddButton(x, y, normalID, pressedID, -1, GumpButtonType.Page, page);
 		}
 
-		protected virtual new void Compile()
+		protected virtual void Compile()
 		{
 			if (IsDisposed)
 			{

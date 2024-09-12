@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Items
 {
     public class DreadSpiderSilk : Item
@@ -6,9 +8,9 @@ namespace Server.Items
         public DreadSpiderSilk()
             : base(0xDF8)
         {
-            LootType = LootType.Blessed;
-            Weight = 4.0;
-            Hue = 0x481;
+            this.LootType = LootType.Blessed;
+            this.Weight = 4.0;
+            this.Hue = 0x481;
         }
 
         public DreadSpiderSilk(Serial serial)
@@ -18,21 +20,23 @@ namespace Server.Items
 
         public override int LabelNumber
         {
-            get { return 1075319; }
-        } // Dread Spider Silk
-
+            get
+            {
+                return 1075319;
+            }
+        }// Dread Spider Silk
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

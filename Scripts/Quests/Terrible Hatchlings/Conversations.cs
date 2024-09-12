@@ -1,7 +1,13 @@
+using System;
+
 namespace Server.Engines.Quests.Zento
 {
     public class AcceptConversation : QuestConversation
     {
+        public AcceptConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -31,15 +37,18 @@ namespace Server.Engines.Quests.Zento
                 return 1049092;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FirstKillObjective());
+            this.System.AddObjective(new FirstKillObjective());
         }
     }
 
     public class DirectionConversation : QuestConversation
     {
+        public DirectionConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -48,15 +57,21 @@ namespace Server.Engines.Quests.Zento
                 return 1063323;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class TakeCareConversation : QuestConversation
     {
+        public TakeCareConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -65,15 +80,21 @@ namespace Server.Engines.Quests.Zento
                 return 1063324;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class EndConversation : QuestConversation
     {
+        public EndConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -87,10 +108,9 @@ namespace Server.Engines.Quests.Zento
                 return 1063321;
             }
         }
-
         public override void OnRead()
         {
-            System.Complete();
+            this.System.Complete();
         }
     }
 }

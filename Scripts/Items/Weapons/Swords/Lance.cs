@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x26C0)
         {
             this.Weight = 12.0;
+            this.Name = "Lanca";
         }
 
         public Lance(Serial serial)
@@ -126,7 +127,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Fencing;
+                return SkillName.WalkaSzpadami;
             }
         }
         public override WeaponType DefType

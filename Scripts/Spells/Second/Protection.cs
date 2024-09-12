@@ -52,8 +52,8 @@ namespace Server.Spells.Second
 
                 mods = new object[2]
                 {
-                    new ResistanceMod(ResistanceType.Physical, -15 + Math.Min((int)(caster.Skills[SkillName.Inscribe].Value / 20), 15)),
-                    new DefaultSkillMod(SkillName.MagicResist, true, -35 + Math.Min((int)(caster.Skills[SkillName.Inscribe].Value / 20), 35))
+                    new ResistanceMod(ResistanceType.Physical, -15 + Math.Min((int)(caster.Skills[SkillName.Inskrypcja].Value / 20), 15)),
+                    new DefaultSkillMod(SkillName.ObronaPrzedMagia, true, -35 + Math.Min((int)(caster.Skills[SkillName.Inskrypcja].Value / 20), 35))
                 };
 
                 m_Table[target] = mods;
@@ -62,8 +62,8 @@ namespace Server.Spells.Second
                 target.AddResistanceMod((ResistanceMod)mods[0]);
                 target.AddSkillMod((SkillMod)mods[1]);
 
-                int physloss = -15 + (int)(caster.Skills[SkillName.Inscribe].Value / 20);
-                int resistloss = -35 + (int)(caster.Skills[SkillName.Inscribe].Value / 20);
+                int physloss = -15 + (int)(caster.Skills[SkillName.Inskrypcja].Value / 20);
+                int resistloss = -35 + (int)(caster.Skills[SkillName.Inskrypcja].Value / 20);
                 string args = String.Format("{0}\t{1}", physloss, resistloss);
                 BuffInfo.AddBuff(target, new BuffInfo(BuffIcon.Protection, 1075814, 1075815, args.ToString()));
             }
@@ -140,7 +140,7 @@ namespace Server.Spells.Second
                 {
                     if (this.Caster.BeginAction(typeof(DefensiveSpell)))
                     {
-                        double value = (int)(this.Caster.Skills[SkillName.EvalInt].Value + this.Caster.Skills[SkillName.Meditation].Value + this.Caster.Skills[SkillName.Inscribe].Value);
+                        double value = (int)(this.Caster.Skills[SkillName.Intelekt].Value + this.Caster.Skills[SkillName.Medytacja].Value + this.Caster.Skills[SkillName.Inskrypcja].Value);
                         value /= 4;
 
                         if (value < 0)
@@ -170,7 +170,7 @@ namespace Server.Spells.Second
             public InternalTimer(Mobile caster)
                 : base(TimeSpan.FromSeconds(0))
             {
-                double val = caster.Skills[SkillName.Magery].Value * 2.0;
+                double val = caster.Skills[SkillName.Magia].Value * 2.0;
                 if (val < 15)
                     val = 15;
                 else if (val > 240)

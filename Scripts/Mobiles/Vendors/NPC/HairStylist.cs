@@ -8,11 +8,11 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public HairStylist()
-            : base("the hair stylist")
+            : base("- Fryzjer")
         { 
-            this.SetSkill(SkillName.Alchemy, 80.0, 100.0);
-            this.SetSkill(SkillName.Magery, 90.0, 110.0);
-            this.SetSkill(SkillName.TasteID, 85.0, 100.0);
+            this.SetSkill(SkillName.Alchemia, 80.0, 100.0);
+            this.SetSkill(SkillName.Magia, 90.0, 110.0);
+            this.SetSkill(SkillName.OcenaSmaku, 85.0, 100.0);
         }
 
         public HairStylist(Serial serial)

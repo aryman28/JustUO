@@ -15,7 +15,7 @@ namespace Server.Engines.BulkOrders
             : base(Core.AOS ? 0x2258 : 0x14EF)
         {
             this.Weight = 1.0;
-            this.Hue = hue; // Blacksmith: 0x44E; Tailoring: 0x483
+            this.Hue = hue; // Blacksmith: 0x44E; Krawiectwo: 0x483
             this.LootType = LootType.Blessed;
 
             this.m_AmountMax = amountMax;

@@ -11,6 +11,7 @@ namespace Server.Items
         {
             this.Weight = 6.0;
             this.Layer = Layer.TwoHanded;
+            this.Name = "Krótki ³uk";
         }
 
         public Bow(Serial serial)

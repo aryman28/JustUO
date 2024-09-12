@@ -107,7 +107,7 @@ namespace Server.Spells.Mystic
                 this.m_StormMap = caster.Map;
                 this.m_Count = 0;
                 this.m_MaxCount = 75;
-                this.m_Damage = (int)((caster.Skills[SkillName.Mysticism].Value + (caster.Skills[SkillName.Imbuing].Value / 2)) / 4);
+                this.m_Damage = (int)((caster.Skills[SkillName.Mistycyzm].Value + (caster.Skills[SkillName.Umagicznianie].Value / 2)) / 4);
             }
 
             protected override void OnTick()

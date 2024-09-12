@@ -38,8 +38,8 @@ namespace VitaNex.Items
 		{
 			SkillGainChance = 25.0;
 
-			Name = "Throwing Training Dagger";
-			Usage = "Throw at a target to train your Throwing skill.";
+			Name = "Rzucanie Training Dagger";
+			Usage = "Throw at a target to train your Rzucanie skill.";
 
 			Hue = 2020;
 			Layer = Layer.OneHanded;
@@ -156,7 +156,7 @@ namespace VitaNex.Items
 		public ThrowableDagger(int amount)
 			: base(Utility.RandomList(3921, 3922), amount)
 		{
-			Name = "Throwing Dagger";
+			Name = "Rzucanie Dagger";
 
 			Layer = Layer.OneHanded;
 			Weight = 1.0;

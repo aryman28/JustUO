@@ -695,8 +695,11 @@ namespace Server.Items
 
             CraftAttributeInfo spined = Spined = new CraftAttributeInfo();
 
-            spined.ArmorPhysicalResist = 5;
-            spined.ArmorLuck = 40;
+            spined.ArmorPhysicalResist = 4;
+            spined.ArmorFireResist = 1;
+            spined.ArmorColdResist = 1;
+            spined.ArmorPoisonResist = 1;
+            spined.ArmorLuck = 10;
             spined.RunicMinAttributes = 1;
             spined.RunicMaxAttributes = 3;
             if (Core.ML)
@@ -717,6 +720,7 @@ namespace Server.Items
             horned.ArmorColdResist = 2;
             horned.ArmorPoisonResist = 2;
             horned.ArmorEnergyResist = 2;
+            Horned.ArmorLuck = 20;
             horned.RunicMinAttributes = 3;
             horned.RunicMaxAttributes = 4;
             if (Core.ML)
@@ -733,10 +737,11 @@ namespace Server.Items
             CraftAttributeInfo barbed = Barbed = new CraftAttributeInfo();
 
             barbed.ArmorPhysicalResist = 2;
-            barbed.ArmorFireResist = 1;
-            barbed.ArmorColdResist = 2;
+            barbed.ArmorFireResist = 3;
+            barbed.ArmorColdResist = 4;
             barbed.ArmorPoisonResist = 3;
             barbed.ArmorEnergyResist = 4;
+            Barbed.ArmorLuck = 40;
             barbed.RunicMinAttributes = 4;
             barbed.RunicMaxAttributes = 5;
             if (Core.ML)
@@ -758,7 +763,7 @@ namespace Server.Items
             CraftAttributeInfo yellow = YellowScales = new CraftAttributeInfo();
 
             yellow.ArmorPhysicalResist = -3;
-            yellow.ArmorLuck = 20;
+            yellow.ArmorLuck = 40;
 
             CraftAttributeInfo black = BlackScales = new CraftAttributeInfo();
 

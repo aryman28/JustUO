@@ -8,10 +8,10 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Shipwright()
-            : base("the shipwright")
+            : base("- Szkutnik")
         { 
-            this.SetSkill(SkillName.Carpentry, 60.0, 83.0);
-            this.SetSkill(SkillName.Macing, 36.0, 68.0);
+            this.SetSkill(SkillName.Stolarstwo, 60.0, 83.0);
+            this.SetSkill(SkillName.WalkaObuchami, 36.0, 68.0);
         }
 
         public Shipwright(Serial serial)

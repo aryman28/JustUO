@@ -1,22 +1,3 @@
-/*                                                             .---.
-/  .  \
-|\_/|   |
-|   |  /|
-.----------------------------------------------------------------' |
-/  .-.                                                              |
-|  /   \            Contribute To The Orbsydia SA Project            |
-| |\_.  |                                                            |
-|\|  | /|                        By Lotar84                          |
-| `---' |                                                            |
-|       |         (Orbanised by Orb SA Core Development Team)        | 
-|       |                                                           /
-|       |----------------------------------------------------------'
-\       |
-\     /
-`---'
-
-*/
-
 using System;
 using Server.Items;
 
@@ -39,48 +20,48 @@ namespace Server.Engines.Quests
         {
             get
             {
-                return new[]
+                return new Type[] 
                 {
-                    typeof (Missing)
+                    typeof(Missing)
                 };
             }
         }
 
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
+            this.InitStats(100, 100, 25);
 
-            Female = false;
-            Race = Race.Human;
-            Body = 0x190;
+            this.Female = false;
+            this.Race = Race.Human;
+            this.Body = 0x190;
 
-            Hue = 0x83EA;
-            HairItemID = 0x203C;
+            this.Hue = 0x83EA;
+            this.HairItemID = 0x203C;
         }
 
         public override void InitOutfit()
         {
-            AddItem(new Backpack());
-            AddItem(new Shoes());
-            AddItem(new LeatherArms());
-            AddItem(new LeatherChest());
-            AddItem(new LeatherLegs());
-            AddItem(new LeatherGloves());
-            AddItem(new GnarledStaff());
+            this.AddItem(new Backpack());
+            this.AddItem(new Shoes());
+            this.AddItem(new LeatherArms());
+            this.AddItem(new LeatherChest());
+            this.AddItem(new LeatherLegs());
+            this.AddItem(new LeatherGloves());
+            this.AddItem(new GnarledStaff());
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

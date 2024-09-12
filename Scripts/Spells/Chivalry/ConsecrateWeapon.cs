@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Server.Items;
 
-namespace Server.Spells.Chivalry
+namespace Server.Spells.Rycerstwo
 {
     public class ConsecrateWeaponSpell : PaladinSpell
     {
@@ -77,11 +77,11 @@ namespace Server.Spells.Chivalry
 
                 switch ( weapon.Skill )
                 {
-                    case SkillName.Macing:
+                    case SkillName.WalkaObuchami:
                         itemID = 0xFB4;
                         soundID = 0x232;
                         break;
-                    case SkillName.Archery:
+                    case SkillName.Lucznictwo:
                         itemID = 0x13B1;
                         soundID = 0x145;
                         break;

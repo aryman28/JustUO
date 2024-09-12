@@ -117,6 +117,7 @@ namespace Server.Items
         public FurBoots()
             : this(0)
         {
+        
         }
 
         [Constructable]
@@ -124,6 +125,7 @@ namespace Server.Items
             : base(0x2307, hue)
         {
             this.Weight = 3.0;
+              this.Name = "Buty z ko¿uchem";
         }
 
         public FurBoots(Serial serial)
@@ -161,6 +163,7 @@ namespace Server.Items
         public Boots()
             : this(0)
         {
+
         }
 
         [Constructable]
@@ -168,6 +171,7 @@ namespace Server.Items
             : base(0x170B, hue)
         {
             this.Weight = 3.0;
+              this.Name = "Buty";
         }
 
         public Boots(Serial serial)
@@ -291,6 +295,7 @@ namespace Server.Items
             : base(0x1711, hue)
         {
             this.Weight = 4.0;
+              this.Name = "Wysokie buty";
         }
 
         public ThighBoots(Serial serial)
@@ -363,6 +368,7 @@ namespace Server.Items
             : base(0x170F, hue)
         {
             this.Weight = 2.0;
+              this.Name = "Pó³buty";
         }
 
         public Shoes(Serial serial)
@@ -407,6 +413,7 @@ namespace Server.Items
             : base(0x170D, hue)
         {
             this.Weight = 1.0;
+              this.Name = "Sanda³y";
         }
 
         public Sandals(Serial serial)

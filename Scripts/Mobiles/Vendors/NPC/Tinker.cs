@@ -8,11 +8,11 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Tinker()
-            : base("the tinker")
+            : base("- Majsterkowicz")
         {
-            this.SetSkill(SkillName.Lockpicking, 60.0, 83.0);
-            this.SetSkill(SkillName.RemoveTrap, 75.0, 98.0);
-            this.SetSkill(SkillName.Tinkering, 64.0, 100.0);
+            this.SetSkill(SkillName.Wlamywanie, 60.0, 83.0);
+            this.SetSkill(SkillName.UsuwaniePulapek, 75.0, 98.0);
+            this.SetSkill(SkillName.Majsterkowanie, 64.0, 100.0);
         }
 
         public Tinker(Serial serial)

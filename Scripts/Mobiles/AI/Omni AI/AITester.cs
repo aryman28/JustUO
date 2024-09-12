@@ -38,39 +38,39 @@ namespace Server.Mobiles
 
             if (i == 0)
             {
-                this.SetSkill(SkillName.EvalInt, 120.0);
-                this.SetSkill(SkillName.Magery, 120.0);
+                this.SetSkill(SkillName.Intelekt, 120.0);
+                this.SetSkill(SkillName.Magia, 120.0);
             }
             else if (i == 1)
             {
-                this.SetSkill(SkillName.Necromancy, 120.0);
-                this.SetSkill(SkillName.SpiritSpeak, 120.0);
+                this.SetSkill(SkillName.Nekromancja, 120.0);
+                this.SetSkill(SkillName.MowaDuchow, 120.0);
             }
             else if (i == 2)
             {
-                this.SetSkill(SkillName.Bushido, 120.0);
-                this.SetSkill(SkillName.Parry, 120.0);
+                this.SetSkill(SkillName.Fanatyzm, 120.0);
+                this.SetSkill(SkillName.Parowanie, 120.0);
             }
             else if (i == 3)
             {
-                this.SetSkill(SkillName.Ninjitsu, 120.0);
-                this.SetSkill(SkillName.Hiding, 120.0);
-                this.SetSkill(SkillName.Stealth, 120.0);
+                this.SetSkill(SkillName.Skrytobojstwo, 120.0);
+                this.SetSkill(SkillName.Ukrywanie, 120.0);
+                this.SetSkill(SkillName.Zakradanie, 120.0);
             }
             else if (i == 4)
             {
-                this.SetSkill(SkillName.Spellweaving, 120.0);
-                this.SetSkill(SkillName.EvalInt, 120.0);
+                this.SetSkill(SkillName.Druidyzm, 120.0);
+                this.SetSkill(SkillName.Intelekt, 120.0);
             }
             else if (i == 5)
             {
-                this.SetSkill(SkillName.Mysticism, 120.0);
+                this.SetSkill(SkillName.Mistycyzm, 120.0);
             }
 
-            this.SetSkill(SkillName.Anatomy, 100.0);
-            this.SetSkill(SkillName.MagicResist, 120.0);
-            this.SetSkill(SkillName.Swords, 100.0);
-            this.SetSkill(SkillName.Tactics, 100.0);
+            this.SetSkill(SkillName.Anatomia, 100.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 120.0);
+            this.SetSkill(SkillName.WalkaMieczami, 100.0);
+            this.SetSkill(SkillName.Taktyka, 100.0);
 
             this.Fame = 32000;
             this.Karma = -32000;

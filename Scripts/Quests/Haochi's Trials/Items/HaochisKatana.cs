@@ -1,3 +1,4 @@
+using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Samurai
@@ -8,7 +9,7 @@ namespace Server.Engines.Quests.Samurai
         public HaochisKatana()
             : base(0x13FF)
         {
-            Weight = 1.0;
+            this.Weight = 1.0;
         }
 
         public HaochisKatana(Serial serial)
@@ -18,12 +19,14 @@ namespace Server.Engines.Quests.Samurai
 
         public override int LabelNumber
         {
-            get { return 1063165; }
-        } // Daimyo Haochi's Katana
-
+            get
+            {
+                return 1063165;
+            }
+        }// Daimyo Haochi's Katana
         public override bool CanDrop(PlayerMobile player)
         {
-            var qs = player.Quest as HaochisTrialsQuest;
+            HaochisTrialsQuest qs = player.Quest as HaochisTrialsQuest;
 
             if (qs == null)
                 return true;
@@ -43,7 +46,7 @@ namespace Server.Engines.Quests.Samurai
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
         }
     }
 }

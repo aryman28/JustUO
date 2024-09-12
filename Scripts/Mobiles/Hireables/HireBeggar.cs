@@ -32,7 +32,7 @@ namespace Server.Mobiles
                 this.Name = NameList.RandomName("male");
                 this.AddItem(new ShortPants(Utility.RandomNeutralHue()));
             }
-            this.Title = "the beggar";
+            this.Title = "- Rolnik (najemnik)";
             this.HairItemID = this.Race.RandomHair(this.Female);
             this.HairHue = this.Race.RandomHairHue();
             this.Race.RandomFacialHair(this);
@@ -43,10 +43,10 @@ namespace Server.Mobiles
 
             this.SetDamage(1, 1);
 
-            this.SetSkill(SkillName.Begging, 66, 97);
-            this.SetSkill(SkillName.Tactics, 5, 27);
-            this.SetSkill(SkillName.Wrestling, 5, 27);
-            this.SetSkill(SkillName.Magery, 2, 2);		
+            this.SetSkill(SkillName.Rolnictwo, 66, 97);
+            this.SetSkill(SkillName.Taktyka, 5, 27);
+            this.SetSkill(SkillName.Boks, 5, 27);
+            this.SetSkill(SkillName.Magia, 2, 2);		
 
             this.Fame = 0;
             this.Karma = 0;

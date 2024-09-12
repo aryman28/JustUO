@@ -1,7 +1,7 @@
 using System;
 using Server.SkillHandlers;
 
-namespace Server.Spells.Ninjitsu
+namespace Server.Spells.Skrytobojstwo
 {
     public class Backstab : NinjaMove
     {
@@ -39,9 +39,9 @@ namespace Server.Spells.Ninjitsu
         }
         public override double GetDamageScalar(Mobile attacker, Mobile defender)
         {
-            double ninjitsu = attacker.Skills[SkillName.Ninjitsu].Value;
+            double ninjitsu = attacker.Skills[SkillName.Skrytobojstwo].Value;
 
-            return 1.0 + (ninjitsu / 360) + Tracking.GetStalkingBonus(attacker, defender) / 100;
+            return 1.0 + (ninjitsu / 360) + Tropienie.GetStalkingBonus(attacker, defender) / 100;
         }
 
         public override bool Validate(Mobile from)
@@ -61,8 +61,8 @@ namespace Server.Spells.Ninjitsu
 
             if (valid)
             {
-                attacker.BeginAction(typeof(Stealth));
-                Timer.DelayCall(TimeSpan.FromSeconds(5.0), delegate { attacker.EndAction(typeof(Stealth)); });
+                attacker.BeginAction(typeof(Zakradanie));
+                Timer.DelayCall(TimeSpan.FromSeconds(5.0), delegate { attacker.EndAction(typeof(Zakradanie)); });
             }
 
             return valid;

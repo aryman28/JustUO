@@ -22,6 +22,15 @@ namespace Server.Items
                 return 0.25;
             }
         }
+
+        public override double Delay
+        {
+            get
+            {
+                return 30.0;
+            }
+        }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);

@@ -13,8 +13,8 @@ namespace Server.Items
             this.Attributes.RegenMana = 3;
             this.Attributes.SpellDamage = 20;
 			
-            this.SkillBonuses.SetValues(0, SkillName.Magery, 20.0);
-            this.SkillBonuses.SetValues(1, SkillName.Focus, 20.0);
+            this.SkillBonuses.SetValues(0, SkillName.Magia, 20.0);
+            this.SkillBonuses.SetValues(1, SkillName.Logistyka, 20.0);
         }
 
         public CrystallineRing(Serial serial)

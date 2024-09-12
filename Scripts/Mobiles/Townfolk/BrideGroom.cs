@@ -9,9 +9,9 @@ namespace Server.Mobiles
         public BrideGroom()
         {
             if (this.Female)
-                this.Title = "the bride";
+                this.Title = "- Pan M³ody (podró¿nik)";
             else
-                this.Title = "the groom";			
+                this.Title = "Pani M³oda (podró¿niczka)";			
         }
 
         public BrideGroom(Serial serial)

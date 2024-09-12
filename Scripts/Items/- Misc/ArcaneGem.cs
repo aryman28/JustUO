@@ -90,7 +90,7 @@ namespace Server.Items
 
         public int GetChargesFor(Mobile m)
         {
-            int v = (int)(m.Skills[SkillName.Tailoring].Value / 5);
+            int v = (int)(m.Skills[SkillName.Krawiectwo].Value / 5);
 
             if (v < 16)
                 return 16;
@@ -163,16 +163,30 @@ namespace Server.Items
                             this.Amount--;
                     }
                 }
-                else if (from.Skills[SkillName.Tailoring].Value >= 80.0)
+                else if (from.Skills[SkillName.Krawiectwo].Value >= 80.0)
                 {
                     bool isExceptional = false;
 
                     if (item is BaseClothing)
                         isExceptional = (((BaseClothing)item).Quality == ClothingQuality.Exceptional);
                     else if (item is BaseArmor)
-                        isExceptional = (((BaseArmor)item).Quality == ArmorQuality.Exceptional);
+                        isExceptional = (((BaseArmor)item).Quality == ArmorQuality.Wspania³ || ((BaseArmor)item).Quality == ArmorQuality.Wyj¹tkow || ((BaseArmor)item).Quality == ArmorQuality.Niezwyk³ || ((BaseArmor)item).Quality == ArmorQuality.Cudown || ((BaseArmor)item).Quality == ArmorQuality.Mistyczn || ((BaseArmor)item).Quality == ArmorQuality.Legendarn );
                     else if (item is BaseWeapon)
-                        isExceptional = (((BaseWeapon)item).Quality == WeaponQuality.Exceptional);
+                        isExceptional = (((BaseWeapon)item).Quality == WeaponQuality.Dobr);
+                    else if (item is BaseWeapon)
+                        isExceptional = (((BaseWeapon)item).Quality == WeaponQuality.Doskona³); 
+                    else if (item is BaseWeapon)
+                        isExceptional = (((BaseWeapon)item).Quality == WeaponQuality.Wspania³); 
+                    else if (item is BaseWeapon)
+                        isExceptional = (((BaseWeapon)item).Quality == WeaponQuality.Wyj¹tkow);  
+                    else if (item is BaseWeapon)
+                        isExceptional = (((BaseWeapon)item).Quality == WeaponQuality.Niezwyk³);
+                    else if (item is BaseWeapon)
+                        isExceptional = (((BaseWeapon)item).Quality == WeaponQuality.Cudown);
+                    else if (item is BaseWeapon)
+                        isExceptional = (((BaseWeapon)item).Quality == WeaponQuality.Mistyczn);
+                    else if (item is BaseWeapon)
+                        isExceptional = (((BaseWeapon)item).Quality == WeaponQuality.Legendarn);
 
                     if (isExceptional)
                     {
@@ -183,13 +197,13 @@ namespace Server.Items
                         }
                         else if (item is BaseArmor)
                         {
-                            ((BaseArmor)item).Quality = ArmorQuality.Regular;
+                            ((BaseArmor)item).Quality = ArmorQuality.None;
                             ((BaseArmor)item).Crafter = from;
                             ((BaseArmor)item).PhysicalBonus = ((BaseArmor)item).FireBonus = ((BaseArmor)item).ColdBonus = ((BaseArmor)item).PoisonBonus = ((BaseArmor)item).EnergyBonus = 0; // Is there a method to remove bonuses?
                         }
                         else if (item is BaseWeapon) // Sanity, weapons cannot recieve gems...
                         {
-                            ((BaseWeapon)item).Quality = WeaponQuality.Regular;
+                            ((BaseWeapon)item).Quality = WeaponQuality.Zwyk³;
                             ((BaseWeapon)item).Crafter = from;
                         }
 

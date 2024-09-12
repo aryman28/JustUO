@@ -8,9 +8,9 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Miner()
-            : base("the miner")
+            : base("- Górnik")
         {
-            this.SetSkill(SkillName.Mining, 65.0, 88.0);
+            this.SetSkill(SkillName.Gornictwo, 65.0, 88.0);
         }
 
         public Miner(Serial serial)

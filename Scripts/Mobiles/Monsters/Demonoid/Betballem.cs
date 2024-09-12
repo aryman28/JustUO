@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -27,16 +28,16 @@ namespace Server.Mobiles
             SetResistance(ResistanceType.Physical, 15, 20);
             SetResistance(ResistanceType.Fire, 5, 10);
 
-            SetSkill(SkillName.MagicResist, 10.0);
-            SetSkill(SkillName.Tactics, 0.1, 15.0);
-            SetSkill(SkillName.Wrestling, 25.1, 40.0);
+            SetSkill(SkillName.ObronaPrzedMagia, 10.0);
+            SetSkill(SkillName.Taktyka, 0.1, 15.0);
+            SetSkill(SkillName.Boks, 25.1, 40.0);
 
             Fame = 500;
             Karma = -500;
 
-            VirtualArmor = 38;
-
             QLPoints = 10;
+
+            VirtualArmor = 38;
 
             AddItem(new LightSource());
 
@@ -51,29 +52,39 @@ namespace Server.Mobiles
 
         public override bool Unprovokable
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool AlwaysMurderer
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool BardImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool BleedImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Rich);
@@ -130,13 +141,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

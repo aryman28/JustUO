@@ -2,7 +2,7 @@
 using System;
 using Server.Items;
 using Server.Spells;
-using Server.Spells.Spellweaving;
+using Server.Spells.Druidyzm;
 
 namespace Server.Mobiles
 {
@@ -26,13 +26,13 @@ namespace Server.Mobiles
 
             if (this.m_Mobile.Mana > 50)
             {
-                if (this.m_Mobile.Skills[SkillName.Spellweaving].Value > 90.0) // add word of death+, uses 50 mana
+                if (this.m_Mobile.Skills[SkillName.Druidyzm].Value > 90.0) // add word of death+, uses 50 mana
                     choices += 4;
-                else if (this.m_Mobile.Skills[SkillName.Spellweaving].Value > 66.0) // add wildfire+, uses 50 mana
+                else if (this.m_Mobile.Skills[SkillName.Druidyzm].Value > 66.0) // add wildfire+, uses 50 mana
                     choices += 3;
-                else if (this.m_Mobile.Skills[SkillName.Spellweaving].Value > 62.0) // add essence of wind+, uses 42 mana
+                else if (this.m_Mobile.Skills[SkillName.Druidyzm].Value > 62.0) // add essence of wind+, uses 42 mana
                     choices += 2;
-                else if (this.m_Mobile.Skills[SkillName.Spellweaving].Value > 44.0) // add empower, uses 50 mana
+                else if (this.m_Mobile.Skills[SkillName.Druidyzm].Value > 44.0) // add empower, uses 50 mana
                     ++choices;
             }
 
@@ -148,7 +148,7 @@ namespace Server.Mobiles
 
                 bc = (BaseCreature)m;
 
-                if (bc.Skills[SkillName.Spellweaving].Value > 50.0)
+                if (bc.Skills[SkillName.Druidyzm].Value > 50.0)
                     if (this.m_Mobile.Controlled == bc.Controlled && this.m_Mobile.Summoned == bc.Summoned)
                         power++;
             }
@@ -176,7 +176,7 @@ namespace Server.Mobiles
 
         public Spell GetSpellweavingSummon()
         {
-            if (this.m_Mobile.Skills[SkillName.Spellweaving].Value > 38.0)
+            if (this.m_Mobile.Skills[SkillName.Druidyzm].Value > 38.0)
             {
                 if (this.m_Mobile.Serial.Value % 2 == 0)
                     return new SummonFeySpell(this.m_Mobile, null);
@@ -205,7 +205,7 @@ namespace Server.Mobiles
         {
             if (GiftOfRenewalSpell.m_Table.ContainsKey(this.m_Mobile) || !this.m_Mobile.CanBeginAction(typeof(GiftOfRenewalSpell)))
                 return false;
-            else if (this.m_Mobile.Skills[SkillName.Spellweaving].Value > 20.0 && this.m_Mobile.Mana > 24)
+            else if (this.m_Mobile.Skills[SkillName.Druidyzm].Value > 20.0 && this.m_Mobile.Mana > 24)
             {
                 if (this.m_Mobile.Debug)
                     this.m_Mobile.Say(1436, "Casting Gift Of Renewal");

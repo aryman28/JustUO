@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Server.Spells.Bushido
+namespace Server.Spells.Fanatyzm
 {
     public class HonorableExecution : SamuraiMove
     {
@@ -68,7 +68,7 @@ namespace Server.Spells.Bushido
 
         public override double GetDamageScalar(Mobile attacker, Mobile defender)
         {
-            double bushido = attacker.Skills[SkillName.Bushido].Value;
+            double bushido = attacker.Skills[SkillName.Fanatyzm].Value;
 
             // TODO: 20 -> Perfection
             return 1.0 + (bushido * 20) / 10000;
@@ -95,7 +95,7 @@ namespace Server.Spells.Bushido
             {
                 attacker.FixedParticles(0x373A, 1, 17, 0x7E2, EffectLayer.Waist);
 
-                double bushido = attacker.Skills[SkillName.Bushido].Value;
+                double bushido = attacker.Skills[SkillName.Fanatyzm].Value;
 
                 attacker.Hits += 20 + (int)((bushido * bushido) / 480.0);
 
@@ -116,10 +116,10 @@ namespace Server.Spells.Bushido
                 mods.Add(new ResistanceMod(ResistanceType.Poison, -40));
                 mods.Add(new ResistanceMod(ResistanceType.Energy, -40));
 
-                double resSpells = attacker.Skills[SkillName.MagicResist].Value;
+                double resSpells = attacker.Skills[SkillName.ObronaPrzedMagia].Value;
 
                 if (resSpells > 0.0)
-                    mods.Add(new DefaultSkillMod(SkillName.MagicResist, true, -resSpells));
+                    mods.Add(new DefaultSkillMod(SkillName.ObronaPrzedMagia, true, -resSpells));
 
                 info = new HonorableExecutionInfo(attacker, mods);
                 info.m_Timer = Timer.DelayCall(TimeSpan.FromSeconds(7.0), new TimerStateCallback(EndEffect), info);

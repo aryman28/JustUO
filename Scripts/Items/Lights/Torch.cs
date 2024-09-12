@@ -51,7 +51,7 @@ namespace Server.Items
                 return 0x4BB;
             }
         }
-        public override void OnAdded(IEntity parent)
+        public override void OnAdded(object parent)
         {
             base.OnAdded(parent);
 

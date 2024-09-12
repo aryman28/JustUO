@@ -10,11 +10,11 @@ using Server.XMLConfiguration;
 
 namespace Server.SkillHandlers
 {
-	public class Provocation
+	public class Prowokacja
 	{
 		public static void Initialize()
 		{
-			SkillInfo.Table[(int)SkillName.Provocation].Callback = OnUse;
+			SkillInfo.Table[(int)SkillName.Prowokacja].Callback = OnUse;
 		}
 
 		public static TimeSpan OnUse(Mobile m)
@@ -38,7 +38,7 @@ namespace Server.SkillHandlers
 			private readonly BaseInstrument m_Instrument;
 
 			public InternalFirstTarget(Mobile from, BaseInstrument instrument)
-				: base(BaseInstrument.GetBardRange(from, SkillName.Provocation), false, TargetFlags.None)
+				: base(BaseInstrument.GetBardRange(from, SkillName.Prowokacja), false, TargetFlags.None)
 			{
 				m_Instrument = instrument;
 			}
@@ -85,7 +85,7 @@ namespace Server.SkillHandlers
 			private readonly BaseInstrument m_Instrument;
 
 			public InternalSecondTarget(Mobile from, BaseInstrument instrument, BaseCreature creature)
-				: base(BaseInstrument.GetBardRange(from, SkillName.Provocation), false, TargetFlags.None)
+				: base(BaseInstrument.GetBardRange(from, SkillName.Prowokacja), false, TargetFlags.None)
 			{
 				m_Instrument = instrument;
 				m_Creature = creature;
@@ -112,7 +112,7 @@ namespace Server.SkillHandlers
 						from.SendLocalizedMessage(1049446); // You have no chance of provoking those creatures.
 					}
 					else if (m_Creature.Map != creature.Map ||
-							 !m_Creature.InRange(creature, BaseInstrument.GetBardRange(from, SkillName.Provocation)))
+							 !m_Creature.InRange(creature, BaseInstrument.GetBardRange(from, SkillName.Prowokacja)))
 					{
 						from.SendLocalizedMessage(1049450);
 							// The creatures you are trying to provoke are too far away from each other for your music to have an effect.
@@ -122,7 +122,7 @@ namespace Server.SkillHandlers
 						from.NextSkillTime = Core.TickCount + 10000;
 
 						double diff = ((m_Instrument.GetDifficultyFor(m_Creature) + m_Instrument.GetDifficultyFor(creature)) * 0.5) - 5.0;
-						double music = from.Skills[SkillName.Musicianship].Value;
+						double music = from.Skills[SkillName.Muzykowanie].Value;
 
 					    if (XmlConfig.XmlMobFactionsEnabled)
 					    {
@@ -148,7 +148,7 @@ namespace Server.SkillHandlers
 							{
 								//from.DoHarmful( m_Creature );
 								//from.DoHarmful( creature );
-								if (!from.CheckTargetSkill(SkillName.Provocation, creature, diff - 25.0, diff + 25.0))
+								if (!from.CheckTargetSkill(SkillName.Prowokacja, creature, diff - 25.0, diff + 25.0))
 								{
 									from.NextSkillTime = Core.TickCount + 5000;
 									from.SendLocalizedMessage(501599); // Your music fails to incite enough anger.

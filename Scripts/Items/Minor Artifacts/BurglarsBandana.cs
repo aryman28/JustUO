@@ -9,9 +9,9 @@ namespace Server.Items
         {
             this.Hue = Utility.RandomBool() ? 0x58C : 0x10;
 
-            this.SkillBonuses.SetValues(0, SkillName.Stealing, 10.0);
-            this.SkillBonuses.SetValues(1, SkillName.Stealth, 10.0);
-            this.SkillBonuses.SetValues(2, SkillName.Snooping, 10.0);
+            this.SkillBonuses.SetValues(0, SkillName.Okradanie, 10.0);
+            this.SkillBonuses.SetValues(1, SkillName.Zakradanie, 10.0);
+            this.SkillBonuses.SetValues(2, SkillName.Zagladanie, 10.0);
 
             this.Attributes.BonusDex = 5;
         }

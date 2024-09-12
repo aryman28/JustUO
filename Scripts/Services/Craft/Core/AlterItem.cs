@@ -79,10 +79,10 @@ namespace Server.Engines.Craft
             TypeList.Add(typeof(WarMace), typeof(DiscMace));
             TypeList.Add(typeof(DiamondMace), typeof(DiscMace));
 
-            //****Carpentry****//
+            //****Stolarstwo****//
             TypeList.Add(typeof(GnarledStaff), typeof(GargishGnarledStaff));
             #region Need Implementation
-            //****Tailoring****//
+            //****Krawiectwo****//
             //Misc
             /*  TypeList.Add(typeof(BodySash), typeof(GargishSash));
                 TypeList.Add(typeof(HalfApron), typeof(GargoyleHalfApron));

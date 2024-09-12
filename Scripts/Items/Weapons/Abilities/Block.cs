@@ -4,7 +4,7 @@ using System.Collections;
 namespace Server.Items
 {
     /// <summary>
-    /// Raises your defenses for a short time. Requires Bushido or Ninjitsu skill.
+    /// Raises your defenses for a short time. Requires Fanatyzm or Skrytobojstwo skill.
     /// </summary>
     public class Block : WeaponAbility
     {
@@ -13,7 +13,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -56,9 +56,9 @@ namespace Server.Items
 
         public override bool CheckSkills(Mobile from)
         {
-            if (this.GetSkill(from, SkillName.Ninjitsu) < 50.0 && this.GetSkill(from, SkillName.Bushido) < 50.0)
+            if (this.GetSkill(from, SkillName.Skrytobojstwo) < 50.0 && this.GetSkill(from, SkillName.Fanatyzm) < 50.0)
             {
-                from.SendLocalizedMessage(1063347, "50"); // You need ~1_SKILL_REQUIREMENT~ Bushido or Ninjitsu skill to perform that attack!
+                from.SendLocalizedMessage(1063347, "50"); // You need ~1_SKILL_REQUIREMENT~ Fanatyzm or Skrytobojstwo skill to perform that attack!
                 return false;
             }
 
@@ -67,7 +67,7 @@ namespace Server.Items
 
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
         {
-            if (!this.Validate(attacker) || !this.CheckMana(attacker, true))
+            if (!this.Validate(attacker) || !this.CheckStam(attacker, true))
                 return;
 
             ClearCurrentAbility(attacker);
@@ -77,7 +77,7 @@ namespace Server.Items
 
             attacker.FixedParticles(0x37C4, 1, 16, 0x251D, 0x39D, 0x3, EffectLayer.RightHand);
 
-            int bonus = (int)(10.0 * ((Math.Max(attacker.Skills[SkillName.Bushido].Value, attacker.Skills[SkillName.Ninjitsu].Value) - 50.0) / 70.0 + 5));
+            int bonus = (int)(10.0 * ((Math.Max(attacker.Skills[SkillName.Fanatyzm].Value, attacker.Skills[SkillName.Skrytobojstwo].Value) - 50.0) / 70.0 + 5));
 
             BeginBlock(attacker, bonus);
         }

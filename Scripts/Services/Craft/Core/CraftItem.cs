@@ -1027,15 +1027,56 @@ namespace Server.Engines.Craft
 			return CheckSkills(from, typeRes, craftSystem, ref quality, ref allRequiredSkills, true);
 		}
 
-		public bool CheckSkills(
-			Mobile from, Type typeRes, CraftSystem craftSystem, ref int quality, ref bool allRequiredSkills, bool gainSkills)
+		public bool CheckSkills(	Mobile from, Type typeRes, CraftSystem craftSystem, ref int quality, ref bool allRequiredSkills, bool gainSkills)
 		{
 			double chance = GetSuccessChance(from, typeRes, craftSystem, gainSkills, ref allRequiredSkills);
 
 			if (GetExceptionalChance(craftSystem, chance, from) > Utility.RandomDouble())
-			{
-				quality = 2;
-			}
+			//{
+			//	quality = 2;
+			//}
+
+      if ( GetExceptionalChance( craftSystem, chance, from ) >= Utility.RandomDouble() && from.Skills[SkillName.WiedzaOUzbrojeniu].Value >= 0.1 )
+      	{
+        	quality = 3;
+      	}
+
+      if ( (chance * 0.1) >= Utility.RandomDouble() && from.Skills[SkillName.WiedzaOUzbrojeniu].Value >= 0.1 )
+      	{
+        	quality = 1;
+        }	
+
+      if ( (chance * 0.1) >= Utility.RandomDouble() && from.Skills[SkillName.WiedzaOUzbrojeniu].Value >= 0.1 && from.Skills[SkillName.WiedzaOUzbrojeniu].Value <= 89.9 )
+        {
+          quality = 2;
+        }
+        
+              
+      if ( (chance * 0.2) >= Utility.RandomDouble() && from.Skills[SkillName.WiedzaOUzbrojeniu].Value >= 30.0 && from.Skills[SkillName.WiedzaOUzbrojeniu].Value <= 120 )
+        {
+          quality = 4;
+        }
+        
+      if ( (chance * 0.1) >= Utility.RandomDouble() && from.Skills[SkillName.WiedzaOUzbrojeniu].Value >= 50.0 && from.Skills[SkillName.WiedzaOUzbrojeniu].Value <= 120 )
+        {
+          quality = 5;
+        }
+        
+      if ( (chance * 0.09) >= Utility.RandomDouble() && from.Skills[SkillName.WiedzaOUzbrojeniu].Value >= 90.0 && from.Skills[SkillName.WiedzaOUzbrojeniu].Value <= 120 )
+        {
+          quality = 6;
+        }
+        
+      if ( (chance * 0.07) >= Utility.RandomDouble() && from.Skills[SkillName.WiedzaOUzbrojeniu].Value >= 101.0 && from.Skills[SkillName.WiedzaOUzbrojeniu].Value <= 120 )
+        {
+          quality = 7;
+        }
+        
+      if ( (chance * 0.05) >= Utility.RandomDouble() && from.Skills[SkillName.WiedzaOUzbrojeniu].Value >= 105.0 && from.Skills[SkillName.WiedzaOUzbrojeniu].Value <= 120 )
+        {
+          quality = 8;
+        }
+        
 
 			return (chance > Utility.RandomDouble());
 		}
@@ -1672,7 +1713,7 @@ namespace Server.Engines.Craft
 						return;
 					}
 
-					int quality = 1;
+					int quality = 0;
 					bool allRequiredSkills = true;
 
 					m_CraftItem.CheckSkills(m_From, m_TypeRes, m_CraftSystem, ref quality, ref allRequiredSkills, false);
@@ -1708,7 +1749,8 @@ namespace Server.Engines.Craft
 
 					bool makersMark = false;
 
-					if (quality == 2 && m_From.Skills[m_CraftSystem.MainSkill].Base >= 100.0)
+					//if (quality == 2 && m_From.Skills[m_CraftSystem.MainSkill].Base >= 100.0)
+					if (m_From.Skills[m_CraftSystem.MainSkill].Base >= 100.0)
 					{
 						makersMark = m_CraftItem.IsMarkable(m_CraftItem.ItemType);
 					}

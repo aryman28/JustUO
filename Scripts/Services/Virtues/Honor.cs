@@ -314,7 +314,7 @@ namespace Server
             if (from != this.m_Source || this.m_Perfection == 100)
                 return;
 
-            int bushido = (int)from.Skills.Bushido.Value;
+            int bushido = (int)from.Skills.Fanatyzm.Value;
             if (bushido < 50)
                 return;
 

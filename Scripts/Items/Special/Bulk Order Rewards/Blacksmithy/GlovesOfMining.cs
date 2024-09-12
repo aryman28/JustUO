@@ -404,7 +404,7 @@ namespace Server.Items
                 }
                 else if (this.m_SkillMod == null && this.Parent is Mobile)
                 {
-                    this.m_SkillMod = new DefaultSkillMod(SkillName.Mining, true, this.m_Bonus);
+                    this.m_SkillMod = new DefaultSkillMod(SkillName.Gornictwo, true, this.m_Bonus);
                     ((Mobile)this.Parent).AddSkillMod(this.m_SkillMod);
                 }
                 else if (this.m_SkillMod != null)
@@ -413,7 +413,7 @@ namespace Server.Items
                 }
             }
         }
-		public override void OnAdded(IEntity parent)
+        public override void OnAdded(object parent)
         {
             base.OnAdded(parent);
 
@@ -422,12 +422,12 @@ namespace Server.Items
                 if (this.m_SkillMod != null)
                     this.m_SkillMod.Remove();
 
-                this.m_SkillMod = new DefaultSkillMod(SkillName.Mining, true, this.m_Bonus);
+                this.m_SkillMod = new DefaultSkillMod(SkillName.Gornictwo, true, this.m_Bonus);
                 ((Mobile)parent).AddSkillMod(this.m_SkillMod);
             }
         }
 
-		public override void OnRemoved(IEntity parent)
+        public override void OnRemoved(object parent)
         {
             base.OnRemoved(parent);
 
@@ -474,7 +474,7 @@ namespace Server.Items
                 if (this.m_SkillMod != null)
                     this.m_SkillMod.Remove();
 
-                this.m_SkillMod = new DefaultSkillMod(SkillName.Mining, true, this.m_Bonus);
+                this.m_SkillMod = new DefaultSkillMod(SkillName.Gornictwo, true, this.m_Bonus);
                 ((Mobile)this.Parent).AddSkillMod(this.m_SkillMod);
             }
         }

@@ -11,6 +11,7 @@ namespace Server.Items
         {
             this.Weight = 5.0;
             this.Layer = Layer.OneHanded;
+            this.Name = "Jednoręczne bojowe ostrze";
         }
 
         public Wakizashi(Serial serial)

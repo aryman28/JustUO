@@ -10,6 +10,8 @@ namespace Server.Items
             : base(0x26C3)
         {
             this.Weight = 6.0;
+            this.Name = "Powtarzalna kusza";
+            this.Layer = Layer.TwoHanded;
         }
 
         public RepeatingCrossbow(Serial serial)

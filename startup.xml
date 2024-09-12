@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <startupinfo>
-  <shardname>JustUO Test Shard</shardname>
-  <clientpath>C:\Program Files (x86)\Electronic Arts\Ultima Online Classic</clientpath>
-  <saves>15</saves>
+  <shardname>Born In Mortality</shardname>
+  <clientpath>C:\ULTIMA\UO</clientpath>
+  <saves>5</saves>
   <rewards>30</rewards>
   <skillcap>7000</skillcap>
   <statcap>225</statcap>

@@ -35,7 +35,7 @@ namespace Server.Engines.Craft
         {
             get
             {
-                return SkillName.Tinkering;
+                return SkillName.Majsterkowanie;
             }
         }
 
@@ -305,15 +305,15 @@ namespace Server.Engines.Craft
             #endregion
 
             #region Jewelry
-            this.AddJewelrySet(GemType.StarSapphire, typeof(StarSapphire));
-            this.AddJewelrySet(GemType.Emerald, typeof(Emerald));
-            this.AddJewelrySet(GemType.Sapphire, typeof(Sapphire));
-            this.AddJewelrySet(GemType.Ruby, typeof(Ruby));
-            this.AddJewelrySet(GemType.Citrine, typeof(Citrine));
-            this.AddJewelrySet(GemType.Amethyst, typeof(Amethyst));
-            this.AddJewelrySet(GemType.Tourmaline, typeof(Tourmaline));
-            this.AddJewelrySet(GemType.Amber, typeof(Amber));
-            this.AddJewelrySet(GemType.Diamond, typeof(Diamond));
+            this.AddJewelrySet(GemType.GwiezdnySzafir, typeof(StarSapphire));
+            this.AddJewelrySet(GemType.Szmaragd, typeof(Emerald));
+            this.AddJewelrySet(GemType.Szafir, typeof(Sapphire));
+            this.AddJewelrySet(GemType.Rubin, typeof(Ruby));
+            this.AddJewelrySet(GemType.Cytryn, typeof(Citrine));
+            this.AddJewelrySet(GemType.Ametyst, typeof(Amethyst));
+            this.AddJewelrySet(GemType.Tourmalin, typeof(Tourmaline));
+            this.AddJewelrySet(GemType.Bursztyn, typeof(Amber));
+            this.AddJewelrySet(GemType.Diament, typeof(Diamond));
             #endregion
 
             #region Multi-Component Items
@@ -367,7 +367,7 @@ namespace Server.Engines.Craft
             if (Core.ML)
             {
                 index = this.AddCraft(typeof(HitchingRope), 1044051, 1071124, 60.0, 120.0, typeof(Rope), 1020934, 1, 1044253);
-                this.AddSkill(index, SkillName.AnimalLore, 15.0, 100.0);
+                this.AddSkill(index, SkillName.WiedzaOBestiach, 15.0, 100.0);
                 this.AddRes(index, typeof(ResolvesBridle), 1074761, 1, 1044253);
 
                 index = this.AddCraft(typeof(HitchingPost), 1044051, 1071127, 90.0, 160.0, typeof(IronIngot), 1044036, 50, 1044253);
@@ -629,7 +629,7 @@ namespace Server.Engines.Craft
 
             if (message == 0)
             {
-                int trapLevel = (int)(this.From.Skills.Tinkering.Value / 10);
+                int trapLevel = (int)(this.From.Skills.Majsterkowanie.Value / 10);
 
                 this.Container.TrapType = this.TrapType;
                 this.Container.TrapPower = trapLevel * 9;

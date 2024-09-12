@@ -112,7 +112,7 @@
     <PlayerPropertyName />
     <TriggerProbability>1</TriggerProbability>
     <SpeechTrigger />
-    <SkillTrigger>Musicianship,+</SkillTrigger>
+    <SkillTrigger>Muzykowanie,+</SkillTrigger>
     <InContainer>False</InContainer>
     <ContainerX>0</ContainerX>
     <ContainerY>0</ContainerY>
@@ -161,7 +161,7 @@
     <PlayerPropertyName />
     <TriggerProbability>1</TriggerProbability>
     <SpeechTrigger />
-    <SkillTrigger>Mining,+</SkillTrigger>
+    <SkillTrigger>Gornictwo,+</SkillTrigger>
     <InContainer>False</InContainer>
     <ContainerX>0</ContainerX>
     <ContainerY>0</ContainerY>
@@ -210,7 +210,7 @@
     <PlayerPropertyName />
     <TriggerProbability>1</TriggerProbability>
     <SpeechTrigger />
-    <SkillTrigger>Hiding,+</SkillTrigger>
+    <SkillTrigger>Ukrywanie,+</SkillTrigger>
     <InContainer>False</InContainer>
     <ContainerX>0</ContainerX>
     <ContainerY>0</ContainerY>

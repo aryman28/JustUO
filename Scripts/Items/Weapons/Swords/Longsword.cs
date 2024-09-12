@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0xF61)
         {
             this.Weight = 7.0;
+            this.Name = "Długi miecz";
         }
 
         public Longsword(Serial serial)

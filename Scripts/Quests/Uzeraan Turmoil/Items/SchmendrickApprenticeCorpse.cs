@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using Server.Items;
-using Server.Misc;
 using Server.Mobiles;
 using Server.Network;
 
@@ -10,22 +10,21 @@ namespace Server.Engines.Quests.Haven
     {
         private static int m_HairHue;
         private Lantern m_Lantern;
-
         [Constructable]
         public SchmendrickApprenticeCorpse()
             : base(GetOwner(), GetHair(), GetFacialHair(), GetEquipment())
         {
-            Direction = Direction.West;
+            this.Direction = Direction.West;
 
-            foreach (var item in EquipItems)
+            foreach (Item item in this.EquipItems)
             {
-                DropItem(item);
+                this.DropItem(item);
             }
 
-            m_Lantern = new Lantern();
-            m_Lantern.Movable = false;
-            m_Lantern.Protected = true;
-            m_Lantern.Ignite();
+            this.m_Lantern = new Lantern();
+            this.m_Lantern.Movable = false;
+            this.m_Lantern.Protected = true;
+            this.m_Lantern.Ignite();
         }
 
         public SchmendrickApprenticeCorpse(Serial serial)
@@ -35,10 +34,10 @@ namespace Server.Engines.Quests.Haven
 
         public override void AddNameProperty(ObjectPropertyList list)
         {
-            if (ItemID == 0x2006) // Corpse form
+            if (this.ItemID == 0x2006) // Corpse form
             {
                 list.Add("a human corpse");
-                list.Add(1049144, Name); // the remains of ~1_NAME~ the apprentice
+                list.Add(1049144, this.Name); // the remains of ~1_NAME~ the apprentice
             }
             else
             {
@@ -48,30 +47,28 @@ namespace Server.Engines.Quests.Haven
 
         public override void OnSingleClick(Mobile from)
         {
-            var hue = Notoriety.GetHue(NotorietyHandlers.CorpseNotoriety(from, this));
+            int hue = Notoriety.GetHue(Server.Misc.NotorietyHandlers.CorpseNotoriety(from, this));
 
-            if (ItemID == 0x2006) // Corpse form
-                from.Send(new MessageLocalized(Serial, ItemID, MessageType.Label, hue, 3, 1049144, "", Name));
-                    // the remains of ~1_NAME~ the apprentice
+            if (this.ItemID == 0x2006) // Corpse form
+                from.Send(new MessageLocalized(this.Serial, this.ItemID, MessageType.Label, hue, 3, 1049144, "", this.Name)); // the remains of ~1_NAME~ the apprentice
             else
-                from.Send(new MessageLocalized(Serial, ItemID, MessageType.Label, hue, 3, 1049145, "", ""));
-                    // the remains of a wizard's apprentice
+                from.Send(new MessageLocalized(this.Serial, this.ItemID, MessageType.Label, hue, 3, 1049145, "", "")); // the remains of a wizard's apprentice
         }
 
         public override void Open(Mobile from, bool checkSelfLoot)
         {
-            if (!from.InRange(GetWorldLocation(), 2))
+            if (!from.InRange(this.GetWorldLocation(), 2))
                 return;
 
-            var player = from as PlayerMobile;
+            PlayerMobile player = from as PlayerMobile;
 
             if (player != null)
             {
-                var qs = player.Quest;
+                QuestSystem qs = player.Quest;
 
                 if (qs is UzeraanTurmoilQuest)
                 {
-                    var obj = qs.FindObjective(typeof (FindApprenticeObjective));
+                    QuestObjective obj = qs.FindObjective(typeof(FindApprenticeObjective));
 
                     if (obj != null && !obj.Completed)
                     {
@@ -79,14 +76,12 @@ namespace Server.Engines.Quests.Haven
 
                         if (player.PlaceInBackpack(scroll))
                         {
-                            player.SendLocalizedMessage(1049147, "", 0x22);
-                                // You find the scroll and put it in your pack.
+                            player.SendLocalizedMessage(1049147, "", 0x22); // You find the scroll and put it in your pack.
                             obj.Complete();
                         }
                         else
                         {
-                            player.SendLocalizedMessage(1049146, "", 0x22);
-                                // You find the scroll, but can't pick it up because your pack is too full.  Come back when you have more room in your pack.
+                            player.SendLocalizedMessage(1049146, "", 0x22); // You find the scroll, but can't pick it up because your pack is too full.  Come back when you have more room in your pack.
                             scroll.Delete();
                         }
 
@@ -95,54 +90,53 @@ namespace Server.Engines.Quests.Haven
                 }
             }
 
-            from.SendLocalizedMessage(1049143, "", 0x22);
-                // This is the corpse of a wizard's apprentice.  You can't bring yourself to search it without a good reason.
+            from.SendLocalizedMessage(1049143, "", 0x22); // This is the corpse of a wizard's apprentice.  You can't bring yourself to search it without a good reason.
         }
 
         public override void OnLocationChange(Point3D oldLoc)
         {
-            if (m_Lantern != null && !m_Lantern.Deleted)
-                m_Lantern.Location = new Point3D(X, Y + 1, Z);
+            if (this.m_Lantern != null && !this.m_Lantern.Deleted)
+                this.m_Lantern.Location = new Point3D(this.X, this.Y + 1, this.Z);
         }
 
         public override void OnMapChange()
         {
-            if (m_Lantern != null && !m_Lantern.Deleted)
-                m_Lantern.Map = Map;
+            if (this.m_Lantern != null && !this.m_Lantern.Deleted)
+                this.m_Lantern.Map = this.Map;
         }
 
         public override void OnAfterDelete()
         {
             base.OnAfterDelete();
 
-            if (m_Lantern != null && !m_Lantern.Deleted)
-                m_Lantern.Delete();
+            if (this.m_Lantern != null && !this.m_Lantern.Deleted)
+                this.m_Lantern.Delete();
         }
 
         public override void Serialize(GenericWriter writer)
         {
-            if (m_Lantern != null && m_Lantern.Deleted)
-                m_Lantern = null;
+            if (this.m_Lantern != null && this.m_Lantern.Deleted)
+                this.m_Lantern = null;
 
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
 
-            writer.Write(m_Lantern);
+            writer.Write(this.m_Lantern);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            m_Lantern = (Lantern) reader.ReadItem();
+            this.m_Lantern = (Lantern)reader.ReadItem();
         }
 
         private static Mobile GetOwner()
         {
-            var apprentice = new Mobile();
+            Mobile apprentice = new Mobile();
 
             apprentice.Hue = Utility.RandomSkinHue();
             apprentice.Female = false;
@@ -156,7 +150,7 @@ namespace Server.Engines.Quests.Haven
 
         private static List<Item> GetEquipment()
         {
-            var list = new List<Item>();
+            List<Item> list = new List<Item>();
 
             list.Add(new Robe(QuestSystem.RandomBrightHue()));
             list.Add(new WizardsHat(Utility.RandomNeutralHue()));

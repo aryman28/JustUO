@@ -48,6 +48,7 @@ namespace Server.Items
             : base(0x1541, hue)
         {
             this.Weight = 1.0;
+            this.Name = "Szarfa";
         }
 
         public BodySash(Serial serial)
@@ -84,6 +85,7 @@ namespace Server.Items
             : base(0x153d, hue)
         {
             this.Weight = 4.0;
+            this.Name = "D³ugi fartuch";
         }
 
         public FullApron(Serial serial)
@@ -120,6 +122,7 @@ namespace Server.Items
             : base(0x1F7B, hue)
         {
             this.Weight = 2.0;
+            this.Name = "Dublet";
         }
 
         public Doublet(Serial serial)
@@ -156,6 +159,7 @@ namespace Server.Items
             : base(0x1FFD, hue)
         {
             this.Weight = 6.0;
+            this.Name = "Tunika";
         }
 
         public Surcoat(Serial serial)
@@ -195,6 +199,7 @@ namespace Server.Items
             : base(0x1FA1, hue)
         {
             this.Weight = 5.0;
+            this.Name = "Tunika z d³ugimi rêkawami";
         }
 
         public Tunic(Serial serial)
@@ -231,6 +236,7 @@ namespace Server.Items
             : base(0x2310, hue)
         {
             this.Weight = 1.0;
+            this.Name = "Elegancka koszula";
         }
 
         public FormalShirt(Serial serial)
@@ -270,6 +276,7 @@ namespace Server.Items
             : base(0x1F9F, hue)
         {
             this.Weight = 4.0;
+            this.Name = "Szata b³azna";
         }
 
         public JesterSuit(Serial serial)

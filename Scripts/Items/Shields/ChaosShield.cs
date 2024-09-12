@@ -1,5 +1,7 @@
 using System;
 using Server.Guilds;
+using Server;
+using Server.Engines.XmlSpawner2;
 
 namespace Server.Items
 {
@@ -12,7 +14,24 @@ namespace Server.Items
             if (!Core.AOS)
                 this.LootType = LootType.Newbied;
 
+            Name = "Tarcza Chaosu";
             this.Weight = 5.0;
+            switch(Utility.Random(1))
+            {
+                    case 0:
+                    // add a specific list of custom defenses like this
+                    XmlAttach.AttachTo(this, 
+                        new XmlCustomDefenses(
+                            new XmlCustomDefenses.SpecialDefenses []
+                            { 
+                                XmlCustomDefenses.SpecialDefenses.SpikeShield,
+                                XmlCustomDefenses.SpecialDefenses.ParalyzingFear
+                            }
+                        )
+                    );
+                    break;
+            }
+            
         }
 
         public ChaosShield(Serial serial)
@@ -24,7 +43,7 @@ namespace Server.Items
         {
             get
             {
-                return 1;
+                return 3;
             }
         }
         public override int BaseFireResistance

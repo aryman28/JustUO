@@ -1,0 +1,167 @@
+<?xml version="1.0" standalone="yes"?>
+<XmlQuestNPC>
+  <NPC>
+    <Name>Artur Jonton</Name>
+    <Running>True</Running>
+    <ProximityRange>3</ProximityRange>
+    <ResetRange>16</ResetRange>
+    <TriggerOnCarried>Koniec Giermek Drakana | ATTACHMENT,Konie Giermek Drakana,XmlQuestAttachment</TriggerOnCarried>
+    <NoTriggerOnCarried>Koniec Rycerz Artura | ATTACHMENT,Koniec Rycerz Artura,XmlQuestAttachment</NoTriggerOnCarried>
+    <AllowGhost>False</AllowGhost>
+    <SpeechPace>10</SpeechPace>
+    <ResetTime>1</ResetTime>
+    <ConfigFile>ArturJontonNPC</ConfigFile>
+    <SpeechEntries>11</SpeechEntries>
+  </NPC>
+  <SpeechEntry>
+    <EntryNumber>0</EntryNumber>
+    <ID>0</ID>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>10</EntryNumber>
+    <ID>10</ID>
+    <Text>*Czyni ręką znak "Ankh"*</Text>
+    <DependsOn>-1</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>20</EntryNumber>
+    <ID>20</ID>
+    <Keywords>witaj</Keywords>
+    <DependsOn>10</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Artur Jonton,4/Witaj drogi Giermku. Zatem przysłał Ciebie Drakan Hmm zmężniałeś odk�tatnio ciebie widziałem... zyli nadszedł czas i chciabyś zmierzyć się z zadami dzięki którym wykarsz się swoją inteligencj mądrością, siłą, ho oraz wiarą ? Czy jeste pewien ż nadszedł tw�czas aby stać się rycerm? Dobrze się zastanów! ;Tak, to mój cza!;accept;Nie jestem jeszcze gotowy...;decline</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>30</EntryNumber>
+    <ID>30</ID>
+    <Keywords>accept</Keywords>
+    <DependsOn>20</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Artur Jonton,4/Dobrze.... Jak wiesz każdy rcerz powinien znać kodeks Opiera się on o te sam prawa co kodeks paladyna więc musisz się z nizapoznać. Znajdziesz go  bibliotece u góry na póach z ksiązkami. uważnigo przeczytaj i wróć dmnie kiedy będziesz gotoy. Czy wszystko jest ju� ci wiadome i przeczytałś dokładnie kodeks;Tak;pyt1;Nie;decline</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>40</EntryNumber>
+    <ID>40</ID>
+    <Keywords>decline</Keywords>
+    <DependsOn>20,30</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Artur Jonton,4/To czemu zawracasz mi głowe? Uciekaj mi stąd! ;Bywaj;</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>50</EntryNumber>
+    <ID>50</ID>
+    <Keywords>pyt1</Keywords>
+    <DependsOn>30</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Artur Jonton,4/Jaka cecha Rycerza jest najważniejsza ocz wiary ;Męstwo;decline;Honor;pyt2;Chciwość;decline</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>60</EntryNumber>
+    <ID>60</ID>
+    <Keywords>pyt2</Keywords>
+    <DependsOn>50</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Artur Jonton,4/Co jest ważnoiejsze dla rycerza kiedy już nie ma innego wyjścia i jedną z zasad musi złamać ? ;Honor;decline;Wiara;pyt3</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>70</EntryNumber>
+    <ID>70</ID>
+    <Keywords>decline</Keywords>
+    <DependsOn>50</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Artur Jonton,4/Niestety odpowiedziałeś źlPrzeczytaj dobrze kodeks i zaczniemy pytanoia od początku;Idę się ucz;</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>80</EntryNumber>
+    <ID>80</ID>
+    <Keywords>pyt3</Keywords>
+    <DependsOn>60</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Artur Jonton,4/O jakim grzechu mówi kodeks ? ;Zazdrość;decline;Morderstwo;decline;Pycha;dobrze</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>90</EntryNumber>
+    <ID>90</ID>
+    <Keywords>dobrze</Keywords>
+    <Action>TAKE/Koniec Giermek Drakana ; GIVE/&lt;questholder/name/Koniec Rycerz Artura/visible/false/objective1/COLLECT,Zakonczono,1/Completed1/true&gt;</Action>
+    <DependsOn>80</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Artur Jonton,4/Widzę że kodeks nie jest ci już obcy. Zatem dobrze możesz teraz przystąpić do prób sprawnościowych. Udaj się do mego przyjaciela Ulricha on powie ci co dalej. Bądź pozdrowiony i niechaj bogowie porządku Ci sprzyjają! ;Bywaj;</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>100</EntryNumber>
+    <ID>100</ID>
+    <Keywords>decline</Keywords>
+    <DependsOn>80</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Artur Jonton,4/Niestety odpowiedziałeś źle. Przeczytaj dobrze kodeks i zaczniemy pytanoia od początku;Idę się uczyć;</Gump>
+  </SpeechEntry>
+</XmlQuestNPC>

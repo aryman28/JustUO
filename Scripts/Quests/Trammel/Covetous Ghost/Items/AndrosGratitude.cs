@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Items
 {
     public class AndrosGratitude : SmithHammer
@@ -6,7 +8,7 @@ namespace Server.Items
         public AndrosGratitude()
             : base(10)
         {
-            LootType = LootType.Blessed;
+            this.LootType = LootType.Blessed;
         }
 
         public AndrosGratitude(Serial serial)
@@ -16,21 +18,23 @@ namespace Server.Items
 
         public override int LabelNumber
         {
-            get { return 1075345; }
-        } // Andros’ Gratitude
-
+            get
+            {
+                return 1075345;
+            }
+        }// Andros’ Gratitude
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

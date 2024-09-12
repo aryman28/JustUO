@@ -35,7 +35,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.BoltsToArrows,                     // transform any quantity of bolts into half the quantity of arrows
                 70,30,0,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.ArmsLore },                                        //  skill requirement list
+                new SkillName [] { SkillName.WiedzaOUzbrojeniu },                                        //  skill requirement list
                 new int [] { 50 },                                                               // minimum skill levels
                 new Type [] {typeof(Bolt)},                                                     // ingredient list
                 new int [] { 0 }                                                                 // zero indicates any quantity
@@ -43,7 +43,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.ArrowsToBolts,                     // transform any quantity of arrows into half the quantity of bolts
                 70,30,0,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.ArmsLore },                                        //  skill requirement list
+                new SkillName [] { SkillName.WiedzaOUzbrojeniu },                                        //  skill requirement list
                 new int [] { 50 },                                                               // minimum skill levels
                 new Type [] {typeof(Arrow)},                                                     // ingredient list
                 new int [] { 0 }                                                                 // zero indicates any quantity

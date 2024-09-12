@@ -8,14 +8,14 @@ namespace Server.Mobiles
         [Constructable]
         public EvilWanderingHealer()
         {
-            this.Title = (Core.AOS) ? "the Priest Of Mondain" : "the evil wandering healer";
+            this.Title = (Core.AOS) ? "Mroczny ksi¹dz" : "Uzdrowiciel (chaos)";
             this.Karma = -10000;
 
             this.AddItem(new GnarledStaff());
 
-            this.SetSkill(SkillName.Camping, 80.0, 100.0);
-            this.SetSkill(SkillName.Forensics, 80.0, 100.0);
-            this.SetSkill(SkillName.SpiritSpeak, 80.0, 100.0);
+            this.SetSkill(SkillName.Obozowanie, 80.0, 100.0);
+            this.SetSkill(SkillName.Kryminalistyka, 80.0, 100.0);
+            this.SetSkill(SkillName.MowaDuchow, 80.0, 100.0);
         }
 
         public EvilWanderingHealer(Serial serial)
@@ -49,11 +49,11 @@ namespace Server.Mobiles
             if (!base.CheckTeach(skill, from))
                 return false;
 
-            return (skill == SkillName.Anatomy) ||
-                   (skill == SkillName.Camping) ||
-                   (skill == SkillName.Forensics) ||
-                   (skill == SkillName.Healing) ||
-                   (skill == SkillName.SpiritSpeak);
+            return (skill == SkillName.Anatomia) ||
+                   (skill == SkillName.Obozowanie) ||
+                   (skill == SkillName.Kryminalistyka) ||
+                   (skill == SkillName.Leczenie) ||
+                   (skill == SkillName.MowaDuchow);
         }
 
         public override bool CheckResurrect(Mobile m)

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using Server.Gumps;
 using Server.Mobiles;
-using Server.Spells.Necromancy;
+using Server.Spells.Nekromancja;
 
-namespace Server.Spells.Chivalry
+namespace Server.Spells.Rycerstwo
 {
     public class NobleSacrificeSpell : PaladinSpell
     {

@@ -9,11 +9,11 @@ namespace Server.Mobiles
     {
         [Constructable]
         public TinkerGuildmaster()
-            : base("tinker")
+            : base("- Mistrz Gildii Majsterkówiczów")
         {
-            this.SetSkill(SkillName.Lockpicking, 65.0, 88.0);
-            this.SetSkill(SkillName.Tinkering, 90.0, 100.0);
-            this.SetSkill(SkillName.RemoveTrap, 85.0, 100.0);
+            this.SetSkill(SkillName.Wlamywanie, 65.0, 88.0);
+            this.SetSkill(SkillName.Majsterkowanie, 120.0, 150.0);
+            this.SetSkill(SkillName.UsuwaniePulapek, 85.0, 100.0);
         }
 
         public TinkerGuildmaster(Serial serial)

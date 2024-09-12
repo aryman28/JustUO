@@ -8,12 +8,28 @@ namespace Server.Items
         public GargishRing()
             : base(0x4212)
         {
-            //Weight = 0.1;
+            this.Name = "Demoni Pierœcieñ";
+            this.Weight = 0.1;
         }
 
         public GargishRing(Serial serial)
             : base(serial)
         {
+        }
+
+        public override int InitMinHits
+        {
+            get
+            {
+                return 12;
+            }
+        }
+        public override int InitMaxHits
+        {
+            get
+            {
+                return 12;
+            }
         }
 
         public override Race RequiredRace

@@ -9,9 +9,9 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public StoneCrafter()
-            : base("the stone crafter")
+            : base("- Kamieniarz")
         {
-            this.SetSkill(SkillName.Carpentry, 85.0, 100.0);
+            this.SetSkill(SkillName.Stolarstwo, 85.0, 100.0);
         }
 
         public StoneCrafter(Serial serial)

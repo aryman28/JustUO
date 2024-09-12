@@ -34,10 +34,10 @@ namespace Server.Spells.Mystic
         {
             get
             {
-                return SkillName.Mysticism;
+                return SkillName.Mistycyzm;
             }
         }
-        //public override SkillName DamageSkill{ get{ return SkillName.Imbuing; } }
+        //public override SkillName DamageSkill{ get{ return SkillName.Umagicznianie; } }
 
         public override void GetCastSkills(out double min, out double max)
         {

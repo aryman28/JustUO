@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Server.Items;
 
-namespace Server.Spells.Necromancy
+namespace Server.Spells.Nekromancja
 {
     public class CurseWeaponSpell : NecromancerSpell
     {
@@ -62,7 +62,7 @@ namespace Server.Spells.Necromancy
                 this.Caster.FixedParticles(0x37B9, 1, 14, 9502, 32, 5, (EffectLayer)255);
                 new SoundEffectTimer(this.Caster).Start();
 
-                TimeSpan duration = TimeSpan.FromSeconds((this.Caster.Skills[SkillName.SpiritSpeak].Value / 3.4) + 1.0);
+                TimeSpan duration = TimeSpan.FromSeconds((this.Caster.Skills[SkillName.MowaDuchow].Value / 3.4) + 1.0);
 
                 Timer t = (Timer)m_Table[weapon];
 

@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0xF52)
         {
             this.Weight = 1.0;
+            this.Name = "Sztylet";
         }
 
         public Dagger(Serial serial)
@@ -112,7 +113,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Fencing;
+                return SkillName.WalkaSzpadami;
             }
         }
         public override WeaponType DefType

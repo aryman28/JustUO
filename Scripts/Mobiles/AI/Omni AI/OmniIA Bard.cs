@@ -70,7 +70,7 @@ namespace Server.Mobiles
             if (target == null)
                 return;
 
-            if (!this.m_Mobile.UseSkill(SkillName.Discordance))
+            if (!this.m_Mobile.UseSkill(SkillName.Manipulacja))
                 return;
 
             if (this.m_Mobile.Debug)
@@ -80,8 +80,8 @@ namespace Server.Mobiles
             // However players are immune to Discord hence the following.
             if (target is PlayerMobile)
             {
-                double effect = -(this.m_Mobile.Skills[SkillName.Discordance].Value / 5.0);
-                TimeSpan duration = TimeSpan.FromSeconds(this.m_Mobile.Skills[SkillName.Discordance].Value * 2);
+                double effect = -(this.m_Mobile.Skills[SkillName.Manipulacja].Value / 5.0);
+                TimeSpan duration = TimeSpan.FromSeconds(this.m_Mobile.Skills[SkillName.Manipulacja].Value * 2);
 
                 ResistanceMod[] mods = 
                 {
@@ -92,7 +92,7 @@ namespace Server.Mobiles
                     new ResistanceMod(ResistanceType.Energy, (int)(effect * 0.01))
                 };
 		
-                TimedResistanceMod.AddMod(target, "Discordance", mods, duration);
+                TimedResistanceMod.AddMod(target, "Manipulacja", mods, duration);
                 target.AddStatMod(new StatMod(StatType.Str, "DiscordanceStr", (int)(target.RawStr * effect), duration));
                 target.AddStatMod(new StatMod(StatType.Int, "DiscordanceInt", (int)(target.RawInt * effect), duration));
                 target.AddStatMod(new StatMod(StatType.Dex, "DiscordanceDex", (int)(target.RawDex * effect), duration));
@@ -129,7 +129,7 @@ namespace Server.Mobiles
 
         public bool UseProvocation()
         {
-            if (!this.m_Mobile.UseSkill(SkillName.Provocation))
+            if (!this.m_Mobile.UseSkill(SkillName.Prowokacja))
                 return false;
             else if (this.m_Mobile.Target != null)
                 this.m_Mobile.Target.Cancel(this.m_Mobile, TargetCancelType.Canceled);
@@ -144,7 +144,7 @@ namespace Server.Mobiles
                 if (target != null && bc.CanBeHarmful(target))
                 {
                     if (this.m_Mobile.Debug)
-                        this.m_Mobile.Say(1162, "Provocation: Pet to Master");
+                        this.m_Mobile.Say(1162, "Prowokacja: Pet to Master");
 
                     bc.Provoke(this.m_Mobile, target, true);
                     return true;
@@ -177,7 +177,7 @@ namespace Server.Mobiles
                 if (list[i].CanBeHarmful(target))
                 {
                     if (this.m_Mobile.Debug)
-                        this.m_Mobile.Say(1162, "Provocation: " + list[i].Name + " to " + target.Name);
+                        this.m_Mobile.Say(1162, "Prowokacja: " + list[i].Name + " to " + target.Name);
 
                     list[i].Provoke(this.m_Mobile, target, true);
                     return true;
@@ -189,26 +189,26 @@ namespace Server.Mobiles
 
         public void UsePeacemaking()
         {
-            if (!this.m_Mobile.UseSkill(SkillName.Peacemaking))
+            if (!this.m_Mobile.UseSkill(SkillName.Uspokajanie))
                 return;
 
             if (this.m_Mobile.Combatant is PlayerMobile)
             {
                 if (this.m_Mobile.Debug)
-                    this.m_Mobile.Say(1162, "Peacemaking: Player");
+                    this.m_Mobile.Say(1162, "Uspokajanie: Player");
 
                 PlayerMobile pm = this.m_Mobile.Combatant as PlayerMobile;
 
                 if (pm.PeacedUntil <= DateTime.UtcNow)
                 {
-                    pm.PeacedUntil = DateTime.UtcNow + TimeSpan.FromSeconds((int)(this.m_Mobile.Skills[SkillName.Peacemaking].Value / 5));
+                    pm.PeacedUntil = DateTime.UtcNow + TimeSpan.FromSeconds((int)(this.m_Mobile.Skills[SkillName.Uspokajanie].Value / 5));
                     pm.SendLocalizedMessage(500616); // You hear lovely music, and forget to continue battling!					
                 }
             }
             else if (this.m_Mobile.Target != null)
             {
                 if (this.m_Mobile.Debug)
-                    this.m_Mobile.Say(1162, "Peacemaking");
+                    this.m_Mobile.Say(1162, "Uspokajanie");
 
                 this.m_Mobile.Target.Invoke(this.m_Mobile, this.m_Mobile.Combatant);
             }

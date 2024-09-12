@@ -8,9 +8,9 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Fisherman()
-            : base("the fisher")
+            : base("- Rybak")
         {
-            this.SetSkill(SkillName.Fishing, 75.0, 98.0);
+            this.SetSkill(SkillName.Rybactwo, 75.0, 98.0);
         }
 
         public Fisherman(Serial serial)

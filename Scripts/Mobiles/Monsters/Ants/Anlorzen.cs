@@ -1,15 +1,16 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
 {
-    [CorpseName("an anlorzen corpse")]
+    [CorpseName("Anlorzen zw³oki")]
     public class Anlorzen : BaseCreature
     {
         [Constructable]
         public Anlorzen()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "an Anlorzen";
+            Name = "Anlorzen";
             Body = 11;
             BaseSoundID = 1170;
 
@@ -30,19 +31,19 @@ namespace Server.Mobiles
             SetResistance(ResistanceType.Poison, 90, 100);
             SetResistance(ResistanceType.Energy, 20, 30);
 
-            SetSkill(SkillName.EvalInt, 65.1, 80.0);
-            SetSkill(SkillName.Magery, 65.1, 80.0);
-            SetSkill(SkillName.Meditation, 65.1, 80.0);
-            SetSkill(SkillName.MagicResist, 45.1, 60.0);
-            SetSkill(SkillName.Tactics, 55.1, 70.0);
-            SetSkill(SkillName.Wrestling, 60.1, 75.0);
+            SetSkill(SkillName.Intelekt, 65.1, 80.0);
+            SetSkill(SkillName.Magia, 65.1, 80.0);
+            SetSkill(SkillName.Medytacja, 65.1, 80.0);
+            SetSkill(SkillName.ObronaPrzedMagia, 45.1, 60.0);
+            SetSkill(SkillName.Taktyka, 55.1, 70.0);
+            SetSkill(SkillName.Boks, 60.1, 75.0);
 
             Fame = 5000;
             Karma = -5000;
 
-            VirtualArmor = 56;
+            QLPoints = 10;
 
-            QLPoints = 15;
+            VirtualArmor = 56;
 
             PackItem(new DaemonBone(5));
         }
@@ -54,24 +55,32 @@ namespace Server.Mobiles
 
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override Poison HitPoison
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override bool AlwaysMurderer
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool BardImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void GenerateLoot()
         {
             AddLoot(LootPack.FilthyRich);
@@ -91,13 +100,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
             if (BaseSoundID == 263)
                 BaseSoundID = 1170;

@@ -1,7 +1,7 @@
 using System;
 using Server.Targeting;
 
-namespace Server.Spells.Spellweaving
+namespace Server.Spells.Druidyzm
 {
     public class WordOfDeathSpell : ArcanistSpell
     {
@@ -63,8 +63,8 @@ namespace Server.Spells.Spellweaving
                 }
                 else
                 {
-                    int minDamage = (int)this.Caster.Skills.Spellweaving.Value / 5;
-                    int maxDamage = (int)this.Caster.Skills.Spellweaving.Value / 3;
+                    int minDamage = (int)this.Caster.Skills.Druidyzm.Value / 5;
+                    int maxDamage = (int)this.Caster.Skills.Druidyzm.Value / 3;
                     damage = Utility.RandomMinMax(minDamage, maxDamage);
                     int damageBonus = AosAttributes.GetValue(this.Caster, AosAttribute.SpellDamage);
                     if (m.Player && damageBonus > 15)

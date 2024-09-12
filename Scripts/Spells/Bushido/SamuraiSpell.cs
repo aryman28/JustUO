@@ -2,7 +2,7 @@ using System;
 using Server.Mobiles;
 using Server.Network;
 
-namespace Server.Spells.Bushido
+namespace Server.Spells.Fanatyzm
 {
     public abstract class SamuraiSpell : Spell
     {
@@ -17,14 +17,14 @@ namespace Server.Spells.Bushido
         {
             get
             {
-                return SkillName.Bushido;
+                return SkillName.Fanatyzm;
             }
         }
         public override SkillName DamageSkill
         {
             get
             {
-                return SkillName.Bushido;
+                return SkillName.Fanatyzm;
             }
         }
         public override bool ClearHandsOnCast
@@ -116,7 +116,7 @@ namespace Server.Spells.Bushido
 
             if (this.Caster.Skills[this.CastSkill].Value < this.RequiredSkill)
             {
-                this.Caster.SendLocalizedMessage(1070768, this.RequiredSkill.ToString("F1")); // You need ~1_SKILL_REQUIREMENT~ Bushido skill to perform that attack!
+                this.Caster.SendLocalizedMessage(1070768, this.RequiredSkill.ToString("F1")); // You need ~1_SKILL_REQUIREMENT~ Fanatyzm skill to perform that attack!
                 return false;
             }
             else if (this.Caster.Mana < mana)

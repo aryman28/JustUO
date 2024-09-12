@@ -8,14 +8,14 @@ using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
 using Server.Spells.Fifth;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Skrytobojstwo;
 using Server.Spells.Seventh;
 using Server.Targeting;
 #endregion
 
 namespace Server.SkillHandlers
 {
-	public class Stealing
+	public class Okradanie
 	{
 		public static void Initialize()
 		{
@@ -51,7 +51,7 @@ namespace Server.SkillHandlers
 			{
 				Item stolen = null;
 
-				IEntity root = toSteal.RootParent;
+				object root = toSteal.RootParent;
 
 				StealableArtifactsSpawner.StealableInstance si = null;
 				if (toSteal.Parent == null || !toSteal.Movable)
@@ -87,7 +87,7 @@ namespace Server.SkillHandlers
 				{
 					m_Thief.SendLocalizedMessage(1048147); // Your backpack can't hold anything else.
 				}
-				#region Sigils
+					#region Sigils
 				else if (toSteal is Sigil)
 				{
 					PlayerState pl = PlayerState.Find(m_Thief);
@@ -137,7 +137,7 @@ namespace Server.SkillHandlers
 						{
 							m_Thief.SendLocalizedMessage(1005592); // You cannot steal this sigil until it has been purified
 						}
-						else if (m_Thief.CheckTargetSkill(SkillName.Stealing, toSteal, 80.0, 80.0))
+						else if (m_Thief.CheckTargetSkill(SkillName.Okradanie, toSteal, 80.0, 80.0))
 						{
 							if (Sigil.ExistsOn(m_Thief))
 							{
@@ -176,13 +176,13 @@ namespace Server.SkillHandlers
 						m_Thief.SendLocalizedMessage(1005588); //	You must join a faction to do that
 					}
 				}
-				#endregion
+					#endregion
 
 				else if (si == null && (toSteal.Parent == null || !toSteal.Movable) && !ItemFlags.GetStealable(toSteal))
 				{
 					m_Thief.SendLocalizedMessage(502710); // You can't steal that!
 				}
-				else if ((toSteal.LootType == LootType.Newbied || toSteal.CheckBlessed(root)) && !ItemFlags.GetStealable(toSteal))
+				else if ((toSteal.LootType == LootType.Newbied || toSteal.LootType == LootType.Blessed) && !ItemFlags.GetStealable(toSteal))
 				{
 					m_Thief.SendLocalizedMessage(502710); // You can't steal that!
 				}
@@ -194,7 +194,7 @@ namespace Server.SkillHandlers
 				{
 					m_Thief.SendLocalizedMessage(502703); // You must be standing next to an item to steal it.
 				}
-				else if (si != null && m_Thief.Skills[SkillName.Stealing].Value < 100.0)
+				else if (si != null && m_Thief.Skills[SkillName.Okradanie].Value < 100.0)
 				{
 					m_Thief.SendLocalizedMessage(1060025, "", 0x66D); // You're not skilled enough to attempt the theft of this item.
 				}
@@ -228,7 +228,7 @@ namespace Server.SkillHandlers
 					{
 						if (toSteal.Stackable && toSteal.Amount > 1)
 						{
-							int maxAmount = (int)((m_Thief.Skills[SkillName.Stealing].Value / 10.0) / toSteal.Weight);
+							int maxAmount = (int)((m_Thief.Skills[SkillName.Okradanie].Value / 10.0) / toSteal.Weight);
 
 							if (maxAmount < 1)
 							{
@@ -246,7 +246,7 @@ namespace Server.SkillHandlers
 								int pileWeight = (int)Math.Ceiling(toSteal.Weight * toSteal.Amount);
 								pileWeight *= 10;
 
-								if (m_Thief.CheckTargetSkill(SkillName.Stealing, toSteal, pileWeight - 22.5, pileWeight + 27.5))
+								if (m_Thief.CheckTargetSkill(SkillName.Okradanie, toSteal, pileWeight - 22.5, pileWeight + 27.5))
 								{
 									stolen = toSteal;
 								}
@@ -256,7 +256,7 @@ namespace Server.SkillHandlers
 								int pileWeight = (int)Math.Ceiling(toSteal.Weight * amount);
 								pileWeight *= 10;
 
-								if (m_Thief.CheckTargetSkill(SkillName.Stealing, toSteal, pileWeight - 22.5, pileWeight + 27.5))
+								if (m_Thief.CheckTargetSkill(SkillName.Okradanie, toSteal, pileWeight - 22.5, pileWeight + 27.5))
 								{
 									stolen = Mobile.LiftItemDupe(toSteal, toSteal.Amount - amount);
 
@@ -272,7 +272,7 @@ namespace Server.SkillHandlers
 							int iw = (int)Math.Ceiling(w);
 							iw *= 10;
 
-							if (m_Thief.CheckTargetSkill(SkillName.Stealing, toSteal, iw - 22.5, iw + 27.5))
+							if (m_Thief.CheckTargetSkill(SkillName.Okradanie, toSteal, iw - 22.5, iw + 27.5))
 							{
 								stolen = toSteal;
 							}
@@ -297,7 +297,7 @@ namespace Server.SkillHandlers
 							m_Thief.SendLocalizedMessage(502723); // You fail to steal the item.
 						}
 
-						caught = (m_Thief.Skills[SkillName.Stealing].Value < Utility.Random(150));
+						caught = (m_Thief.Skills[SkillName.Okradanie].Value < Utility.Random(150));
 					}
 				}
 

@@ -29,8 +29,7 @@ namespace Server
 		SE,
 		ML,
 		SA,
-		HS,
-		TOL
+		HS
 	}
 
 	[Flags]
@@ -72,9 +71,6 @@ namespace Server
 		HS = 0x00020000,
 		Gothic = 0x00040000,
 		Rustic = 0x00080000,
-		Jungle = 0x100000,
-        	Shadowguard = 0x200000,
-        	TOL = 0x400000, 
 
 		ExpansionNone = None,
 		ExpansionT2A = T2A,
@@ -85,8 +81,7 @@ namespace Server
 		ExpansionSE = ExpansionAOS | SE,
 		ExpansionML = ExpansionSE | ML | NinthAge,
 		ExpansionSA = ExpansionML | SA | Gothic | Rustic,
-		ExpansionHS = ExpansionSA | HS,
-		ExpansionTOL = ExpansionHS | TOL | Jungle | Shadowguard
+		ExpansionHS = ExpansionSA | HS
 	}
 
 	[Flags]
@@ -119,14 +114,11 @@ namespace Server
 		ExpansionSE = ExpansionAOS | SE,
 		ExpansionML = ExpansionSE | ML,
 		ExpansionSA = ExpansionML,
-		ExpansionHS = ExpansionSA,
-		ExpansionTOL = ExpansionHS
+		ExpansionHS = ExpansionSA
 	}
 
 	public class ExpansionInfo
 	{
-		public static ExpansionInfo CoreExpansion { get { return GetInfo(Core.Expansion); } }
-		
 		public static ExpansionInfo[] Table { get { return m_Table; } }
 
 		private static readonly ExpansionInfo[] m_Table = new[]
@@ -153,11 +145,8 @@ namespace Server
 				8, "Stygian Abyss", ClientFlags.TerMur, FeatureFlags.ExpansionSA, CharacterListFlags.ExpansionSA, 0xD02C0),
 			// 0x20 | 0x80 | 0x200 | 0x10000 | 0x40000 | 0x80000
 			new ExpansionInfo(
-				9, "High Seas", new ClientVersion("7.0.9.0"), FeatureFlags.ExpansionHS, CharacterListFlags.ExpansionHS, 0xD02C0),
+				9, "High Seas", new ClientVersion("7.0.9.0"), FeatureFlags.ExpansionHS, CharacterListFlags.ExpansionHS, 0xD02C0)
 			// 0x20 | 0x80 | 0x200 | 0x10000 | 0x40000 | 0x80000
-				new ExpansionInfo(
-				10, "Time of Legends", new ClientVersion("7.0.45.65"), FeatureFlags.ExpansionTOL, CharacterListFlags.ExpansionTOL, 0x4060FB)
-            		// 0x20 | 0x80 | 0x200 | 0x10000 | 0x40000 | 0x100000 | 0x200000 | 0x400000 
 		};
 
 		private readonly string m_Name;

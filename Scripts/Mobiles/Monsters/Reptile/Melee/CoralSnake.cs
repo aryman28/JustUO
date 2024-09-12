@@ -1,4 +1,4 @@
-using Server.Items;
+using System;
 
 namespace Server.Mobiles
 {
@@ -32,21 +32,21 @@ namespace Server.Mobiles
             SetResistance(ResistanceType.Poison, 100);
             SetResistance(ResistanceType.Energy, 5, 20);
 
-            SetSkill(SkillName.Poisoning, 99.7, 110.9);
-            SetSkill(SkillName.MagicResist, 98.1, 105.0);
-            SetSkill(SkillName.Tactics, 82.0, 98.0);
-            SetSkill(SkillName.Wrestling, 90.3, 105.0);
+            SetSkill(SkillName.Zatruwanie, 99.7, 110.9);
+            SetSkill(SkillName.ObronaPrzedMagia, 98.1, 105.0);
+            SetSkill(SkillName.Taktyka, 82.0, 98.0);
+            SetSkill(SkillName.Boks, 90.3, 105.0);
 
             Fame = 300;
             Karma = -300;
 
             VirtualArmor = 16;
 
+            QLPoints = 3;
+
             Tamable = false;
             ControlSlots = 1;
             MinTameSkill = 59.1;
-
-            QLPoints = 3;
         }
 
         public CoralSnake(Serial serial)
@@ -56,37 +56,45 @@ namespace Server.Mobiles
 
         public override Poison PoisonImmune
         {
-            get { return Poison.Lesser; }
+            get
+            {
+                return Poison.Lesser;
+            }
         }
-
         public override Poison HitPoison
         {
-            get { return Poison.Deadly; }
+            get
+            {
+                return Poison.Deadly;
+            }
         }
-
         //public override bool DeathAdderCharmable{ get{ return true; } }
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.Eggs; }
+            get
+            {
+                return FoodType.Eggs;
+            }
         }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Server.Spells.Spellweaving
+namespace Server.Spells.Druidyzm
 {
     public class AttuneWeaponSpell : ArcanistSpell
     {
@@ -89,7 +89,7 @@ namespace Server.Spells.Spellweaving
                 this.Caster.FixedParticles(0x3728, 1, 13, 0x26B8, 0x455, 7, EffectLayer.Waist);
                 this.Caster.FixedParticles(0x3779, 1, 15, 0x251E, 0x3F, 7, EffectLayer.Waist);
 
-                double skill = this.Caster.Skills[SkillName.Spellweaving].Value;
+                double skill = this.Caster.Skills[SkillName.Druidyzm].Value;
 
                 int damageAbsorb = (int)(18 + ((skill - 10) / 10) * 3 + (this.FocusLevel * 6));
                 this.Caster.MeleeDamageAbsorb = damageAbsorb;

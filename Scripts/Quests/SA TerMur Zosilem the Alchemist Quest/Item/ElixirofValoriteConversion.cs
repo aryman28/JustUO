@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Items
 {
     public class ElixirofValoriteConversion : Item
@@ -6,10 +8,10 @@ namespace Server.Items
         public ElixirofValoriteConversion()
             : base(0x99B)
         {
-            Name = "Elixir of Valorite Conversion";
+            this.Name = "Elixir of Valorite Conversion";  
 
-            Hue = 2219;
-            Movable = true;
+            this.Hue = 2219;
+            this.Movable = true;
         }
 
         public ElixirofValoriteConversion(Serial serial)
@@ -19,22 +21,22 @@ namespace Server.Items
 
         public override void OnDoubleClick(Mobile from)
         {
-            var backpack = from.Backpack;
+            Container backpack = from.Backpack;
 
-            var item1 = (BronzeIngot) backpack.FindItemByType(typeof (BronzeIngot));
+            BronzeIngot item1 = (BronzeIngot)backpack.FindItemByType(typeof(BronzeIngot));   
+     
+            if (item1 != null)                
+            { 
+                BaseIngot m_Ore1 = item1 as BaseIngot;
 
-            if (item1 != null)
-            {
-                BaseIngot m_Ore1 = item1;
+                int toConsume = m_Ore1.Amount;
 
-                var toConsume = m_Ore1.Amount;
-
-                if ((m_Ore1.Amount > 499) && (m_Ore1.Amount < 501))
+                if ((m_Ore1.Amount > 499) && (m_Ore1.Amount < 501)) 
                 {
                     m_Ore1.Delete();
-                    from.SendMessage("You've successfully converted the Metal.");
-                    from.AddToBackpack(new ValoriteIngot(500));
-                    Delete();
+                    from.SendMessage("You've successfully converted the Metal.");                    
+                    from.AddToBackpack(new ValoriteIngot(500)); 
+                    this.Delete();
                 }
                 else if ((m_Ore1.Amount < 500) || (m_Ore1.Amount > 500))
                 {
@@ -51,14 +53,14 @@ namespace Server.Items
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

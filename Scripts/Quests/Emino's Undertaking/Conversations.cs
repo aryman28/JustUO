@@ -1,7 +1,13 @@
+using System;
+
 namespace Server.Engines.Quests.Ninja
 {
     public class AcceptConversation : QuestConversation
     {
+        public AcceptConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -31,15 +37,18 @@ namespace Server.Engines.Quests.Ninja
                 return 1049092;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FindEminoBeginObjective());
+            this.System.AddObjective(new FindEminoBeginObjective());
         }
     }
 
     public class FindZoelConversation : QuestConversation
     {
+        public FindZoelConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -62,15 +71,18 @@ namespace Server.Engines.Quests.Ninja
                 return 1063175;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FindZoelObjective());
+            this.System.AddObjective(new FindZoelObjective());
         }
     }
 
     public class RadarConversation : QuestConversation
     {
+        public RadarConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -88,15 +100,21 @@ namespace Server.Engines.Quests.Ninja
                 return 1063033;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class EnterCaveConversation : QuestConversation
     {
+        public EnterCaveConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -122,15 +140,18 @@ namespace Server.Engines.Quests.Ninja
                 return 1063177;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new EnterCaveObjective());
+            this.System.AddObjective(new EnterCaveObjective());
         }
     }
 
     public class SneakPastGuardiansConversation : QuestConversation
     {
+        public SneakPastGuardiansConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -146,15 +167,18 @@ namespace Server.Engines.Quests.Ninja
                 return 1063180;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new SneakPastGuardiansObjective());
+            this.System.AddObjective(new SneakPastGuardiansObjective());
         }
     }
 
     public class NeedToHideConversation : QuestConversation
     {
+        public NeedToHideConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -176,6 +200,10 @@ namespace Server.Engines.Quests.Ninja
 
     public class UseTeleporterConversation : QuestConversation
     {
+        public UseTeleporterConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -190,15 +218,18 @@ namespace Server.Engines.Quests.Ninja
                 return 1063182;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new UseTeleporterObjective());
+            this.System.AddObjective(new UseTeleporterObjective());
         }
     }
 
     public class GiveZoelNoteConversation : QuestConversation
     {
+        public GiveZoelNoteConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -218,15 +249,18 @@ namespace Server.Engines.Quests.Ninja
                 return 1063184;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new GiveZoelNoteObjective());
+            this.System.AddObjective(new GiveZoelNoteObjective());
         }
     }
 
     public class LostNoteConversation : QuestConversation
     {
+        public LostNoteConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -235,15 +269,21 @@ namespace Server.Engines.Quests.Ninja
                 return 1063187;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class GainInnInformationConversation : QuestConversation
     {
+        public GainInnInformationConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -274,15 +314,18 @@ namespace Server.Engines.Quests.Ninja
                 return 1063189;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new GainInnInformationObjective());
+            this.System.AddObjective(new GainInnInformationObjective());
         }
     }
 
     public class ReturnFromInnConversation : QuestConversation
     {
+        public ReturnFromInnConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -310,15 +353,18 @@ namespace Server.Engines.Quests.Ninja
                 return 1063196;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new ReturnFromInnObjective());
+            this.System.AddObjective(new ReturnFromInnObjective());
         }
     }
 
     public class SearchForSwordConversation : QuestConversation
     {
+        public SearchForSwordConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -358,15 +404,18 @@ namespace Server.Engines.Quests.Ninja
                 return 1063199;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new SearchForSwordObjective());
+            this.System.AddObjective(new SearchForSwordObjective());
         }
     }
 
     public class HallwayWalkConversation : QuestConversation
     {
+        public HallwayWalkConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -380,15 +429,18 @@ namespace Server.Engines.Quests.Ninja
                 return 1063201;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new HallwayWalkObjective());
+            this.System.AddObjective(new HallwayWalkObjective());
         }
     }
 
     public class ReturnSwordConversation : QuestConversation
     {
+        public ReturnSwordConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -403,15 +455,18 @@ namespace Server.Engines.Quests.Ninja
                 return 1063203;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new ReturnSwordObjective());
+            this.System.AddObjective(new ReturnSwordObjective());
         }
     }
 
     public class SlayHenchmenConversation : QuestConversation
     {
+        public SlayHenchmenConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -426,15 +481,18 @@ namespace Server.Engines.Quests.Ninja
                 return 1063205;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new SlayHenchmenObjective());
+            this.System.AddObjective(new SlayHenchmenObjective());
         }
     }
 
     public class ContinueSlayHenchmenConversation : QuestConversation
     {
+        public ContinueSlayHenchmenConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -443,15 +501,21 @@ namespace Server.Engines.Quests.Ninja
                 return 1063208;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class GiveEminoSwordConversation : QuestConversation
     {
+        public GiveEminoSwordConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -463,15 +527,18 @@ namespace Server.Engines.Quests.Ninja
                 return 1063211;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new GiveEminoSwordObjective());
+            this.System.AddObjective(new GiveEminoSwordObjective());
         }
     }
 
     public class LostSwordConversation : QuestConversation
     {
+        public LostSwordConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -480,15 +547,21 @@ namespace Server.Engines.Quests.Ninja
                 return 1063212;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class EarnGiftsConversation : QuestConversation
     {
+        public EarnGiftsConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -506,15 +579,18 @@ namespace Server.Engines.Quests.Ninja
                 return 1063216;
             }
         }
-
         public override void OnRead()
         {
-            System.Complete();
+            this.System.Complete();
         }
     }
 
     public class EarnLessGiftsConversation : QuestConversation
     {
+        public EarnLessGiftsConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -528,10 +604,9 @@ namespace Server.Engines.Quests.Ninja
                 return 1063217;
             }
         }
-
         public override void OnRead()
         {
-            System.Complete();
+            this.System.Complete();
         }
     }
 }

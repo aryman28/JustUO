@@ -248,7 +248,7 @@ namespace Server.Factions
             return null;
         }
 
-		public override void OnAdded(IEntity parent)
+        public override void OnAdded(object parent)
         {
             base.OnAdded(parent);
 
@@ -258,7 +258,7 @@ namespace Server.Factions
                 mob.SolidHueOverride = OwnershipHue;
         }
 
-		public override void OnRemoved(IEntity parent)
+        public override void OnRemoved(object parent)
         {
             base.OnRemoved(parent);
 
@@ -505,7 +505,7 @@ namespace Server.Factions
             return (monolith != null && !monolith.Deleted);
         }
 
-		public override void OnParentDeleted(IEntity parent)
+        public override void OnParentDeleted(object parent)
         {
             base.OnParentDeleted(parent);
 

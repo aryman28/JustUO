@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using Server.Items;
-using Server.Misc;
 using Server.Mobiles;
 using Server.Network;
 
@@ -12,30 +12,30 @@ namespace Server.Engines.Quests.Haven
         public MilitiaFighter()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            InitStats(40, 30, 5);
-            Title = "the Militia Fighter";
+            this.InitStats(40, 30, 5);
+            this.Title = "the Militia Fighter";
 
-            SpeechHue = Utility.RandomDyedHue();
+            this.SpeechHue = Utility.RandomDyedHue();
 
-            Hue = Utility.RandomSkinHue();
+            this.Hue = Utility.RandomSkinHue();
 
-            Female = false;
-            Body = 0x190;
-            Name = NameList.RandomName("male");
+            this.Female = false;
+            this.Body = 0x190;
+            this.Name = NameList.RandomName("male");
 
             Utility.AssignRandomHair(this);
-            Utility.AssignRandomFacialHair(this, HairHue);
+            Utility.AssignRandomFacialHair(this, this.HairHue);
 
-            AddItem(new ThighBoots(0x1BB));
-            AddItem(new LeatherChest());
-            AddItem(new LeatherArms());
-            AddItem(new LeatherLegs());
-            AddItem(new LeatherCap());
-            AddItem(new LeatherGloves());
-            AddItem(new LeatherGorget());
+            this.AddItem(new ThighBoots(0x1BB));
+            this.AddItem(new LeatherChest());
+            this.AddItem(new LeatherArms());
+            this.AddItem(new LeatherLegs());
+            this.AddItem(new LeatherCap());
+            this.AddItem(new LeatherGloves());
+            this.AddItem(new LeatherGorget());
 
             Item weapon;
-            switch (Utility.Random(6))
+            switch ( Utility.Random(6) )
             {
                 case 0:
                     weapon = new Broadsword();
@@ -57,13 +57,13 @@ namespace Server.Engines.Quests.Haven
                     break;
             }
             weapon.Movable = false;
-            AddItem(weapon);
+            this.AddItem(weapon);
 
             Item shield = new BronzeShield();
             shield.Movable = false;
-            AddItem(shield);
+            this.AddItem(shield);
 
-            SetSkill(SkillName.Swords, 20.0);
+            this.SetSkill(SkillName.WalkaMieczami, 20.0);
         }
 
         public MilitiaFighter(Serial serial)
@@ -73,9 +73,11 @@ namespace Server.Engines.Quests.Haven
 
         public override bool ClickTitle
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override bool IsEnemy(Mobile m)
         {
             if (m.Player || m is BaseVendor)
@@ -83,11 +85,11 @@ namespace Server.Engines.Quests.Haven
 
             if (m is BaseCreature)
             {
-                var bc = (BaseCreature) m;
+                BaseCreature bc = (BaseCreature)m;
 
-                var master = bc.GetMaster();
+                Mobile master = bc.GetMaster();
                 if (master != null)
-                    return IsEnemy(master);
+                    return this.IsEnemy(master);
             }
 
             return m.Karma < 0;
@@ -97,14 +99,14 @@ namespace Server.Engines.Quests.Haven
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 
@@ -122,10 +124,10 @@ namespace Server.Engines.Quests.Haven
 
         public override void AddNameProperty(ObjectPropertyList list)
         {
-            if (ItemID == 0x2006) // Corpse form
+            if (this.ItemID == 0x2006) // Corpse form
             {
                 list.Add("a human corpse");
-                list.Add(1049318, Name); // the remains of ~1_NAME~ the militia fighter
+                list.Add(1049318, this.Name); // the remains of ~1_NAME~ the militia fighter
             }
             else
             {
@@ -135,22 +137,19 @@ namespace Server.Engines.Quests.Haven
 
         public override void OnSingleClick(Mobile from)
         {
-            var hue = Notoriety.GetHue(NotorietyHandlers.CorpseNotoriety(from, this));
+            int hue = Notoriety.GetHue(Server.Misc.NotorietyHandlers.CorpseNotoriety(from, this));
 
-            if (ItemID == 0x2006) // Corpse form
-                from.Send(new MessageLocalized(Serial, ItemID, MessageType.Label, hue, 3, 1049318, "", Name));
-                    // the remains of ~1_NAME~ the militia fighter
+            if (this.ItemID == 0x2006) // Corpse form
+                from.Send(new MessageLocalized(this.Serial, this.ItemID, MessageType.Label, hue, 3, 1049318, "", this.Name)); // the remains of ~1_NAME~ the militia fighter
             else
-                from.Send(new MessageLocalized(Serial, ItemID, MessageType.Label, hue, 3, 1049319, "", ""));
-                    // the remains of a militia fighter
+                from.Send(new MessageLocalized(this.Serial, this.ItemID, MessageType.Label, hue, 3, 1049319, "", "")); // the remains of a militia fighter
         }
 
         public override void Open(Mobile from, bool checkSelfLoot)
         {
-            if (from.InRange(GetWorldLocation(), 2))
+            if (from.InRange(this.GetWorldLocation(), 2))
             {
-                from.SendLocalizedMessage(1049661, "", 0x22);
-                    // Thinking about his sacrifice, you can't bring yourself to loot the body of this militia fighter.
+                from.SendLocalizedMessage(1049661, "", 0x22); // Thinking about his sacrifice, you can't bring yourself to loot the body of this militia fighter.
             }
         }
 
@@ -158,14 +157,14 @@ namespace Server.Engines.Quests.Haven
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

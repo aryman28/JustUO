@@ -136,7 +136,7 @@ namespace Server.Items
                 return;
             }
 
-            HarvestSystem system = Mining.System;
+            HarvestSystem system = Gornictwo.System;
 
             int tileID;
             Map map;

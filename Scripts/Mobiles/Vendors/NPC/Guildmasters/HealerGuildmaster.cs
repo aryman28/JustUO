@@ -6,13 +6,13 @@ namespace Server.Mobiles
     {
         [Constructable]
         public HealerGuildmaster()
-            : base("healer")
+            : base("- Mistrz Gildii Uzdrowicieli")
         {
-            this.SetSkill(SkillName.Anatomy, 85.0, 100.0);
-            this.SetSkill(SkillName.Healing, 90.0, 100.0);
-            this.SetSkill(SkillName.Forensics, 75.0, 98.0);
-            this.SetSkill(SkillName.MagicResist, 75.0, 98.0);
-            this.SetSkill(SkillName.SpiritSpeak, 65.0, 88.0);
+            this.SetSkill(SkillName.Anatomia, 120.0, 150.0);
+            this.SetSkill(SkillName.Leczenie, 120.0, 150.0);
+            this.SetSkill(SkillName.Kryminalistyka, 75.0, 98.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 120.0, 150.0);
+            this.SetSkill(SkillName.MowaDuchow, 65.0, 88.0);
         }
 
         public HealerGuildmaster(Serial serial)

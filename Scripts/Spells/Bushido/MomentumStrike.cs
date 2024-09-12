@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Server.Items;
 
-namespace Server.Spells.Bushido
+namespace Server.Spells.Fanatyzm
 {
     public class MomentumStrike : SamuraiMove
     {
@@ -60,7 +60,7 @@ namespace Server.Spells.Bushido
 
                 Mobile target = targets[Utility.Random(targets.Count)];
 
-                double damageBonus = attacker.Skills[SkillName.Bushido].Value / 100.0;
+                double damageBonus = attacker.Skills[SkillName.Fanatyzm].Value / 100.0;
 
                 if (!defender.Alive)
                     damageBonus *= 1.5;

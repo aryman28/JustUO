@@ -48,6 +48,7 @@ namespace Server.Items
             : base(0x1EFD, hue)
         {
             this.Weight = 2.0;
+            this.Name = "Fantazyjna koszula";
         }
 
         public FancyShirt(Serial serial)
@@ -84,6 +85,7 @@ namespace Server.Items
             : base(0x1517, hue)
         {
             this.Weight = 1.0;
+            this.Name = "Koszula";
         }
 
         public Shirt(Serial serial)
@@ -159,6 +161,7 @@ namespace Server.Items
             : base(0x3175, hue)
         {
             this.Weight = 2.0;
+            this.Name = "Elfia koszula";
         }
 
         public ElvenShirt(Serial serial)
@@ -201,6 +204,7 @@ namespace Server.Items
             : base(0x3176, hue)
         {
             this.Weight = 2.0;
+            this.Name = "Elfia ciemna koszula";
         }
 
         public ElvenDarkShirt(Serial serial)
@@ -208,13 +212,6 @@ namespace Server.Items
         {
         }
 
-        public override Race RequiredRace
-        {
-            get
-            {
-                return Race.Elf;
-            }
-        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
@@ -264,10 +261,8 @@ namespace Server.Items
                 return true;
             }
         }
-		public override void OnAdded(IEntity parent)
-		{
-			base.OnAdded(parent);
-
+        public override void OnAdded(object parent)
+        {
             if (parent is Mobile)
             {
                 if (((Mobile)parent).Female)

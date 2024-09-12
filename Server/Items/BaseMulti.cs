@@ -13,7 +13,6 @@
 #endregion
 
 #region References
-using Server.Network;
 using System;
 #endregion
 
@@ -21,23 +20,6 @@ namespace Server.Items
 {
 	public class BaseMulti : Item
 	{
-		public static BaseMulti FindMultiAt(IPoint2D loc, Map map)
-		{
-			Sector sector = map.GetSector(loc);
-
-			for (int i = 0; i < sector.Multis.Count; i++)
-			{
-				BaseMulti multi = sector.Multis[i];
-
-				if (multi != null && multi.Contains(loc.X, loc.Y))
-				{
-					return multi;
-				}
-			}
-
-			return null;
-		}
-
 		[Constructable]
 		public BaseMulti(int itemID)
 			: base(itemID)
@@ -48,8 +30,6 @@ namespace Server.Items
 		public BaseMulti(Serial serial)
 			: base(serial)
 		{ }
-
-        //public override GraphicData GraphicData { get { return GraphicData.MultiData; } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public override int ItemID
@@ -119,12 +99,12 @@ namespace Server.Items
 
 		public override int GetMaxUpdateRange()
 		{
-			return base.GetMaxUpdateRange() + 4;
+			return 22;
 		}
 
 		public override int GetUpdateRange(Mobile m)
 		{
-			return base.GetUpdateRange(m) + 4;
+			return 22;
 		}
 
 		public virtual MultiComponentList Components { get { return MultiData.GetComponents(ItemID); } }
@@ -191,12 +171,13 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 
-            if (version == 0)
-                ItemID -= 0x8000;
-			//if (version == 0 && ItemID >= 0x4000)
-			//{
-			//	ItemID -= 0x4000;
-			//}
+			if (version == 0)
+			{
+				if (ItemID >= 0x4000)
+				{
+					ItemID -= 0x4000;
+				}
+			}
 		}
 	}
 }

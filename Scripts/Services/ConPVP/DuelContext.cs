@@ -9,12 +9,12 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
-using Server.Spells.Bushido;
-using Server.Spells.Chivalry;
-using Server.Spells.Necromancy;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Fanatyzm;
+using Server.Spells.Rycerstwo;
+using Server.Spells.Nekromancja;
+using Server.Spells.Skrytobojstwo;
 using Server.Spells.Seventh;
-using Server.Spells.Spellweaving;
+using Server.Spells.Druidyzm;
 
 namespace Server.Engines.ConPVP
 {
@@ -398,9 +398,9 @@ namespace Server.Engines.ConPVP
             string title = null;
 
             if (move is NinjaMove)
-                title = "Bushido";
+                title = "Fanatyzm";
             else if (move is SamuraiMove)
-                title = "Ninjitsu";
+                title = "Skrytobojstwo";
 
             if (title == null || name == null || this.m_Ruleset.GetOption(title, name))
                 return true;
@@ -429,27 +429,27 @@ namespace Server.Engines.ConPVP
 
             if (spell is ArcanistSpell)
             {
-                title = "Spellweaving";
+                title = "Druidyzm";
                 option = spell.Name;
             }
             else if (spell is PaladinSpell)
             {
-                title = "Chivalry";
+                title = "Rycerstwo";
                 option = spell.Name;
             }
             else if (spell is NecromancerSpell)
             {
-                title = "Necromancy";
+                title = "Nekromancja";
                 option = spell.Name;
             }
             else if (spell is NinjaSpell)
             {
-                title = "Ninjitsu";
+                title = "Skrytobojstwo";
                 option = spell.Name;
             }
             else if (spell is SamuraiSpell)
             {
-                title = "Bushido";
+                title = "Fanatyzm";
                 option = spell.Name;
             }
             else if (spell is MagerySpell)
@@ -540,7 +540,7 @@ namespace Server.Engines.ConPVP
         {
             if (item is Fists)
             {
-                if (!this.m_Ruleset.GetOption("Weapons", "Wrestling"))
+                if (!this.m_Ruleset.GetOption("Weapons", "Boks"))
                     return false;
             }
             else if (item is BaseArmor)

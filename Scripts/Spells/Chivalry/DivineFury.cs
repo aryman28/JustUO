@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Server.Spells.Chivalry
+namespace Server.Spells.Rycerstwo
 {
     public class DivineFurySpell : PaladinSpell
     {

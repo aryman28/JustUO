@@ -10,7 +10,7 @@ namespace Server.Items
         {
 			this.Name = "Sign of Order";
 			
-            this.SkillBonuses.SetValues(0, SkillName.Chivalry, 10.0);
+            this.SkillBonuses.SetValues(0, SkillName.Rycerstwo, 10.0);
             this.Attributes.AttackChance = 5;
             this.Attributes.DefendChance = 10;
             this.Attributes.CastSpeed = 1;

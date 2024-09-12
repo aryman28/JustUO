@@ -288,16 +288,16 @@ namespace Server.Misc
 
         private static readonly string[,] m_Levels = new string[,]
         {
-            { "Neophyte", "Neophyte", "Neophyte" },
-            { "Novice", "Novice", "Novice" },
-            { "Apprentice", "Apprentice", "Apprentice" },
-            { "Journeyman", "Journeyman", "Journeyman" },
-            { "Expert", "Expert", "Expert" },
+            { "Mlody", "Mlody", "Mlody" },
+            { "Nowicjusz", "Nowicjusz", "Nowicjusz" },
+            { "Uczen", "Uczen", "Uczen" },
+            { "Czeladnik", "Czeladnik", "Czeladnik" },
+            { "Ekspert", "Ekspert", "Ekspert" },
             { "Adept", "Adept", "Adept" },
-            { "Master", "Master", "Master" },
-            { "Grandmaster", "Grandmaster", "Grandmaster" },
-            { "Elder", "Tatsujin", "Shinobi" },
-            { "Legendary", "Kengo", "Ka-ge" }
+            { "Mistrz", "Mistrz", "Mistrz" },
+            { "Arcymistrz", "Arcymistrz", "Arcymistrz" },
+            { "Starszy", "Tatsujin", "Shinobi" },
+            { "Legendarny", "Kengo", "Ka-ge" }
         };
 
         private static string GetSkillLevel(Skill skill)
@@ -311,9 +311,9 @@ namespace Server.Misc
             {
                 default:
                     return 0;
-                case SkillName.Bushido:
+                case SkillName.Fanatyzm:
                     return 1;
-                case SkillName.Ninjitsu:
+                case SkillName.Skrytobojstwo:
                     return 2;
             }
         }

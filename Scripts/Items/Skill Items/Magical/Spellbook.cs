@@ -9,6 +9,9 @@ using Server.Multis;
 using Server.Network;
 using Server.Spells;
 using Server.Targeting;
+////
+using Server.Mobiles;
+////
 #endregion
 
 namespace Server.Items
@@ -22,7 +25,11 @@ namespace Server.Items
 		Ninja,
 		Samurai,
 		Arcanist,
-		Mystic
+		Mystic,
+		Druid,
+		Song,
+		Msciciel
+		
 	}
 
 	public enum BookQuality
@@ -31,7 +38,7 @@ namespace Server.Items
 		Exceptional,
 	}
 
-	public class Spellbook : Item, ICraftable, ISlayer, IEngravable
+	public class Spellbook : Item, ICraftable, ISlayer
 	{
 		private static readonly Dictionary<Mobile, List<Spellbook>> m_Table = new Dictionary<Mobile, List<Spellbook>>();
 
@@ -79,6 +86,9 @@ namespace Server.Items
 		private ulong m_Content;
 		private int m_Count;
 		private Mobile m_Crafter;
+////
+        private Mobile m_Wlasciciel;
+////
 		private SlayerName m_Slayer;
 		private SlayerName m_Slayer2;
 		//Currently though there are no dual slayer spellbooks, OSI has a habit of putting dual slayer stuff in later
@@ -180,6 +190,13 @@ namespace Server.Items
 			}
 		}
 
+                [CommandProperty( AccessLevel.GameMaster )]
+		public Mobile Wlasciciel
+		{
+			get{ return m_Wlasciciel; }
+			set{ m_Wlasciciel = value; InvalidateProperties(); }
+		}
+
 		public override bool DisplayLootType { get { return Core.AOS; } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -226,6 +243,7 @@ namespace Server.Items
 			{
 				return SpellbookType.Paladin;
 			}
+			
 			else if (spellID >= 400 && spellID < 406)
 			{
 				return SpellbookType.Samurai;
@@ -242,6 +260,14 @@ namespace Server.Items
 			{
 				return SpellbookType.Mystic;
 			}
+			else if (spellID >= 301 && spellID < 320)
+            {
+                return SpellbookType.Druid;
+            }
+            else if (spellID >= 351 && spellID < 366)
+            {
+                return SpellbookType.Song;
+            }
 
 			return SpellbookType.Invalid;
 		}
@@ -271,6 +297,7 @@ namespace Server.Items
 			return Find(from, -1, SpellbookType.Ninja);
 		}
 
+
 		public static Spellbook FindArcanist(Mobile from)
 		{
 			return Find(from, -1, SpellbookType.Arcanist);
@@ -280,6 +307,16 @@ namespace Server.Items
 		{
 			return Find(from, -1, SpellbookType.Mystic);
 		}
+
+		public static Spellbook FindDruid(Mobile from)
+        {
+            return Find(from, -1, SpellbookType.Druid);
+        }
+
+        public static Spellbook FindSong(Mobile from)
+        {
+            return Find(from, -1, SpellbookType.Song);
+        }
 
 		public static Spellbook Find(Mobile from, int spellID)
 		{
@@ -477,14 +514,21 @@ namespace Server.Items
 			book.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
 		}
 
-		public override void OnAdded(IEntity parent)
+		public override void OnAdded(object parent)
 		{
+
 			if (Core.AOS && parent is Mobile)
 			{
 				Mobile from = (Mobile)parent;
 
 				m_AosSkillBonuses.AddTo(from);
 
+				////Dodaje wlascicila dla ksiag trzymanych w rece
+				if ( m_Wlasciciel == null )
+				{
+    				 m_Wlasciciel = from;
+				}
+				////
 				int strBonus = m_AosAttributes.BonusStr;
 				int dexBonus = m_AosAttributes.BonusDex;
 				int intBonus = m_AosAttributes.BonusInt;
@@ -513,7 +557,7 @@ namespace Server.Items
 			}
 		}
 
-		public override void OnRemoved(IEntity parent)
+		public override void OnRemoved(object parent)
 		{
 			if (Core.AOS && parent is Mobile)
 			{
@@ -630,7 +674,17 @@ namespace Server.Items
 			}
 
 			m_AosSkillBonuses.GetProperties(list);
+////
+                        if ( m_Wlasciciel == null )
+                        {
+							list.Add( Wlasciciel == null ? "<BASEFONT COLOR=#990000>Niczyja<BASEFONT COLOR=#FFFFFF>" : "" );
+                        }
 
+                        if ( m_Wlasciciel != null )
+                        {
+                        	list.Add( Wlasciciel == null ? "<BASEFONT COLOR=#990000>Niczyja<BASEFONT COLOR=#FFFFFF>" : "<BASEFONT COLOR=#990000>Należy do <BASEFONT COLOR=#FFFFFF>" + Wlasciciel.Name );
+                        }
+////
 			if (m_Slayer != SlayerName.None)
 			{
 				SlayerEntry entry = SlayerGroup.GetEntryByName(m_Slayer);
@@ -788,6 +842,22 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
+////
+            if( Wlasciciel == null )
+			{
+				Wlasciciel = from;
+				from.SendMessage( 32, "Zostłeś właścicielem tej księgi!" );
+				base.OnDoubleClick( from );
+			}
+
+                        if( Wlasciciel != null && Wlasciciel != from  )
+			{
+				//this.Delete();
+                                from.PlaySound( 0x227 );
+				from.SendMessage( 32, "Ksieg nie da się odczytać!" );
+				return;
+			}
+////
 			Container pack = from.Backpack;
 
 			if (Parent == from || (pack != null && Parent == pack))
@@ -812,6 +882,7 @@ namespace Server.Items
 			writer.Write(m_EngravedText);
 
 			writer.Write(m_Crafter);
+            writer.Write( m_Wlasciciel );
 
 			writer.Write((int)m_Slayer);
 			writer.Write((int)m_Slayer2);
@@ -846,6 +917,7 @@ namespace Server.Items
 				case 3:
 					{
 						m_Crafter = reader.ReadMobile();
+                        m_Wlasciciel = reader.ReadMobile();
 						goto case 2;
 					}
 				case 2:
@@ -927,7 +999,7 @@ namespace Server.Items
 			CraftItem craftItem,
 			int resHue)
 		{
-			int magery = from.Skills.Magery.BaseFixedPoint;
+			int magery = from.Skills.Magia.BaseFixedPoint;
 
 			if (magery >= 800)
 			{
@@ -1051,6 +1123,12 @@ namespace Server.Items
 				case 7:
 					type = SpellbookType.Mystic;
 					break;
+				case 8:
+                    type = SpellbookType.Druid;
+                    break;
+                case 9:
+                    type = SpellbookType.Song;
+                    break;    
 			}
 
 			Spellbook book = Find(from, -1, type);
@@ -1080,6 +1158,21 @@ namespace Server.Items
 
 			if (book != null && book.HasSpell(spellID))
 			{
+
+			////Przypisanie wlasciciela na rzucenie zaklecia ///
+			if ( book.Wlasciciel == null )
+			{
+     			book.Wlasciciel = from;
+			}
+			////
+			////Cast z bindow////
+			if(  book.Wlasciciel != null &&  book.Wlasciciel != from  )
+			{
+				from.PlaySound( 0x227 );
+				from.SendMessage( 32, "Ksiêg nie da siê odczytaæ!" );
+				return;
+			}
+			////
 				SpecialMove move = SpellRegistry.GetSpecialMove(spellID);
 
 				if (move != null)

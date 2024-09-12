@@ -1,5 +1,7 @@
 using System;
+using Server;
 using Server.Mobiles;
+using Server.Network;
 
 namespace Server.Misc
 {
@@ -68,20 +70,27 @@ namespace Server.Misc
             if (!from.Player)
             {
                 // Else it won't work on monsters.
-                Spells.Ninjitsu.DeathStrike.AddStep(from);
+                Spells.Skrytobojstwo.DeathStrike.AddStep(from);
                 return;
             }
-
+////DODANO
+int realWeight = Mobile.BodyWeight;
+////
             int maxWeight = GetMaxWeight(from) + OverloadAllowance;
             int overWeight = (Mobile.BodyWeight + from.TotalWeight) - maxWeight;
-
+////DODANO
+if ( realWeight > 1 && from is PlayerMobile && from.StamMax > 1 )
+{
+from.Stam -= 1;
+}
+////
             if (overWeight > 0)
             {
                 from.Stam -= GetStamLoss(from, overWeight, (e.Direction & Direction.Running) != 0);
 
                 if (from.Stam == 0)
                 {
-                    from.SendLocalizedMessage(500109); // You are too fatigued to move, because you are carrying too much weight!
+                    //from.SendLocalizedMessage(500109); // You are too fatigued to move, because you are carrying too much weight!
                     e.Blocked = true;
                     return;
                 }
@@ -90,12 +99,18 @@ namespace Server.Misc
             if (((from.Stam * 100) / Math.Max(from.StamMax, 1)) < 10)
                 --from.Stam;
 
-            if (from.Stam == 0)
-            {
-                from.SendLocalizedMessage(500110); // You are too fatigued to move.
-                e.Blocked = true;
-                return;
-            }
+            //if (from.Stam == 0)
+            //{
+            //    from.SendLocalizedMessage(500110); // You are too fatigued to move.
+            //    e.Blocked = true;
+            //    return;
+            //}
+
+            //if (from.Stam == 5 )
+            //{
+            //    from.PrivateOverheadMessage( MessageType.Regular, 0x22, false, "*Jesteœ zmêczony*", from.NetState ) ;
+            //    return;
+            //}
 
             if (from is PlayerMobile)
             {
@@ -106,18 +121,27 @@ namespace Server.Misc
                     --from.Stam;
             }
 
-            Spells.Ninjitsu.DeathStrike.AddStep(from);
+            Spells.Skrytobojstwo.DeathStrike.AddStep(from);
         }
 
         public static int GetStamLoss(Mobile from, int overWeight, bool running)
         {
-            int loss = 5 + (overWeight / 25);
+            //int loss = 5 + (overWeight / 25);   //Zmiejszona utrata staminy podczas przeladowania (przykladowo 265-170 = 95 /25 (zastapiono na 35) = utrata 2,7 za kazdy krok lub 3,8
 
-            if (from.Mounted)
-                loss /= 3;
+            //if (from.Mounted)                   //Gdy jestesmy konno utrata staminy zmniejsza sie o wartosc 2,7 / 3 = 0,9   (zmieniono /2)
+            //    loss /= 3;
+
+            //if (running)                       //Podczas biegu 2,7 * 2 = 5,4
+            //    loss *= 2;
+
+            int loss = 4;   
+
+            if (from.Mounted)                  
+                loss = 3;
 
             if (running)
-                loss *= 2;
+                loss = 5;
+
 
             return loss;
         }

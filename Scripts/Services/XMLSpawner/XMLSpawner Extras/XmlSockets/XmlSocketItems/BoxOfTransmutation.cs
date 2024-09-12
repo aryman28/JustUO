@@ -62,7 +62,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.PowerScrollSkillChange,                                  // combines 3 powerscrolls of the same level to produce a new random ps of the same level
                 50,20,50,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.Alchemy },                                        //  skill requirement list
+                new SkillName [] { SkillName.Alchemia },                                        //  skill requirement list
                 new int [] { 100 },                                                               // minimum skill levels
                 new Type [] {typeof(LegendaryDiamond), typeof(LegendaryRuby), typeof(LegendaryEmerald), typeof(PowerScroll)},                     // ingredient list
                 new int [] { 1, 1, 1, 3, }                                                                 // zero indicates any quantity
@@ -70,7 +70,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.SmallBODChange,                                  // a small bod and gold to yield a new random small bod
                 50,20,50,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.Alchemy },                                        //  skill requirement list
+                new SkillName [] { SkillName.Alchemia },                                        //  skill requirement list
                 new int [] { 100 },                                                               // minimum skill levels
                 new Type [] {typeof(Gold), typeof(SmallBOD)},                     // ingredient list
                 new int [] { 2000, 1 }                                                                 // zero indicates any quantity
@@ -78,7 +78,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.LargeBODChange,                                  // a large bod and gold to yield a new random large bod
                 50,20,50,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.Alchemy },                                        //  skill requirement list
+                new SkillName [] { SkillName.Alchemia },                                        //  skill requirement list
                 new int [] { 100 },                                                               // minimum skill levels
                 new Type [] {typeof(Gold), typeof(LargeBOD)},                     // ingredient list
                 new int [] { 20000, 1 }                                                                 // zero indicates any quantity
@@ -86,7 +86,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.HammerOfRecovery,                                  // removes an augmentation from an item
                 70,30,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.Blacksmith },                                        //  skill requirement list
+                new SkillName [] { SkillName.Kowalstwo },                                        //  skill requirement list
                 new int [] { 105 },                                                               // minimum skill levels
                 new Type [] {typeof(AncientRuby), typeof(Hammer)},                     // ingredient list
                 new int [] { 1, 1, }                                                                 // zero indicates any quantity
@@ -94,7 +94,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.RecoverAugmentation,                                  // removes an augmentation from an item
                 70,30,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.Blacksmith },                                        //  skill requirement list
+                new SkillName [] { SkillName.Kowalstwo },                                        //  skill requirement list
                 new int [] { 100 },                                                               // minimum skill levels
                 new Type [] {typeof(AncientRuby), typeof(Item)},                     // ingredient list
                 new int [] { 1, 1, }                                                                 // zero indicates any quantity
@@ -102,7 +102,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.UpgradeAncientAugment,                     // change 6 ancient augments into one legendary
                 70,30,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.Alchemy },                                        //  skill requirement list
+                new SkillName [] { SkillName.Alchemia },                                        //  skill requirement list
                 new int [] { 50 },                                                               // minimum skill levels
                 new Type [] {typeof(IAncientAugment)},                                            // ingredient list
                 new int [] { 6 }                                                                 // zero indicates any quantity
@@ -110,7 +110,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.UpgradeLegendaryAugment,                     // change 3 legendary augments into one mythic
                 70,30,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.Alchemy },                                        //  skill requirement list
+                new SkillName [] { SkillName.Alchemia },                                        //  skill requirement list
                 new int [] { 70 },                                                               // minimum skill levels
                 new Type [] {typeof(ILegendaryAugment)},                                            // ingredient list
                 new int [] { 3 }                                                                 // zero indicates any quantity
@@ -118,7 +118,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.UpgradeCrystalAugment,                     // change 3 crystal augments into one radiant
                 70,30,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.Alchemy },                                        //  skill requirement list
+                new SkillName [] { SkillName.Alchemia },                                        //  skill requirement list
                 new int [] { 70 },                                                               // minimum skill levels
                 new Type [] {typeof(ICrystalAugment)},                                            // ingredient list
                 new int [] { 3 }                                                                 // zero indicates any quantity
@@ -126,7 +126,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.UndeadFaction,                     // gain undead faction
                 20,20,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.AnimalLore },                                        //  skill requirement list
+                new SkillName [] { SkillName.WiedzaOBestiach },                                        //  skill requirement list
                 new int [] { 50 },                                                               // minimum skill levels
                 new Type [] {typeof(GlimmeringGranite), typeof( Gold) },                                            // ingredient list
                 new int [] { 1 , 0 }                                                                 // zero indicates any quantity
@@ -134,7 +134,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.AbyssFaction,                     // gain abyss faction
                 20,20,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.AnimalLore },                                        //  skill requirement list
+                new SkillName [] { SkillName.WiedzaOBestiach },                                        //  skill requirement list
                 new int [] { 50 },                                                               // minimum skill levels
                 new Type [] {typeof(GlimmeringBloodrock), typeof( Gold) },                                            // ingredient list
                 new int [] { 1 , 0 }                                                                 // zero indicates any quantity
@@ -142,7 +142,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.ReptilianFaction,                     // gain reptilian faction
                 20,20,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.AnimalLore },                                        //  skill requirement list
+                new SkillName [] { SkillName.WiedzaOBestiach },                                        //  skill requirement list
                 new int [] { 50 },                                                               // minimum skill levels
                 new Type [] {typeof(GlimmeringHeartstone), typeof( Gold) },                                            // ingredient list
                 new int [] { 1 , 0 }                                                                 // zero indicates any quantity
@@ -150,7 +150,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.HumanoidFaction,                     // gain humanoid faction
                 20,20,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.AnimalLore },                                        //  skill requirement list
+                new SkillName [] { SkillName.WiedzaOBestiach },                                        //  skill requirement list
                 new int [] { 50 },                                                               // minimum skill levels
                 new Type [] {typeof(GlimmeringClay), typeof( Gold) },                                            // ingredient list
                 new int [] { 1 , 0 }                                                                 // zero indicates any quantity
@@ -158,7 +158,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.ArachnidFaction,                     // gain arachnid faction
                 20,20,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.AnimalLore },                                        //  skill requirement list
+                new SkillName [] { SkillName.WiedzaOBestiach },                                        //  skill requirement list
                 new int [] { 50 },                                                               // minimum skill levels
                 new Type [] {typeof(GlimmeringIronOre), typeof( Gold) },                                            // ingredient list
                 new int [] { 1 , 0 }                                                                 // zero indicates any quantity
@@ -166,7 +166,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.ElementalFaction,                     // gain elemental faction
                 20,20,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.AnimalLore },                                        //  skill requirement list
+                new SkillName [] { SkillName.WiedzaOBestiach },                                        //  skill requirement list
                 new int [] { 50 },                                                               // minimum skill levels
                 new Type [] {typeof(GlimmeringGypsum), typeof( Gold) },                                            // ingredient list
                 new int [] { 1 , 0 }                                                                 // zero indicates any quantity
@@ -174,7 +174,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.UnderworldFaction,                     // gain underworld faction
                 20,20,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.AnimalLore },                                        //  skill requirement list
+                new SkillName [] { SkillName.WiedzaOBestiach },                                        //  skill requirement list
                 new int [] { 50 },                                                               // minimum skill levels
                 new Type [] {typeof(GlimmeringMarble), typeof( Gold) },                                            // ingredient list
                 new int [] { 1 , 0 }                                                                 // zero indicates any quantity
@@ -182,7 +182,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.SocketWeapon,                                  // add a socket to any unsocketed weapon
                 70,30,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.Blacksmith },                                        //  skill requirement list
+                new SkillName [] { SkillName.Kowalstwo },                                        //  skill requirement list
                 new int [] { 50 },                                                               // minimum skill levels
                 new Type [] {typeof(RadiantRhoCrystal), typeof(BaseWeapon)},                     // ingredient list
                 new int [] { 1, 1, }                                                                 // zero indicates any quantity
@@ -190,7 +190,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.SocketArmor,                                  // add a socket to any unsocketed armor
                 70,30,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.Blacksmith },                                        //  skill requirement list
+                new SkillName [] { SkillName.Kowalstwo },                                        //  skill requirement list
                 new int [] { 50 },                                                               // minimum skill levels
                 new Type [] {typeof(RadiantRhoCrystal), typeof(BaseArmor)},                     // ingredient list
                 new int [] { 1, 1, }                                                                 // zero indicates any quantity
@@ -198,7 +198,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.ExceptionalSocketHammer,                                  // create a single use Exceptionalsockethammer
                 70,30,40,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.Blacksmith },                                        //  skill requirement list
+                new SkillName [] { SkillName.Kowalstwo },                                        //  skill requirement list
                 new int [] { 105 },                                                               // minimum skill levels
                 new Type [] {typeof(RadiantRysCrystal), typeof(Hammer)},                     // ingredient list
                 new int [] { 1, 1, }                                                                 // zero indicates any quantity

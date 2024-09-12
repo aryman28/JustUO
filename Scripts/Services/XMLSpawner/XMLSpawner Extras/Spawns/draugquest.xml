@@ -68,7 +68,7 @@
     <ItemTriggerName>Draug's quest,1</ItemTriggerName>
     <NoItemTriggerName>Draug's quest,2 | Draug's emerald</NoItemTriggerName>
     <TriggerProbability>1</TriggerProbability>
-    <SkillTrigger>Mining</SkillTrigger>
+    <SkillTrigger>Gornictwo</SkillTrigger>
     <InContainer>False</InContainer>
     <ContainerX>0</ContainerX>
     <ContainerY>0</ContainerY>

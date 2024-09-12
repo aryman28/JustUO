@@ -29,9 +29,9 @@ namespace Server.Mobiles
             SetResistance(ResistanceType.Poison, 75, 75);
             SetResistance(ResistanceType.Energy, 50, 50);
 
-            SetSkill(SkillName.MagicResist, 87.4, 87.4);
-            SetSkill(SkillName.Tactics, 125.8, 125.8);
-            SetSkill(SkillName.Wrestling, 137.5, 137.5);
+            SetSkill(SkillName.ObronaPrzedMagia, 87.4, 87.4);
+            SetSkill(SkillName.Taktyka, 125.8, 125.8);
+            SetSkill(SkillName.Boks, 137.5, 137.5);
 
             Fame = 3500;
             Karma = -3500;

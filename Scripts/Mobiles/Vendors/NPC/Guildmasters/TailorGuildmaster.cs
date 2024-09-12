@@ -6,9 +6,9 @@ namespace Server.Mobiles
     {
         [Constructable]
         public TailorGuildmaster()
-            : base("tailor")
+            : base("- Mistrz Gildii Krawiectwa")
         {
-            this.SetSkill(SkillName.Tailoring, 90.0, 100.0);
+            this.SetSkill(SkillName.Krawiectwo, 120.0, 150.0);
         }
 
         public TailorGuildmaster(Serial serial)

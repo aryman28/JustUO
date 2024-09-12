@@ -5,7 +5,7 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Spells;
 using Server.Spells.Fifth;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Skrytobojstwo;
 using Server.Spells.Seventh;
 
 namespace Server
@@ -345,6 +345,7 @@ namespace Server
 				case 12: return AosAttributes.GetValue( from, AosAttribute.CastRecovery );
 				case 13: return AosAttributes.GetValue( from, AosAttribute.CastSpeed );
 				case 14: return AosAttributes.GetValue( from, AosAttribute.LowerManaCost );
+                //case 15: return AosAttributes.GetValue( from, AosAttribute.CritChance );
 				default: return 0;
 			}
 		}
@@ -376,7 +377,9 @@ namespace Server
         Luck = 0x00100000,
         SpellChanneling = 0x00200000,
         NightSight = 0x00400000,
-        IncreasedKarmaLoss = 0x00800000
+        CritChance = 0x00800000,
+        IncreasedKarmaLoss = 0x01000000
+        
     }
 
     public sealed class AosAttributes : BaseAttributes
@@ -881,6 +884,19 @@ namespace Server
                 this[AosAttribute.IncreasedKarmaLoss] = value;
             }
         }
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public int CritChance
+        {
+            get
+            {
+                return this[AosAttribute.CritChance];
+            }
+            set
+            {
+                this[AosAttribute.CritChance] = value;
+            }
+        }
     }
 
     [Flags]
@@ -916,7 +932,8 @@ namespace Server
         BattleLust = 0x04000000,
         HitCurse = 0x08000000,
         HitFatigue = 0x10000000,
-        HitManaDrain = 0x20000000
+        HitManaDrain = 0x20000000,
+        CritChance = 0x40000000
         #endregion
     }
 
@@ -1606,12 +1623,12 @@ namespace Server
         {
             switch (skill)
             {
-                case SkillName.EvalInt:
+                case SkillName.Intelekt:
                     return 1002070; // Evaluate Intelligence
-                case SkillName.Forensics:
+                case SkillName.Kryminalistyka:
                     return 1002078; // Forensic Evaluation
-                case SkillName.Lockpicking:
-                    return 1002097; // Lockpicking
+                case SkillName.Wlamywanie:
+                    return 1002097; // Wlamywanie
                 default:
                     return 1044060 + (int)skill;
             }
@@ -1633,9 +1650,12 @@ namespace Server
                     this.m_Mods = new List<SkillMod>();
 
                 SkillMod sk = new DefaultSkillMod(skill, true, bonus);
-                sk.ObeyCap = true;
+//                sk.ObeyCap = true;
+                sk.ObeyCap = false;
+
                 m.AddSkillMod(sk);
                 this.m_Mods.Add(sk);
+
             }
         }
 
@@ -1683,6 +1703,7 @@ namespace Server
             int v = 0;
             int vSkill = (int)skill;
             int vBonus = (int)(bonus * 10);
+
 
             for (int i = 0; i < 16; ++i)
             {
@@ -1756,10 +1777,10 @@ namespace Server
                 for (i = 0; i < AnimalForm.Entries.Length; ++i)
                     if (AnimalForm.Entries[i].Type == acontext.Type)
                         break;
-                if (m.Skills[SkillName.Ninjitsu].Value < AnimalForm.Entries[i].ReqSkill)
+                if (m.Skills[SkillName.Skrytobojstwo].Value < AnimalForm.Entries[i].ReqSkill)
                     AnimalForm.RemoveContext(m, true);
             }
-            if (!m.CanBeginAction(typeof(PolymorphSpell)) && m.Skills[SkillName.Magery].Value < 66.1)
+            if (!m.CanBeginAction(typeof(PolymorphSpell)) && m.Skills[SkillName.Magia].Value < 66.1)
             {
                 m.BodyMod = 0;
                 m.HueMod = -1;
@@ -1768,7 +1789,7 @@ namespace Server
                 BaseArmor.ValidateMobile(m);
                 BaseClothing.ValidateMobile(m);
             }
-            if (!m.CanBeginAction(typeof(IncognitoSpell)) && m.Skills[SkillName.Magery].Value < 38.1)
+            if (!m.CanBeginAction(typeof(IncognitoSpell)) && m.Skills[SkillName.Magia].Value < 38.1)
             {
                 if (m is PlayerMobile)
                     ((PlayerMobile)m).SetHairMods(-1, -1);

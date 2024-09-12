@@ -1,10 +1,10 @@
 using System;
 using Server.Items;
 using Server.Spells.Fourth;
-using Server.Spells.Necromancy;
+using Server.Spells.Nekromancja;
 using Server.Targeting;
 
-namespace Server.Spells.Chivalry
+namespace Server.Spells.Rycerstwo
 {
     public class RemoveCurseSpell : PaladinSpell
     {

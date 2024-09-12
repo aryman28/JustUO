@@ -1,7 +1,7 @@
 using System;
 using Server.Mobiles;
 
-namespace Server.Spells.Necromancy
+namespace Server.Spells.Nekromancja
 {
     public class WraithFormSpell : TransformationSpell
     {

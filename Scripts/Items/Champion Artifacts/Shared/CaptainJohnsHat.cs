@@ -13,7 +13,7 @@ namespace Server.Items
             this.Attributes.NightSight = 1;
             this.Attributes.AttackChance = 15;
 
-            this.SkillBonuses.Skill_1_Name = SkillName.Swords;
+            this.SkillBonuses.Skill_1_Name = SkillName.WalkaMieczami;
             this.SkillBonuses.Skill_1_Value = 20;
         }
 

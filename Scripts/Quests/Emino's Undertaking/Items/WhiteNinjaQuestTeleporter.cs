@@ -1,3 +1,4 @@
+using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Ninja
@@ -17,21 +18,25 @@ namespace Server.Engines.Quests.Ninja
 
         public override int LabelNumber
         {
-            get { return 1026157; }
-        } // teleporter
-
+            get
+            {
+                return 1026157;
+            }
+        }// teleporter
         public override int NotWorkingMessage
         {
-            get { return 1063198; }
-        } // You stand on the strange floor tile but nothing happens.
-
+            get
+            {
+                return 1063198;
+            }
+        }// You stand on the strange floor tile but nothing happens.
         public override bool GetDestination(PlayerMobile player, ref Point3D loc, ref Map map)
         {
-            var qs = player.Quest;
+            QuestSystem qs = player.Quest;
 
             if (qs is EminosUndertakingQuest)
             {
-                var obj = qs.FindObjective(typeof (SearchForSwordObjective));
+                QuestObjective obj = qs.FindObjective(typeof(SearchForSwordObjective));
 
                 if (obj != null)
                 {
@@ -52,14 +57,14 @@ namespace Server.Engines.Quests.Ninja
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

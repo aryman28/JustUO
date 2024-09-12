@@ -16,7 +16,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 #endregion
@@ -215,78 +214,112 @@ namespace Server
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public StaticTile[][][] GetStaticBlock(int x, int y)
 		{
-            if (x < 0 || y < 0 || x >= m_BlockWidth || y >= m_BlockHeight || m_Statics == null || m_Index == null)
-                return m_EmptyStaticBlock;
+			if (x < 0 || y < 0 || x >= m_BlockWidth || y >= m_BlockHeight || m_Statics == null || m_Index == null)
+			{
+				return m_EmptyStaticBlock;
+			}
 
-            if (m_StaticTiles[x] == null)
-                m_StaticTiles[x] = new StaticTile[m_BlockHeight][][][];
+			if (m_StaticTiles[x] == null)
+			{
+				m_StaticTiles[x] = new StaticTile[m_BlockHeight][][][];
+			}
 
-            StaticTile[][][] tiles = m_StaticTiles[x][y];
+			StaticTile[][][] tiles = m_StaticTiles[x][y];
 
-            if (tiles == null)
-            {
-                for (int i = 0; tiles == null && i < m_FileShare.Count; ++i)
-                {
-                    TileMatrix shared = m_FileShare[i];
+			if (tiles == null)
+			{
+				lock (m_FileShare)
+				{
+					for (int i = 0; tiles == null && i < m_FileShare.Count; ++i)
+					{
+						TileMatrix shared = m_FileShare[i];
 
-                    if (x >= 0 && x < shared.m_BlockWidth && y >= 0 && y < shared.m_BlockHeight)
-                    {
-                        StaticTile[][][][] theirTiles = shared.m_StaticTiles[x];
+						lock (shared)
+						{
+							if (x >= 0 && x < shared.m_BlockWidth && y >= 0 && y < shared.m_BlockHeight)
+							{
+								StaticTile[][][][] theirTiles = shared.m_StaticTiles[x];
 
-                        if (theirTiles != null)
-                            tiles = theirTiles[y];
+								if (theirTiles != null)
+								{
+									tiles = theirTiles[y];
+								}
 
-                        if (tiles != null)
-                        {
-                            int[] theirBits = shared.m_StaticPatches[x];
+								if (tiles != null)
+								{
+									int[] theirBits = shared.m_StaticPatches[x];
 
-                            if (theirBits != null && (theirBits[y >> 5] & (1 << (y & 0x1F))) != 0)
-                                tiles = null;
-                        }
-                    }
-                }
+									if (theirBits != null && (theirBits[y >> 5] & (1 << (y & 0x1F))) != 0)
+									{
+										tiles = null;
+									}
+								}
+							}
+						}
+					}
+				}
 
-                if (tiles == null)
-                    tiles = ReadStaticBlock(x, y);
+				if (tiles == null)
+				{
+					tiles = ReadStaticBlock(x, y);
+				}
 
-                m_StaticTiles[x][y] = tiles;
-            }
+				m_StaticTiles[x][y] = tiles;
+			}
 
-            return tiles;
+			return tiles;
 		}
 
 		public StaticTile[] GetStaticTiles(int x, int y)
 		{
-            StaticTile[][][] tiles = GetStaticBlock(x >> 3, y >> 3);
+			StaticTile[][][] tiles = GetStaticBlock(x >> 3, y >> 3);
 
-			//return tiles[x & 0x7][y & 0x7];
-            return Season.PatchTiles(tiles[x & 0x7][y & 0x7], m_Owner.Season);
+			return tiles[x & 0x7][y & 0x7];
 		}
 
-        private static TileList m_TilesList = new TileList();
+		private readonly TileList m_TilesList = new TileList();
 
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public StaticTile[] GetStaticTiles(int x, int y, bool multis)
 		{
+			StaticTile[][][] tiles = GetStaticBlock(x >> 3, y >> 3);
 
-            if (!multis)
-                return GetStaticTiles(x, y);
+			if (multis)
+			{
+				IPooledEnumerable<StaticTile[]> eable = m_Owner.GetMultiTilesAt(x, y);
 
-            StaticTile[][][] tiles = GetStaticBlock(x >> 3, y >> 3);
+				if (eable == Map.NullEnumerable<StaticTile[]>.Instance)
+				{
+					return tiles[x & 0x7][y & 0x7];
+				}
 
-            var eable = m_Owner.GetMultiTilesAt(x, y);
+				bool any = false;
 
-            if (!eable.Any())
-                return Season.PatchTiles(tiles[x & 0x7][y & 0x7], m_Owner.Season);
+				foreach (StaticTile[] multiTiles in eable)
+				{
+					if (!any)
+					{
+						any = true;
+					}
 
-            foreach (StaticTile[] multiTiles in eable)
-            {
-                m_TilesList.AddRange(multiTiles);
-            }
+					m_TilesList.AddRange(multiTiles);
+				}
 
-            m_TilesList.AddRange(Season.PatchTiles(tiles[x & 0x7][y & 0x7], m_Owner.Season));
+				eable.Free();
 
-            return m_TilesList.ToArray();
+				if (!any)
+				{
+					return tiles[x & 0x7][y & 0x7];
+				}
+
+				m_TilesList.AddRange(tiles[x & 0x7][y & 0x7]);
+
+				return m_TilesList.ToArray();
+			}
+			else
+			{
+				return tiles[x & 0x7][y & 0x7];
+			}
 		}
 
 		[MethodImpl(MethodImplOptions.Synchronized)]
@@ -578,17 +611,7 @@ namespace Server
 		internal sbyte m_Z;
 		internal short m_Hue;
 
-        public int ID
-        {
-            get
-            {
-                return m_ID;
-            }
-            set
-            {
-                m_ID = (ushort)value;
-            }
-        }
+		public int ID { get { return m_ID; } }
 
 		public int X { get { return m_X; } set { m_X = (byte)value; } }
 
@@ -632,11 +655,6 @@ namespace Server
 			m_Y = y;
 			m_Z = z;
 			m_Hue = hue;
-		}
-
-		public static implicit operator Point3D(StaticTile tile)
-		{
-			return new Point3D(tile.X, tile.Y, tile.Z);
 		}
 	}
 

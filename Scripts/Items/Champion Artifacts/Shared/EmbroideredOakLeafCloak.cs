@@ -11,7 +11,7 @@ namespace Server.Items
             this.Hue = 0x483;
             this.StrRequirement = 0;
 
-            this.SkillBonuses.Skill_1_Name = SkillName.Stealth;
+            this.SkillBonuses.Skill_1_Name = SkillName.Zakradanie;
             this.SkillBonuses.Skill_1_Value = 5;
         }
 

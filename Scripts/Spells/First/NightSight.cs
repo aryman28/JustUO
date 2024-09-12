@@ -48,7 +48,7 @@ namespace Server.Spells.First
                     if (targ.BeginAction(typeof(LightCycle)))
                     {
                         new LightCycle.NightSightTimer(targ).Start();
-                        int level = (int)(LightCycle.DungeonLevel * ((Core.AOS ? targ.Skills[SkillName.Magery].Value : from.Skills[SkillName.Magery].Value) / 100));
+                        int level = (int)(LightCycle.DungeonLevel * ((Core.AOS ? targ.Skills[SkillName.Magia].Value : from.Skills[SkillName.Magia].Value) / 100));
 
                         if (level < 0)
                             level = 0;

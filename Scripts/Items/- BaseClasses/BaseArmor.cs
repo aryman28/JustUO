@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Engines.Craft;
 using Server.Engines.XmlSpawner2;
-using Server.Ethics;
 using Server.Factions;
 using Server.Network;
 using Server.XMLConfiguration;
@@ -22,16 +21,16 @@ namespace Server.Items
         {
             get
             {
-                return m_FactionState;
+                return this.m_FactionState;
             }
             set
             {
-                m_FactionState = value;
+                this.m_FactionState = value;
 
-                if (m_FactionState == null)
-                    Hue = CraftResources.GetHue(Resource);
+                if (this.m_FactionState == null)
+                    this.Hue = CraftResources.GetHue(this.Resource);
 
-                LootType = (m_FactionState == null ? LootType.Regular : LootType.Blessed);
+                this.LootType = (this.m_FactionState == null ? LootType.Regular : LootType.Blessed);
             }
         }
         #endregion
@@ -56,10 +55,13 @@ namespace Server.Items
         private int m_HitPoints;
         private Mobile m_Crafter;
         private ArmorQuality m_Quality;
+        ///
+        private ArmorCechy m_Cechy;
+        ///
         private ArmorDurabilityLevel m_Durability;
         private ArmorProtectionLevel m_Protection;
         private CraftResource m_Resource;
-        private bool m_Identified, m_PlayerConstructed;
+        private bool m_Identified, m_PlayerConstructed, m_Ukrycie, m_Sprawdzony;
         private int m_PhysicalBonus, m_FireBonus, m_ColdBonus, m_PoisonBonus, m_EnergyBonus;
         private int m_TimesImbued;
 
@@ -95,7 +97,7 @@ namespace Server.Items
         {
             get
             {
-                return ArmorBase;
+                return this.ArmorBase;
             }
         }
         public virtual int ArmorBase
@@ -117,14 +119,14 @@ namespace Server.Items
         {
             get
             {
-                return DefMedAllowance;
+                return this.DefMedAllowance;
             }
         }
         public virtual AMA OldMedAllowance
         {
             get
             {
-                return DefMedAllowance;
+                return this.DefMedAllowance;
             }
         }
 
@@ -244,12 +246,12 @@ namespace Server.Items
             if (armor == null)
                 return;
 
-            armor.m_AosAttributes = new AosAttributes(newItem, m_AosAttributes);
-            armor.m_AosArmorAttributes = new AosArmorAttributes(newItem, m_AosArmorAttributes);
-            armor.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
-            armor.m_SAAbsorptionAttributes = new SAAbsorptionAttributes(newItem, m_SAAbsorptionAttributes);
-            armor.m_SetAttributes = new AosAttributes(newItem, m_SetAttributes);
-            armor.m_SetSkillBonuses = new AosSkillBonuses(newItem, m_SetSkillBonuses);
+            armor.m_AosAttributes = new AosAttributes(newItem, this.m_AosAttributes);
+            armor.m_AosArmorAttributes = new AosArmorAttributes(newItem, this.m_AosArmorAttributes);
+            armor.m_AosSkillBonuses = new AosSkillBonuses(newItem, this.m_AosSkillBonuses);
+            armor.m_SAAbsorptionAttributes = new SAAbsorptionAttributes(newItem, this.m_SAAbsorptionAttributes);
+            armor.m_SetAttributes = new AosAttributes(newItem, this.m_SetAttributes);
+            armor.m_SetSkillBonuses = new AosSkillBonuses(newItem, this.m_SetSkillBonuses);
         }
 
         #region Personal Bless Deed
@@ -260,12 +262,12 @@ namespace Server.Items
         {
             get
             {
-                return m_BlessedBy;
+                return this.m_BlessedBy;
             }
             set
             {
-                m_BlessedBy = value;
-                InvalidateProperties();
+                this.m_BlessedBy = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -273,7 +275,7 @@ namespace Server.Items
         {
             base.GetContextMenuEntries(from, list);
 
-            if (BlessedFor == from && BlessedBy == from && RootParent == from)
+            if (this.BlessedFor == from && this.BlessedBy == from && this.RootParent == from)
             {
                 list.Add(new UnBlessEntry(from, this));
             }
@@ -287,21 +289,21 @@ namespace Server.Items
             public UnBlessEntry(Mobile from, BaseArmor item)
                 : base(6208, -1)
             {
-                m_From = from;
-                m_Item = item;
+                this.m_From = from;
+                this.m_Item = item;
             }
 
             public override void OnClick()
             {
-                m_Item.BlessedFor = null;
-                m_Item.BlessedBy = null;
+                this.m_Item.BlessedFor = null;
+                this.m_Item.BlessedBy = null;
 
-                Container pack = m_From.Backpack;
+                Container pack = this.m_From.Backpack;
 
                 if (pack != null)
                 {
-                    pack.DropItem(new PersonalBlessDeed(m_From));
-                    m_From.SendLocalizedMessage(1062200); // A personal bless deed has been placed in your backpack.
+                    pack.DropItem(new PersonalBlessDeed(this.m_From));
+                    this.m_From.SendLocalizedMessage(1062200); // A personal bless deed has been placed in your backpack.
                 }
             }
         }
@@ -312,11 +314,11 @@ namespace Server.Items
         {
             get
             {
-                return (m_Meditate == (AMA)(-1) ? Core.AOS ? AosMedAllowance : OldMedAllowance : m_Meditate);
+                return (this.m_Meditate == (AMA)(-1) ? Core.AOS ? this.AosMedAllowance : this.OldMedAllowance : this.m_Meditate);
             }
             set
             {
-                m_Meditate = value;
+                this.m_Meditate = value;
             }
         }
 
@@ -325,15 +327,15 @@ namespace Server.Items
         {
             get
             {
-                if (m_ArmorBase == -1)
-                    return ArmorBase;
+                if (this.m_ArmorBase == -1)
+                    return this.ArmorBase;
                 else
-                    return m_ArmorBase;
+                    return this.m_ArmorBase;
             }
             set
-            { 
-                m_ArmorBase = value;
-                Invalidate(); 
+            {
+                this.m_ArmorBase = value;
+                this.Invalidate();
             }
         }
 
@@ -341,7 +343,7 @@ namespace Server.Items
         {
             get
             {
-                return (BaseArmorRating * ArmorScalar);
+                return (this.BaseArmorRating * this.ArmorScalar);
             }
         }
 
@@ -349,12 +351,12 @@ namespace Server.Items
         {
             get
             {
-                int ar = BaseArmorRating;
+                int ar = this.BaseArmorRating;
 
-                if (m_Protection != ArmorProtectionLevel.Regular)
-                    ar += 10 + (5 * (int)m_Protection);
+                if (this.m_Protection != ArmorProtectionLevel.Regular)
+                    ar += 10 + (5 * (int)this.m_Protection);
 
-                switch ( m_Resource )
+                switch (this.m_Resource)
                 {
                     case CraftResource.DullCopper:
                         ar += 2;
@@ -391,8 +393,9 @@ namespace Server.Items
                         break;
                 }
 
-                ar += -8 + (8 * (int)m_Quality);
-                return ScaleArmorByDurability(ar);
+                //ar += -8 + (8 * (int)this.m_Quality);
+                ar += -3 + (3 * (int)this.m_Quality);
+                return this.ScaleArmorByDurability(ar);
             }
         }
 
@@ -400,7 +403,7 @@ namespace Server.Items
         {
             get
             {
-                return (ArmorRating * ArmorScalar);
+                return (this.ArmorRating * this.ArmorScalar);
             }
         }
 
@@ -409,12 +412,12 @@ namespace Server.Items
         {
             get
             {
-                return m_TimesImbued;
+                return this.m_TimesImbued;
             }
             set
             {
-                m_TimesImbued = value;
-                InvalidateProperties();
+                this.m_TimesImbued = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -423,12 +426,12 @@ namespace Server.Items
         {
             get
             {
-                return (m_StrBonus == -1 ? Core.AOS ? AosStrBonus : OldStrBonus : m_StrBonus);
+                return (this.m_StrBonus == -1 ? Core.AOS ? this.AosStrBonus : this.OldStrBonus : this.m_StrBonus);
             }
             set
             {
-                m_StrBonus = value;
-                InvalidateProperties();
+                this.m_StrBonus = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -437,12 +440,12 @@ namespace Server.Items
         {
             get
             {
-                return (m_DexBonus == -1 ? Core.AOS ? AosDexBonus : OldDexBonus : m_DexBonus);
+                return (this.m_DexBonus == -1 ? Core.AOS ? this.AosDexBonus : this.OldDexBonus : this.m_DexBonus);
             }
             set
             {
-                m_DexBonus = value;
-                InvalidateProperties();
+                this.m_DexBonus = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -451,12 +454,12 @@ namespace Server.Items
         {
             get
             {
-                return (m_IntBonus == -1 ? Core.AOS ? AosIntBonus : OldIntBonus : m_IntBonus);
+                return (this.m_IntBonus == -1 ? Core.AOS ? this.AosIntBonus : this.OldIntBonus : this.m_IntBonus);
             }
             set
             {
-                m_IntBonus = value;
-                InvalidateProperties();
+                this.m_IntBonus = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -465,12 +468,12 @@ namespace Server.Items
         {
             get
             {
-                return (m_StrReq == -1 ? Core.AOS ? AosStrReq : OldStrReq : m_StrReq);
+                return (this.m_StrReq == -1 ? Core.AOS ? this.AosStrReq : this.OldStrReq : this.m_StrReq);
             }
             set
             {
-                m_StrReq = value;
-                InvalidateProperties();
+                this.m_StrReq = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -479,12 +482,12 @@ namespace Server.Items
         {
             get
             {
-                return (m_DexReq == -1 ? Core.AOS ? AosDexReq : OldDexReq : m_DexReq);
+                return (this.m_DexReq == -1 ? Core.AOS ? this.AosDexReq : this.OldDexReq : this.m_DexReq);
             }
             set
             {
-                m_DexReq = value;
-                InvalidateProperties();
+                this.m_DexReq = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -493,12 +496,12 @@ namespace Server.Items
         {
             get
             {
-                return (m_IntReq == -1 ? Core.AOS ? AosIntReq : OldIntReq : m_IntReq);
+                return (this.m_IntReq == -1 ? Core.AOS ? this.AosIntReq : this.OldIntReq : this.m_IntReq);
             }
             set
             {
-                m_IntReq = value;
-                InvalidateProperties();
+                this.m_IntReq = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -507,12 +510,40 @@ namespace Server.Items
         {
             get
             {
-                return m_Identified;
+                return this.m_Identified;
             }
             set
             {
-                m_Identified = value;
-                InvalidateProperties();
+                this.m_Identified = value;
+                this.InvalidateProperties();
+            }
+        }
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public bool Ukrycie
+        {
+            get
+            {
+                return this.m_Ukrycie;
+            }
+            set
+            {
+                this.m_Ukrycie = value;
+                this.InvalidateProperties();
+            }
+        }
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public bool Sprawdzony
+        {
+            get
+            {
+                return this.m_Sprawdzony;
+            }
+            set
+            {
+                this.m_Sprawdzony = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -521,11 +552,11 @@ namespace Server.Items
         {
             get
             {
-                return m_PlayerConstructed;
+                return this.m_PlayerConstructed;
             }
             set
             {
-                m_PlayerConstructed = value;
+                this.m_PlayerConstructed = value;
             }
         }
 
@@ -534,28 +565,28 @@ namespace Server.Items
         {
             get
             {
-                return m_Resource;
+                return this.m_Resource;
             }
             set
             {
-                if (m_Resource != value)
+                if (this.m_Resource != value)
                 {
-                    UnscaleDurability();
+                    this.UnscaleDurability();
 
-                    m_Resource = value;
+                    this.m_Resource = value;
 
-                    if (CraftItem.RetainsColor(GetType()))
+                    if (CraftItem.RetainsColor(this.GetType()))
                     {
-                        Hue = CraftResources.GetHue(m_Resource);
+                        this.Hue = CraftResources.GetHue(this.m_Resource);
                     }
 
-                    Invalidate();
-                    InvalidateProperties();
+                    this.Invalidate();
+                    this.InvalidateProperties();
 
-                    if (Parent is Mobile)
-                        ((Mobile)Parent).UpdateResistances();
+                    if (this.Parent is Mobile)
+                        ((Mobile)this.Parent).UpdateResistances();
 
-                    ScaleDurability();
+                    this.ScaleDurability();
                 }
             }
         }
@@ -564,7 +595,7 @@ namespace Server.Items
         {
             get
             {
-                int pos = (int)BodyPosition;
+                int pos = (int)this.BodyPosition;
 
                 if (pos >= 0 && pos < m_ArmorScalars.Length)
                     return m_ArmorScalars[pos];
@@ -578,34 +609,34 @@ namespace Server.Items
         {
             get
             {
-                return m_MaxHitPoints;
+                return this.m_MaxHitPoints;
             }
             set
             {
-                m_MaxHitPoints = value;
-                InvalidateProperties();
+                this.m_MaxHitPoints = value;
+                this.InvalidateProperties();
             }
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
         public int HitPoints
         {
-            get 
+            get
             {
-                return m_HitPoints;
+                return this.m_HitPoints;
             }
-            set 
+            set
             {
-                if (value != m_HitPoints && MaxHitPoints > 0)
+                if (value != this.m_HitPoints && this.MaxHitPoints > 0)
                 {
-                    m_HitPoints = value;
+                    this.m_HitPoints = value;
 
-                    if (m_HitPoints < 0)
-                        Delete();
-                    else if (m_HitPoints > MaxHitPoints)
-                        m_HitPoints = MaxHitPoints;
+                    if (this.m_HitPoints < 0)
+                        this.Delete();
+                    else if (this.m_HitPoints > this.MaxHitPoints)
+                        this.m_HitPoints = this.MaxHitPoints;
 
-                    InvalidateProperties();
+                    this.InvalidateProperties();
                 }
             }
         }
@@ -615,12 +646,14 @@ namespace Server.Items
         {
             get
             {
-                return m_Crafter;
+                return this.m_Crafter;
+                m_Identified = true;
+                //m_Ukrycie = false;
             }
             set
             {
-                m_Crafter = value;
-                InvalidateProperties();
+                this.m_Crafter = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -629,31 +662,46 @@ namespace Server.Items
         {
             get
             {
-                return m_Quality;
+                return this.m_Quality;
             }
             set
             {
-                UnscaleDurability();
-                m_Quality = value;
-                Invalidate();
-                InvalidateProperties();
-                ScaleDurability();
+                this.UnscaleDurability();
+                this.m_Quality = value;
+                this.Invalidate();
+                this.InvalidateProperties();
+                this.ScaleDurability();
             }
         }
-
+        ///
+        [CommandProperty(AccessLevel.GameMaster)]
+        public ArmorCechy Cechy
+        {
+            get
+            {
+                return this.m_Cechy;
+            }
+            set
+            {
+                this.m_Cechy = value;
+                this.Invalidate();
+                this.InvalidateProperties();
+            }
+        }
+        ///
         [CommandProperty(AccessLevel.GameMaster)]
         public ArmorDurabilityLevel Durability
         {
             get
             {
-                return m_Durability;
+                return this.m_Durability;
             }
             set
             {
-                UnscaleDurability();
-                m_Durability = value;
-                ScaleDurability();
-                InvalidateProperties();
+                this.UnscaleDurability();
+                this.m_Durability = value;
+                this.ScaleDurability();
+                this.InvalidateProperties();
             }
         }
 
@@ -670,19 +718,19 @@ namespace Server.Items
         {
             get
             {
-                return m_Protection;
+                return this.m_Protection;
             }
             set
             {
-                if (m_Protection != value)
+                if (this.m_Protection != value)
                 {
-                    m_Protection = value;
+                    this.m_Protection = value;
 
-                    Invalidate();
-                    InvalidateProperties();
+                    this.Invalidate();
+                    this.InvalidateProperties();
 
-                    if (Parent is Mobile)
-                        ((Mobile)Parent).UpdateResistances();
+                    if (this.Parent is Mobile)
+                        ((Mobile)this.Parent).UpdateResistances();
                 }
             }
         }
@@ -692,7 +740,7 @@ namespace Server.Items
         {
             get
             {
-                return m_AosAttributes;
+                return this.m_AosAttributes;
             }
             set
             {
@@ -704,7 +752,7 @@ namespace Server.Items
         {
             get
             {
-                return m_AosArmorAttributes;
+                return this.m_AosArmorAttributes;
             }
             set
             {
@@ -716,7 +764,7 @@ namespace Server.Items
         {
             get
             {
-                return m_AosSkillBonuses;
+                return this.m_AosSkillBonuses;
             }
             set
             {
@@ -728,7 +776,7 @@ namespace Server.Items
         {
             get
             {
-                return m_SAAbsorptionAttributes;
+                return this.m_SAAbsorptionAttributes;
             }
             set
             {
@@ -740,23 +788,23 @@ namespace Server.Items
             int v;
 
             if (type == StatType.Str)
-                v = StrRequirement;
+                v = this.StrRequirement;
             else if (type == StatType.Dex)
-                v = DexRequirement;
+                v = this.DexRequirement;
             else
-                v = IntRequirement;
+                v = this.IntRequirement;
 
-            return AOS.Scale(v, 100 - GetLowerStatReq());
+            return AOS.Scale(v, 100 - this.GetLowerStatReq());
         }
 
         public int ComputeStatBonus(StatType type)
         {
             if (type == StatType.Str)
-                return StrBonus + Attributes.BonusStr;
+                return this.StrBonus + this.Attributes.BonusStr;
             else if (type == StatType.Dex)
-                return DexBonus + Attributes.BonusDex;
+                return this.DexBonus + this.Attributes.BonusDex;
             else
-                return IntBonus + Attributes.BonusInt;
+                return this.IntBonus + this.Attributes.BonusInt;
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
@@ -764,12 +812,12 @@ namespace Server.Items
         {
             get
             {
-                return m_PhysicalBonus;
+                return this.m_PhysicalBonus;
             }
             set
             {
-                m_PhysicalBonus = value;
-                InvalidateProperties();
+                this.m_PhysicalBonus = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -778,12 +826,12 @@ namespace Server.Items
         {
             get
             {
-                return m_FireBonus;
+                return this.m_FireBonus;
             }
             set
             {
-                m_FireBonus = value;
-                InvalidateProperties();
+                this.m_FireBonus = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -792,12 +840,12 @@ namespace Server.Items
         {
             get
             {
-                return m_ColdBonus;
+                return this.m_ColdBonus;
             }
             set
             {
-                m_ColdBonus = value;
-                InvalidateProperties();
+                this.m_ColdBonus = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -806,12 +854,12 @@ namespace Server.Items
         {
             get
             {
-                return m_PoisonBonus;
+                return this.m_PoisonBonus;
             }
             set
             {
-                m_PoisonBonus = value;
-                InvalidateProperties();
+                this.m_PoisonBonus = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -820,12 +868,12 @@ namespace Server.Items
         {
             get
             {
-                return m_EnergyBonus;
+                return this.m_EnergyBonus;
             }
             set
             {
-                m_EnergyBonus = value;
-                InvalidateProperties();
+                this.m_EnergyBonus = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -869,7 +917,7 @@ namespace Server.Items
         {
             get
             {
-                return BasePhysicalResistance + GetProtOffset() + GetResourceAttrs().ArmorPhysicalResist + m_PhysicalBonus + (m_SetEquipped ? m_SetPhysicalBonus : 0);
+                return this.BasePhysicalResistance + this.GetProtOffset() + this.GetResourceAttrs().ArmorPhysicalResist + this.m_PhysicalBonus + (this.m_SetEquipped ? this.m_SetPhysicalBonus : 0);
             }
         }
 
@@ -877,7 +925,7 @@ namespace Server.Items
         {
             get
             {
-                return BaseFireResistance + GetProtOffset() + GetResourceAttrs().ArmorFireResist + m_FireBonus + (m_SetEquipped ? m_SetFireBonus : 0);
+                return this.BaseFireResistance + this.GetProtOffset() + this.GetResourceAttrs().ArmorFireResist + this.m_FireBonus + (this.m_SetEquipped ? this.m_SetFireBonus : 0);
             }
         }
 
@@ -885,7 +933,7 @@ namespace Server.Items
         {
             get
             {
-                return BaseColdResistance + GetProtOffset() + GetResourceAttrs().ArmorColdResist + m_ColdBonus + (m_SetEquipped ? m_SetColdBonus : 0);
+                return this.BaseColdResistance + this.GetProtOffset() + this.GetResourceAttrs().ArmorColdResist + this.m_ColdBonus + (this.m_SetEquipped ? this.m_SetColdBonus : 0);
             }
         }
 
@@ -893,7 +941,7 @@ namespace Server.Items
         {
             get
             {
-                return BasePoisonResistance + GetProtOffset() + GetResourceAttrs().ArmorPoisonResist + m_PoisonBonus + (m_SetEquipped ? m_SetPoisonBonus : 0);
+                return this.BasePoisonResistance + this.GetProtOffset() + this.GetResourceAttrs().ArmorPoisonResist + this.m_PoisonBonus + (this.m_SetEquipped ? this.m_SetPoisonBonus : 0);
             }
         }
 
@@ -901,7 +949,7 @@ namespace Server.Items
         {
             get
             {
-                return BaseEnergyResistance + GetProtOffset() + GetResourceAttrs().ArmorEnergyResist + m_EnergyBonus + (m_SetEquipped ? m_SetEnergyBonus : 0);
+                return this.BaseEnergyResistance + this.GetProtOffset() + this.GetResourceAttrs().ArmorEnergyResist + this.m_EnergyBonus + (this.m_SetEquipped ? this.m_SetEnergyBonus : 0);
             }
         }
 
@@ -925,7 +973,7 @@ namespace Server.Items
         {
             get
             {
-                switch ( Layer )
+                switch (this.Layer)
                 {
                     default:
                     case Layer.Neck:
@@ -956,32 +1004,32 @@ namespace Server.Items
         {
             for (int i = 0; i < amount; ++i)
             {
-                switch ( Utility.Random(5) )
+                switch (Utility.Random(5))
                 {
                     case 0:
-                        ++m_PhysicalBonus;
+                        ++this.m_PhysicalBonus;
                         break;
                     case 1:
-                        ++m_FireBonus;
+                        ++this.m_FireBonus;
                         break;
                     case 2:
-                        ++m_ColdBonus;
+                        ++this.m_ColdBonus;
                         break;
                     case 3:
-                        ++m_PoisonBonus;
+                        ++this.m_PoisonBonus;
                         break;
                     case 4:
-                        ++m_EnergyBonus;
+                        ++this.m_EnergyBonus;
                         break;
                 }
             }
 
-            InvalidateProperties();
+            this.InvalidateProperties();
         }
 
         public CraftAttributeInfo GetResourceAttrs()
         {
-            CraftResourceInfo info = CraftResources.GetInfo(m_Resource);
+            CraftResourceInfo info = CraftResources.GetInfo(this.m_Resource);
 
             if (info == null)
                 return CraftAttributeInfo.Blank;
@@ -991,7 +1039,7 @@ namespace Server.Items
 
         public int GetProtOffset()
         {
-            switch ( m_Protection )
+            switch (this.m_Protection)
             {
                 case ArmorProtectionLevel.Guarding:
                     return 1;
@@ -1008,30 +1056,42 @@ namespace Server.Items
 
         public void UnscaleDurability()
         {
-            int scale = 100 + GetDurabilityBonus();
+            int scale = 100 + this.GetDurabilityBonus();
 
-            m_HitPoints = ((m_HitPoints * 100) + (scale - 1)) / scale;
-            m_MaxHitPoints = ((m_MaxHitPoints * 100) + (scale - 1)) / scale;
-            InvalidateProperties();
+            this.m_HitPoints = ((this.m_HitPoints * 100) + (scale - 1)) / scale;
+            this.m_MaxHitPoints = ((this.m_MaxHitPoints * 100) + (scale - 1)) / scale;
+            this.InvalidateProperties();
         }
 
         public void ScaleDurability()
         {
-            int scale = 100 + GetDurabilityBonus();
+            int scale = 100 + this.GetDurabilityBonus();
 
-            m_HitPoints = ((m_HitPoints * scale) + 99) / 100;
-            m_MaxHitPoints = ((m_MaxHitPoints * scale) + 99) / 100;
-            InvalidateProperties();
+            this.m_HitPoints = ((this.m_HitPoints * scale) + 99) / 100;
+            this.m_MaxHitPoints = ((this.m_MaxHitPoints * scale) + 99) / 100;
+            this.InvalidateProperties();
         }
 
         public int GetDurabilityBonus()
         {
             int bonus = 0;
 
-            if (m_Quality == ArmorQuality.Exceptional)
+            if (this.m_Quality == ArmorQuality.Doskona³)
+                bonus += 5;
+            if (this.m_Quality == ArmorQuality.Wspania³)
+                bonus += 10;
+            if (this.m_Quality == ArmorQuality.Wyj¹tkow)
+                bonus += 15;
+            if (this.m_Quality == ArmorQuality.Niezwyk³)
                 bonus += 20;
+            if (this.m_Quality == ArmorQuality.Cudown)
+                bonus += 25;
+            if (this.m_Quality == ArmorQuality.Mistyczn)
+                bonus += 30;
+            if (this.m_Quality == ArmorQuality.Legendarn)
+                bonus += 35;
 
-            switch ( m_Durability )
+            switch (this.m_Durability)
             {
                 case ArmorDurabilityLevel.Durable:
                     bonus += 20;
@@ -1052,12 +1112,12 @@ namespace Server.Items
 
             if (Core.AOS)
             {
-                bonus += m_AosArmorAttributes.DurabilityBonus;
+                bonus += this.m_AosArmorAttributes.DurabilityBonus;
 
-                if (m_Resource == CraftResource.Heartwood)
+                if (this.m_Resource == CraftResource.Heartwood)
                     return bonus;
 
-                CraftResourceInfo resInfo = CraftResources.GetInfo(m_Resource);
+                CraftResourceInfo resInfo = CraftResources.GetInfo(this.m_Resource);
                 CraftAttributeInfo attrInfo = null;
 
                 if (resInfo != null)
@@ -1072,13 +1132,13 @@ namespace Server.Items
 
         public bool Scissor(Mobile from, Scissors scissors)
         {
-            if (!IsChildOf(from.Backpack))
+            if (!this.IsChildOf(from.Backpack))
             {
                 from.SendLocalizedMessage(502437); // Items you wish to cut must be in your backpack.
                 return false;
             }
 
-            if (Ethic.IsImbued(this))
+            if (Ethics.Ethic.IsImbued(this))
             {
                 from.SendLocalizedMessage(502440); // Scissors can not be used on that to produce anything.
                 return false;
@@ -1086,15 +1146,15 @@ namespace Server.Items
 
             CraftSystem system = DefTailoring.CraftSystem;
 
-            CraftItem item = system.CraftItems.SearchFor(GetType());
+            CraftItem item = system.CraftItems.SearchFor(this.GetType());
 
             if (item != null && item.Resources.Count == 1 && item.Resources.GetAt(0).Amount >= 2)
             {
                 try
                 {
-                    Item res = (Item)Activator.CreateInstance(CraftResources.GetInfo(m_Resource).ResourceTypes[0]);
+                    Item res = (Item)Activator.CreateInstance(CraftResources.GetInfo(this.m_Resource).ResourceTypes[0]);
 
-                    ScissorHelper(from, res, m_PlayerConstructed ? (item.Resources.GetAt(0).Amount / 2) : 1);
+                    this.ScissorHelper(from, res, this.m_PlayerConstructed ? (item.Resources.GetAt(0).Amount / 2) : 1);
                     return true;
                 }
                 catch
@@ -1176,12 +1236,12 @@ namespace Server.Items
             if (!Core.AOS)
                 return 0;
 
-            int v = m_AosArmorAttributes.LowerStatReq;
+            int v = this.m_AosArmorAttributes.LowerStatReq;
 
-            if (m_Resource == CraftResource.Heartwood)
+            if (this.m_Resource == CraftResource.Heartwood)
                 return v;
 
-            CraftResourceInfo info = CraftResources.GetInfo(m_Resource);
+            CraftResourceInfo info = CraftResources.GetInfo(this.m_Resource);
 
             if (info != null)
             {
@@ -1197,24 +1257,24 @@ namespace Server.Items
             return v;
         }
 
-		public override void OnAdded(IEntity parent)
+        public override void OnAdded(object parent)
         {
             if (parent is Mobile)
             {
                 Mobile from = (Mobile)parent;
 
                 if (Core.AOS)
-                    m_AosSkillBonuses.AddTo(from);
+                    this.m_AosSkillBonuses.AddTo(from);
 
                 #region Mondain's Legacy Sets
-                if (IsSetItem)
+                if (this.IsSetItem)
                 {
-                    m_SetEquipped = SetHelper.FullSetEquipped(from, SetID, Pieces);
+                    this.m_SetEquipped = SetHelper.FullSetEquipped(from, this.SetID, this.Pieces);
 
-                    if (m_SetEquipped)
+                    if (this.m_SetEquipped)
                     {
-                        m_LastEquipped = true;
-                        SetHelper.AddSetBonus(from, SetID);
+                        this.m_LastEquipped = true;
+                        SetHelper.AddSetBonus(from, this.SetID);
                     }
                 }
                 #endregion
@@ -1227,16 +1287,16 @@ namespace Server.Items
         {
             int scale = 100;
 
-            if (m_MaxHitPoints > 0 && m_HitPoints < m_MaxHitPoints)
-                scale = 50 + ((50 * m_HitPoints) / m_MaxHitPoints);
+            if (this.m_MaxHitPoints > 0 && this.m_HitPoints < this.m_MaxHitPoints)
+                scale = 50 + ((50 * this.m_HitPoints) / this.m_MaxHitPoints);
 
             return (armor * scale) / 100;
         }
 
         protected void Invalidate()
         {
-            if (Parent is Mobile)
-                ((Mobile)Parent).Delta(MobileDelta.Armor); // Tell them armor rating has changed
+            if (this.Parent is Mobile)
+                ((Mobile)this.Parent).Delta(MobileDelta.Armor); // Tell them armor rating has changed
         }
 
         public BaseArmor(Serial serial)
@@ -1285,7 +1345,10 @@ namespace Server.Items
             SkillBonuses = 0x00800000,
             PlayerConstructed = 0x01000000,
             xAbsorptionAttributes = 0x02000000,
-            TimesImbued = 0x04000000
+            TimesImbued = 0x04000000,
+            Cechy = 0x08000000,
+            Ukrycie = 0x10000000,
+            Sprawdzony = 0x20000000
         }
 
         #region Mondain's Legacy Sets
@@ -1326,162 +1389,168 @@ namespace Server.Items
             writer.Write((int)8); // version
 
             // Version 8
-            writer.Write((int)m_TimesImbued);
-            writer.Write((Mobile)m_BlessedBy);
+            writer.Write((int)this.m_TimesImbued);
+            writer.Write((Mobile)this.m_BlessedBy);
 
             SetFlag sflags = SetFlag.None;
 
-            SetSaveFlag(ref sflags, SetFlag.Attributes, !m_SetAttributes.IsEmpty);
-            SetSaveFlag(ref sflags, SetFlag.SkillBonuses, !m_SetSkillBonuses.IsEmpty);
-            SetSaveFlag(ref sflags, SetFlag.PhysicalBonus, m_SetPhysicalBonus != 0);
-            SetSaveFlag(ref sflags, SetFlag.FireBonus, m_SetFireBonus != 0);
-            SetSaveFlag(ref sflags, SetFlag.ColdBonus, m_SetColdBonus != 0);
-            SetSaveFlag(ref sflags, SetFlag.PoisonBonus, m_SetPoisonBonus != 0);
-            SetSaveFlag(ref sflags, SetFlag.EnergyBonus, m_SetEnergyBonus != 0);
-            SetSaveFlag(ref sflags, SetFlag.Hue, m_SetHue != 0);
-            SetSaveFlag(ref sflags, SetFlag.LastEquipped, m_LastEquipped);
-            SetSaveFlag(ref sflags, SetFlag.SetEquipped, m_SetEquipped);
-            SetSaveFlag(ref sflags, SetFlag.SetSelfRepair, m_SetSelfRepair != 0);
+            SetSaveFlag(ref sflags, SetFlag.Attributes, !this.m_SetAttributes.IsEmpty);
+            SetSaveFlag(ref sflags, SetFlag.SkillBonuses, !this.m_SetSkillBonuses.IsEmpty);
+            SetSaveFlag(ref sflags, SetFlag.PhysicalBonus, this.m_SetPhysicalBonus != 0);
+            SetSaveFlag(ref sflags, SetFlag.FireBonus, this.m_SetFireBonus != 0);
+            SetSaveFlag(ref sflags, SetFlag.ColdBonus, this.m_SetColdBonus != 0);
+            SetSaveFlag(ref sflags, SetFlag.PoisonBonus, this.m_SetPoisonBonus != 0);
+            SetSaveFlag(ref sflags, SetFlag.EnergyBonus, this.m_SetEnergyBonus != 0);
+            SetSaveFlag(ref sflags, SetFlag.Hue, this.m_SetHue != 0);
+            SetSaveFlag(ref sflags, SetFlag.LastEquipped, this.m_LastEquipped);
+            SetSaveFlag(ref sflags, SetFlag.SetEquipped, this.m_SetEquipped);
+            SetSaveFlag(ref sflags, SetFlag.SetSelfRepair, this.m_SetSelfRepair != 0);
 
             writer.WriteEncodedInt((int)sflags);
 
             if (GetSaveFlag(sflags, SetFlag.Attributes))
-                m_SetAttributes.Serialize(writer);
+                this.m_SetAttributes.Serialize(writer);
 
             if (GetSaveFlag(sflags, SetFlag.SkillBonuses))
-                m_SetSkillBonuses.Serialize(writer);
+                this.m_SetSkillBonuses.Serialize(writer);
 
             if (GetSaveFlag(sflags, SetFlag.PhysicalBonus))
-                writer.WriteEncodedInt((int)m_SetPhysicalBonus);
+                writer.WriteEncodedInt((int)this.m_SetPhysicalBonus);
 
             if (GetSaveFlag(sflags, SetFlag.FireBonus))
-                writer.WriteEncodedInt((int)m_SetFireBonus);
+                writer.WriteEncodedInt((int)this.m_SetFireBonus);
 
             if (GetSaveFlag(sflags, SetFlag.ColdBonus))
-                writer.WriteEncodedInt((int)m_SetColdBonus);
+                writer.WriteEncodedInt((int)this.m_SetColdBonus);
 
             if (GetSaveFlag(sflags, SetFlag.PoisonBonus))
-                writer.WriteEncodedInt((int)m_SetPoisonBonus);
+                writer.WriteEncodedInt((int)this.m_SetPoisonBonus);
 
             if (GetSaveFlag(sflags, SetFlag.EnergyBonus))
-                writer.WriteEncodedInt((int)m_SetEnergyBonus);
+                writer.WriteEncodedInt((int)this.m_SetEnergyBonus);
 
             if (GetSaveFlag(sflags, SetFlag.Hue))
-                writer.WriteEncodedInt((int)m_SetHue);
+                writer.WriteEncodedInt((int)this.m_SetHue);
 
             if (GetSaveFlag(sflags, SetFlag.LastEquipped))
-                writer.Write((bool)m_LastEquipped);
+                writer.Write((bool)this.m_LastEquipped);
 
             if (GetSaveFlag(sflags, SetFlag.SetEquipped))
-                writer.Write((bool)m_SetEquipped);
+                writer.Write((bool)this.m_SetEquipped);
 
             if (GetSaveFlag(sflags, SetFlag.SetSelfRepair))
-                writer.WriteEncodedInt((int)m_SetSelfRepair);
+                writer.WriteEncodedInt((int)this.m_SetSelfRepair);
 
             // Version 7
             SaveFlag flags = SaveFlag.None;
 
-            SetSaveFlag(ref flags, SaveFlag.Attributes, !m_AosAttributes.IsEmpty);
-            SetSaveFlag(ref flags, SaveFlag.ArmorAttributes, !m_AosArmorAttributes.IsEmpty);
-            SetSaveFlag(ref flags, SaveFlag.PhysicalBonus, m_PhysicalBonus != 0);
-            SetSaveFlag(ref flags, SaveFlag.FireBonus, m_FireBonus != 0);
-            SetSaveFlag(ref flags, SaveFlag.ColdBonus, m_ColdBonus != 0);
-            SetSaveFlag(ref flags, SaveFlag.PoisonBonus, m_PoisonBonus != 0);
-            SetSaveFlag(ref flags, SaveFlag.EnergyBonus, m_EnergyBonus != 0);
-            SetSaveFlag(ref flags, SaveFlag.Identified, m_Identified != false);
-            SetSaveFlag(ref flags, SaveFlag.MaxHitPoints, m_MaxHitPoints != 0);
-            SetSaveFlag(ref flags, SaveFlag.HitPoints, m_HitPoints != 0);
-            SetSaveFlag(ref flags, SaveFlag.Crafter, m_Crafter != null);
-            SetSaveFlag(ref flags, SaveFlag.Quality, m_Quality != ArmorQuality.Regular);
-            SetSaveFlag(ref flags, SaveFlag.Durability, m_Durability != ArmorDurabilityLevel.Regular);
-            SetSaveFlag(ref flags, SaveFlag.Protection, m_Protection != ArmorProtectionLevel.Regular);
-            SetSaveFlag(ref flags, SaveFlag.Resource, m_Resource != DefaultResource);
-            SetSaveFlag(ref flags, SaveFlag.BaseArmor, m_ArmorBase != -1);
-            SetSaveFlag(ref flags, SaveFlag.StrBonus, m_StrBonus != -1);
-            SetSaveFlag(ref flags, SaveFlag.DexBonus, m_DexBonus != -1);
-            SetSaveFlag(ref flags, SaveFlag.IntBonus, m_IntBonus != -1);
-            SetSaveFlag(ref flags, SaveFlag.StrReq, m_StrReq != -1);
-            SetSaveFlag(ref flags, SaveFlag.DexReq, m_DexReq != -1);
-            SetSaveFlag(ref flags, SaveFlag.IntReq, m_IntReq != -1);
-            SetSaveFlag(ref flags, SaveFlag.MedAllowance, m_Meditate != (AMA)(-1));
-            SetSaveFlag(ref flags, SaveFlag.SkillBonuses, !m_AosSkillBonuses.IsEmpty);
-            SetSaveFlag(ref flags, SaveFlag.PlayerConstructed, m_PlayerConstructed != false);
-            SetSaveFlag(ref flags, SaveFlag.xAbsorptionAttributes, !m_SAAbsorptionAttributes.IsEmpty);
-            SetSaveFlag(ref flags, SaveFlag.TimesImbued, m_TimesImbued != 0);
+            SetSaveFlag(ref flags, SaveFlag.Attributes, !this.m_AosAttributes.IsEmpty);
+            SetSaveFlag(ref flags, SaveFlag.ArmorAttributes, !this.m_AosArmorAttributes.IsEmpty);
+            SetSaveFlag(ref flags, SaveFlag.PhysicalBonus, this.m_PhysicalBonus != 0);
+            SetSaveFlag(ref flags, SaveFlag.FireBonus, this.m_FireBonus != 0);
+            SetSaveFlag(ref flags, SaveFlag.ColdBonus, this.m_ColdBonus != 0);
+            SetSaveFlag(ref flags, SaveFlag.PoisonBonus, this.m_PoisonBonus != 0);
+            SetSaveFlag(ref flags, SaveFlag.EnergyBonus, this.m_EnergyBonus != 0);
+            SetSaveFlag(ref flags, SaveFlag.Identified, this.m_Identified != false);
+            SetSaveFlag(ref flags, SaveFlag.Ukrycie, this.m_Ukrycie != false);
+            SetSaveFlag(ref flags, SaveFlag.Sprawdzony, this.m_Sprawdzony != false);
+            SetSaveFlag(ref flags, SaveFlag.MaxHitPoints, this.m_MaxHitPoints != 0);
+            SetSaveFlag(ref flags, SaveFlag.HitPoints, this.m_HitPoints != 0);
+            SetSaveFlag(ref flags, SaveFlag.Crafter, this.m_Crafter != null);
+            SetSaveFlag(ref flags, SaveFlag.Quality, this.m_Quality != ArmorQuality.None);
+            SetSaveFlag(ref flags, SaveFlag.Cechy, this.m_Cechy != ArmorCechy.None);
+            SetSaveFlag(ref flags, SaveFlag.Durability, this.m_Durability != ArmorDurabilityLevel.Regular);
+            SetSaveFlag(ref flags, SaveFlag.Protection, this.m_Protection != ArmorProtectionLevel.Regular);
+            SetSaveFlag(ref flags, SaveFlag.Resource, this.m_Resource != this.DefaultResource);
+            SetSaveFlag(ref flags, SaveFlag.BaseArmor, this.m_ArmorBase != -1);
+            SetSaveFlag(ref flags, SaveFlag.StrBonus, this.m_StrBonus != -1);
+            SetSaveFlag(ref flags, SaveFlag.DexBonus, this.m_DexBonus != -1);
+            SetSaveFlag(ref flags, SaveFlag.IntBonus, this.m_IntBonus != -1);
+            SetSaveFlag(ref flags, SaveFlag.StrReq, this.m_StrReq != -1);
+            SetSaveFlag(ref flags, SaveFlag.DexReq, this.m_DexReq != -1);
+            SetSaveFlag(ref flags, SaveFlag.IntReq, this.m_IntReq != -1);
+            SetSaveFlag(ref flags, SaveFlag.MedAllowance, this.m_Meditate != (AMA)(-1));
+            SetSaveFlag(ref flags, SaveFlag.SkillBonuses, !this.m_AosSkillBonuses.IsEmpty);
+            SetSaveFlag(ref flags, SaveFlag.PlayerConstructed, this.m_PlayerConstructed != false);
+            SetSaveFlag(ref flags, SaveFlag.xAbsorptionAttributes, !this.m_SAAbsorptionAttributes.IsEmpty);
+            SetSaveFlag(ref flags, SaveFlag.TimesImbued, this.m_TimesImbued != 0);
 
             writer.WriteEncodedInt((int)flags);
 
             if (GetSaveFlag(flags, SaveFlag.Attributes))
-                m_AosAttributes.Serialize(writer);
+                this.m_AosAttributes.Serialize(writer);
 
             if (GetSaveFlag(flags, SaveFlag.ArmorAttributes))
-                m_AosArmorAttributes.Serialize(writer);
+                this.m_AosArmorAttributes.Serialize(writer);
 
             if (GetSaveFlag(flags, SaveFlag.PhysicalBonus))
-                writer.WriteEncodedInt((int)m_PhysicalBonus);
+                writer.WriteEncodedInt((int)this.m_PhysicalBonus);
 
             if (GetSaveFlag(flags, SaveFlag.FireBonus))
-                writer.WriteEncodedInt((int)m_FireBonus);
+                writer.WriteEncodedInt((int)this.m_FireBonus);
 
             if (GetSaveFlag(flags, SaveFlag.ColdBonus))
-                writer.WriteEncodedInt((int)m_ColdBonus);
+                writer.WriteEncodedInt((int)this.m_ColdBonus);
 
             if (GetSaveFlag(flags, SaveFlag.PoisonBonus))
-                writer.WriteEncodedInt((int)m_PoisonBonus);
+                writer.WriteEncodedInt((int)this.m_PoisonBonus);
 
             if (GetSaveFlag(flags, SaveFlag.EnergyBonus))
-                writer.WriteEncodedInt((int)m_EnergyBonus);
+                writer.WriteEncodedInt((int)this.m_EnergyBonus);
 
             if (GetSaveFlag(flags, SaveFlag.MaxHitPoints))
-                writer.WriteEncodedInt((int)m_MaxHitPoints);
+                writer.WriteEncodedInt((int)this.m_MaxHitPoints);
 
             if (GetSaveFlag(flags, SaveFlag.HitPoints))
-                writer.WriteEncodedInt((int)m_HitPoints);
+                writer.WriteEncodedInt((int)this.m_HitPoints);
 
             if (GetSaveFlag(flags, SaveFlag.Crafter))
-                writer.Write((Mobile)m_Crafter);
+                writer.Write((Mobile)this.m_Crafter);
 
             if (GetSaveFlag(flags, SaveFlag.Quality))
-                writer.WriteEncodedInt((int)m_Quality);
+                writer.WriteEncodedInt((int)this.m_Quality);
+
+            if (GetSaveFlag(flags, SaveFlag.Cechy))
+                writer.WriteEncodedInt((int)this.m_Cechy);
 
             if (GetSaveFlag(flags, SaveFlag.Durability))
-                writer.WriteEncodedInt((int)m_Durability);
+                writer.WriteEncodedInt((int)this.m_Durability);
 
             if (GetSaveFlag(flags, SaveFlag.Protection))
-                writer.WriteEncodedInt((int)m_Protection);
+                writer.WriteEncodedInt((int)this.m_Protection);
 
             if (GetSaveFlag(flags, SaveFlag.Resource))
-                writer.WriteEncodedInt((int)m_Resource);
+                writer.WriteEncodedInt((int)this.m_Resource);
 
             if (GetSaveFlag(flags, SaveFlag.BaseArmor))
-                writer.WriteEncodedInt((int)m_ArmorBase);
+                writer.WriteEncodedInt((int)this.m_ArmorBase);
 
             if (GetSaveFlag(flags, SaveFlag.StrBonus))
-                writer.WriteEncodedInt((int)m_StrBonus);
+                writer.WriteEncodedInt((int)this.m_StrBonus);
 
             if (GetSaveFlag(flags, SaveFlag.DexBonus))
-                writer.WriteEncodedInt((int)m_DexBonus);
+                writer.WriteEncodedInt((int)this.m_DexBonus);
 
             if (GetSaveFlag(flags, SaveFlag.IntBonus))
-                writer.WriteEncodedInt((int)m_IntBonus);
+                writer.WriteEncodedInt((int)this.m_IntBonus);
 
             if (GetSaveFlag(flags, SaveFlag.StrReq))
-                writer.WriteEncodedInt((int)m_StrReq);
+                writer.WriteEncodedInt((int)this.m_StrReq);
 
             if (GetSaveFlag(flags, SaveFlag.DexReq))
-                writer.WriteEncodedInt((int)m_DexReq);
+                writer.WriteEncodedInt((int)this.m_DexReq);
 
             if (GetSaveFlag(flags, SaveFlag.IntReq))
-                writer.WriteEncodedInt((int)m_IntReq);
+                writer.WriteEncodedInt((int)this.m_IntReq);
 
             if (GetSaveFlag(flags, SaveFlag.MedAllowance))
-                writer.WriteEncodedInt((int)m_Meditate);
+                writer.WriteEncodedInt((int)this.m_Meditate);
 
             if (GetSaveFlag(flags, SaveFlag.SkillBonuses))
-                m_AosSkillBonuses.Serialize(writer);
+                this.m_AosSkillBonuses.Serialize(writer);
 
             if (GetSaveFlag(flags, SaveFlag.xAbsorptionAttributes))
-                m_SAAbsorptionAttributes.Serialize(writer);
+                this.m_SAAbsorptionAttributes.Serialize(writer);
         }
 
         public override void Deserialize(GenericReader reader)
@@ -1490,54 +1559,54 @@ namespace Server.Items
 
             int version = reader.ReadInt();
 
-            switch ( version )
+            switch (version)
             {
                 case 8:
                     {
-                        m_TimesImbued = reader.ReadInt();
-                        m_BlessedBy = reader.ReadMobile();
+                        this.m_TimesImbued = reader.ReadInt();
+                        this.m_BlessedBy = reader.ReadMobile();
 
                         SetFlag sflags = (SetFlag)reader.ReadEncodedInt();
 
                         if (GetSaveFlag(sflags, SetFlag.Attributes))
-                            m_SetAttributes = new AosAttributes(this, reader);
+                            this.m_SetAttributes = new AosAttributes(this, reader);
                         else
-                            m_SetAttributes = new AosAttributes(this);
+                            this.m_SetAttributes = new AosAttributes(this);
 
                         if (GetSaveFlag(sflags, SetFlag.ArmorAttributes))
-                            m_SetSelfRepair = (new AosArmorAttributes(this, reader)).SelfRepair;
+                            this.m_SetSelfRepair = (new AosArmorAttributes(this, reader)).SelfRepair;
 
                         if (GetSaveFlag(sflags, SetFlag.SkillBonuses))
-                            m_SetSkillBonuses = new AosSkillBonuses(this, reader);
+                            this.m_SetSkillBonuses = new AosSkillBonuses(this, reader);
                         else
-                            m_SetSkillBonuses = new AosSkillBonuses(this);
+                            this.m_SetSkillBonuses = new AosSkillBonuses(this);
 
                         if (GetSaveFlag(sflags, SetFlag.PhysicalBonus))
-                            m_SetPhysicalBonus = reader.ReadEncodedInt();
+                            this.m_SetPhysicalBonus = reader.ReadEncodedInt();
 
                         if (GetSaveFlag(sflags, SetFlag.FireBonus))
-                            m_SetFireBonus = reader.ReadEncodedInt();
+                            this.m_SetFireBonus = reader.ReadEncodedInt();
 
                         if (GetSaveFlag(sflags, SetFlag.ColdBonus))
-                            m_SetColdBonus = reader.ReadEncodedInt();
+                            this.m_SetColdBonus = reader.ReadEncodedInt();
 
                         if (GetSaveFlag(sflags, SetFlag.PoisonBonus))
-                            m_SetPoisonBonus = reader.ReadEncodedInt();
+                            this.m_SetPoisonBonus = reader.ReadEncodedInt();
 
                         if (GetSaveFlag(sflags, SetFlag.EnergyBonus))
-                            m_SetEnergyBonus = reader.ReadEncodedInt();
+                            this.m_SetEnergyBonus = reader.ReadEncodedInt();
 
                         if (GetSaveFlag(sflags, SetFlag.Hue))
-                            m_SetHue = reader.ReadEncodedInt();
+                            this.m_SetHue = reader.ReadEncodedInt();
 
                         if (GetSaveFlag(sflags, SetFlag.LastEquipped))
-                            m_LastEquipped = reader.ReadBool();
+                            this.m_LastEquipped = reader.ReadBool();
 
                         if (GetSaveFlag(sflags, SetFlag.SetEquipped))
-                            m_SetEquipped = reader.ReadBool();
+                            this.m_SetEquipped = reader.ReadBool();
 
                         if (GetSaveFlag(sflags, SetFlag.SetSelfRepair))
-                            m_SetSelfRepair = reader.ReadEncodedInt();
+                            this.m_SetSelfRepair = reader.ReadEncodedInt();
 
                         goto case 5;
                     }
@@ -1548,183 +1617,216 @@ namespace Server.Items
                         SaveFlag flags = (SaveFlag)reader.ReadEncodedInt();
 
                         if (GetSaveFlag(flags, SaveFlag.Attributes))
-                            m_AosAttributes = new AosAttributes(this, reader);
+                            this.m_AosAttributes = new AosAttributes(this, reader);
                         else
-                            m_AosAttributes = new AosAttributes(this);
+                            this.m_AosAttributes = new AosAttributes(this);
 
                         if (GetSaveFlag(flags, SaveFlag.ArmorAttributes))
-                            m_AosArmorAttributes = new AosArmorAttributes(this, reader);
+                            this.m_AosArmorAttributes = new AosArmorAttributes(this, reader);
                         else
-                            m_AosArmorAttributes = new AosArmorAttributes(this);
+                            this.m_AosArmorAttributes = new AosArmorAttributes(this);
 
                         if (GetSaveFlag(flags, SaveFlag.PhysicalBonus))
-                            m_PhysicalBonus = reader.ReadEncodedInt();
+                            this.m_PhysicalBonus = reader.ReadEncodedInt();
 
                         if (GetSaveFlag(flags, SaveFlag.FireBonus))
-                            m_FireBonus = reader.ReadEncodedInt();
+                            this.m_FireBonus = reader.ReadEncodedInt();
 
                         if (GetSaveFlag(flags, SaveFlag.ColdBonus))
-                            m_ColdBonus = reader.ReadEncodedInt();
+                            this.m_ColdBonus = reader.ReadEncodedInt();
 
                         if (GetSaveFlag(flags, SaveFlag.PoisonBonus))
-                            m_PoisonBonus = reader.ReadEncodedInt();
+                            this.m_PoisonBonus = reader.ReadEncodedInt();
 
                         if (GetSaveFlag(flags, SaveFlag.EnergyBonus))
-                            m_EnergyBonus = reader.ReadEncodedInt();
+                            this.m_EnergyBonus = reader.ReadEncodedInt();
 
                         if (GetSaveFlag(flags, SaveFlag.Identified))
-                            m_Identified = (version >= 7 || reader.ReadBool());
+                            this.m_Identified = (version >= 7 || reader.ReadBool());
+
+                        if (GetSaveFlag(flags, SaveFlag.Ukrycie))
+                            this.m_Ukrycie = (version >= 7 || reader.ReadBool());
+
+                        if (GetSaveFlag(flags, SaveFlag.Sprawdzony))
+                            this.m_Sprawdzony = (version >= 7 || reader.ReadBool());
 
                         if (GetSaveFlag(flags, SaveFlag.MaxHitPoints))
-                            m_MaxHitPoints = reader.ReadEncodedInt();
+                            this.m_MaxHitPoints = reader.ReadEncodedInt();
 
                         if (GetSaveFlag(flags, SaveFlag.HitPoints))
-                            m_HitPoints = reader.ReadEncodedInt();
+                            this.m_HitPoints = reader.ReadEncodedInt();
 
                         if (GetSaveFlag(flags, SaveFlag.Crafter))
-                            m_Crafter = reader.ReadMobile();
+                            this.m_Crafter = reader.ReadMobile();
 
                         if (GetSaveFlag(flags, SaveFlag.Quality))
-                            m_Quality = (ArmorQuality)reader.ReadEncodedInt();
+                            this.m_Quality = (ArmorQuality)reader.ReadEncodedInt();
                         else
-                            m_Quality = ArmorQuality.Regular;
+                            this.m_Quality = ArmorQuality.None;
 
-                        if (version == 5 && m_Quality == ArmorQuality.Low)
-                            m_Quality = ArmorQuality.Regular;
+                        if (version == 5 && this.m_Quality == ArmorQuality.None)
+                            this.m_Quality = ArmorQuality.None;
+
+                        if (GetSaveFlag(flags, SaveFlag.Cechy))
+                            this.m_Cechy = (ArmorCechy)reader.ReadEncodedInt();
 
                         if (GetSaveFlag(flags, SaveFlag.Durability))
                         {
-                            m_Durability = (ArmorDurabilityLevel)reader.ReadEncodedInt();
+                            this.m_Durability = (ArmorDurabilityLevel)reader.ReadEncodedInt();
 
-                            if (m_Durability > ArmorDurabilityLevel.Indestructible)
-                                m_Durability = ArmorDurabilityLevel.Durable;
+                            if (this.m_Durability > ArmorDurabilityLevel.Indestructible)
+                                this.m_Durability = ArmorDurabilityLevel.Durable;
                         }
 
                         if (GetSaveFlag(flags, SaveFlag.Protection))
                         {
-                            m_Protection = (ArmorProtectionLevel)reader.ReadEncodedInt();
+                            this.m_Protection = (ArmorProtectionLevel)reader.ReadEncodedInt();
 
-                            if (m_Protection > ArmorProtectionLevel.Invulnerability)
-                                m_Protection = ArmorProtectionLevel.Defense;
+                            if (this.m_Protection > ArmorProtectionLevel.Invulnerability)
+                                this.m_Protection = ArmorProtectionLevel.Defense;
                         }
 
                         if (GetSaveFlag(flags, SaveFlag.Resource))
-                            m_Resource = (CraftResource)reader.ReadEncodedInt();
+                            this.m_Resource = (CraftResource)reader.ReadEncodedInt();
                         else
-                            m_Resource = DefaultResource;
+                            this.m_Resource = this.DefaultResource;
 
-                        if (m_Resource == CraftResource.None)
-                            m_Resource = DefaultResource;
+                        if (this.m_Resource == CraftResource.None)
+                            this.m_Resource = this.DefaultResource;
 
                         if (GetSaveFlag(flags, SaveFlag.BaseArmor))
-                            m_ArmorBase = reader.ReadEncodedInt();
+                            this.m_ArmorBase = reader.ReadEncodedInt();
                         else
-                            m_ArmorBase = -1;
+                            this.m_ArmorBase = -1;
 
                         if (GetSaveFlag(flags, SaveFlag.StrBonus))
-                            m_StrBonus = reader.ReadEncodedInt();
+                            this.m_StrBonus = reader.ReadEncodedInt();
                         else
-                            m_StrBonus = -1;
+                            this.m_StrBonus = -1;
 
                         if (GetSaveFlag(flags, SaveFlag.DexBonus))
-                            m_DexBonus = reader.ReadEncodedInt();
+                            this.m_DexBonus = reader.ReadEncodedInt();
                         else
-                            m_DexBonus = -1;
+                            this.m_DexBonus = -1;
 
                         if (GetSaveFlag(flags, SaveFlag.IntBonus))
-                            m_IntBonus = reader.ReadEncodedInt();
+                            this.m_IntBonus = reader.ReadEncodedInt();
                         else
-                            m_IntBonus = -1;
+                            this.m_IntBonus = -1;
 
                         if (GetSaveFlag(flags, SaveFlag.StrReq))
-                            m_StrReq = reader.ReadEncodedInt();
+                            this.m_StrReq = reader.ReadEncodedInt();
                         else
-                            m_StrReq = -1;
+                            this.m_StrReq = -1;
 
                         if (GetSaveFlag(flags, SaveFlag.DexReq))
-                            m_DexReq = reader.ReadEncodedInt();
+                            this.m_DexReq = reader.ReadEncodedInt();
                         else
-                            m_DexReq = -1;
+                            this.m_DexReq = -1;
 
                         if (GetSaveFlag(flags, SaveFlag.IntReq))
-                            m_IntReq = reader.ReadEncodedInt();
+                            this.m_IntReq = reader.ReadEncodedInt();
                         else
-                            m_IntReq = -1;
+                            this.m_IntReq = -1;
 
                         if (GetSaveFlag(flags, SaveFlag.MedAllowance))
-                            m_Meditate = (AMA)reader.ReadEncodedInt();
+                            this.m_Meditate = (AMA)reader.ReadEncodedInt();
                         else
-                            m_Meditate = (AMA)(-1);
+                            this.m_Meditate = (AMA)(-1);
 
                         if (GetSaveFlag(flags, SaveFlag.SkillBonuses))
-                            m_AosSkillBonuses = new AosSkillBonuses(this, reader);
+                            this.m_AosSkillBonuses = new AosSkillBonuses(this, reader);
 
                         if (GetSaveFlag(flags, SaveFlag.PlayerConstructed))
-                            m_PlayerConstructed = true;
+                            this.m_PlayerConstructed = true;
 
                         if (version > 7 && GetSaveFlag(flags, SaveFlag.xAbsorptionAttributes))
-                            m_SAAbsorptionAttributes = new SAAbsorptionAttributes(this, reader);
+                            this.m_SAAbsorptionAttributes = new SAAbsorptionAttributes(this, reader);
                         else
-                            m_SAAbsorptionAttributes = new SAAbsorptionAttributes(this);
+                            this.m_SAAbsorptionAttributes = new SAAbsorptionAttributes(this);
 
                         break;
                     }
                 case 4:
                     {
-                        m_AosAttributes = new AosAttributes(this, reader);
-                        m_AosArmorAttributes = new AosArmorAttributes(this, reader);
+                        this.m_AosAttributes = new AosAttributes(this, reader);
+                        this.m_AosArmorAttributes = new AosArmorAttributes(this, reader);
                         goto case 3;
                     }
                 case 3:
                     {
-                        m_PhysicalBonus = reader.ReadInt();
-                        m_FireBonus = reader.ReadInt();
-                        m_ColdBonus = reader.ReadInt();
-                        m_PoisonBonus = reader.ReadInt();
-                        m_EnergyBonus = reader.ReadInt();
+                        this.m_PhysicalBonus = reader.ReadInt();
+                        this.m_FireBonus = reader.ReadInt();
+                        this.m_ColdBonus = reader.ReadInt();
+                        this.m_PoisonBonus = reader.ReadInt();
+                        this.m_EnergyBonus = reader.ReadInt();
                         goto case 2;
                     }
                 case 2:
                 case 1:
                     {
-                        m_Identified = reader.ReadBool();
+                        this.m_Identified = reader.ReadBool();
                         goto case 0;
                     }
                 case 0:
                     {
-                        m_ArmorBase = reader.ReadInt();
-                        m_MaxHitPoints = reader.ReadInt();
-                        m_HitPoints = reader.ReadInt();
-                        m_Crafter = reader.ReadMobile();
-                        m_Quality = (ArmorQuality)reader.ReadInt();
-                        m_Durability = (ArmorDurabilityLevel)reader.ReadInt();
-                        m_Protection = (ArmorProtectionLevel)reader.ReadInt();
+                        this.m_ArmorBase = reader.ReadInt();
+                        this.m_MaxHitPoints = reader.ReadInt();
+                        this.m_HitPoints = reader.ReadInt();
+                        this.m_Crafter = reader.ReadMobile();
+                        this.m_Quality = (ArmorQuality)reader.ReadInt();
+                        ///
+                        this.m_Cechy = (ArmorCechy)reader.ReadInt();
+                        this.m_Ukrycie = reader.ReadBool();
+                        this.m_Sprawdzony = reader.ReadBool();
+                        ///
+                        this.m_Durability = (ArmorDurabilityLevel)reader.ReadInt();
+                        this.m_Protection = (ArmorProtectionLevel)reader.ReadInt();
 
                         AMT mat = (AMT)reader.ReadInt();
 
-                        if (m_ArmorBase == RevertArmorBase)
-                            m_ArmorBase = -1;
+                        if (this.m_ArmorBase == this.RevertArmorBase)
+                            this.m_ArmorBase = -1;
 
-                        /*m_BodyPos = (ArmorBodyType)*/reader.ReadInt();
+                        /*m_BodyPos = (ArmorBodyType)*/
+                        reader.ReadInt();
 
                         if (version < 4)
                         {
-                            m_AosAttributes = new AosAttributes(this);
-                            m_AosArmorAttributes = new AosArmorAttributes(this);
+                            this.m_AosAttributes = new AosAttributes(this);
+                            this.m_AosArmorAttributes = new AosArmorAttributes(this);
                         }
 
-                        if (version < 3 && m_Quality == ArmorQuality.Exceptional)
-                            DistributeBonuses(6);
+                        if (version < 3 && this.m_Quality == ArmorQuality.Doskona³)
+                            this.DistributeBonuses(6);
+
+                        if (version < 3 && this.m_Quality == ArmorQuality.Wspania³)
+                            this.DistributeBonuses(6);
+
+                        if (version < 3 && this.m_Quality == ArmorQuality.Wyj¹tkow)
+                            this.DistributeBonuses(6);
+
+                        if (version < 3 && this.m_Quality == ArmorQuality.Niezwyk³)
+                            this.DistributeBonuses(6);
+
+                        if (version < 3 && this.m_Quality == ArmorQuality.Cudown)
+                            this.DistributeBonuses(6);
+
+                        if (version < 3 && this.m_Quality == ArmorQuality.Mistyczn)
+                            this.DistributeBonuses(6);
+
+                        if (version < 3 && this.m_Quality == ArmorQuality.Legendarn)
+                            this.DistributeBonuses(6);
 
                         if (version >= 2)
                         {
-                            m_Resource = (CraftResource)reader.ReadInt();
+                            this.m_Resource = (CraftResource)reader.ReadInt();
                         }
                         else
                         {
                             OreInfo info;
 
-                            switch ( reader.ReadInt() )
+                            switch (reader.ReadInt())
                             {
                                 default:
                                 case 0:
@@ -1756,83 +1858,83 @@ namespace Server.Items
                                     break;
                             }
 
-                            m_Resource = CraftResources.GetFromOreInfo(info, mat);
+                            this.m_Resource = CraftResources.GetFromOreInfo(info, mat);
                         }
 
-                        m_StrBonus = reader.ReadInt();
-                        m_DexBonus = reader.ReadInt();
-                        m_IntBonus = reader.ReadInt();
-                        m_StrReq = reader.ReadInt();
-                        m_DexReq = reader.ReadInt();
-                        m_IntReq = reader.ReadInt();
+                        this.m_StrBonus = reader.ReadInt();
+                        this.m_DexBonus = reader.ReadInt();
+                        this.m_IntBonus = reader.ReadInt();
+                        this.m_StrReq = reader.ReadInt();
+                        this.m_DexReq = reader.ReadInt();
+                        this.m_IntReq = reader.ReadInt();
 
-                        if (m_StrBonus == OldStrBonus)
-                            m_StrBonus = -1;
+                        if (this.m_StrBonus == this.OldStrBonus)
+                            this.m_StrBonus = -1;
 
-                        if (m_DexBonus == OldDexBonus)
-                            m_DexBonus = -1;
+                        if (this.m_DexBonus == this.OldDexBonus)
+                            this.m_DexBonus = -1;
 
-                        if (m_IntBonus == OldIntBonus)
-                            m_IntBonus = -1;
+                        if (this.m_IntBonus == this.OldIntBonus)
+                            this.m_IntBonus = -1;
 
-                        if (m_StrReq == OldStrReq)
-                            m_StrReq = -1;
+                        if (this.m_StrReq == this.OldStrReq)
+                            this.m_StrReq = -1;
 
-                        if (m_DexReq == OldDexReq)
-                            m_DexReq = -1;
+                        if (this.m_DexReq == this.OldDexReq)
+                            this.m_DexReq = -1;
 
-                        if (m_IntReq == OldIntReq)
-                            m_IntReq = -1;
+                        if (this.m_IntReq == this.OldIntReq)
+                            this.m_IntReq = -1;
 
-                        m_Meditate = (AMA)reader.ReadInt();
+                        this.m_Meditate = (AMA)reader.ReadInt();
 
-                        if (m_Meditate == OldMedAllowance)
-                            m_Meditate = (AMA)(-1);
+                        if (this.m_Meditate == this.OldMedAllowance)
+                            this.m_Meditate = (AMA)(-1);
 
-                        if (m_Resource == CraftResource.None)
+                        if (this.m_Resource == CraftResource.None)
                         {
                             if (mat == ArmorMaterialType.Studded || mat == ArmorMaterialType.Leather)
-                                m_Resource = CraftResource.RegularLeather;
+                                this.m_Resource = CraftResource.RegularLeather;
                             else if (mat == ArmorMaterialType.Spined)
-                                m_Resource = CraftResource.SpinedLeather;
+                                this.m_Resource = CraftResource.SpinedLeather;
                             else if (mat == ArmorMaterialType.Horned)
-                                m_Resource = CraftResource.HornedLeather;
+                                this.m_Resource = CraftResource.HornedLeather;
                             else if (mat == ArmorMaterialType.Barbed)
-                                m_Resource = CraftResource.BarbedLeather;
+                                this.m_Resource = CraftResource.BarbedLeather;
                             else
-                                m_Resource = CraftResource.Iron;
+                                this.m_Resource = CraftResource.Iron;
                         }
 
-                        if (m_MaxHitPoints == 0 && m_HitPoints == 0)
-                            m_HitPoints = m_MaxHitPoints = Utility.RandomMinMax(InitMinHits, InitMaxHits);
+                        if (this.m_MaxHitPoints == 0 && this.m_HitPoints == 0)
+                            this.m_HitPoints = this.m_MaxHitPoints = Utility.RandomMinMax(this.InitMinHits, this.InitMaxHits);
 
                         break;
                     }
             }
 
             #region Mondain's Legacy Sets
-            if (m_SetAttributes == null)
-                m_SetAttributes = new AosAttributes(this);
+            if (this.m_SetAttributes == null)
+                this.m_SetAttributes = new AosAttributes(this);
 
-            if (m_SetSkillBonuses == null)
-                m_SetSkillBonuses = new AosSkillBonuses(this);
+            if (this.m_SetSkillBonuses == null)
+                this.m_SetSkillBonuses = new AosSkillBonuses(this);
             #endregion
 
-            if (m_AosSkillBonuses == null)
-                m_AosSkillBonuses = new AosSkillBonuses(this);
+            if (this.m_AosSkillBonuses == null)
+                this.m_AosSkillBonuses = new AosSkillBonuses(this);
 
-            if (Core.AOS && Parent is Mobile)
-                m_AosSkillBonuses.AddTo((Mobile)Parent);
+            if (Core.AOS && this.Parent is Mobile)
+                this.m_AosSkillBonuses.AddTo((Mobile)this.Parent);
 
-            int strBonus = ComputeStatBonus(StatType.Str);
-            int dexBonus = ComputeStatBonus(StatType.Dex);
-            int intBonus = ComputeStatBonus(StatType.Int);
+            int strBonus = this.ComputeStatBonus(StatType.Str);
+            int dexBonus = this.ComputeStatBonus(StatType.Dex);
+            int intBonus = this.ComputeStatBonus(StatType.Int);
 
-            if (Parent is Mobile && (strBonus != 0 || dexBonus != 0 || intBonus != 0))
+            if (this.Parent is Mobile && (strBonus != 0 || dexBonus != 0 || intBonus != 0))
             {
-                Mobile m = (Mobile)Parent;
+                Mobile m = (Mobile)this.Parent;
 
-                string modName = Serial.ToString();
+                string modName = this.Serial.ToString();
 
                 if (strBonus != 0)
                     m.AddStatMod(new StatMod(StatType.Str, modName + "Str", strBonus, TimeSpan.Zero));
@@ -1844,11 +1946,11 @@ namespace Server.Items
                     m.AddStatMod(new StatMod(StatType.Int, modName + "Int", intBonus, TimeSpan.Zero));
             }
 
-            if (Parent is Mobile)
-                ((Mobile)Parent).CheckStatTimers();
+            if (this.Parent is Mobile)
+                ((Mobile)this.Parent).CheckStatTimers();
 
             if (version < 7)
-                m_PlayerConstructed = true; // we don't know, so, assume it's crafted
+                this.m_PlayerConstructed = true; // we don't know, so, assume it's crafted
         }
 
         public virtual CraftResource DefaultResource
@@ -1862,28 +1964,32 @@ namespace Server.Items
         public BaseArmor(int itemID)
             : base(itemID)
         {
-            m_Quality = ArmorQuality.Regular;
-            m_Durability = ArmorDurabilityLevel.Regular;
-            m_Crafter = null;
+            this.m_Quality = ArmorQuality.None;
+            ///
+            this.m_Cechy = ArmorCechy.None;
+            this.m_Ukrycie = true;
+            ///
+            this.m_Durability = ArmorDurabilityLevel.Regular;
+            this.m_Crafter = null;
 
-            m_Resource = DefaultResource;
-            Hue = CraftResources.GetHue(m_Resource);
+            this.m_Resource = this.DefaultResource;
+            this.Hue = CraftResources.GetHue(this.m_Resource);
 
-            m_HitPoints = m_MaxHitPoints = Utility.RandomMinMax(InitMinHits, InitMaxHits);
+            this.m_HitPoints = this.m_MaxHitPoints = Utility.RandomMinMax(this.InitMinHits, this.InitMaxHits);
 
-            Layer = (Layer)ItemData.Quality;
+            this.Layer = (Layer)this.ItemData.Quality;
 
-            m_AosAttributes = new AosAttributes(this);
-            m_AosArmorAttributes = new AosArmorAttributes(this);
-            m_AosSkillBonuses = new AosSkillBonuses(this);
+            this.m_AosAttributes = new AosAttributes(this);
+            this.m_AosArmorAttributes = new AosArmorAttributes(this);
+            this.m_AosSkillBonuses = new AosSkillBonuses(this);
 
-            m_SAAbsorptionAttributes = new SAAbsorptionAttributes(this);
+            this.m_SAAbsorptionAttributes = new SAAbsorptionAttributes(this);
 
             #region Mondain's Legacy Sets
-            m_SetAttributes = new AosAttributes(this);
-            m_SetSkillBonuses = new AosSkillBonuses(this);
+            this.m_SetAttributes = new AosAttributes(this);
+            this.m_SetSkillBonuses = new AosSkillBonuses(this);
             #endregion
-            m_AosSkillBonuses = new AosSkillBonuses(this);
+            this.m_AosSkillBonuses = new AosSkillBonuses(this);
 
             // Mod to randomly add sockets and socketability features to armor. These settings will yield
             // 2% drop rate of socketed/socketable items
@@ -1895,13 +2001,13 @@ namespace Server.Items
             // the remainder will be 0 socket (31.4% in this case)
             // uncomment the next line to prevent artifacts from being socketed
             // if(ArtifactRarity == 0)
-            if (XmlConfig.XmlSocketsEnabled) 
+            if (XmlConfig.XmlSocketsEnabled)
                 XmlSockets.ConfigureRandom(this, 2.0, 0.1, 0.5, 3.0, 15.0, 50.0);
         }
 
         public override bool AllowSecureTrade(Mobile from, Mobile to, Mobile newOwner, bool accepted)
         {
-            if (!Ethic.CheckTrade(from, to, newOwner, this))
+            if (!Ethics.Ethic.CheckTrade(from, to, newOwner, this))
                 return false;
 
             return base.AllowSecureTrade(from, to, newOwner, accepted);
@@ -1925,39 +2031,47 @@ namespace Server.Items
 
         public override bool CanEquip(Mobile from)
         {
-            if (!Ethic.CheckEquip(from, this))
+            if (!Ethics.Ethic.CheckEquip(from, this))
                 return false;
 
             if (from.IsPlayer())
             {
-                if (from.Race == Race.Gargoyle && !CanBeWornByGargoyles)
+                if (from.Race == Race.Gargoyle && !this.CanBeWornByGargoyles)
                 {
                     from.SendLocalizedMessage(1111708); // Gargoyles can't wear this.
                     return false;
                 }
-                if (RequiredRace != null && from.Race != RequiredRace)
+                #region ItemID_Mods
+                if (m_Identified == false)
                 {
-                    if (RequiredRace == Race.Elf)
+                    from.SendMessage("Ten przedmiot jest niezidentyfikowany!");
+                    return false;
+                }
+                #endregion
+
+                if (this.RequiredRace != null && from.Race != this.RequiredRace)
+                {
+                    if (this.RequiredRace == Race.Elf)
                         from.SendLocalizedMessage(1072203); // Only Elves may use this.
-                    else if (RequiredRace == Race.Gargoyle)
+                    else if (this.RequiredRace == Race.Gargoyle)
                         from.SendLocalizedMessage(1111707); // Only gargoyles can wear this.
                     else
-                        from.SendMessage("Only {0} may use this.", RequiredRace.PluralName);
+                        from.SendMessage("Only {0} may use this.", this.RequiredRace.PluralName);
 
                     return false;
                 }
-                else if (!AllowMaleWearer && !from.Female)
+                else if (!this.AllowMaleWearer && !from.Female)
                 {
-                    if (AllowFemaleWearer)
+                    if (this.AllowFemaleWearer)
                         from.SendLocalizedMessage(1010388); // Only females can wear this.
                     else
                         from.SendMessage("You may not wear this.");
 
                     return false;
                 }
-                else if (!AllowFemaleWearer && from.Female)
+                else if (!this.AllowFemaleWearer && from.Female)
                 {
-                    if (AllowMaleWearer)
+                    if (this.AllowMaleWearer)
                         from.SendLocalizedMessage(1063343); // Only males can wear this.
                     else
                         from.SendMessage("You may not wear this.");
@@ -1965,7 +2079,7 @@ namespace Server.Items
                     return false;
                 }
                 #region Personal Bless Deed
-                else if (BlessedBy != null && BlessedBy != from)
+                else if (this.BlessedBy != null && this.BlessedBy != from)
                 {
                     from.SendLocalizedMessage(1075277); // That item is blessed by another player.
 
@@ -1974,9 +2088,9 @@ namespace Server.Items
                 #endregion
                 else
                 {
-                    int strBonus = ComputeStatBonus(StatType.Str), strReq = ComputeStatReq(StatType.Str);
-                    int dexBonus = ComputeStatBonus(StatType.Dex), dexReq = ComputeStatReq(StatType.Dex);
-                    int intBonus = ComputeStatBonus(StatType.Int), intReq = ComputeStatReq(StatType.Int);
+                    int strBonus = this.ComputeStatBonus(StatType.Str), strReq = this.ComputeStatReq(StatType.Str);
+                    int dexBonus = this.ComputeStatBonus(StatType.Dex), dexReq = this.ComputeStatReq(StatType.Dex);
+                    int intBonus = this.ComputeStatBonus(StatType.Int), intReq = this.ComputeStatReq(StatType.Int);
 
                     if (from.Dex < dexReq || (from.Dex + dexBonus) < 1)
                     {
@@ -1996,7 +2110,7 @@ namespace Server.Items
                 }
             }
 
-            if (!XmlAttach.CheckCanEquip(this, from))
+            if (!Server.Engines.XmlSpawner2.XmlAttach.CheckCanEquip(this, from))
                 return false;
             else
                 return base.CanEquip(from);
@@ -2007,10 +2121,10 @@ namespace Server.Items
             if (base.CheckPropertyConfliction(m))
                 return true;
 
-            if (Layer == Layer.Pants)
+            if (this.Layer == Layer.Pants)
                 return (m.FindItemOnLayer(Layer.InnerLegs) != null);
 
-            if (Layer == Layer.Shirt)
+            if (this.Layer == Layer.Shirt)
                 return (m.FindItemOnLayer(Layer.InnerTorso) != null);
 
             return false;
@@ -2020,13 +2134,13 @@ namespace Server.Items
         {
             from.CheckStatTimers();
 
-            int strBonus = ComputeStatBonus(StatType.Str);
-            int dexBonus = ComputeStatBonus(StatType.Dex);
-            int intBonus = ComputeStatBonus(StatType.Int);
+            int strBonus = this.ComputeStatBonus(StatType.Str);
+            int dexBonus = this.ComputeStatBonus(StatType.Dex);
+            int intBonus = this.ComputeStatBonus(StatType.Int);
 
             if (strBonus != 0 || dexBonus != 0 || intBonus != 0)
             {
-                string modName = Serial.ToString();
+                string modName = this.Serial.ToString();
 
                 if (strBonus != 0)
                     from.AddStatMod(new StatMod(StatType.Str, modName + "Str", strBonus, TimeSpan.Zero));
@@ -2038,46 +2152,46 @@ namespace Server.Items
                     from.AddStatMod(new StatMod(StatType.Int, modName + "Int", intBonus, TimeSpan.Zero));
             }
 
-            XmlAttach.CheckOnEquip(this, from);
+            Server.Engines.XmlSpawner2.XmlAttach.CheckOnEquip(this, from);
 
             return base.OnEquip(from);
         }
 
-		public override void OnRemoved(IEntity parent)
+        public override void OnRemoved(object parent)
         {
             if (parent is Mobile)
             {
                 Mobile m = (Mobile)parent;
-                string modName = Serial.ToString();
+                string modName = this.Serial.ToString();
 
                 m.RemoveStatMod(modName + "Str");
                 m.RemoveStatMod(modName + "Dex");
                 m.RemoveStatMod(modName + "Int");
 
                 if (Core.AOS)
-                    m_AosSkillBonuses.Remove();
+                    this.m_AosSkillBonuses.Remove();
 
                 ((Mobile)parent).Delta(MobileDelta.Armor); // Tell them armor rating has changed
                 m.CheckStatTimers();
 
                 #region Mondain's Legacy Sets
-                if (IsSetItem && m_SetEquipped)
-                    SetHelper.RemoveSetBonus(m, SetID, this);
+                if (this.IsSetItem && this.m_SetEquipped)
+                    SetHelper.RemoveSetBonus(m, this.SetID, this);
                 #endregion
             }
 
-            XmlAttach.CheckOnRemoved(this, parent);
+            Server.Engines.XmlSpawner2.XmlAttach.CheckOnRemoved(this, parent);
 
             base.OnRemoved(parent);
         }
 
         public virtual int OnHit(BaseWeapon weapon, int damageTaken)
         {
-            double HalfAr = ArmorRating / 2.0;
+            double HalfAr = this.ArmorRating / 2.0;
             int Absorbed = (int)(HalfAr + HalfAr * Utility.RandomDouble());
 
             damageTaken -= Absorbed;
-            if (damageTaken < 0) 
+            if (damageTaken < 0)
                 damageTaken = 0;
 
             if (Absorbed < 2)
@@ -2085,9 +2199,9 @@ namespace Server.Items
 
             if (25 > Utility.Random(100)) // 25% chance to lower durability
             {
-                if (Core.AOS && m_AosArmorAttributes.SelfRepair + (IsSetItem && m_SetEquipped ? m_SetSelfRepair : 0) > Utility.Random(10))
+                if (Core.AOS && this.m_AosArmorAttributes.SelfRepair + (this.IsSetItem && this.m_SetEquipped ? this.m_SetSelfRepair : 0) > Utility.Random(10))
                 {
-                    HitPoints += 2;
+                    this.HitPoints += 2;
                 }
                 else
                 {
@@ -2098,31 +2212,31 @@ namespace Server.Items
                     else
                         wear = Utility.Random(2);
 
-                    if (wear > 0 && m_MaxHitPoints > 0)
+                    if (wear > 0 && this.m_MaxHitPoints > 0)
                     {
-                        if (m_HitPoints >= wear)
+                        if (this.m_HitPoints >= wear)
                         {
-                            HitPoints -= wear;
+                            this.HitPoints -= wear;
                             wear = 0;
                         }
                         else
                         {
-                            wear -= HitPoints;
-                            HitPoints = 0;
+                            wear -= this.HitPoints;
+                            this.HitPoints = 0;
                         }
 
                         if (wear > 0)
                         {
-                            if (m_MaxHitPoints > wear)
+                            if (this.m_MaxHitPoints > wear)
                             {
-                                MaxHitPoints -= wear;
+                                this.MaxHitPoints -= wear;
 
-                                if (Parent is Mobile)
-                                    ((Mobile)Parent).LocalOverheadMessage(MessageType.Regular, 0x3B2, 1061121); // Your equipment is severely damaged.
+                                if (this.Parent is Mobile)
+                                    ((Mobile)this.Parent).LocalOverheadMessage(MessageType.Regular, 0x3B2, 1061121); // Your equipment is severely damaged.
                             }
                             else
                             {
-                                Delete();
+                                this.Delete();
                             }
                         }
                     }
@@ -2134,10 +2248,10 @@ namespace Server.Items
 
         private string GetNameString()
         {
-            string name = Name;
+            string name = this.Name;
 
             if (name == null)
-                name = String.Format("#{0}", LabelNumber);
+                name = String.Format("#{0}", this.LabelNumber);
 
             return name;
         }
@@ -2152,106 +2266,2518 @@ namespace Server.Items
             set
             {
                 base.Hue = value;
-                InvalidateProperties();
+                this.InvalidateProperties();
             }
         }
 
         public override void AddNameProperty(ObjectPropertyList list)
         {
-            int oreType;
+            string oreType;
 
-            switch ( m_Resource )
+            if (Hue == 0)
             {
-                case CraftResource.DullCopper:
-                    oreType = 1053108;
-                    break; // dull copper
-                case CraftResource.ShadowIron:
-                    oreType = 1053107;
-                    break; // shadow iron
-                case CraftResource.Copper:
-                    oreType = 1053106;
-                    break; // copper
-                case CraftResource.Bronze:
-                    oreType = 1053105;
-                    break; // bronze
-                case CraftResource.Gold:
-                    oreType = 1053104;
-                    break; // golden
-                case CraftResource.Agapite:
-                    oreType = 1053103;
-                    break; // agapite
-                case CraftResource.Verite:
-                    oreType = 1053102;
-                    break; // verite
-                case CraftResource.Valorite:
-                    oreType = 1053101;
-                    break; // valorite
-                case CraftResource.SpinedLeather:
-                    oreType = 1061118;
-                    break; // spined
-                case CraftResource.HornedLeather:
-                    oreType = 1061117;
-                    break; // horned
-                case CraftResource.BarbedLeather:
-                    oreType = 1061116;
-                    break; // barbed
-                case CraftResource.RedScales:
-                    oreType = 1060814;
-                    break; // red
-                case CraftResource.YellowScales:
-                    oreType = 1060818;
-                    break; // yellow
-                case CraftResource.BlackScales:
-                    oreType = 1060820;
-                    break; // black
-                case CraftResource.GreenScales:
-                    oreType = 1060819;
-                    break; // green
-                case CraftResource.WhiteScales:
-                    oreType = 1060821;
-                    break; // white
-                case CraftResource.BlueScales:
-                    oreType = 1060815;
-                    break; // blue
-                case CraftResource.OakWood:
-                    oreType = 1072533; 
-                    break; // oak
-                case CraftResource.AshWood:
-                    oreType = 1072534;
-                    break; // ash
-                case CraftResource.YewWood:
-                    oreType = 1072535;
-                    break; // yew
-                case CraftResource.Heartwood:
-                    oreType = 1072536;
-                    break; // heartwood
-                case CraftResource.Bloodwood:
-                    oreType = 1072538;
-                    break; // bloodwood
-                case CraftResource.Frostwood:
-                    oreType = 1072539;
-                    break; // frostwood
-                default:
-                    oreType = 0;
-                    break;
-            }
-
-            if (m_Quality == ArmorQuality.Exceptional)
-            {
-                if (oreType != 0)
-                    list.Add(1053100, "#{0}\t{1}", oreType, GetNameString()); // exceptional ~1_oretype~ ~2_armortype~
-                else
-                    list.Add(1050040, GetNameString()); // exceptional ~1_ITEMNAME~
+                oreType = "";
             }
             else
             {
-                if (oreType != 0)
-                    list.Add(1053099, "#{0}\t{1}", oreType, GetNameString()); // ~1_oretype~ ~2_armortype~
-                else if (Name == null)
-                    list.Add(LabelNumber);
-                else
-                    list.Add(Name);
+                switch (m_Resource)
+                {
+                    case CraftResource.DullCopper: oreType = " z Matowej Miedzi"; break; // dull copper
+                    case CraftResource.ShadowIron: oreType = " z Cienistego ¯elaza"; break; // shadow iron
+                    case CraftResource.Copper: oreType = " z Miedzi"; break; // copper
+                    case CraftResource.Bronze: oreType = " z Br¹zu"; break; // bronze					
+                    case CraftResource.Gold: oreType = " ze Z³ota"; break; // golden
+                    case CraftResource.Agapite: oreType = " z Agapitu"; break; // agapite					
+                    case CraftResource.Verite: oreType = " z Verytu"; break; // verite
+                    case CraftResource.Valorite: oreType = " z Valorytu"; break; // valorite
+                    case CraftResource.SpinedLeather: oreType = " z Szarych skór"; break; // Spined
+                    case CraftResource.HornedLeather: oreType = " z Czerwonych skór"; break; // Horned
+                    case CraftResource.BarbedLeather: oreType = " z Zielonych skór"; break; // Barbed
+
+                    default: oreType = ""; break;
+                }
             }
+
+            if (this.Name == null)
+            {
+                list.Add(this.LabelNumber);
+            }
+
+            if (m_Identified == false)
+            {
+                if (this.Name != null && m_Sprawdzony == false)
+                {
+                    list.Add(this.Name);
+                    list.Add("<BASEFONT COLOR=YELLOW><B>[Niezidentyfikowany]</B><BASEFONT COLOR=WHITE>"); // Unidentified
+
+                }
+
+                if (this.Name != null && m_Sprawdzony == true)
+                {
+                    list.Add(this.Name);
+                    //list.Add("<BASEFONT COLOR=YELLOW><B>[W£aœciwoœci]</B><BASEFONT COLOR=WHITE>"); // Unidentified
+
+                    base.AddResistanceProperties(list);
+                }
+            }
+
+            if (m_Identified == true)
+            {
+
+                ////Rodzaj Mêski
+                if (this is PlateGorget || this is PlateHelm || this is ChainCoif || this is ChainHatsuburi || this is LeatherBustierArms || this is LeatherGorget || this is LeatherCap || this is StuddedBustierArms || this is StuddedGorget || this is Buckler || this is BoneHelm || this is WingedHelm || this is VultureHelm || this is RavenHelm
+                || this is RoyalCirclet || this is RoyalCirclet || this is GemmedCirclet || this is Circlet || this is OrcHelm || this is NorseHelm || this is Helmet || this is CloseHelm)
+                {
+                    if (m_Resource == CraftResource.None)
+                    {
+                        if (this.Name == null)
+                        {
+                            list.Add(this.LabelNumber);
+                        }
+                        if (this.Name != null)
+                        {
+                            list.Add(this.Name);
+                        }
+                    }
+
+                    if (m_Resource == CraftResource.Iron)
+                    {
+                        if (this.Name == null)
+                        {
+                            list.Add(this.LabelNumber);
+                        }
+                        if (this.Name != null && this.m_Quality == ArmorQuality.None && this.m_Cechy == ArmorCechy.None)
+                        {
+                            list.Add(this.Name);
+                        }
+                        if (this.Name != null && this.m_Quality != ArmorQuality.None && this.m_Cechy == ArmorCechy.None)
+                        {
+                            list.Add("{0}y " + this.Name, this.Quality);
+                        }
+                        if (this.Name != null && this.m_Quality != ArmorQuality.None && this.m_Cechy != ArmorCechy.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC0033><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add("<BASEFONT COLOR=#0066FF><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add("<BASEFONT COLOR=#2F4F4F><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#6B238E><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC9900><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add("<BASEFONT COLOR=#666600><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add("<BASEFONT COLOR=#855E42><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC3300><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#238E23><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add("{1}y {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                        }
+                        if (this.Name != null && this.m_Quality == ArmorQuality.None && this.m_Cechy != ArmorCechy.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC0033><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add("<BASEFONT COLOR=#0066FF><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add("<BASEFONT COLOR=#2F4F4F><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#6B238E><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC9900><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add("<BASEFONT COLOR=#666600><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add("<BASEFONT COLOR=#855E42><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC3300><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#238E23><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add("{0}y " + this.Name, this.m_Cechy);
+                            }
+                        }
+                    }
+
+                    if (m_Resource == CraftResource.RegularLeather)
+                    {
+                        if (this.Name == null)
+                        {
+                            list.Add(this.LabelNumber);
+                        }
+                        if (this.Name != null && this.m_Quality == ArmorQuality.None && this.m_Cechy == ArmorCechy.None)
+                        {
+                            list.Add(this.Name);
+                        }
+                        if (this.Name != null && this.m_Quality != ArmorQuality.None && this.m_Cechy == ArmorCechy.None)
+                        {
+                            list.Add("{0}y " + this.Name, this.Quality);
+                        }
+                        if (this.Name != null && this.m_Quality != ArmorQuality.None && this.m_Cechy != ArmorCechy.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC0033><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add("<BASEFONT COLOR=#0066FF><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add("<BASEFONT COLOR=#2F4F4F><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#6B238E><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC9900><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add("<BASEFONT COLOR=#666600><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add("<BASEFONT COLOR=#855E42><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC3300><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#238E23><B>{1}y</B><BASEFONT COLOR=YELLOW> {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add("{1}y {0}y " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                        }
+                        if (this.Name != null && this.m_Quality == ArmorQuality.None && this.m_Cechy != ArmorCechy.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC0033><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add("<BASEFONT COLOR=#0066FF><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add("<BASEFONT COLOR=#2F4F4F><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#6B238E><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC9900><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add("<BASEFONT COLOR=#666600><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add("<BASEFONT COLOR=#855E42><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC3300><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#238E23><B>{0}y</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add("{0}y " + this.Name, this.m_Cechy);
+                            }
+                        }
+                    }
+
+                    if (m_Cechy == ArmorCechy.None && m_Resource != CraftResource.Iron && m_Resource != CraftResource.RegularLeather)
+                    {
+                        if (this.m_Quality == ArmorQuality.None)
+                        {
+                            list.Add("{1}{0}", oreType, this.GetNameString());
+                        }
+
+                        if (this.m_Quality == ArmorQuality.S³ab)
+                        {
+                            list.Add(1041522, "S³aby \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Przeciêtn)
+                        {
+                            list.Add(1041522, "Przeciêtny \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Zwyk³)
+                        {
+                            list.Add(1041522, "Zwyk³y \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Dobr)
+                        {
+                            list.Add(1041522, "Dobry \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Doskona³)
+                        {
+                            list.Add(1041522, "Doskona³y \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Wspania³)
+                        {
+                            list.Add(1041522, "Wspania³y \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Wyj¹tkow)
+                        {
+                            list.Add(1041522, "Wyj¹tkowy \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Niezwyk³)
+                        {
+                            list.Add(1041522, "Niezwyk³y \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Cudown)
+                        {
+                            list.Add(1041522, "Cudowny \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Mistyczn)
+                        {
+                            list.Add(1041522, "Mistyczny \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Legendarn)
+                        {
+                            list.Add(1041522, "Legendarny \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+                    }
+
+                    if (m_Cechy != ArmorCechy.None && m_Resource != CraftResource.Iron && m_Resource != CraftResource.RegularLeather)
+                    {
+                        if (this.m_Quality == ArmorQuality.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#CC0033><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#0066FF><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#2F4F4F><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#6B238E><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#CC9900><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#666600><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#855E42><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#CC3300><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#238E23><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, " {2}y \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.S³ab)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "S³aby <BASEFONT COLOR=#CC0033><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "S³aby <BASEFONT COLOR=#0066FF><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "S³aby <BASEFONT COLOR=#2F4F4F><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "S³aby <BASEFONT COLOR=#6B238E><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "S³aby <BASEFONT COLOR=#CC9900><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "S³aby <BASEFONT COLOR=#666600><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "S³aby <BASEFONT COLOR=#855E42><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "S³aby <BASEFONT COLOR=#CC3300><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "S³aby <BASEFONT COLOR=#238E23><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "S³aby {2}y \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Przeciêtn)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Przeciêtny <BASEFONT COLOR=#CC0033><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Przeciêtny <BASEFONT COLOR=#0066FF><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Przeciêtny <BASEFONT COLOR=#2F4F4F><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Przeciêtny <BASEFONT COLOR=#6B238E><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Przeciêtny <BASEFONT COLOR=#CC9900><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Przeciêtny <BASEFONT COLOR=#666600><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Przeciêtny <BASEFONT COLOR=#855E42><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Przeciêtny <BASEFONT COLOR=#CC3300><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Przeciêtny <BASEFONT COLOR=#238E23><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Przeciêtny {2}y \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Zwyk³)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Zwyk³y <BASEFONT COLOR=#CC0033><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Zwyk³y <BASEFONT COLOR=#0066FF><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Zwyk³y <BASEFONT COLOR=#2F4F4F><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Zwyk³y <BASEFONT COLOR=#6B238E><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Zwyk³y <BASEFONT COLOR=#CC9900><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Zwyk³y <BASEFONT COLOR=#666600><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Zwyk³y <BASEFONT COLOR=#855E42><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Zwyk³y <BASEFONT COLOR=#CC3300><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Zwyk³y <BASEFONT COLOR=#238E23><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Zwyk³y {2}y \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Dobr)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Dobry <BASEFONT COLOR=#CC0033><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Dobry <BASEFONT COLOR=#0066FF><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Dobry <BASEFONT COLOR=#2F4F4F><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Dobry <BASEFONT COLOR=#6B238E><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Dobry <BASEFONT COLOR=#CC9900><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Dobry <BASEFONT COLOR=#666600><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Dobry <BASEFONT COLOR=#855E42><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Dobry <BASEFONT COLOR=#CC3300><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Dobry <BASEFONT COLOR=#238E23><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Dobry {2}y \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Doskona³)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Doskona³y <BASEFONT COLOR=#CC0033><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Doskona³y <BASEFONT COLOR=#0066FF><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Doskona³y <BASEFONT COLOR=#2F4F4F><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Doskona³y <BASEFONT COLOR=#6B238E><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Doskona³y <BASEFONT COLOR=#CC9900><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Doskona³y <BASEFONT COLOR=#666600><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Doskona³y <BASEFONT COLOR=#855E42><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Doskona³y <BASEFONT COLOR=#CC3300><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Doskona³y <BASEFONT COLOR=#238E23><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Doskona³y {2}y \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Wspania³)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Wspania³y <BASEFONT COLOR=#CC0033><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Wspania³y <BASEFONT COLOR=#0066FF><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Wspania³y <BASEFONT COLOR=#2F4F4F><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Wspania³y <BASEFONT COLOR=#6B238E><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Wspania³y <BASEFONT COLOR=#CC9900><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Wspania³y <BASEFONT COLOR=#666600><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Wspania³y <BASEFONT COLOR=#855E42><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Wspania³y <BASEFONT COLOR=#CC3300><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Wspania³y <BASEFONT COLOR=#238E23><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Wspania³y {2}y \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Wyj¹tkow)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Wyj¹tkowy <BASEFONT COLOR=#CC0033><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Wyj¹tkowy <BASEFONT COLOR=#0066FF><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Wyj¹tkowy <BASEFONT COLOR=#2F4F4F><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Wyj¹tkowy <BASEFONT COLOR=#6B238E><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Wyj¹tkowy <BASEFONT COLOR=#CC9900><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Wyj¹tkowy <BASEFONT COLOR=#666600><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Wyj¹tkowy <BASEFONT COLOR=#855E42><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Wyj¹tkowy <BASEFONT COLOR=#CC3300><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Wyj¹tkowy <BASEFONT COLOR=#238E23><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Wyj¹tkowy {2}y \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Niezwyk³)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Niezwyk³y <BASEFONT COLOR=#CC0033><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Niezwyk³y <BASEFONT COLOR=#0066FF><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Niezwyk³y <BASEFONT COLOR=#2F4F4F><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Niezwyk³y <BASEFONT COLOR=#6B238E><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Niezwyk³y <BASEFONT COLOR=#CC9900><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Niezwyk³y <BASEFONT COLOR=#666600><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Niezwyk³y <BASEFONT COLOR=#855E42><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Niezwyk³y <BASEFONT COLOR=#CC3300><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Niezwyk³y <BASEFONT COLOR=#238E23><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Niezwyk³y {2}y \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Cudown)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Cudowny <BASEFONT COLOR=#CC0033><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Cudowny <BASEFONT COLOR=#0066FF><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Cudowny <BASEFONT COLOR=#2F4F4F><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Cudowny <BASEFONT COLOR=#6B238E><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Cudowny <BASEFONT COLOR=#CC9900><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Cudowny <BASEFONT COLOR=#666600><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Cudowny <BASEFONT COLOR=#855E42><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Cudowny <BASEFONT COLOR=#CC3300><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Cudowny <BASEFONT COLOR=#238E23><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Cudowny {2}y \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Mistyczn)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Mistyczny <BASEFONT COLOR=#CC0033><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Mistyczny <BASEFONT COLOR=#0066FF><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Mistyczny <BASEFONT COLOR=#2F4F4F><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Mistyczny <BASEFONT COLOR=#6B238E><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Mistyczny <BASEFONT COLOR=#CC9900><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Mistyczny <BASEFONT COLOR=#666600><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Mistyczny <BASEFONT COLOR=#855E42><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Mistyczny <BASEFONT COLOR=#CC3300><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Mistyczny <BASEFONT COLOR=#238E23><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Mistyczny {2}y \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Legendarn)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Legendarny <BASEFONT COLOR=#CC0033><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Legendarny <BASEFONT COLOR=#0066FF><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Legendarny <BASEFONT COLOR=#2F4F4F><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Legendarny <BASEFONT COLOR=#6B238E><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Legendarny <BASEFONT COLOR=#CC9900><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Legendarny <BASEFONT COLOR=#666600><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Legendarny <BASEFONT COLOR=#855E42><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Legendarny <BASEFONT COLOR=#CC3300><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Legendarny <BASEFONT COLOR=#238E23><B>{2}y</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Legendarny {2}y \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+                    }
+                }
+                ////Rodzaj ¯eñski
+                if (this is FemalePlateChest || this is PlateChest || this is ChainChest || this is RingmailChest || this is FemaleLeatherChest || this is LeatherChest || this is LeatherSkirt || this is FemaleStuddedChest || this is StuddedChest || this is BronzeShield || this is ChaosShield || this is OrderShield || this is MetalKiteShield || this is HeaterShield || this is MetalShield || this is BoneChest
+                || this is Bascinet)
+                {
+                    if (m_Resource == CraftResource.None)
+                    {
+                        if (this.Name == null)
+                        {
+                            list.Add(this.LabelNumber);
+                        }
+                        if (this.Name != null)
+                        {
+                            list.Add(this.Name);
+                        }
+                    }
+
+                    if (m_Resource == CraftResource.Iron)
+                    {
+                        if (this.Name == null)
+                        {
+                            list.Add(this.LabelNumber);
+                        }
+                        if (this.Name != null && this.m_Quality == ArmorQuality.None && this.m_Cechy == ArmorCechy.None)
+                        {
+                            list.Add(this.Name);
+                        }
+                        if (this.Name != null && this.m_Quality != ArmorQuality.None && this.m_Cechy == ArmorCechy.None)
+                        {
+                            list.Add("{0}a " + this.Name, this.Quality);
+                        }
+                        if (this.Name != null && this.m_Quality != ArmorQuality.None && this.m_Cechy != ArmorCechy.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC0033><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add("<BASEFONT COLOR=#0066FF><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add("<BASEFONT COLOR=#2F4F4F><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#6B238E><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC9900><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add("<BASEFONT COLOR=#666600><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add("<BASEFONT COLOR=#855E42><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC3300><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#238E23><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add("{1}a {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                        }
+                        if (this.Name != null && this.m_Quality == ArmorQuality.None && this.m_Cechy != ArmorCechy.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC0033><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add("<BASEFONT COLOR=#0066FF><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add("<BASEFONT COLOR=#2F4F4F><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#6B238E><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC9900><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add("<BASEFONT COLOR=#666600><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add("<BASEFONT COLOR=#855E42><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC3300><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#238E23><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add("{0}a " + this.Name, this.m_Cechy);
+                            }
+                        }
+                    }
+
+                    if (m_Resource == CraftResource.RegularLeather)
+                    {
+                        if (this.Name == null)
+                        {
+                            list.Add(this.LabelNumber);
+                        }
+                        if (this.Name != null && this.m_Quality == ArmorQuality.None && this.m_Cechy == ArmorCechy.None)
+                        {
+                            list.Add(this.Name);
+                        }
+                        if (this.Name != null && this.m_Quality != ArmorQuality.None && this.m_Cechy == ArmorCechy.None)
+                        {
+                            list.Add("{0}a " + this.Name, this.Quality);
+                        }
+                        if (this.Name != null && this.m_Quality != ArmorQuality.None && this.m_Cechy != ArmorCechy.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC0033><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add("<BASEFONT COLOR=#0066FF><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add("<BASEFONT COLOR=#2F4F4F><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#6B238E><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC9900><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add("<BASEFONT COLOR=#666600><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add("<BASEFONT COLOR=#855E42><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC3300><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#238E23><B>{1}a</B><BASEFONT COLOR=YELLOW> {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add("{1}a {0}a " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                        }
+                        if (this.Name != null && this.m_Quality == ArmorQuality.None && this.m_Cechy != ArmorCechy.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC0033><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add("<BASEFONT COLOR=#0066FF><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add("<BASEFONT COLOR=#2F4F4F><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#6B238E><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC9900><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add("<BASEFONT COLOR=#666600><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add("<BASEFONT COLOR=#855E42><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC3300><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#238E23><B>{0}a</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add("{0}a " + this.Name, this.m_Cechy);
+                            }
+                        }
+                    }
+
+                    if (m_Cechy == ArmorCechy.None && m_Resource != CraftResource.Iron && m_Resource != CraftResource.RegularLeather)
+                    {
+                        if (this.m_Quality == ArmorQuality.None)
+                        {
+                            list.Add("{1}{0}", oreType, this.GetNameString());
+                        }
+
+                        if (this.m_Quality == ArmorQuality.S³ab)
+                        {
+                            list.Add(1041522, "S³aba \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Przeciêtn)
+                        {
+                            list.Add(1041522, "Przeciêtna \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Zwyk³)
+                        {
+                            list.Add(1041522, "Zwyk³a \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Dobr)
+                        {
+                            list.Add(1041522, "Dobra \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Doskona³)
+                        {
+                            list.Add(1041522, "Doskona³a \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Wspania³)
+                        {
+                            list.Add(1041522, "Wspania³a \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Wyj¹tkow)
+                        {
+                            list.Add(1041522, "Wyj¹tkowa \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Niezwyk³)
+                        {
+                            list.Add(1041522, "Niezwyk³a \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Cudown)
+                        {
+                            list.Add(1041522, "Cudowna \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Mistyczn)
+                        {
+                            list.Add(1041522, "Mistyczna \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Legendarn)
+                        {
+                            list.Add(1041522, "Legendarna \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+                    }
+
+                    if (m_Cechy != ArmorCechy.None && m_Resource != CraftResource.Iron && m_Resource != CraftResource.RegularLeather)
+                    {
+                        if (this.m_Quality == ArmorQuality.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#CC0033><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#0066FF><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#2F4F4F><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#6B238E><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#CC9900><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#666600><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#855E42><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#CC3300><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#238E23><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, " {2}a \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.S³ab)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "S³aba <BASEFONT COLOR=#CC0033><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "S³aba <BASEFONT COLOR=#0066FF><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "S³aba <BASEFONT COLOR=#2F4F4F><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "S³aba <BASEFONT COLOR=#6B238E><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "S³aba <BASEFONT COLOR=#CC9900><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "S³aba <BASEFONT COLOR=#666600><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "S³aba <BASEFONT COLOR=#855E42><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "S³aba <BASEFONT COLOR=#CC3300><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "S³aba <BASEFONT COLOR=#238E23><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "S³aba {2}a \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Przeciêtn)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Przeciêtna <BASEFONT COLOR=#CC0033><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Przeciêtna <BASEFONT COLOR=#0066FF><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Przeciêtna <BASEFONT COLOR=#2F4F4F><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Przeciêtna <BASEFONT COLOR=#6B238E><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Przeciêtna <BASEFONT COLOR=#CC9900><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Przeciêtna <BASEFONT COLOR=#666600><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Przeciêtna <BASEFONT COLOR=#855E42><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Przeciêtna <BASEFONT COLOR=#CC3300><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Przeciêtna <BASEFONT COLOR=#238E23><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Przeciêtna {2}a \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Zwyk³)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Zwyk³a <BASEFONT COLOR=#CC0033><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Zwyk³a <BASEFONT COLOR=#0066FF><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Zwyk³a <BASEFONT COLOR=#2F4F4F><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Zwyk³a <BASEFONT COLOR=#6B238E><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Zwyk³a <BASEFONT COLOR=#CC9900><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Zwyk³a <BASEFONT COLOR=#666600><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Zwyk³a <BASEFONT COLOR=#855E42><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Zwyk³a <BASEFONT COLOR=#CC3300><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Zwyk³a <BASEFONT COLOR=#238E23><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Zwyk³a {2}a \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Dobr)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Dobra <BASEFONT COLOR=#CC0033><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Dobra <BASEFONT COLOR=#0066FF><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Dobra <BASEFONT COLOR=#2F4F4F><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Dobra <BASEFONT COLOR=#6B238E><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Dobra <BASEFONT COLOR=#CC9900><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Dobra <BASEFONT COLOR=#666600><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Dobra <BASEFONT COLOR=#855E42><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Dobra <BASEFONT COLOR=#CC3300><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Dobra <BASEFONT COLOR=#238E23><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Dobra {2}a \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Doskona³)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Doskona³a <BASEFONT COLOR=#CC0033><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Doskona³a <BASEFONT COLOR=#0066FF><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Doskona³a <BASEFONT COLOR=#2F4F4F><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Doskona³a <BASEFONT COLOR=#6B238E><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Doskona³a <BASEFONT COLOR=#CC9900><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Doskona³a <BASEFONT COLOR=#666600><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Doskona³a <BASEFONT COLOR=#855E42><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Doskona³a <BASEFONT COLOR=#CC3300><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Doskona³a <BASEFONT COLOR=#238E23><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Doskona³a {2}a \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Wspania³)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Wspania³a <BASEFONT COLOR=#CC0033><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Wspania³a <BASEFONT COLOR=#0066FF><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Wspania³a <BASEFONT COLOR=#2F4F4F><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Wspania³a <BASEFONT COLOR=#6B238E><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Wspania³a <BASEFONT COLOR=#CC9900><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Wspania³a <BASEFONT COLOR=#666600><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Wspania³a <BASEFONT COLOR=#855E42><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Wspania³a <BASEFONT COLOR=#CC3300><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Wspania³a <BASEFONT COLOR=#238E23><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Wspania³a {2}a \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Wyj¹tkow)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Wyj¹tkowa <BASEFONT COLOR=#CC0033><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Wyj¹tkowa <BASEFONT COLOR=#0066FF><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Wyj¹tkowa <BASEFONT COLOR=#2F4F4F><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Wyj¹tkowa <BASEFONT COLOR=#6B238E><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Wyj¹tkowa <BASEFONT COLOR=#CC9900><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Wyj¹tkowa <BASEFONT COLOR=#666600><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Wyj¹tkowa <BASEFONT COLOR=#855E42><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Wyj¹tkowa <BASEFONT COLOR=#CC3300><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Wyj¹tkowa <BASEFONT COLOR=#238E23><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Wyj¹tkowa {2}a \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Niezwyk³)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Niezwyk³a <BASEFONT COLOR=#CC0033><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Niezwyk³a <BASEFONT COLOR=#0066FF><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Niezwyk³a <BASEFONT COLOR=#2F4F4F><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Niezwyk³a <BASEFONT COLOR=#6B238E><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Niezwyk³a <BASEFONT COLOR=#CC9900><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Niezwyk³a <BASEFONT COLOR=#666600><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Niezwyk³a <BASEFONT COLOR=#855E42><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Niezwyk³a <BASEFONT COLOR=#CC3300><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Niezwyk³a <BASEFONT COLOR=#238E23><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Niezwyk³a {2}a \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Cudown)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Cudowna <BASEFONT COLOR=#CC0033><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Cudowna <BASEFONT COLOR=#0066FF><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Cudowna <BASEFONT COLOR=#2F4F4F><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Cudowna <BASEFONT COLOR=#6B238E><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Cudowna <BASEFONT COLOR=#CC9900><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Cudowna <BASEFONT COLOR=#666600><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Cudowna <BASEFONT COLOR=#855E42><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Cudowna <BASEFONT COLOR=#CC3300><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Cudowna <BASEFONT COLOR=#238E23><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Cudowna {2}a \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Mistyczn)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Mistyczna <BASEFONT COLOR=#CC0033><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Mistyczna <BASEFONT COLOR=#0066FF><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Mistyczna <BASEFONT COLOR=#2F4F4F><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Mistyczna <BASEFONT COLOR=#6B238E><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Mistyczna <BASEFONT COLOR=#CC9900><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Mistyczna <BASEFONT COLOR=#666600><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Mistyczna <BASEFONT COLOR=#855E42><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Mistyczna <BASEFONT COLOR=#CC3300><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Mistyczna <BASEFONT COLOR=#238E23><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Mistyczna {2}a \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Legendarn)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Legendarna <BASEFONT COLOR=#CC0033><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Legendarna <BASEFONT COLOR=#0066FF><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Legendarna <BASEFONT COLOR=#2F4F4F><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Legendarna <BASEFONT COLOR=#6B238E><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Legendarna <BASEFONT COLOR=#CC9900><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Legendarna <BASEFONT COLOR=#666600><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Legendarna <BASEFONT COLOR=#855E42><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Legendarna <BASEFONT COLOR=#CC3300><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Legendarna <BASEFONT COLOR=#238E23><B>{2}a</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Legendarna {2}a \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+                    }
+                }
+                ////Rodzaj Nijaki
+                if (this is PlateGloves || this is PlateArms || this is PlateLegs || this is ChainLegs || this is RingmailArms || this is RingmailGloves || this is RingmailLegs || this is LeatherArms || this is LeatherGloves || this is LeatherLegs || this is LeatherShorts
+                     || this is StuddedGloves || this is StuddedLegs || this is StuddedArms || this is BoneArms || this is BoneGloves || this is BoneLegs || this is LeafChest || this is LeafArms || this is LeafGloves || this is LeafGorget || this is LeafLegs || this is LeafTonlet || this is FemaleLeafChest
+                     || this is LeatherNinjaHood || this is LeatherNinjaJacket || this is LeatherNinjaMitts || this is LeatherNinjaPants
+                     || this is HideChest || this is HideFemaleChest || this is HideGloves || this is HideGorget || this is HidePants || this is HidePauldrons
+                     || this is StuddedDo || this is StuddedHaidate || this is StuddedHiroSode || this is StuddedMempo || this is StuddedSuneate
+                     || this is LeatherShorts || this is LeatherSkirt || this is LeatherBustierArms || this is StuddedBustierArms || this is FemaleLeatherChest || this is FemaleStuddedChest
+                     || this is PlateBattleKabuto || this is PlateDo || this is PlateHatsuburi || this is PlateMempo || this is PlateSuneate || this is PlateHiroSode)
+                {
+                    if (m_Resource == CraftResource.None)
+                    {
+                        if (this.Name == null)
+                        {
+                            list.Add(this.LabelNumber);
+                        }
+                        if (this.Name != null)
+                        {
+                            list.Add(this.Name);
+                        }
+                    }
+
+                    if (m_Resource == CraftResource.Iron)
+                    {
+                        if (this.Name == null)
+                        {
+                            list.Add(this.LabelNumber);
+                        }
+                        if (this.Name != null && this.m_Quality == ArmorQuality.None && this.m_Cechy == ArmorCechy.None)
+                        {
+                            list.Add(this.Name);
+                        }
+                        if (this.Name != null && this.m_Quality != ArmorQuality.None && this.m_Cechy == ArmorCechy.None)
+                        {
+                            list.Add("{0}e " + this.Name, this.Quality);
+                        }
+                        if (this.Name != null && this.m_Quality != ArmorQuality.None && this.m_Cechy != ArmorCechy.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC0033><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add("<BASEFONT COLOR=#0066FF><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add("<BASEFONT COLOR=#2F4F4F><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#6B238E><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC9900><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add("<BASEFONT COLOR=#666600><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add("<BASEFONT COLOR=#855E42><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC3300><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#238E23><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add("{1}e {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                        }
+                        if (this.Name != null && this.m_Quality == ArmorQuality.None && this.m_Cechy != ArmorCechy.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC0033><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add("<BASEFONT COLOR=#0066FF><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add("<BASEFONT COLOR=#2F4F4F><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#6B238E><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC9900><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add("<BASEFONT COLOR=#666600><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add("<BASEFONT COLOR=#855E42><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC3300><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#238E23><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add("{0}e " + this.Name, this.m_Cechy);
+                            }
+                        }
+                    }
+
+                    if (m_Resource == CraftResource.RegularLeather)
+                    {
+                        if (this.Name == null)
+                        {
+                            list.Add(this.LabelNumber);
+                        }
+                        if (this.Name != null && this.m_Quality == ArmorQuality.None && this.m_Cechy == ArmorCechy.None)
+                        {
+                            list.Add(this.Name);
+                        }
+                        if (this.Name != null && this.m_Quality != ArmorQuality.None && this.m_Cechy == ArmorCechy.None)
+                        {
+                            list.Add("{0}e " + this.Name, this.Quality);
+                        }
+                        if (this.Name != null && this.m_Quality != ArmorQuality.None && this.m_Cechy != ArmorCechy.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC0033><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add("<BASEFONT COLOR=#0066FF><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add("<BASEFONT COLOR=#2F4F4F><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#6B238E><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC9900><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add("<BASEFONT COLOR=#666600><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add("<BASEFONT COLOR=#855E42><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC3300><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#238E23><B>{1}e</B><BASEFONT COLOR=YELLOW> {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add("{1}e {0}e " + this.Name, this.Quality, this.m_Cechy);
+                            }
+                        }
+                        if (this.Name != null && this.m_Quality == ArmorQuality.None && this.m_Cechy != ArmorCechy.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC0033><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add("<BASEFONT COLOR=#0066FF><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add("<BASEFONT COLOR=#2F4F4F><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#6B238E><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC9900><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add("<BASEFONT COLOR=#666600><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add("<BASEFONT COLOR=#855E42><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add("<BASEFONT COLOR=#CC3300><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add("<BASEFONT COLOR=#238E23><B>{0}e</B><BASEFONT COLOR=YELLOW> " + this.Name, this.m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add("{0}e " + this.Name, this.m_Cechy);
+                            }
+                        }
+                    }
+
+                    if (m_Cechy == ArmorCechy.None && m_Resource != CraftResource.Iron && m_Resource != CraftResource.RegularLeather)
+                    {
+                        if (this.m_Quality == ArmorQuality.None)
+                        {
+                            list.Add("{1}{0}", oreType, this.GetNameString());
+                        }
+
+                        if (this.m_Quality == ArmorQuality.S³ab)
+                        {
+                            list.Add(1041522, "S³abe \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Przeciêtn)
+                        {
+                            list.Add(1041522, "Przeciêtne \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Zwyk³)
+                        {
+                            list.Add(1041522, "Zwyk³e \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Dobr)
+                        {
+                            list.Add(1041522, "Dobre \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Doskona³)
+                        {
+                            list.Add(1041522, "Doskona³e \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Wspania³)
+                        {
+                            list.Add(1041522, "Wspania³e \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Wyj¹tkow)
+                        {
+                            list.Add(1041522, "Wyj¹tkowe \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Niezwyk³)
+                        {
+                            list.Add(1041522, "Niezwyk³e \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Cudown)
+                        {
+                            list.Add(1041522, "Cudowne \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Mistyczn)
+                        {
+                            list.Add(1041522, "Mistyczne \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Legendarn)
+                        {
+                            list.Add(1041522, "Legendarne \t{0}\t{1}", this.GetNameString(), oreType);
+                        }
+                    }
+
+                    if (m_Cechy != ArmorCechy.None && m_Resource != CraftResource.Iron && m_Resource != CraftResource.RegularLeather)
+                    {
+                        if (this.m_Quality == ArmorQuality.None)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#CC0033><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#0066FF><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#2F4F4F><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#6B238E><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#CC9900><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#666600><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#855E42><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#CC3300><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, " <BASEFONT COLOR=#238E23><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, " {2}e \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.S³ab)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "S³abe <BASEFONT COLOR=#CC0033><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "S³abe <BASEFONT COLOR=#0066FF><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "S³abe <BASEFONT COLOR=#2F4F4F><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "S³abe <BASEFONT COLOR=#6B238E><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "S³abe <BASEFONT COLOR=#CC9900><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "S³abe <BASEFONT COLOR=#666600><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "S³abe <BASEFONT COLOR=#855E42><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "S³abe <BASEFONT COLOR=#CC3300><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "S³abe <BASEFONT COLOR=#238E23><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "S³abe {2}e \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Przeciêtn)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Przeciêtne <BASEFONT COLOR=#CC0033><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Przeciêtne <BASEFONT COLOR=#0066FF><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Przeciêtne <BASEFONT COLOR=#2F4F4F><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Przeciêtne <BASEFONT COLOR=#6B238E><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Przeciêtne <BASEFONT COLOR=#CC9900><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Przeciêtne <BASEFONT COLOR=#666600><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Przeciêtne <BASEFONT COLOR=#855E42><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Przeciêtne <BASEFONT COLOR=#CC3300><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Przeciêtne <BASEFONT COLOR=#238E23><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Przeciêtne {2}e \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Zwyk³)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Zwyk³e <BASEFONT COLOR=#CC0033><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Zwyk³e <BASEFONT COLOR=#0066FF><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Zwyk³e <BASEFONT COLOR=#2F4F4F><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Zwyk³e <BASEFONT COLOR=#6B238E><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Zwyk³e <BASEFONT COLOR=#CC9900><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Zwyk³e <BASEFONT COLOR=#666600><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Zwyk³e <BASEFONT COLOR=#855E42><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Zwyk³e <BASEFONT COLOR=#CC3300><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Zwyk³e <BASEFONT COLOR=#238E23><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Zwyk³e {2}e \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Dobr)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Dobre <BASEFONT COLOR=#CC0033><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Dobre <BASEFONT COLOR=#0066FF><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Dobre <BASEFONT COLOR=#2F4F4F><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Dobre <BASEFONT COLOR=#6B238E><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Dobre <BASEFONT COLOR=#CC9900><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Dobre <BASEFONT COLOR=#666600><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Dobre <BASEFONT COLOR=#855E42><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Dobre <BASEFONT COLOR=#CC3300><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Dobre <BASEFONT COLOR=#238E23><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Dobre {2}e \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Doskona³)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Doskona³e <BASEFONT COLOR=#CC0033><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Doskona³e <BASEFONT COLOR=#0066FF><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Doskona³e <BASEFONT COLOR=#2F4F4F><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Doskona³e <BASEFONT COLOR=#6B238E><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Doskona³e <BASEFONT COLOR=#CC9900><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Doskona³e <BASEFONT COLOR=#666600><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Doskona³e <BASEFONT COLOR=#855E42><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Doskona³e <BASEFONT COLOR=#CC3300><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Doskona³e <BASEFONT COLOR=#238E23><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Doskona³e {2}e \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Wspania³)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Wspania³e <BASEFONT COLOR=#CC0033><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Wspania³e <BASEFONT COLOR=#0066FF><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Wspania³e <BASEFONT COLOR=#2F4F4F><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Wspania³e <BASEFONT COLOR=#6B238E><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Wspania³e <BASEFONT COLOR=#CC9900><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Wspania³e <BASEFONT COLOR=#666600><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Wspania³e <BASEFONT COLOR=#855E42><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Wspania³e <BASEFONT COLOR=#CC3300><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Wspania³e <BASEFONT COLOR=#238E23><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Wspania³e {2}e \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Wyj¹tkow)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Wyj¹tkowe <BASEFONT COLOR=#CC0033><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Wyj¹tkowe <BASEFONT COLOR=#0066FF><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Wyj¹tkowe <BASEFONT COLOR=#2F4F4F><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Wyj¹tkowe <BASEFONT COLOR=#6B238E><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Wyj¹tkowe <BASEFONT COLOR=#CC9900><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Wyj¹tkowe <BASEFONT COLOR=#666600><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Wyj¹tkowe <BASEFONT COLOR=#855E42><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Wyj¹tkowe <BASEFONT COLOR=#CC3300><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Wyj¹tkowe <BASEFONT COLOR=#238E23><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Wyj¹tkowe {2}e \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Niezwyk³)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Niezwyk³e <BASEFONT COLOR=#CC0033><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Niezwyk³e <BASEFONT COLOR=#0066FF><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Niezwyk³e <BASEFONT COLOR=#2F4F4F><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Niezwyk³e <BASEFONT COLOR=#6B238E><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Niezwyk³e <BASEFONT COLOR=#CC9900><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Niezwyk³e <BASEFONT COLOR=#666600><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Niezwyk³e <BASEFONT COLOR=#855E42><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Niezwyk³e <BASEFONT COLOR=#CC3300><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Niezwyk³e <BASEFONT COLOR=#238E23><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Niezwyk³e {2}e \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Cudown)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Cudowne <BASEFONT COLOR=#CC0033><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Cudowne <BASEFONT COLOR=#0066FF><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Cudowne <BASEFONT COLOR=#2F4F4F><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Cudowne <BASEFONT COLOR=#6B238E><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Cudowne <BASEFONT COLOR=#CC9900><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Cudowne <BASEFONT COLOR=#666600><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Cudowne <BASEFONT COLOR=#855E42><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Cudowne <BASEFONT COLOR=#CC3300><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Cudowne <BASEFONT COLOR=#238E23><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Cudowne {2}e \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Mistyczn)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Mistyczne <BASEFONT COLOR=#CC0033><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Mistyczne <BASEFONT COLOR=#0066FF><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Mistyczne <BASEFONT COLOR=#2F4F4F><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Mistyczne <BASEFONT COLOR=#6B238E><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Mistyczne <BASEFONT COLOR=#CC9900><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Mistyczne <BASEFONT COLOR=#666600><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Mistyczne <BASEFONT COLOR=#855E42><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Mistyczne <BASEFONT COLOR=#CC3300><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Mistyczne <BASEFONT COLOR=#238E23><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Mistyczne {2}e \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+
+                        if (this.m_Quality == ArmorQuality.Legendarn)
+                        {
+                            if (this.m_Cechy == ArmorCechy.Witaln)
+                            {
+                                list.Add(1041522, "Legendarne <BASEFONT COLOR=#CC0033><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.M¹dr)
+                            {
+                                list.Add(1041522, "Legendarne <BASEFONT COLOR=#0066FF><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Stabiln)
+                            {
+                                list.Add(1041522, "Legendarne <BASEFONT COLOR=#2F4F4F><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Ochronn)
+                            {
+                                list.Add(1041522, "Legendarne <BASEFONT COLOR=#6B238E><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Szczêœliw)
+                            {
+                                list.Add(1041522, "Legendarne <BASEFONT COLOR=#CC9900><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Oszczêdn)
+                            {
+                                list.Add(1041522, "Legendarne <BASEFONT COLOR=#666600><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Wytrzyma³)
+                            {
+                                list.Add(1041522, "Legendarne <BASEFONT COLOR=#855E42><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Odbijaj¹c)
+                            {
+                                list.Add(1041522, "Legendarne <BASEFONT COLOR=#CC3300><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else if (this.m_Cechy == ArmorCechy.Obronn)
+                            {
+                                list.Add(1041522, "Legendarne <BASEFONT COLOR=#238E23><B>{2}e</B><BASEFONT COLOR=YELLOW> \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                            else
+                            {
+                                list.Add(1041522, "Legendarne {2}e \t{0}\t{1}", this.GetNameString(), oreType, m_Cechy);
+                            }
+                        }
+                    }
+                }
+
+                if (m_Sprawdzony == true)
+                {
+                    base.AddResistanceProperties(list);
+                }
+
+            }  ////Identified
         }
 
         public override bool AllowEquipedCast(Mobile from)
@@ -2259,15 +4785,15 @@ namespace Server.Items
             if (base.AllowEquipedCast(from))
                 return true;
 
-            return (m_AosAttributes.SpellChanneling != 0);
+            return (this.m_AosAttributes.SpellChanneling != 0);
         }
 
         public virtual int GetLuckBonus()
         {
-            if (m_Resource == CraftResource.Heartwood)
+            if (this.m_Resource == CraftResource.Heartwood)
                 return 0;
 
-            CraftResourceInfo resInfo = CraftResources.GetInfo(m_Resource);
+            CraftResourceInfo resInfo = CraftResources.GetInfo(this.m_Resource);
 
             if (resInfo == null)
                 return 0;
@@ -2284,230 +4810,518 @@ namespace Server.Items
         {
             base.GetProperties(list);
 
-            if (m_TimesImbued > 0)
+            if (this.m_TimesImbued > 0)
                 list.Add(1080418); // (Imbued)
 
-            if (m_Crafter != null)
-                list.Add(1050043, m_Crafter.Name); // crafted by ~1_NAME~
+            if (this.m_Crafter != null)
+                list.Add(1050043, this.m_Crafter.Name); // crafted by ~1_NAME~
 
             #region Factions
-            if (m_FactionState != null)
+            if (this.m_FactionState != null)
                 list.Add(1041350); // faction item
             #endregion
 
             #region Mondain's Legacy Sets
-            if (IsSetItem)
+            if (this.IsSetItem)
             {
-                if (MixedSet)
-                    list.Add(1073491, Pieces.ToString()); // Part of a Weapon/Armor Set (~1_val~ pieces)
+                if (this.MixedSet)
+                    list.Add(1073491, this.Pieces.ToString()); // Part of a Weapon/Armor Set (~1_val~ pieces)
                 else
-                    list.Add(1072376, Pieces.ToString()); // Part of an Armor Set (~1_val~ pieces)
+                    list.Add(1072376, this.Pieces.ToString()); // Part of an Armor Set (~1_val~ pieces)
 
-                if (m_SetEquipped)
+                if (this.m_SetEquipped)
                 {
-                    if (MixedSet)
+                    if (this.MixedSet)
                         list.Add(1073492); // Full Weapon/Armor Set Present
                     else
                         list.Add(1072377); // Full Armor Set Present
 
-                    GetSetProperties(list);
+                    this.GetSetProperties(list);
                 }
             }
             #endregion
 
-            if (RequiredRace == Race.Elf)
-                list.Add(1075086); // Elves Only
-            else if (RequiredRace == Race.Gargoyle)
-                list.Add(1111709); // Gargoyles Only
-
-            m_AosSkillBonuses.GetProperties(list);
+            if (this.RequiredRace == Race.Elf)
+                list.Add(1075086); // Elves Only - Tylko Elfy
+            else if (this.RequiredRace == Race.Gargoyle)
+                list.Add(1111709); // Gargoyles Only - Tylko Demony
+            this.m_AosSkillBonuses.GetProperties(list);
 
             int prop;
 
-            if ((prop = ArtifactRarity) > 0)
-                list.Add(1061078, prop.ToString()); // artifact rarity ~1_val~
-
-            if ((prop = m_AosAttributes.WeaponDamage) != 0)
-                list.Add(1060401, prop.ToString()); // damage increase ~1_val~%
-
-            if ((prop = m_AosAttributes.DefendChance) != 0)
-                list.Add(1060408, prop.ToString()); // defense chance increase ~1_val~%
-
-            if ((prop = m_AosAttributes.BonusDex) != 0)
-                list.Add(1060409, prop.ToString()); // dexterity bonus ~1_val~
-
-            if ((prop = m_AosAttributes.EnhancePotions) != 0)
-                list.Add(1060411, prop.ToString()); // enhance potions ~1_val~%
-
-            if ((prop = m_AosAttributes.CastRecovery) != 0)
-                list.Add(1060412, prop.ToString()); // faster cast recovery ~1_val~
-
-            if ((prop = m_AosAttributes.CastSpeed) != 0)
-                list.Add(1060413, prop.ToString()); // faster casting ~1_val~
-
-            if ((prop = m_AosAttributes.AttackChance) != 0)
-                list.Add(1060415, prop.ToString()); // hit chance increase ~1_val~%
-
-            if ((prop = m_AosAttributes.BonusHits) != 0)
-                list.Add(1060431, prop.ToString()); // hit point increase ~1_val~
-
-            if ((prop = m_AosAttributes.BonusInt) != 0)
-                list.Add(1060432, prop.ToString()); // intelligence bonus ~1_val~
-
-            if ((prop = m_AosAttributes.LowerManaCost) != 0)
-                list.Add(1060433, prop.ToString()); // lower mana cost ~1_val~%
-
-            if ((prop = m_AosAttributes.LowerRegCost) != 0)
-                list.Add(1060434, prop.ToString()); // lower reagent cost ~1_val~%
-
-            if ((prop = GetLowerStatReq()) != 0)
-                list.Add(1060435, prop.ToString()); // lower requirements ~1_val~%
-
-            if ((prop = (GetLuckBonus() + m_AosAttributes.Luck)) != 0)
-                list.Add(1060436, prop.ToString()); // luck ~1_val~
-
-            if ((prop = m_AosArmorAttributes.MageArmor) != 0)
-                list.Add(1060437); // mage armor
-
-            if ((prop = m_AosAttributes.BonusMana) != 0)
-                list.Add(1060439, prop.ToString()); // mana increase ~1_val~
-
-            if ((prop = m_AosAttributes.RegenMana) != 0)
-                list.Add(1060440, prop.ToString()); // mana regeneration ~1_val~
-
-            if ((prop = m_AosAttributes.NightSight) != 0)
-                list.Add(1060441); // night sight
-
-            if ((prop = m_AosAttributes.ReflectPhysical) != 0)
-                list.Add(1060442, prop.ToString()); // reflect physical damage ~1_val~%
-
-            if ((prop = m_AosAttributes.RegenStam) != 0)
-                list.Add(1060443, prop.ToString()); // stamina regeneration ~1_val~
-
-            if ((prop = m_AosAttributes.RegenHits) != 0)
-                list.Add(1060444, prop.ToString()); // hit point regeneration ~1_val~
-
-            if ((prop = m_AosArmorAttributes.SelfRepair) != 0)
-                list.Add(1060450, prop.ToString()); // self repair ~1_val~
-
-            if ((prop = m_AosAttributes.SpellChanneling) != 0)
-                list.Add(1060482); // spell channeling
-
-            if ((prop = m_AosAttributes.SpellDamage) != 0)
-                list.Add(1060483, prop.ToString()); // spell damage increase ~1_val~%
-
-            if ((prop = m_AosAttributes.BonusStam) != 0)
-                list.Add(1060484, prop.ToString()); // stamina increase ~1_val~
-
-            if ((prop = m_AosAttributes.BonusStr) != 0)
-                list.Add(1060485, prop.ToString()); // strength bonus ~1_val~
-
-            if ((prop = m_AosAttributes.WeaponSpeed) != 0)
-                list.Add(1060486, prop.ToString()); // swing speed increase ~1_val~%
-
-            if (Core.ML && (prop = m_AosAttributes.IncreasedKarmaLoss) != 0)
-                list.Add(1075210, prop.ToString()); // Increased Karma Loss ~1val~%
-
-            if ((prop = m_SAAbsorptionAttributes.EaterFire) != 0)
-                list.Add(1113593, prop.ToString()); // Fire Eater ~1_Val~%
-
-            if ((prop = m_SAAbsorptionAttributes.EaterCold) != 0)
-                list.Add(1113594, prop.ToString()); // Cold Eater ~1_Val~%
-
-            if ((prop = m_SAAbsorptionAttributes.EaterPoison) != 0)
-                list.Add(1113595, prop.ToString()); // Poison Eater ~1_Val~%
-
-            if ((prop = m_SAAbsorptionAttributes.EaterEnergy) != 0)
-                list.Add(1113596, prop.ToString()); // Energy Eater ~1_Val~%
-
-            if ((prop = m_SAAbsorptionAttributes.EaterKinetic) != 0)
-                list.Add(1113597, prop.ToString()); // Kinetic Eater ~1_Val~%
-
-            if ((prop = m_SAAbsorptionAttributes.EaterDamage) != 0)
-                list.Add(1113598, prop.ToString()); // Damage Eater ~1_Val~%
-
-            if ((prop = m_SAAbsorptionAttributes.ResonanceFire) != 0)
-                list.Add(1113691, prop.ToString()); // Fire Resonance ~1_val~%
-
-            if ((prop = m_SAAbsorptionAttributes.ResonanceCold) != 0)
-                list.Add(1113692, prop.ToString()); // Cold Resonance ~1_val~%
-
-            if ((prop = m_SAAbsorptionAttributes.ResonancePoison) != 0)
-                list.Add(1113693, prop.ToString()); // Poison Resonance ~1_val~%
-
-            if ((prop = m_SAAbsorptionAttributes.ResonanceEnergy) != 0)
-                list.Add(1113694, prop.ToString()); // Energy Resonance ~1_val~%
-
-            if ((prop = m_SAAbsorptionAttributes.ResonanceKinetic) != 0)
-                list.Add(1113695, prop.ToString()); // Kinetic Resonance ~1_val~%
-
-            base.AddResistanceProperties(list);
-
-            if ((prop = GetDurabilityBonus()) > 0)
-                list.Add(1060410, prop.ToString()); // durability ~1_val~%
-
-            if ((prop = ComputeStatReq(StatType.Str)) > 0)
-                list.Add(1061170, prop.ToString()); // strength requirement ~1_val~
-
-            if (m_HitPoints >= 0 && m_MaxHitPoints > 0)
-                list.Add(1060639, "{0}\t{1}", m_HitPoints, m_MaxHitPoints); // durability ~1_val~ / ~2_val~
-
-            XmlAttach.AddAttachmentProperties(this, list);
-
-            if (IsSetItem && !m_SetEquipped)
+            if (m_Identified == true)
             {
-                list.Add(1072378); // <br>Only when full set is present:				
-                GetSetProperties(list);
-            }
+
+                if (m_Ukrycie == false && (ArtifactRarity) > 0 || m_Ukrycie == false && (m_AosAttributes.WeaponDamage) != 0 || m_Ukrycie == false && (m_AosAttributes.DefendChance) != 0 ||
+                m_Ukrycie == false && (m_AosAttributes.BonusDex) != 0 || m_Ukrycie == false && (m_AosAttributes.EnhancePotions) != 0 || m_Ukrycie == false && (m_AosAttributes.CastRecovery) != 0 ||
+                m_Ukrycie == false && (m_AosAttributes.CastSpeed) != 0 || m_Ukrycie == false && (m_AosAttributes.AttackChance) != 0 || m_Ukrycie == false && (m_AosAttributes.BonusHits) != 0 ||
+                m_Ukrycie == false && (m_AosAttributes.BonusInt) != 0 || m_Ukrycie == false && (m_AosAttributes.LowerManaCost) != 0 || m_Ukrycie == false && (m_AosAttributes.LowerRegCost) != 0 ||
+                m_Ukrycie == false && (GetLowerStatReq()) != 0 || m_Ukrycie == false && ((GetLuckBonus() + m_AosAttributes.Luck)) != 0 || m_Ukrycie == false && (m_AosArmorAttributes.MageArmor) != 0 ||
+                m_Ukrycie == false && (m_AosAttributes.BonusMana) != 0 || m_Ukrycie == false && (m_AosAttributes.RegenMana) != 0 || m_Ukrycie == false && (m_AosAttributes.NightSight) != 0 ||
+                m_Ukrycie == false && (m_AosAttributes.ReflectPhysical) != 0 || m_Ukrycie == false && (m_AosAttributes.RegenStam) != 0 || m_Ukrycie == false && (m_AosAttributes.RegenHits) != 0 ||
+                m_Ukrycie == false && (m_AosArmorAttributes.SelfRepair) != 0 || m_Ukrycie == false && (m_AosAttributes.SpellChanneling) != 0 || m_Ukrycie == false && (m_AosAttributes.SpellDamage) != 0 ||
+                m_Ukrycie == false && (m_AosAttributes.BonusStam) != 0 || m_Ukrycie == false && (m_AosAttributes.BonusStr) != 0 || m_Ukrycie == false && (m_AosAttributes.WeaponSpeed) != 0)
+                {
+
+                    string liststring = null;
+                    string liststring1 = null;
+                    string liststring2 = null;
+                    string liststring3 = null;
+                    string liststring4 = null;
+                    string liststring5 = null;
+                    string liststring6 = null;
+                    string liststring7 = null;
+                    string liststring8 = null;
+                    string liststring9 = null;
+                    string liststring10 = null;
+                    string liststring11 = null;
+                    string liststring12 = null;
+                    string liststring13 = null;
+                    string liststring14 = null;
+                    string liststring15 = null;
+                    string liststring16 = null;
+                    string liststring17 = null;
+                    string liststring18 = null;
+                    string liststring19 = null;
+                    string liststring20 = null;
+
+                    string liststring21 = null;
+                    string liststring22 = null;
+                    string liststring23 = null;
+                    string liststring24 = null;
+                    string liststring25 = null;
+                    string liststring26 = null;
+                    string liststring27 = null;
+                    string liststring28 = null;
+                    string liststring29 = null;
+                    string liststring30 = null;
+                    string liststring31 = null;
+                    string liststring32 = null;
+                    string liststring33 = null;
+                    string liststring34 = null;
+                    string liststring35 = null;
+                    string liststring36 = null;
+                    string liststring37 = null;
+                    string liststring38 = null;
+                    string liststring39 = null;
+                    string liststring40 = null;
+                    string liststring41 = null;
+
+                    if (this.ArtifactRarity > 0)
+                        liststring += "<CENTER>Artefaktyczna Jakoœæ " + ArtifactRarity;
+                    if (this.ArtifactRarity == 0)
+                        liststring += null;
+
+                    if (this.m_AosAttributes.WeaponDamage != 0)
+                        liststring1 += "<CENTER>Zwiêksza Obra¿enia " + m_AosAttributes.WeaponDamage + "%";
+                    if (this.m_AosAttributes.WeaponDamage == 0)
+                        liststring1 += null;
+
+                    if (this.m_AosAttributes.DefendChance != 0)
+                        liststring2 += "<CENTER>Zwiêksza Szanse Obrony " + m_AosAttributes.DefendChance + "%";
+                    if (this.m_AosAttributes.DefendChance == 0)
+                        liststring2 += null;
+
+                    if (this.m_AosAttributes.BonusDex != 0)
+                        liststring3 += "<CENTER>Zwiêksza Zrêcznoœæ " + m_AosAttributes.BonusDex;
+                    if (this.m_AosAttributes.BonusDex == 0)
+                        liststring3 += null;
+
+                    if (this.m_AosAttributes.EnhancePotions != 0)
+                        liststring4 += "<CENTER>Wzmocnienie Mikstur " + m_AosAttributes.EnhancePotions + "%";
+                    if (this.m_AosAttributes.EnhancePotions == 0)
+                        liststring4 += null;
+
+                    if (this.m_AosAttributes.CastRecovery != 0)
+                        liststring5 += "<CENTER>Odzyskiwanie Równowagi " + m_AosAttributes.CastRecovery;
+                    if (this.m_AosAttributes.CastRecovery == 0)
+                        liststring5 += null;
+
+                    if (this.m_AosAttributes.CastSpeed != 0)
+                        liststring6 += "<CENTER>Szybkie Czarowanie " + m_AosAttributes.CastSpeed;
+                    if (this.m_AosAttributes.CastSpeed == 0)
+                        liststring6 += null;
+
+                    if (this.m_AosAttributes.AttackChance != 0)
+                        liststring7 += "<CENTER>Zwiêksza Szanse Ataku " + m_AosAttributes.AttackChance + "%";
+                    if (this.m_AosAttributes.AttackChance == 0)
+                        liststring7 += null;
+
+                    if (this.m_AosAttributes.BonusHits != 0)
+                        liststring8 += "<CENTER>Zwiêksza ¯ywotnoœæ " + m_AosAttributes.BonusHits;
+                    if (this.m_AosAttributes.BonusHits == 0)
+                        liststring8 += null;
+
+                    if (this.m_AosAttributes.BonusInt != 0)
+                        liststring9 += "<CENTER>Zwiêksza Inteligencje " + m_AosAttributes.BonusInt;
+                    if (this.m_AosAttributes.BonusInt == 0)
+                        liststring9 += null;
+
+                    if (this.m_AosAttributes.LowerManaCost != 0)
+                        liststring10 += "<CENTER>Zmniejsza Zu¿ycie Many " + m_AosAttributes.LowerManaCost + "%";
+                    if (this.m_AosAttributes.LowerManaCost == 0)
+                        liststring10 += null;
+
+                    if (this.m_AosAttributes.LowerRegCost != 0)
+                        liststring11 += "<CENTER>Zmniejsza Zu¿ycie Sk³adników " + m_AosAttributes.LowerRegCost + "%";
+                    if (this.m_AosAttributes.LowerRegCost == 0)
+                        liststring11 += null;
+
+                    if (this.GetLowerStatReq() != 0)
+                        liststring12 += "<CENTER>Zmniejsza Wymagania " + GetLowerStatReq() + "%";
+                    if (this.GetLowerStatReq() == 0)
+                        liststring12 += null;
+
+                    if (this.m_AosAttributes.Luck != 0)
+                        liststring13 += "<CENTER>Szczêœcie " + m_AosAttributes.Luck;
+                    if (this.m_AosAttributes.Luck == 0)
+                        liststring13 += null;
+
+                    if (this.m_AosArmorAttributes.MageArmor != 0)
+                        liststring14 += "<CENTER>Zbroja Maga ";
+                    if (this.m_AosArmorAttributes.MageArmor == 0)
+                        liststring14 += null;
+
+                    if (this.m_AosAttributes.BonusMana != 0)
+                        liststring15 += "<CENTER>Zwiêksza Mane " + m_AosAttributes.BonusMana;
+                    if (this.m_AosAttributes.BonusMana == 0)
+                        liststring15 += null;
+
+                    if (this.m_AosAttributes.RegenMana != 0)
+                        liststring16 += "<CENTER>Regeneruje Mane " + m_AosAttributes.RegenMana;
+                    if (this.m_AosAttributes.RegenMana == 0)
+                        liststring16 += null;
+
+                    if (this.m_AosAttributes.NightSight != 0)
+                        liststring17 += "<CENTER>Nocne Widzenie ";
+                    if (this.m_AosAttributes.NightSight == 0)
+                        liststring17 += null;
+
+                    if (this.m_AosAttributes.ReflectPhysical != 0)
+                        liststring18 += "<CENTER>Odbija Obra¿enia Fizyczne " + m_AosAttributes.ReflectPhysical + "%";
+                    if (this.m_AosAttributes.ReflectPhysical == 0)
+                        liststring18 += null;
+
+                    if (this.m_AosAttributes.RegenStam != 0)
+                        liststring19 += "<CENTER>Regeneruje Wytrzyma³oœæ " + m_AosAttributes.RegenStam;
+                    if (this.m_AosAttributes.RegenStam == 0)
+                        liststring19 += null;
+
+                    if (this.m_AosAttributes.RegenHits != 0)
+                        liststring20 += "<CENTER>Regeneruje ¯ywotnoœæ " + m_AosAttributes.RegenHits;
+                    if (this.m_AosAttributes.RegenHits == 0)
+                        liststring20 += null;
+
+                    if (this.m_AosArmorAttributes.SelfRepair != 0)
+                        liststring21 += "<CENTER>Samonaprawialny " + m_AosArmorAttributes.SelfRepair;
+                    if (this.m_AosArmorAttributes.SelfRepair == 0)
+                        liststring21 += null;
+
+                    if (this.m_AosAttributes.SpellChanneling != 0)
+                        liststring22 += "<CENTER>Przepuszczalnoœæ Zaklêæ ";
+                    if (this.m_AosAttributes.SpellChanneling == 0)
+                        liststring22 += null;
+
+                    if (this.m_AosAttributes.SpellDamage != 0)
+                        liststring23 += "<CENTER>Zwiêksza Moc Zaklêæ " + m_AosAttributes.SpellDamage + "%";
+                    if (this.m_AosAttributes.SpellDamage == 0)
+                        liststring23 += null;
+
+                    if (this.m_AosAttributes.BonusStam != 0)
+                        liststring24 += "<CENTER>Zwiêksza Wytrzyma³oœæ " + m_AosAttributes.BonusStam;
+                    if (this.m_AosAttributes.BonusStam == 0)
+                        liststring24 += null;
+
+                    if (this.m_AosAttributes.BonusStr != 0)
+                        liststring25 += "<CENTER>Zwiêksza Si³e " + m_AosAttributes.BonusStr;
+                    if (this.m_AosAttributes.BonusStr == 0)
+                        liststring25 += null;
+
+                    if (this.m_AosAttributes.WeaponSpeed != 0)
+                        liststring26 += "<CENTER>Zwiêksza Szybkoœæ Zamachu " + m_AosAttributes.WeaponSpeed + "%";
+                    if (this.m_AosAttributes.WeaponSpeed == 0)
+                        liststring26 += null;
+
+                    if (this.m_AosAttributes.IncreasedKarmaLoss != 0)
+                        liststring27 += "<CENTER>Zwiêksza Utratê Karmy " + m_AosAttributes.IncreasedKarmaLoss + "%";
+                    if (this.m_AosAttributes.IncreasedKarmaLoss == 0)
+                        liststring27 += null;
+
+                    if (this.m_SAAbsorptionAttributes.EaterFire != 0)
+                        liststring28 += "Poch³ania Ogieñ " + m_SAAbsorptionAttributes.EaterFire + "%";
+                    if (this.m_SAAbsorptionAttributes.EaterCold != 0)
+                        liststring29 += "Poch³ania Zimno " + m_SAAbsorptionAttributes.EaterCold + "%";
+                    if (this.m_SAAbsorptionAttributes.EaterPoison != 0)
+                        liststring30 += "Poch³ania Trucizne " + m_SAAbsorptionAttributes.EaterPoison + "%";
+                    if (this.m_SAAbsorptionAttributes.EaterEnergy != 0)
+                        liststring31 += "Poch³ania Energie " + m_SAAbsorptionAttributes.EaterEnergy + "%";
+                    if (this.m_SAAbsorptionAttributes.EaterKinetic != 0)
+                        liststring32 += "Poch³ania Kinetyczne " + m_SAAbsorptionAttributes.EaterKinetic + "%";
+                    if (this.m_SAAbsorptionAttributes.EaterDamage != 0)
+                        liststring33 += "Poch³ania Obra¿enia " + m_SAAbsorptionAttributes.EaterDamage + "%";
+
+                    if (this.m_SAAbsorptionAttributes.ResonanceFire != 0)
+                        liststring34 += "<CENTER>Ochrona - Ogieñ " + m_SAAbsorptionAttributes.ResonanceFire + "%";
+                    if (this.m_SAAbsorptionAttributes.ResonanceCold != 0)
+                        liststring35 += "<CENTER>Ochrona - Zimno " + m_SAAbsorptionAttributes.ResonanceCold + "%";
+                    if (this.m_SAAbsorptionAttributes.ResonancePoison != 0)
+                        liststring36 += "<CENTER> Ochrona - Trucizna " + m_SAAbsorptionAttributes.ResonancePoison + "%";
+                    if (this.m_SAAbsorptionAttributes.ResonanceEnergy != 0)
+                        liststring37 += "<CENTER>Ochrona - Energia " + m_SAAbsorptionAttributes.ResonanceEnergy + "%";
+                    if (this.m_SAAbsorptionAttributes.ResonanceKinetic != 0)
+                        liststring38 += "<CENTER>Ochrona - Kinetyczne " + m_SAAbsorptionAttributes.ResonanceKinetic + "%";
+
+
+                    //if ((prop = this.ArtifactRarity) > 0)
+                    //    list.Add(1061078, prop.ToString()); // artifact rarity ~1_val~
+
+                    //if ((prop = this.m_AosAttributes.WeaponDamage) != 0)
+                    //    list.Add(1060401, prop.ToString()); // damage increase ~1_val~%
+
+                    //if ((prop = this.m_AosAttributes.DefendChance) != 0)
+                    //    list.Add(1060408, prop.ToString()); // defense chance increase ~1_val~%
+
+                    //if ((prop = this.m_AosAttributes.BonusDex) != 0)
+                    //    list.Add(1060409, prop.ToString()); // dexterity bonus ~1_val~
+
+                    //if ((prop = this.m_AosAttributes.EnhancePotions) != 0)
+                    //    list.Add(1060411, prop.ToString()); // enhance potions ~1_val~%
+
+                    //if ((prop = this.m_AosAttributes.CastRecovery) != 0)
+                    //    list.Add(1060412, prop.ToString()); // faster cast recovery ~1_val~
+
+                    //if ((prop = this.m_AosAttributes.CastSpeed) != 0)
+                    //    list.Add(1060413, prop.ToString()); // faster casting ~1_val~
+
+                    //if ((prop = this.m_AosAttributes.AttackChance) != 0)
+                    //    list.Add(1060415, prop.ToString()); // hit chance increase ~1_val~%
+
+                    //if ((prop = this.m_AosAttributes.BonusHits) != 0)
+                    //    list.Add(1060431, prop.ToString()); // hit point increase ~1_val~
+
+                    //if ((prop = this.m_AosAttributes.BonusInt) != 0)
+                    //    list.Add(1060432, prop.ToString()); // intelligence bonus ~1_val~
+
+                    //if ((prop = this.m_AosAttributes.LowerManaCost) != 0)
+                    //    list.Add(1060433, prop.ToString()); // lower mana cost ~1_val~%
+
+                    //if ((prop = this.m_AosAttributes.LowerRegCost) != 0)
+                    //    list.Add(1060434, prop.ToString()); // lower reagent cost ~1_val~%
+
+                    //if ((prop = this.GetLowerStatReq()) != 0)
+                    //    list.Add(1060435, prop.ToString()); // lower requirements ~1_val~%
+
+                    //if ((prop = (this.GetLuckBonus() + this.m_AosAttributes.Luck)) != 0)
+                    //    list.Add(1060436, prop.ToString()); // luck ~1_val~
+
+                    //if ((prop = this.m_AosArmorAttributes.MageArmor) != 0)
+                    //    list.Add(1060437); // mage armor
+
+                    //if ((prop = this.m_AosAttributes.BonusMana) != 0)
+                    //    list.Add(1060439, prop.ToString()); // mana increase ~1_val~
+
+                    //if ((prop = this.m_AosAttributes.RegenMana) != 0)
+                    //    list.Add(1060440, prop.ToString()); // mana regeneration ~1_val~
+
+                    //if ((prop = this.m_AosAttributes.NightSight) != 0)
+                    //    list.Add(1060441); // night sight
+
+                    //if ((prop = this.m_AosAttributes.ReflectPhysical) != 0)
+                    //    list.Add(1060442, prop.ToString()); // reflect physical damage ~1_val~%
+
+                    //if ((prop = this.m_AosAttributes.RegenStam) != 0)
+                    //    list.Add(1060443, prop.ToString()); // stamina regeneration ~1_val~
+
+                    //if ((prop = this.m_AosAttributes.RegenHits) != 0)
+                    //    list.Add(1060444, prop.ToString()); // hit point regeneration ~1_val~
+
+                    //if ((prop = this.m_AosArmorAttributes.SelfRepair) != 0)
+                    //    list.Add(1060450, prop.ToString()); // self repair ~1_val~
+
+                    //if ((prop = this.m_AosAttributes.SpellChanneling) != 0)
+                    //    list.Add(1060482); // spell channeling
+
+                    //if ((prop = this.m_AosAttributes.SpellDamage) != 0)
+                    //    list.Add(1060483, prop.ToString()); // spell damage increase ~1_val~%
+
+                    //if ((prop = this.m_AosAttributes.BonusStam) != 0)
+                    //    list.Add(1060484, prop.ToString()); // stamina increase ~1_val~
+
+                    //if ((prop = this.m_AosAttributes.BonusStr) != 0)
+                    //    list.Add(1060485, prop.ToString()); // strength bonus ~1_val~
+
+                    //if ((prop = this.m_AosAttributes.WeaponSpeed) != 0)
+                    //    list.Add(1060486, prop.ToString()); // swing speed increase ~1_val~%
+
+                    //if (Core.ML && (prop = this.m_AosAttributes.IncreasedKarmaLoss) != 0)
+                    //    list.Add(1075210, prop.ToString()); // Increased Karma Loss ~1val~%
+
+                    //if ((prop = this.m_SAAbsorptionAttributes.EaterFire) != 0)
+                    //    list.Add(1113593, prop.ToString()); // Fire Eater ~1_Val~%
+
+                    //if ((prop = this.m_SAAbsorptionAttributes.EaterCold) != 0)
+                    //    list.Add(1113594, prop.ToString()); // Cold Eater ~1_Val~%
+
+                    //if ((prop = this.m_SAAbsorptionAttributes.EaterPoison) != 0)
+                    //    list.Add(1113595, prop.ToString()); // Poison Eater ~1_Val~%
+
+                    //if ((prop = this.m_SAAbsorptionAttributes.EaterEnergy) != 0)
+                    //    list.Add(1113596, prop.ToString()); // Energy Eater ~1_Val~%
+
+                    //if ((prop = this.m_SAAbsorptionAttributes.EaterKinetic) != 0)
+                    //    list.Add(1113597, prop.ToString()); // Kinetic Eater ~1_Val~%
+
+                    //if ((prop = this.m_SAAbsorptionAttributes.EaterDamage) != 0)
+                    //    list.Add(1113598, prop.ToString()); // Damage Eater ~1_Val~%
+
+                    //if ((prop = this.m_SAAbsorptionAttributes.ResonanceFire) != 0)
+                    //    list.Add(1113691, prop.ToString()); // Fire Resonance ~1_val~%
+
+                    //if ((prop = this.m_SAAbsorptionAttributes.ResonanceCold) != 0)
+                    //    list.Add(1113692, prop.ToString()); // Cold Resonance ~1_val~%
+
+                    //if ((prop = this.m_SAAbsorptionAttributes.ResonancePoison) != 0)
+                    //    list.Add(1113693, prop.ToString()); // Poison Resonance ~1_val~%
+
+                    //if ((prop = this.m_SAAbsorptionAttributes.ResonanceEnergy) != 0)
+                    //    list.Add(1113694, prop.ToString()); // Energy Resonance ~1_val~%
+
+                    //if ((prop = this.m_SAAbsorptionAttributes.ResonanceKinetic) != 0)
+                    //    list.Add(1113695, prop.ToString()); // Kinetic Resonance ~1_val~%
+
+                    //if ((prop = this.GetDurabilityBonus()) > 0)
+                    //list.Add(1060410, prop.ToString()); // durability ~1_val~%
+
+                    //if ((prop = this.ComputeStatReq(StatType.Str)) > 0)
+                    //list.Add(1061170, prop.ToString()); // strength requirement ~1_val~
+
+                    //if (this.m_HitPoints >= 0 && this.m_MaxHitPoints > 0)
+                    //list.Add(1060639, "{0}\t{1}", this.m_HitPoints, this.m_MaxHitPoints); // durability ~1_val~ / ~2_val~
+
+
+
+                    list.Add("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}{13}{14}{15}{16}{17}{18}{19}{20}{21}{22}{23}{24}{25}{26}{27}{28}{29}{30}{31}{32}{33}{34}{35}{36}{37}{38}", liststring, liststring1, liststring2, liststring3, liststring4, liststring5, liststring6, liststring7, liststring8, liststring9, liststring10,
+                    liststring11, liststring12, liststring13, liststring14, liststring15, liststring16, liststring17, liststring18, liststring19, liststring20, liststring21, liststring22, liststring23, liststring24, liststring25, liststring26, liststring27, liststring28, liststring29, liststring30, liststring31, liststring32, liststring33, liststring34, liststring35,
+                    liststring36, liststring37, liststring38);
+
+
+                    Server.Engines.XmlSpawner2.XmlAttach.AddAttachmentProperties(this, list);
+
+                    if (this.IsSetItem && !this.m_SetEquipped)
+                    {
+                        list.Add(1072378); // <br>Only when full set is present:				
+                        this.GetSetProperties(list);
+                    }
+
+                } // Ukrycie False
+
+                if (m_Ukrycie == true && (ArtifactRarity) > 0 || m_Ukrycie == true && (m_AosAttributes.WeaponDamage) != 0 || m_Ukrycie == true && (m_AosAttributes.DefendChance) != 0 ||
+                m_Ukrycie == true && (m_AosAttributes.BonusDex) != 0 || m_Ukrycie == true && (m_AosAttributes.EnhancePotions) != 0 || m_Ukrycie == true && (m_AosAttributes.CastRecovery) != 0 ||
+                m_Ukrycie == true && (m_AosAttributes.CastSpeed) != 0 || m_Ukrycie == true && (m_AosAttributes.AttackChance) != 0 || m_Ukrycie == true && (m_AosAttributes.BonusHits) != 0 ||
+                m_Ukrycie == true && (m_AosAttributes.BonusInt) != 0 || m_Ukrycie == true && (m_AosAttributes.LowerManaCost) != 0 || m_Ukrycie == true && (m_AosAttributes.LowerRegCost) != 0 ||
+                m_Ukrycie == true && (GetLowerStatReq()) != 0 || m_Ukrycie == true && ((GetLuckBonus() + m_AosAttributes.Luck)) != 0 || m_Ukrycie == true && (m_AosArmorAttributes.MageArmor) != 0 ||
+                m_Ukrycie == true && (m_AosAttributes.BonusMana) != 0 || m_Ukrycie == true && (m_AosAttributes.RegenMana) != 0 || m_Ukrycie == true && (m_AosAttributes.NightSight) != 0 ||
+                m_Ukrycie == true && (m_AosAttributes.ReflectPhysical) != 0 || m_Ukrycie == true && (m_AosAttributes.RegenStam) != 0 || m_Ukrycie == true && (m_AosAttributes.RegenHits) != 0 ||
+                m_Ukrycie == true && (m_AosArmorAttributes.SelfRepair) != 0 || m_Ukrycie == true && (m_AosAttributes.SpellChanneling) != 0 || m_Ukrycie == true && (m_AosAttributes.SpellDamage) != 0 ||
+                m_Ukrycie == true && (m_AosAttributes.BonusStam) != 0 || m_Ukrycie == true && (m_AosAttributes.BonusStr) != 0 || m_Ukrycie == true && (m_AosAttributes.WeaponSpeed) != 0)
+                {
+                    list.Add("<BASEFONT COLOR=YELLOW><B>[W³aœciwoœci Ukryte]</B><BASEFONT COLOR=WHITE>");
+                }
+
+            } //Identified True
+
+            else if ((ArtifactRarity) > 0 || (m_AosAttributes.WeaponDamage) != 0 || (m_AosAttributes.DefendChance) != 0 ||
+                    (m_AosAttributes.BonusDex) != 0 || (m_AosAttributes.EnhancePotions) != 0 || (m_AosAttributes.CastRecovery) != 0 ||
+                    (m_AosAttributes.CastSpeed) != 0 || (m_AosAttributes.AttackChance) != 0 || (m_AosAttributes.BonusHits) != 0 ||
+                    (m_AosAttributes.BonusInt) != 0 || (m_AosAttributes.LowerManaCost) != 0 || (m_AosAttributes.LowerRegCost) != 0 ||
+                    (GetLowerStatReq()) != 0 || ((GetLuckBonus() + m_AosAttributes.Luck)) != 0 || (m_AosArmorAttributes.MageArmor) != 0 ||
+                    (m_AosAttributes.BonusMana) != 0 || (m_AosAttributes.RegenMana) != 0 || (m_AosAttributes.NightSight) != 0 ||
+                    (m_AosAttributes.ReflectPhysical) != 0 || (m_AosAttributes.RegenStam) != 0 || (m_AosAttributes.RegenHits) != 0 ||
+                    (m_AosArmorAttributes.SelfRepair) != 0 || (m_AosAttributes.SpellChanneling) != 0 || (m_AosAttributes.SpellDamage) != 0 ||
+                    (m_AosAttributes.BonusStam) != 0 || (m_AosAttributes.BonusStr) != 0 || (m_AosAttributes.WeaponSpeed) != 0 || this.m_Cechy == ArmorCechy.Ochronn)
+                //list.Add(1038000); // Unidentified
+                //list.Add("<BASEFONT COLOR=YELLOW><B>[Niezidentyfikowany]</B><BASEFONT COLOR=WHITE>"); // Unidentified
+
+                if (m_Sprawdzony == true)
+                {
+                    if ((prop = this.GetDurabilityBonus()) > 0)
+                        list.Add(1060410, prop.ToString()); // kondycja + ~1_val~%
+
+                    if ((prop = this.ComputeStatReq(StatType.Str)) > 0)
+                        list.Add(1061170, prop.ToString()); // wymaga str ~1_val~
+
+                    if (this.m_HitPoints >= 0 && this.m_MaxHitPoints > 0)
+                        list.Add(1060639, "{0}\t{1}", this.m_HitPoints, this.m_MaxHitPoints); // kondycja ~1_val~ / ~2_val~
+                }
+
         }
 
         public override void OnSingleClick(Mobile from)
         {
             List<EquipInfoAttribute> attrs = new List<EquipInfoAttribute>();
 
-            if (DisplayLootType)
+            if (this.DisplayLootType)
             {
-                if (LootType == LootType.Blessed)
+                if (this.LootType == LootType.Blessed)
                     attrs.Add(new EquipInfoAttribute(1038021)); // blessed
-                else if (LootType == LootType.Cursed)
+                else if (this.LootType == LootType.Cursed)
                     attrs.Add(new EquipInfoAttribute(1049643)); // cursed
             }
 
             #region Factions
-            if (m_FactionState != null)
+            if (this.m_FactionState != null)
                 attrs.Add(new EquipInfoAttribute(1041350)); // faction item
             #endregion
 
-            if (m_Quality == ArmorQuality.Exceptional)
-                attrs.Add(new EquipInfoAttribute(1018305 - (int)m_Quality));
+            if (this.m_Quality == ArmorQuality.Doskona³)
+                attrs.Add(new EquipInfoAttribute(1018305 - (int)this.m_Quality));
 
-            if (m_Identified || from.AccessLevel >= AccessLevel.GameMaster)
+            if (this.m_Quality == ArmorQuality.Wspania³)
+                attrs.Add(new EquipInfoAttribute(1018305 - (int)this.m_Quality));
+
+            if (this.m_Quality == ArmorQuality.Wyj¹tkow)
+                attrs.Add(new EquipInfoAttribute(1018305 - (int)this.m_Quality));
+
+            if (this.m_Quality == ArmorQuality.Niezwyk³)
+                attrs.Add(new EquipInfoAttribute(1018305 - (int)this.m_Quality));
+
+            if (this.m_Quality == ArmorQuality.Cudown)
+                attrs.Add(new EquipInfoAttribute(1018305 - (int)this.m_Quality));
+
+            if (this.m_Quality == ArmorQuality.Mistyczn)
+                attrs.Add(new EquipInfoAttribute(1018305 - (int)this.m_Quality));
+
+            if (this.m_Quality == ArmorQuality.Legendarn)
+                attrs.Add(new EquipInfoAttribute(1018305 - (int)this.m_Quality));
+
+            if (this.m_Identified || from.AccessLevel >= AccessLevel.GameMaster)
             {
-                if (m_Durability != ArmorDurabilityLevel.Regular)
-                    attrs.Add(new EquipInfoAttribute(1038000 + (int)m_Durability));
+                if (this.m_Durability != ArmorDurabilityLevel.Regular)
+                    attrs.Add(new EquipInfoAttribute(1038000 + (int)this.m_Durability));
 
-                if (m_Protection > ArmorProtectionLevel.Regular && m_Protection <= ArmorProtectionLevel.Invulnerability)
-                    attrs.Add(new EquipInfoAttribute(1038005 + (int)m_Protection));
+                if (this.m_Protection > ArmorProtectionLevel.Regular && this.m_Protection <= ArmorProtectionLevel.Invulnerability)
+                    attrs.Add(new EquipInfoAttribute(1038005 + (int)this.m_Protection));
             }
-            else if (m_Durability != ArmorDurabilityLevel.Regular || (m_Protection > ArmorProtectionLevel.Regular && m_Protection <= ArmorProtectionLevel.Invulnerability))
+            else if (this.m_Durability != ArmorDurabilityLevel.Regular || (this.m_Protection > ArmorProtectionLevel.Regular && this.m_Protection <= ArmorProtectionLevel.Invulnerability))
                 attrs.Add(new EquipInfoAttribute(1038000)); // Unidentified
 
             int number;
 
-            if (Name == null)
+            if (this.Name == null)
             {
-                number = LabelNumber;
+                number = this.LabelNumber;
             }
             else
             {
-                LabelTo(from, Name);
+                this.LabelTo(from, this.Name);
                 number = 1041000;
             }
 
-            if (attrs.Count == 0 && Crafter == null && Name != null)
+            //            if (attrs.Count == 0 && this.Crafter == null && this.Name != null)
+            if (attrs.Count == 0 && this.Crafter == null)
                 return;
 
-            EquipmentInfo eqInfo = new EquipmentInfo(number, m_Crafter, false, attrs.ToArray());
+            EquipmentInfo eqInfo = new EquipmentInfo(number, this.m_Crafter, false, attrs.ToArray());
 
             from.Send(new DisplayEquipmentInfo(this, eqInfo));
         }
@@ -2516,10 +5330,11 @@ namespace Server.Items
 
         public virtual int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
         {
-            Quality = (ArmorQuality)quality;
+            this.Quality = (ArmorQuality)quality;
+            this.Identified = true;
 
             if (makersMark)
-                Crafter = from;
+                this.Crafter = from;
 
             #region Mondain's Legacy
             if (!craftItem.ForceNonExceptional)
@@ -2529,7 +5344,7 @@ namespace Server.Items
                 if (type == null)
                     type = craftItem.Resources.GetAt(0).ItemType;
 
-                Resource = CraftResources.GetFromType(type);
+                this.Resource = CraftResources.GetFromType(type);
             }
             #endregion
 
@@ -2538,50 +5353,50 @@ namespace Server.Items
             if (resourceType == null)
                 resourceType = craftItem.Resources.GetAt(0).ItemType;
 
-            Resource = CraftResources.GetFromType(resourceType);
-            PlayerConstructed = true;
+            this.Resource = CraftResources.GetFromType(resourceType);
+            this.PlayerConstructed = true;
 
             CraftContext context = craftSystem.GetContext(from);
 
             if (context != null && context.DoNotColor)
-                Hue = 0;
+                this.Hue = 0;
 
-            if (Quality == ArmorQuality.Exceptional)
+            if (this.Quality == ArmorQuality.Doskona³ || this.Quality == ArmorQuality.Wspania³ || this.Quality == ArmorQuality.Wspania³ || this.Quality == ArmorQuality.Wyj¹tkow || this.Quality == ArmorQuality.Niezwyk³ || this.Quality == ArmorQuality.Cudown || this.Quality == ArmorQuality.Mistyczn || this.Quality == ArmorQuality.Legendarn)
             {
                 if (!(Core.ML && this is BaseShield))		// Guessed Core.ML removed exceptional resist bonuses from crafted shields
-                    DistributeBonuses((tool is BaseRunicTool ? 6 : Core.SE ? 15 : 14)); // Not sure since when, but right now 15 points are added, not 14.
+                    this.DistributeBonuses((tool is BaseRunicTool ? 6 : Core.SE ? 15 : 14)); // Not sure since when, but right now 15 points are added, not 14.
 
                 if (Core.ML && !(this is BaseShield))
                 {
-                    int bonus = (int)(from.Skills.ArmsLore.Value / 20);
+                    int bonus = (int)(from.Skills.WiedzaOUzbrojeniu.Value / 20);
 
                     for (int i = 0; i < bonus; i++)
                     {
-                        switch( Utility.Random(5) )
+                        switch (Utility.Random(5))
                         {
                             case 0:
-                                m_PhysicalBonus++;
+                                this.m_PhysicalBonus++;
                                 break;
                             case 1:
-                                m_FireBonus++;
+                                this.m_FireBonus++;
                                 break;
                             case 2:
-                                m_ColdBonus++;
+                                this.m_ColdBonus++;
                                 break;
                             case 3:
-                                m_EnergyBonus++;
+                                this.m_EnergyBonus++;
                                 break;
                             case 4:
-                                m_PoisonBonus++;
+                                this.m_PoisonBonus++;
                                 break;
                         }
                     }
 
-                    from.CheckSkill(SkillName.ArmsLore, 0, 100);
+                    from.CheckSkill(SkillName.WiedzaOUzbrojeniu, 0, 100);
                 }
 
                 if (Core.SE && (this is HeavyPlateJingasa || this is LightPlateJingasa || this is PlateDo || this is PlateHaidate || this is PlateHiroSode || this is StuddedHiroSode || this is PlateMempo || this is PlateSuneate || this is StuddedSuneate || this is SmallPlateJingasa))
-                    m_AosArmorAttributes.MageArmor = 1;
+                    this.m_AosArmorAttributes.MageArmor = 1;
             }
 
             #region Mondain's Legacy
@@ -2589,7 +5404,7 @@ namespace Server.Items
             {
                 if (Core.ML)
                 {
-                    CraftResourceInfo resInfo = CraftResources.GetInfo(m_Resource);
+                    CraftResourceInfo resInfo = CraftResources.GetInfo(this.m_Resource);
 
                     if (resInfo == null)
                         return quality;
@@ -2599,31 +5414,31 @@ namespace Server.Items
                     if (attrInfo == null)
                         return quality;
 
-                    if (m_Resource != CraftResource.Heartwood)
+                    if (this.m_Resource != CraftResource.Heartwood)
                     {
-                        m_AosAttributes.WeaponDamage += attrInfo.ArmorDamage;
-                        m_AosAttributes.AttackChance += attrInfo.ArmorHitChance;
-                        m_AosAttributes.RegenHits += attrInfo.ArmorRegenHits;
-                        m_AosArmorAttributes.MageArmor += attrInfo.ArmorMage;
+                        this.m_AosAttributes.WeaponDamage += attrInfo.ArmorDamage;
+                        this.m_AosAttributes.AttackChance += attrInfo.ArmorHitChance;
+                        this.m_AosAttributes.RegenHits += attrInfo.ArmorRegenHits;
+                        this.m_AosArmorAttributes.MageArmor += attrInfo.ArmorMage;
                     }
                     else
                     {
                         switch (Utility.Random(5))
                         {
                             case 0:
-                                m_AosAttributes.WeaponDamage += attrInfo.ArmorDamage;
+                                this.m_AosAttributes.WeaponDamage += attrInfo.ArmorDamage;
                                 break;
                             case 1:
-                                m_AosAttributes.AttackChance += attrInfo.ArmorHitChance;
+                                this.m_AosAttributes.AttackChance += attrInfo.ArmorHitChance;
                                 break;
                             case 2:
-                                m_AosArmorAttributes.MageArmor += attrInfo.ArmorMage;
+                                this.m_AosArmorAttributes.MageArmor += attrInfo.ArmorMage;
                                 break;
                             case 3:
-                                m_AosAttributes.Luck += attrInfo.ArmorLuck;
+                                this.m_AosAttributes.Luck += attrInfo.ArmorLuck;
                                 break;
                             case 4:
-                                m_AosArmorAttributes.LowerStatReq += attrInfo.ArmorLowerRequirements;
+                                this.m_AosArmorAttributes.LowerStatReq += attrInfo.ArmorLowerRequirements;
                                 break;
                         }
                     }
@@ -2642,10 +5457,10 @@ namespace Server.Items
         #region Mondain's Legacy Sets
         public override bool OnDragLift(Mobile from)
         {
-            if (Parent is Mobile && from == Parent)
+            if (this.Parent is Mobile && from == this.Parent)
             {
-                if (IsSetItem && m_SetEquipped)
-                    SetHelper.RemoveSetBonus(from, SetID, this);
+                if (this.IsSetItem && this.m_SetEquipped)
+                    SetHelper.RemoveSetBonus(from, this.SetID, this);
             }
 
             return base.OnDragLift(from);
@@ -2677,7 +5492,7 @@ namespace Server.Items
         {
             get
             {
-                return (SetID != SetItem.None);
+                return (this.SetID != SetItem.None);
             }
         }
 
@@ -2690,12 +5505,12 @@ namespace Server.Items
         {
             get
             {
-                return m_SetHue;
+                return this.m_SetHue;
             }
             set
             {
-                m_SetHue = value;
-                InvalidateProperties();
+                this.m_SetHue = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -2703,11 +5518,11 @@ namespace Server.Items
         {
             get
             {
-                return m_SetEquipped;
+                return this.m_SetEquipped;
             }
             set
             {
-                m_SetEquipped = value;
+                this.m_SetEquipped = value;
             }
         }
 
@@ -2715,11 +5530,11 @@ namespace Server.Items
         {
             get
             {
-                return m_LastEquipped;
+                return this.m_LastEquipped;
             }
             set
             {
-                m_LastEquipped = value;
+                this.m_LastEquipped = value;
             }
         }
 
@@ -2732,7 +5547,7 @@ namespace Server.Items
         {
             get
             {
-                return m_SetAttributes;
+                return this.m_SetAttributes;
             }
             set
             {
@@ -2744,7 +5559,7 @@ namespace Server.Items
         {
             get
             {
-                return m_SetSkillBonuses;
+                return this.m_SetSkillBonuses;
             }
             set
             {
@@ -2756,12 +5571,12 @@ namespace Server.Items
         {
             get
             {
-                return m_SetSelfRepair;
+                return this.m_SetSelfRepair;
             }
             set
             {
-                m_SetSelfRepair = value;
-                InvalidateProperties();
+                this.m_SetSelfRepair = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -2772,12 +5587,12 @@ namespace Server.Items
         {
             get
             {
-                return m_SetPhysicalBonus;
+                return this.m_SetPhysicalBonus;
             }
             set
             {
-                m_SetPhysicalBonus = value;
-                InvalidateProperties();
+                this.m_SetPhysicalBonus = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -2786,12 +5601,12 @@ namespace Server.Items
         {
             get
             {
-                return m_SetFireBonus;
+                return this.m_SetFireBonus;
             }
             set
             {
-                m_SetFireBonus = value;
-                InvalidateProperties();
+                this.m_SetFireBonus = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -2800,12 +5615,12 @@ namespace Server.Items
         {
             get
             {
-                return m_SetColdBonus;
+                return this.m_SetColdBonus;
             }
             set
             {
-                m_SetColdBonus = value;
-                InvalidateProperties();
+                this.m_SetColdBonus = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -2814,12 +5629,12 @@ namespace Server.Items
         {
             get
             {
-                return m_SetPoisonBonus;
+                return this.m_SetPoisonBonus;
             }
             set
             {
-                m_SetPoisonBonus = value;
-                InvalidateProperties();
+                this.m_SetPoisonBonus = value;
+                this.InvalidateProperties();
             }
         }
 
@@ -2828,40 +5643,40 @@ namespace Server.Items
         {
             get
             {
-                return m_SetEnergyBonus;
+                return this.m_SetEnergyBonus;
             }
             set
             {
-                m_SetEnergyBonus = value;
-                InvalidateProperties();
+                this.m_SetEnergyBonus = value;
+                this.InvalidateProperties();
             }
         }
 
         public virtual void GetSetProperties(ObjectPropertyList list)
         {
-            if (!m_SetEquipped)
+            if (!this.m_SetEquipped)
             {
-                if (m_SetPhysicalBonus != 0)
-                    list.Add(1072382, m_SetPhysicalBonus.ToString()); // physical resist +~1_val~%
+                if (this.m_SetPhysicalBonus != 0)
+                    list.Add(1072382, this.m_SetPhysicalBonus.ToString()); // physical resist +~1_val~%
 
-                if (m_SetFireBonus != 0)
-                    list.Add(1072383, m_SetFireBonus.ToString()); // fire resist +~1_val~%
+                if (this.m_SetFireBonus != 0)
+                    list.Add(1072383, this.m_SetFireBonus.ToString()); // fire resist +~1_val~%
 
-                if (m_SetColdBonus != 0)
-                    list.Add(1072384, m_SetColdBonus.ToString()); // cold resist +~1_val~%
+                if (this.m_SetColdBonus != 0)
+                    list.Add(1072384, this.m_SetColdBonus.ToString()); // cold resist +~1_val~%
 
-                if (m_SetPoisonBonus != 0)
-                    list.Add(1072385, m_SetPoisonBonus.ToString()); // poison resist +~1_val~%
+                if (this.m_SetPoisonBonus != 0)
+                    list.Add(1072385, this.m_SetPoisonBonus.ToString()); // poison resist +~1_val~%
 
-                if (m_SetEnergyBonus != 0)
-                    list.Add(1072386, m_SetEnergyBonus.ToString()); // energy resist +~1_val~%		
+                if (this.m_SetEnergyBonus != 0)
+                    list.Add(1072386, this.m_SetEnergyBonus.ToString()); // energy resist +~1_val~%		
             }
 
             SetHelper.GetSetProperties(list, this);
 
             int prop;
 
-            if ((prop = m_SetSelfRepair) != 0 && m_AosArmorAttributes.SelfRepair == 0)
+            if ((prop = this.m_SetSelfRepair) != 0 && this.m_AosArmorAttributes.SelfRepair == 0)
                 list.Add(1060450, prop.ToString()); // self repair ~1_val~
         }
         #endregion

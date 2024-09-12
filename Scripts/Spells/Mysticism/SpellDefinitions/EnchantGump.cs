@@ -44,7 +44,7 @@ namespace Server.Gumps
             Mobile m = state.Mobile;
            
             BaseWeapon weapon = m.Weapon as BaseWeapon;
-            TimeSpan duration = TimeSpan.FromSeconds((m.Skills[SkillName.Mysticism].Value / 1.2) + 1.0);//needs work, just a base formula.
+            TimeSpan duration = TimeSpan.FromSeconds((m.Skills[SkillName.Mistycyzm].Value / 1.2) + 1.0);//needs work, just a base formula.
 
             switch (info.ButtonID)
             {
@@ -208,7 +208,7 @@ namespace Server.Gumps
         }
     }
 }
-/* TimeSpan duration = TimeSpan.FromSeconds((Caster.Skills[SkillName.Mysticism].Value / 1.2) + 1.0);//needs work, just a base formula.
+/* TimeSpan duration = TimeSpan.FromSeconds((Caster.Skills[SkillName.Mistycyzm].Value / 1.2) + 1.0);//needs work, just a base formula.
 
 Timer t = (Timer)m_Table[weapon];
 

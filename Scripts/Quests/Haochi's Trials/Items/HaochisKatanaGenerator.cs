@@ -1,3 +1,4 @@
+using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Samurai
@@ -8,9 +9,9 @@ namespace Server.Engines.Quests.Samurai
         public HaochisKatanaGenerator()
             : base(0x1B7B)
         {
-            Visible = false;
-            Name = "Haochi's katana generator";
-            Movable = false;
+            this.Visible = false;
+            this.Name = "Haochi's katana generator";
+            this.Movable = false;
         }
 
         public HaochisKatanaGenerator(Serial serial)
@@ -20,11 +21,11 @@ namespace Server.Engines.Quests.Samurai
 
         public override bool OnMoveOver(Mobile m)
         {
-            var player = m as PlayerMobile;
+            PlayerMobile player = m as PlayerMobile;
 
             if (player != null)
             {
-                var qs = player.Quest;
+                QuestSystem qs = player.Quest;
 
                 if (qs is HaochisTrialsQuest)
                 {
@@ -35,13 +36,12 @@ namespace Server.Engines.Quests.Samurai
                         if (!player.PlaceInBackpack(katana))
                         {
                             katana.Delete();
-                            player.SendLocalizedMessage(1046260);
-                                // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                            player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                         }
                     }
                     else
                     {
-                        var obj = qs.FindObjective(typeof (FifthTrialIntroObjective));
+                        QuestObjective obj = qs.FindObjective(typeof(FifthTrialIntroObjective));
 
                         if (obj != null && !obj.Completed)
                         {
@@ -54,8 +54,7 @@ namespace Server.Engines.Quests.Samurai
                             else
                             {
                                 katana.Delete();
-                                player.SendLocalizedMessage(1046260);
-                                    // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                                player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                             }
                         }
                     }
@@ -76,7 +75,7 @@ namespace Server.Engines.Quests.Samurai
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
         }
     }
 }

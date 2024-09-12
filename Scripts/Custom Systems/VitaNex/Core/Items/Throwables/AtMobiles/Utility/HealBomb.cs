@@ -52,7 +52,7 @@ namespace VitaNex.Items
 		public ThrowableHealBomb(int amount)
 			: base(Utility.RandomList(8790, 8791), amount)
 		{
-			Name = "Healing Bobomb";
+			Name = "Leczenie Bobomb";
 			Usage = String.Empty;
 			Hue = 55;
 			Weight = 10.0;

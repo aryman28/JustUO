@@ -7,14 +7,14 @@ namespace Server.Mobiles
         [Constructable]
         public Healer()
         {
-            this.Title = "the healer";
+            this.Title = "- Uzdrowiciel";
 
             if (!Core.AOS)
                 this.NameHue = 0x35;
 
-            this.SetSkill(SkillName.Forensics, 80.0, 100.0);
-            this.SetSkill(SkillName.SpiritSpeak, 80.0, 100.0);
-            this.SetSkill(SkillName.Swords, 80.0, 100.0);
+            this.SetSkill(SkillName.Kryminalistyka, 80.0, 100.0);
+            this.SetSkill(SkillName.MowaDuchow, 80.0, 100.0);
+            this.SetSkill(SkillName.WalkaMieczami, 80.0, 100.0);
         }
 
         public Healer(Serial serial)
@@ -48,10 +48,10 @@ namespace Server.Mobiles
             if (!base.CheckTeach(skill, from))
                 return false;
 
-            return (skill == SkillName.Forensics) ||
-                   (skill == SkillName.Healing) ||
-                   (skill == SkillName.SpiritSpeak) ||
-                   (skill == SkillName.Swords);
+            return (skill == SkillName.Kryminalistyka) ||
+                   (skill == SkillName.Leczenie) ||
+                   (skill == SkillName.MowaDuchow) ||
+                   (skill == SkillName.WalkaMieczami);
         }
 
         public override void InitSBInfo()

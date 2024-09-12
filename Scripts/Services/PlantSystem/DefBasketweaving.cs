@@ -25,7 +25,7 @@ namespace Server.Engines.Craft
         {
             get
             {
-                return SkillName.Tinkering;
+                return SkillName.Majsterkowanie;
             }
         }
         public override string GumpTitleString
@@ -87,53 +87,53 @@ namespace Server.Engines.Craft
             int index = -1;
 
             index = this.AddCraft(typeof(RoundBasket), 1112335, 1112293, 75.0, 100.0, typeof(SoftenedReeds), 1112249, 3, 1112251);
-            this.AddSkill(index, SkillName.Carpentry, 75.0, 80.0);
+            this.AddSkill(index, SkillName.Stolarstwo, 75.0, 80.0);
             this.AddRes(index, typeof(Shaft), 1112247, 2, 1112246);
             //SetUseSubRes2(index, true);
 
             index = this.AddCraft(typeof(RoundBasketHandles), 1112335, "Round basket w/handles", 75.0, 100.0, typeof(SoftenedReeds), 1112249, 3, 1112251);
-            this.AddSkill(index, SkillName.Carpentry, 75.0, 80.0);
+            this.AddSkill(index, SkillName.Stolarstwo, 75.0, 80.0);
             this.AddRes(index, typeof(Shaft), 1112247, 2, 1112246);
             //SetUseSubRes2(index, true);
 
             index = this.AddCraft(typeof(SmallBushel), 1112335, 1112337, 75.0, 100.0, typeof(SoftenedReeds), 1112249, 2, 1112251);
-            this.AddSkill(index, SkillName.Carpentry, 75.0, 80.0);
+            this.AddSkill(index, SkillName.Stolarstwo, 75.0, 80.0);
             this.AddRes(index, typeof(Shaft), 1112247, 1, 1112246);
             // SetUseSubRes2(index, true);
 
             index = this.AddCraft(typeof(PicnicBasket), 1112335, 1112356, 75.0, 100.0, typeof(SoftenedReeds), 1112249, 2, 1112251);
-            this.AddSkill(index, SkillName.Carpentry, 75.0, 80.0);
+            this.AddSkill(index, SkillName.Stolarstwo, 75.0, 80.0);
             this.AddRes(index, typeof(Shaft), 1112247, 1, 1112246);
             //SetUseSubRes2(index, true);
 
             index = this.AddCraft(typeof(WinnowingBasket), 1112335, 1112355, 75.0, 100.0, typeof(SoftenedReeds), 1112249, 5, 1112251);
-            this.AddSkill(index, SkillName.Carpentry, 75.0, 80.0);
+            this.AddSkill(index, SkillName.Stolarstwo, 75.0, 80.0);
             this.AddRes(index, typeof(Shaft), 1112247, 4, 1112246);
             // SetUseSubRes2(index, true);
             
             index = this.AddCraft(typeof(SquareBasket), 1112335, 1112295, 75.0, 100.0, typeof(SoftenedReeds), 1112249, 3, 1112251);
-            this.AddSkill(index, SkillName.Carpentry, 75.0, 80.0);
+            this.AddSkill(index, SkillName.Stolarstwo, 75.0, 80.0);
             this.AddRes(index, typeof(Shaft), 1112247, 2, 1112246);
             //SetUseSubRes2(index, true);
             
             index = this.AddCraft(typeof(Basket), 1112335, 1112294, 75.0, 100.0, typeof(SoftenedReeds), 1112249, 2, 1112251);
-            this.AddSkill(index, SkillName.Carpentry, 75.0, 80.0);
+            this.AddSkill(index, SkillName.Stolarstwo, 75.0, 80.0);
             this.AddRes(index, typeof(Shaft), 1112247, 1, 1112246);
 
             index = this.AddCraft(typeof(TallRoundBasket), 1112335, 1112297, 75.0, 100.0, typeof(SoftenedReeds), 1112249, 4, 1112251);
-            this.AddSkill(index, SkillName.Carpentry, 75.0, 80.0);
+            this.AddSkill(index, SkillName.Stolarstwo, 75.0, 80.0);
             this.AddRes(index, typeof(Shaft), 1112247, 3, 1112246);
 
             index = this.AddCraft(typeof(SmallSquareBasket), 1112335, 1112296, 75.0, 100.0, typeof(SoftenedReeds), 1112249, 2, 1112251);
-            this.AddSkill(index, SkillName.Carpentry, 75.0, 80.0);
+            this.AddSkill(index, SkillName.Stolarstwo, 75.0, 80.0);
             this.AddRes(index, typeof(Shaft), 1112247, 1, 1112246);
 
             index = this.AddCraft(typeof(TallBasket), 1112335, 1112299, 75.0, 100.0, typeof(SoftenedReeds), 1112249, 4, 1112251);
-            this.AddSkill(index, SkillName.Carpentry, 75.0, 80.0);
+            this.AddSkill(index, SkillName.Stolarstwo, 75.0, 80.0);
             this.AddRes(index, typeof(Shaft), 1112247, 3, 1112246);
 
             index = this.AddCraft(typeof(SmallRoundBasket), 1112335, 1112298, 75.0, 100.0, typeof(SoftenedReeds), 1112249, 2, 1112251);
-            this.AddSkill(index, SkillName.Carpentry, 75.0, 80.0);
+            this.AddSkill(index, SkillName.Stolarstwo, 75.0, 80.0);
             this.AddRes(index, typeof(Shaft), 1112247, 1, 1112246);
         }
 

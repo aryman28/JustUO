@@ -1,7 +1,7 @@
 using System;
 using Server.Targeting;
 
-namespace Server.Spells.Chivalry
+namespace Server.Spells.Rycerstwo
 {
     public class CleanseByFireSpell : PaladinSpell
     {
@@ -84,7 +84,7 @@ namespace Server.Spells.Chivalry
                 if (p != null)
                 {
                     // Cleanse by fire is now difficulty based 
-                    int chanceToCure = 10000 + (int)(this.Caster.Skills[SkillName.Chivalry].Value * 75) - ((p.Level + 1) * 2000);
+                    int chanceToCure = 10000 + (int)(this.Caster.Skills[SkillName.Rycerstwo].Value * 75) - ((p.Level + 1) * 2000);
                     chanceToCure /= 100;
 
                     if (chanceToCure > Utility.Random(100))

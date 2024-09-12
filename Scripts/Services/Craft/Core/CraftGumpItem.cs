@@ -178,8 +178,8 @@ namespace Server.Engines.Craft
                 else if (excepChance > 1.0)
                     excepChance = 1.0;
 
-                this.AddHtmlLocalized(170, 100, 250, 18, 1044058, 32767, false, false); // Exceptional Chance:
-                this.AddLabel(430, 100, LabelHue, String.Format("{0:F1}%", excepChance * 100));
+                //this.AddHtmlLocalized(170, 100, 250, 18, 1044058, 32767, false, false); // Exceptional Chance:
+                //this.AddLabel(430, 100, LabelHue, String.Format("{0:F1}%", excepChance * 100));
             }
         }
 

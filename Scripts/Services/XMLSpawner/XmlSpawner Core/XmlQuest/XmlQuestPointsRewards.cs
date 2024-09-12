@@ -45,13 +45,13 @@ namespace Server.Engines.XmlSpawner2
 		public static void Initialize()
 		{
             // these are items as rewards. Note that the args list must match a constructor for the reward type specified.
-            PointsRewardList.Add( new XmlQuestPointsRewards( 1000, typeof(PowerScroll), "105 Smithing powerscroll", 1000, 0x14F0, 0, 5, new object[] { SkillName.Blacksmith, 105 }));
-            PointsRewardList.Add( new XmlQuestPointsRewards( 2000, typeof(PowerScroll), "110 Smithing powerscroll", 2000, 0x14F0, 0x22, 5, new object[] { SkillName.Blacksmith, 110 }));
-            PointsRewardList.Add( new XmlQuestPointsRewards( 4000, typeof(PowerScroll), "115 Smithing powerscroll", 4000, 0x14F0, 0x44, 5, new object[] { SkillName.Blacksmith, 115 }));
+            PointsRewardList.Add( new XmlQuestPointsRewards( 1000, typeof(PowerScroll), "105 Smithing powerscroll", 1000, 0x14F0, 0, 5, new object[] { SkillName.Kowalstwo, 105 }));
+            PointsRewardList.Add( new XmlQuestPointsRewards( 2000, typeof(PowerScroll), "110 Smithing powerscroll", 2000, 0x14F0, 0x22, 5, new object[] { SkillName.Kowalstwo, 110 }));
+            PointsRewardList.Add( new XmlQuestPointsRewards( 4000, typeof(PowerScroll), "115 Smithing powerscroll", 4000, 0x14F0, 0x44, 5, new object[] { SkillName.Kowalstwo, 115 }));
             PointsRewardList.Add( new XmlQuestPointsRewards( 500, typeof(AncientSmithyHammer), "+20 Ancient Smithy Hammer, 50 uses", 500, 0x13E4, 0, 5, new object[] { 20, 50 }));
             PointsRewardList.Add( new XmlQuestPointsRewards( 200, typeof(ColoredAnvil), "Colored Anvil", 400, 0xFAF, 0, 5, null ));
             PointsRewardList.Add( new XmlQuestPointsRewards( 100, typeof(PowderOfTemperament), "Powder Of Temperament, 10 uses", 300, 4102, 0, 5, new object[] { 10 }));
-            PointsRewardList.Add( new XmlQuestPointsRewards( 100, typeof(LeatherGlovesOfMining), "+20 Leather Gloves Of Mining", 200, 0x13c6, 0, 5, new object[] { 20 }));
+            PointsRewardList.Add( new XmlQuestPointsRewards( 100, typeof(LeatherGlovesOfMining), "+20 Leather Gloves Of Gornictwo", 200, 0x13c6, 0, 5, new object[] { 20 }));
 
 			// this is an example of adding a mobile as a reward
             PointsRewardList.Add( new XmlQuestPointsRewards( 0, typeof(RidableLlama),"Ridable Llama", 1, 0x20f6, 0, -15, null));

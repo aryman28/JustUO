@@ -11,7 +11,7 @@ namespace Server.Mobiles
         {
             this.InitStats(31, 41, 51);
 
-            this.SetSkill(SkillName.Mining, 36, 68);
+            this.SetSkill(SkillName.Gornictwo, 36, 68);
 
             this.SpeechHue = Utility.RandomDyedHue();
             this.Hue = Utility.RandomSkinHue();
@@ -21,13 +21,13 @@ namespace Server.Mobiles
             {
                 this.Body = 0x191;
                 this.Name = NameList.RandomName("female");
-                this.Title = "the Harbor Mistress";
+                this.Title = "- Zawiadowczyni portu";
             }
             else
             {
                 this.Body = 0x190;
                 this.Name = NameList.RandomName("male");
-                this.Title = "the Harbor Master";
+                this.Title = "- Zawiadowca portu";
             }
             this.AddItem(new Shirt(Utility.RandomDyedHue()));
             this.AddItem(new Boots());

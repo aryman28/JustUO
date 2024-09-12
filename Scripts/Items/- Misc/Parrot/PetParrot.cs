@@ -32,9 +32,9 @@ namespace Server.Mobiles
 
             this.SetResistance(ResistanceType.Physical, 2);
 
-            this.SetSkill(SkillName.MagicResist, 4);
-            this.SetSkill(SkillName.Tactics, 4);
-            this.SetSkill(SkillName.Wrestling, 4);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 4);
+            this.SetSkill(SkillName.Taktyka, 4);
+            this.SetSkill(SkillName.Boks, 4);
 
             this.CantWalk = true;
             this.Blessed = true;

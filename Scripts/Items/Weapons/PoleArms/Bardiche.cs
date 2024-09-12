@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0xF4D)
         {
             this.Weight = 7.0;
+            this.Name = "Berdysz";
         }
 
         public Bardiche(Serial serial)

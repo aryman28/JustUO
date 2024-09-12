@@ -11,7 +11,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -20,7 +20,7 @@ namespace Server.Items
         }
         public override bool OnBeforeDamage(Mobile attacker, Mobile defender)
         {
-            if (!this.Validate(attacker) || !this.CheckMana(attacker, true))
+            if (!this.Validate(attacker) || !this.CheckStam(attacker, true))
                 return false;
 
             ClearCurrentAbility(attacker);
@@ -38,7 +38,7 @@ namespace Server.Items
 
             int damage = 10; 
 
-            damage += Math.Min(5, (int)(Math.Abs(attacker.Skills[SkillName.Anatomy].Value + attacker.Skills[SkillName.ArmsLore].Value) / 8));
+            damage += Math.Min(5, (int)(Math.Abs(attacker.Skills[SkillName.Anatomia].Value + attacker.Skills[SkillName.Taktyka].Value) / 8));
 
             defender.Damage(damage, attacker);
 

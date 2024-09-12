@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
 using Server.Spells.Fourth;
-using Server.Spells.Necromancy;
+using Server.Spells.Nekromancja;
 using Server.Targeting;
 
 namespace Server.Spells.Mystic
@@ -65,7 +65,7 @@ namespace Server.Spells.Mystic
                 }
 
                 Mobile m;
-                int toheal = (int)(this.Caster.Skills[SkillName.Mysticism].Value * 0.1);
+                int toheal = (int)(this.Caster.Skills[SkillName.Mistycyzm].Value * 0.1);
                 this.Caster.PlaySound(0x64D);
 
                 for (int i = 0; i < targets.Count; i++)
@@ -90,7 +90,7 @@ namespace Server.Spells.Mystic
                         m.RemoveStatMod("[Magic] Int Offset");
 
                     m.Paralyzed = false;
-                    m.Asleep = false; // SA Mysticism Edit
+                    m.Asleep = false; // SA Mistycyzm Edit
                     m.CurePoison(this.Caster);
                     EvilOmenSpell.TryEndEffect(m);
                     StrangleSpell.RemoveCurse(m);

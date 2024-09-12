@@ -20,7 +20,7 @@ namespace Server.Mobiles
                 this.Body = 0x191; 
                 this.Name = NameList.RandomName("female");
                 this.AddItem(new FancyDress(Utility.RandomDyedHue())); 
-                this.Title = "the actress"; 
+                this.Title = "- Aktor"; 
             }
             else 
             { 

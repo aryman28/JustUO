@@ -8,9 +8,9 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Butcher()
-            : base("the butcher")
+            : base("- Rzeznik")
         { 
-            this.SetSkill(SkillName.Anatomy, 45.0, 68.0);
+            this.SetSkill(SkillName.Anatomia, 45.0, 68.0);
         }
 
         public Butcher(Serial serial)

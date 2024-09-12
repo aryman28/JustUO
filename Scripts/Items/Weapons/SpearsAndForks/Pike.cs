@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x26BE)
         {
             this.Weight = 8.0;
+            this.Name = "Pika";
         }
 
         public Pike(Serial serial)

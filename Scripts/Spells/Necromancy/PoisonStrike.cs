@@ -4,7 +4,7 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Targeting;
 
-namespace Server.Spells.Necromancy
+namespace Server.Spells.Nekromancja
 {
     public class PoisonStrikeSpell : NecromancerSpell
     {

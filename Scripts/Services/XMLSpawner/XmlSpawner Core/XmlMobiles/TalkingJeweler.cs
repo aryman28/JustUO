@@ -12,7 +12,7 @@ namespace Server.Mobiles
 		[Constructable]
 		public TalkingJeweler() : base( "the jeweler" )
 		{
-			SetSkill( SkillName.ItemID, 64.0, 100.0 );
+			SetSkill( SkillName.Identyfikacja, 64.0, 100.0 );
 		}
 
 		public override void InitSBInfo()

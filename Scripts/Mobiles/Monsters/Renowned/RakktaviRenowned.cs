@@ -21,8 +21,8 @@ namespace Server.Mobiles
             SetInt(327);
 
             SetHits(50000);
-            SetMana(327);
-            SetStam(279);
+			SetMana(327);
+			SetStam(279);
 
             SetDamage(8, 10);
 
@@ -34,11 +34,11 @@ namespace Server.Mobiles
             SetResistance(ResistanceType.Poison, 10, 20);
             SetResistance(ResistanceType.Energy, 10, 20);
 
-            SetSkill(SkillName.Anatomy, 0);
-            SetSkill(SkillName.Archery, 80.1, 90.0);
-            SetSkill(SkillName.MagicResist, 66.0);
-            SetSkill(SkillName.Tactics, 68.1);
-            SetSkill(SkillName.Wrestling, 85.5);
+            SetSkill(SkillName.Anatomia, 0);
+            SetSkill(SkillName.Lucznictwo, 80.1, 90.0);
+            SetSkill(SkillName.ObronaPrzedMagia, 66.0);
+            SetSkill(SkillName.Taktyka, 68.1);
+            SetSkill(SkillName.Boks, 85.5);
 
             Fame = 6500;
             Karma = -6500;
@@ -46,7 +46,7 @@ namespace Server.Mobiles
             VirtualArmor = 56;
 
             PackItem(new EssenceBalance());
-
+			
             AddItem(new Bow());
             PackItem(new Arrow(Utility.RandomMinMax(10, 30)));
         }
@@ -58,56 +58,68 @@ namespace Server.Mobiles
 
         public override Type[] UniqueSAList
         {
-            get { return new[] {typeof (TatteredAncientScroll)}; }
+            get
+            {
+                return new Type[] { typeof(TatteredAncientScroll) };
+            }
         }
-
         public override Type[] SharedSAList
         {
             get
             {
-                return new[]
-                {
-                    typeof (CavalrysFolly), typeof (ArcanicRuneStone), typeof (CrushedGlass), typeof (AbyssalCloth),
-                    typeof (TorcOfTheGuardians)
-                };
+                return new Type[] { typeof(CavalrysFolly), typeof(ArcanicRuneStone), typeof(CrushedGlass), typeof(AbyssalCloth), typeof(TorcOfTheGuardians) };
             }
         }
-
         public override InhumanSpeech SpeechType
         {
-            get { return InhumanSpeech.Ratman; }
+            get
+            {
+                return InhumanSpeech.Ratman;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int Hides
         {
-            get { return 8; }
+            get
+            {
+                return 8;
+            }
         }
-
         public override HideType HideType
         {
-            get { return HideType.Spined; }
+            get
+            {
+                return HideType.Spined;
+            }
         }
-
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Rich);
+        }
+        public override bool AllureImmune
+        {
+            get
+            {
+                return true;
+            }
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
             if (Body == 42)
             {

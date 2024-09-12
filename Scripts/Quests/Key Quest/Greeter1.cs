@@ -7,13 +7,11 @@ namespace Server.Mobiles
 {
     public class Greeter1 : BaseGuildmaster
     {
-        private static bool m_Talked; // flag to prevent spam 
-
-        private readonly string[] kfcsay =
+        private static bool m_Talked;// flag to prevent spam 
+        readonly string[] kfcsay = new string[] // things to say while greating 
         {
-            "Greetings Adventurer! If you are seeking to enter the Abyss, I may be of assitance to you."
+            "Greetings Adventurer! If you are seeking to enter the Abyss, I may be of assitance to you.",
         };
-
         [Constructable]
         public Greeter1()
             : base("Greeter1")
@@ -27,28 +25,32 @@ namespace Server.Mobiles
 
         public override NpcGuild NpcGuild
         {
-            get { return NpcGuild.TailorsGuild; }
+            get
+            {
+                return NpcGuild.TailorsGuild;
+            }
         }
-
         public override bool ClickTitle
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override void InitBody()
         {
-            InitStats(100, 100, 100);
-            Name = "Garamon";
-            Body = 0x190;
+            this.InitStats(100, 100, 100);
+            this.Name = "Garamon";
+            this.Body = 0x190;
         }
 
         public override void InitOutfit()
         {
-            AddItem(new Robe(1));
-            AddItem(new Sandals(1));
+            this.AddItem(new Robe(1));
+            this.AddItem(new Sandals(1));
 
-            HairItemID = 0x203B;
-            HairHue = 0;
+            this.HairItemID = 0x203B;
+            this.HairHue = 0;
         }
 
         public override void OnMovement(Mobile m, Point3D oldLocation)
@@ -58,10 +60,10 @@ namespace Server.Mobiles
                 if (m.InRange(this, 2))
                 {
                     m_Talked = true;
-                    SayRandom(kfcsay, this);
-                    Move(GetDirectionTo(m.Location));
+                    SayRandom(this.kfcsay, this);
+                    this.Move(this.GetDirectionTo(m.Location));
 
-                    var t = new SpamTimer();
+                    SpamTimer t = new SpamTimer();
                     t.Start();
                 }
             }
@@ -69,7 +71,7 @@ namespace Server.Mobiles
 
         public override bool HandlesOnSpeech(Mobile from)
         {
-            if (from.InRange(Location, 2))
+            if (from.InRange(this.Location, 2))
                 return true;
 
             return base.HandlesOnSpeech(from);
@@ -77,18 +79,17 @@ namespace Server.Mobiles
 
         public override void OnSpeech(SpeechEventArgs e)
         {
-            var from = e.Mobile;
+            Mobile from = e.Mobile;
 
-            if (!e.Handled && from is PlayerMobile && from.InRange(Location, 2) && e.Speech.Contains("abyss"))
+            if (!e.Handled && from is PlayerMobile && from.InRange(this.Location, 2) && e.Speech.Contains("abyss"))
             {
-                var pm = (PlayerMobile) from;
+                PlayerMobile pm = (PlayerMobile)from;
 
                 if (e.Speech.Contains("abyss"))
-                    SayTo(from,
-                        "It's entrance is protected by stone guardians, who will only grant passage to the carrier of a Tripartite Key!");
+                    this.SayTo(from, "It's entrance is protected by stone guardians, who will only grant passage to the carrier of a Tripartite Key!");
 
                 else if (e.Speech.Contains("key"))
-                    SayTo(from, "It's three parts you must find and re-unite as one!");
+                    this.SayTo(from, "It's three parts you must find and re-unite as one!");
 
                 e.Handled = true;
             }
@@ -104,13 +105,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
 
         private static void SayRandom(string[] say, Mobile m)
@@ -120,14 +121,13 @@ namespace Server.Mobiles
 
         public class Greeter1Entry : ContextMenuEntry
         {
-            private readonly Mobile m_Giver;
             private readonly Mobile m_Mobile;
-
+            private readonly Mobile m_Giver;
             public Greeter1Entry(Mobile from, Mobile giver)
                 : base(6146, 3)
             {
-                m_Mobile = from;
-                m_Giver = giver;
+                this.m_Mobile = from;
+                this.m_Giver = giver;
             }
         }
 
@@ -136,7 +136,7 @@ namespace Server.Mobiles
             public SpamTimer()
                 : base(TimeSpan.FromSeconds(90))
             {
-                Priority = TimerPriority.OneSecond;
+                this.Priority = TimerPriority.OneSecond;
             }
 
             protected override void OnTick()

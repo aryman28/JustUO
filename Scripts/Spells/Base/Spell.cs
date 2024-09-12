@@ -7,11 +7,11 @@ using Server.Items;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Network;
-using Server.Spells.Bushido;
-using Server.Spells.Necromancy;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Fanatyzm;
+using Server.Spells.Nekromancja;
+using Server.Spells.Skrytobojstwo;
 using Server.Spells.Second;
-using Server.Spells.Spellweaving;
+using Server.Spells.Druidyzm;
 using Server.Targeting;
 #endregion
 
@@ -37,8 +37,8 @@ namespace Server.Spells
 		private static readonly TimeSpan NextSpellDelay = TimeSpan.FromSeconds(0.75);
 		private static TimeSpan AnimateDelay = TimeSpan.FromSeconds(1.5);
 
-		public virtual SkillName CastSkill { get { return SkillName.Magery; } }
-		public virtual SkillName DamageSkill { get { return SkillName.EvalInt; } }
+		public virtual SkillName CastSkill { get { return SkillName.Magia; } }
+		public virtual SkillName DamageSkill { get { return SkillName.Intelekt; } }
 
 		public virtual bool RevealOnCast { get { return true; } }
 		public virtual bool ClearHandsOnCast { get { return true; } }
@@ -324,15 +324,15 @@ namespace Server.Spells
 		public virtual double GetInscribeSkill(Mobile m)
 		{
 			// There is no chance to gain
-			// m.CheckSkill( SkillName.Inscribe, 0.0, 120.0 );
-			return m.Skills[SkillName.Inscribe].Value;
+			// m.CheckSkill( SkillName.Inskrypcja, 0.0, 120.0 );
+			return m.Skills[SkillName.Inskrypcja].Value;
 		}
 
 		public virtual int GetInscribeFixed(Mobile m)
 		{
 			// There is no chance to gain
-			// m.CheckSkill( SkillName.Inscribe, 0.0, 120.0 );
-			return m.Skills[SkillName.Inscribe].Fixed;
+			// m.CheckSkill( SkillName.Inskrypcja, 0.0, 120.0 );
+			return m.Skills[SkillName.Inskrypcja].Fixed;
 		}
 
 		public virtual int GetDamageFixed(Mobile m)
@@ -349,17 +349,17 @@ namespace Server.Spells
 
 		public virtual double GetResistSkill(Mobile m)
 		{
-			return m.Skills[SkillName.MagicResist].Value;
+			return m.Skills[SkillName.ObronaPrzedMagia].Value;
 		}
 
 		public virtual double GetDamageScalar(Mobile target)
 		{
 			double scalar = 1.0;
 
-			if (!Core.AOS) //EvalInt stuff for AoS is handled elsewhere
+			if (!Core.AOS) //Intelekt stuff for AoS is handled elsewhere
 			{
 				double casterEI = m_Caster.Skills[DamageSkill].Value;
-				double targetRS = target.Skills[SkillName.MagicResist].Value;
+				double targetRS = target.Skills[SkillName.ObronaPrzedMagia].Value;
 
 				/*
 				if( Core.AOS )
@@ -869,8 +869,8 @@ namespace Server.Spells
 			// Paladins with magery of 70.0 or above are subject to a faster casting cap of 2 
 			int fcMax = 4;
 
-			if (CastSkill == SkillName.Magery || CastSkill == SkillName.Necromancy ||
-				(CastSkill == SkillName.Chivalry && m_Caster.Skills[SkillName.Magery].Value >= 70.0))
+			if (CastSkill == SkillName.Magia || CastSkill == SkillName.Nekromancja ||
+				(CastSkill == SkillName.Rycerstwo && m_Caster.Skills[SkillName.Magia].Value >= 70.0))
 			{
 				fcMax = 2;
 			}

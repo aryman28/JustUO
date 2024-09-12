@@ -1,0 +1,168 @@
+<?xml version="1.0" standalone="yes"?>
+<XmlQuestNPC>
+  <NPC>
+    <Name>Drakan</Name>
+    <Running>True</Running>
+    <ProximityRange>3</ProximityRange>
+    <ResetRange>16</ResetRange>
+    <NoTriggerOnCarried>Koniec Giermek Drakana | ATTACHMENT,Koniec Giermek Drakana,XmlQuestAttachment</NoTriggerOnCarried>
+    <AllowGhost>False</AllowGhost>
+    <SpeechPace>10</SpeechPace>
+    <ResetTime>1</ResetTime>
+    <ConfigFile>DrakanNPC</ConfigFile>
+    <SpeechEntries>11</SpeechEntries>
+  </NPC>
+  <SpeechEntry>
+    <EntryNumber>0</EntryNumber>
+    <ID>0</ID>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>10</EntryNumber>
+    <ID>10</ID>
+    <Text>Witaj mlodziku... Czego tutaj szukasz?</Text>
+    <DependsOn>-2</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>20</EntryNumber>
+    <ID>20</ID>
+    <Keywords>witaj</Keywords>
+    <DependsOn>10</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Drakan,4/A wiec przychodzisz do mnie poniwaz chcesz moim Giermkiem a w przyszlosci moze i nawet Rycerzem?   ;Tak;agree;Powiedz wecej;question</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>30</EntryNumber>
+    <ID>30</ID>
+    <Keywords>agree</Keywords>
+    <DependsOn>20,50</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Drakan,4/Zatem dobrze skoro taka twoja wola moge przyjac na nauki. Aby tak sie stalo musisz przyniesc mi kodeks paladyna oraz 10 czystych zwoi abym mogl‚ wykonac dla ciebie list polecajacy. ;Zaczynajmy;accept;Rezygnuje;decline</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>40</EntryNumber>
+    <ID>40</ID>
+    <Keywords>accept</Keywords>
+    <Action>GIVE/&lt;questholder/name/Giermek Drakana/repeatable/false/notestring/Drakan [Rycerz] poprosil ciebie przyniesienie mu kodeksu paladyna oraz 10 czystych zwoi./objective1/COLLECT,KodeksPaladyna,1/objective2/COLLECT,BlankScroll,10/autoreward/false/rewardstring/@bag/ADD/&lt;KluczElada/name/Klucz Drakana/hue/488&gt;/ADD/&lt;GiermekDeed/hue/488&gt;</Action>
+    <DependsOn>30</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>50</EntryNumber>
+    <ID>50</ID>
+    <Keywords>question</Keywords>
+    <DependsOn>20,60</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Drakan,4/Jezeli wykonasz poprawnie to zadanie czeka cie dodtkowa nagroda!;Zgadzam sie;agree;Rezygnuje;decline</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>60</EntryNumber>
+    <ID>60</ID>
+    <Keywords>decline</Keywords>
+    <DependsOn>0</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Drakan,4/Nie potrzebnie zawracales/as mi glowe! Bywaj!</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>70</EntryNumber>
+    <ID>70</ID>
+    <Text>Jeszcze nie masz wszystkiego?</Text>
+    <Condition>GETONCARRIED,Giermek Drakana,questholder,iscompleted=false &amp; GETONCARRIED,Giermek Drakana,questholder,visible=true</Condition>
+    <DependsOn>-1</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>80</EntryNumber>
+    <ID>80</ID>
+    <Text>Wspaniale! Udalo ci sie!</Text>
+    <Action>TAKE/Giermek Drakana ; GIVE/&lt;questholder/name/Giermek Drakana/hue/888/visible/false/repetable/false&gt;</Action>
+    <Condition>GETONCARRIED,Giermek Drakana,questholder,iscompleted=true &amp; GETONCARRIED,Giermek Drakana,questholder,visible=true</Condition>
+    <DependsOn>-1</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>90</EntryNumber>
+    <ID>90</ID>
+    <Text>A oto i klucz do skrzyni w z wyposażeniem Giermka.</Text>
+    <Action>GIVE/&lt;KluczElada/name/ Klucz Drakana/hue/488&gt; ; GIVE/GiermekDeed/hue/488</Action>
+    <Condition>GETONCARRIED,Giermek Drakana,questholder,hue=888</Condition>
+    <DependsOn>80</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>100</EntryNumber>
+    <ID>100</ID>
+    <Action>TAKE/Giermek Drakana/hue/888/iscomleted=true ; GIVE/&lt;questholder/name/Koniec Giermek Drakana/visible/false/objective1/COLLECT,Zakonczono,1/Completed1/true&gt;</Action>
+    <Condition>GETONCARRIED,Giermek Drakana,questholder,hue=888</Condition>
+    <DependsOn>90</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Drakan,4/Udalo ci sie drogi Giermku! Zatem trenuj teraz hardo! Mam nadzieje ze w przyszlosci dolaczysz do naszego bractwa!  ;Bywaj;Bywaj </Gump>
+  </SpeechEntry>
+</XmlQuestNPC>

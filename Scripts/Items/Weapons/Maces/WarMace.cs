@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x1407)
         {
             this.Weight = 17.0;
+            this.Name = "Bojowy buzdygan";
         }
 
         public WarMace(Serial serial)
@@ -28,7 +29,7 @@ namespace Server.Items
         {
             get
             {
-                return WeaponAbility.MortalStrike;
+                return WeaponAbility.BleedAttack;
             }
         }
         public override int AosStrengthReq

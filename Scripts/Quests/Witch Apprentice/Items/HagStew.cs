@@ -11,7 +11,7 @@ namespace Server.Items
             stew = new AddonComponent(2416);
             stew.Name = "stew";
             stew.Visible = true;
-            AddComponent(stew, 0, 0, -7); //stew
+            this.AddComponent(stew, 0, 0, -7);      //stew
         }
 
         public HagStew(Serial serial)
@@ -21,14 +21,14 @@ namespace Server.Items
 
         public override void OnComponentUsed(AddonComponent stew, Mobile from)
         {
-            if (!from.InRange(GetWorldLocation(), 2))
+            if (!from.InRange(this.GetWorldLocation(), 2))
                 from.SendMessage("You are too far away.");
             else
             {
                 {
                     stew.Visible = false;
 
-                    var hagstew = new BreadLoaf(); //this decides your fillrate
+                    BreadLoaf hagstew = new BreadLoaf();        //this decides your fillrate
                     hagstew.Eat(from);
 
                     Timer m_timer = new ShowStew(stew);
@@ -41,33 +41,33 @@ namespace Server.Items
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
 
         public class ShowStew : Timer
         {
             private readonly AddonComponent stew;
-
             public ShowStew(AddonComponent ac)
                 : base(TimeSpan.FromSeconds(30))
             {
-                stew = ac;
-                Priority = TimerPriority.OneSecond;
+                this.stew = ac;
+                this.Priority = TimerPriority.OneSecond;
             }
 
             protected override void OnTick()
             {
-                if (stew.Visible == false)
+                if (this.stew.Visible == false)
                 {
-                    Stop();
-                    stew.Visible = true;
+                    this.Stop();
+                    this.stew.Visible = true;
+                    return;
                 }
             }
         }

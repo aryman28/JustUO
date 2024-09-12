@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<accounts count="2">
+	<account>
+		<username>admin</username>
+		<newCryptPassword>DD-94-70-95-28-BB-1C-83-D0-8F-30-88-D4-04-3F-47-42-89-1F-4F</newCryptPassword>
+		<accessLevel>Owner</accessLevel>
+		<flags>2</flags>
+		<created>2021-08-04T04:01:10.4331838Z</created>
+		<lastLogin>2022-11-20T16:53:10.5271924Z</lastLogin>
+		<totalGameTime>P5DT3H21M22.7922658S</totalGameTime>
+		<chars>
+			<char index="0">1</char>
+			<char index="1">11</char>
+			<char index="2">30</char>
+		</chars>
+		<tags>
+			<tag name="Age of Aryman">23</tag>
+			<tag name="LastRenewAge Aryman">16.11.2022 06:25:19</tag>
+			<tag name="Age of Biskupik">22</tag>
+			<tag name="LastRenewAge Biskupik">16.11.2022 06:25:19</tag>
+			<tag name="numRewardsChosen">1</tag>
+			<tag name="Age of tester">22</tag>
+			<tag name="LastRenewAge tester">16.11.2022 06:25:19</tag>
+		</tags>
+		<addressList count="1">
+			<ip>127.0.0.1</ip>
+		</addressList>
+	</account>
+	<account>
+		<username>gracz</username>
+		<newCryptPassword>7A-EE-36-F8-44-8E-D3-20-74-2F-D1-62-F5-3C-09-72-FC-33-03-B3</newCryptPassword>
+		<created>2021-08-31T06:07:15.9952466Z</created>
+		<lastLogin>2021-08-31T06:07:35.5937771Z</lastLogin>
+		<totalGameTime>PT8M23.4307865S</totalGameTime>
+		<chars>
+			<char index="0">3</char>
+		</chars>
+		<tags>
+			<tag name="Age of zzzz">22</tag>
+			<tag name="LastRenewAge zzzz">16.11.2022 06:25:19</tag>
+		</tags>
+		<addressList count="1">
+			<ip>127.0.0.1</ip>
+		</addressList>
+	</account>
+</accounts>

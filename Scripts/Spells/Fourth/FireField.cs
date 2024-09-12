@@ -77,9 +77,9 @@ namespace Server.Spells.Fourth
                 TimeSpan duration;
 
                 if (Core.AOS)
-                    duration = TimeSpan.FromSeconds((15 + (this.Caster.Skills.Magery.Fixed / 5)) / 4);
+                    duration = TimeSpan.FromSeconds((15 + (this.Caster.Skills.Magia.Fixed / 5)) / 4);
                 else
-                    duration = TimeSpan.FromSeconds(4.0 + (this.Caster.Skills[SkillName.Magery].Value * 0.5));
+                    duration = TimeSpan.FromSeconds(4.0 + (this.Caster.Skills[SkillName.Magia].Value * 0.5));
 
                 for (int i = -2; i <= 2; ++i)
                 {
@@ -201,7 +201,7 @@ namespace Server.Spells.Fourth
 
                     int damage = this.m_Damage;
 
-                    if (!Core.AOS && m.CheckSkill(SkillName.MagicResist, 0.0, 30.0))
+                    if (!Core.AOS && m.CheckSkill(SkillName.ObronaPrzedMagia, 0.0, 30.0))
                     {
                         damage = 1;
 
@@ -281,7 +281,7 @@ namespace Server.Spells.Fourth
 
                                 int damage = this.m_Item.m_Damage;
 
-                                if (!Core.AOS && m.CheckSkill(SkillName.MagicResist, 0.0, 30.0))
+                                if (!Core.AOS && m.CheckSkill(SkillName.ObronaPrzedMagia, 0.0, 30.0))
                                 {
                                     damage = 1;
 

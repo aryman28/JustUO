@@ -11,7 +11,7 @@ namespace Server.Mobiles
         public BaseGuildmaster(string title)
             : base(title)
         {
-            this.Title = String.Format("the {0} {1}", title, this.Female ? "guildmistress" : "guildmaster");
+            this.Title = String.Format("Mistrz Gildii", title, this.Female ? "Mistrzyni Gildii" : "Mistrzyni");
         }
 
         public BaseGuildmaster(Serial serial)
@@ -128,8 +128,8 @@ namespace Server.Mobiles
                         this.SayTo(from, 501047); // Thou art already a member of our guild.
                     else if (pm.NpcGuild != NpcGuild.None)
                         this.SayTo(from, 501046); // Thou must resign from thy other guild first.
-                    else if (pm.GameTime < this.JoinGameAge || (pm.CreationTime + this.JoinAge) > DateTime.UtcNow)
-                        this.SayTo(from, 501048); // You are too young to join my guild...
+                    //else if (pm.GameTime < this.JoinGameAge || (pm.CreationTime + this.JoinAge) > DateTime.UtcNow)
+                    //    this.SayTo(from, 501048); // You are too young to join my guild...
                     else if (this.CheckCustomReqs(pm))
                         this.SayPriceTo(from);
 
@@ -172,10 +172,10 @@ namespace Server.Mobiles
                 {
                     this.SayTo(from, 501046); // Thou must resign from thy other guild first.
                 }
-                else if (pm.GameTime < this.JoinGameAge || (pm.CreationTime + this.JoinAge) > DateTime.UtcNow)
-                {
-                    this.SayTo(from, 501048); // You are too young to join my guild...
-                }
+                //else if (pm.GameTime < this.JoinGameAge || (pm.CreationTime + this.JoinAge) > DateTime.UtcNow)
+                //{
+                //    this.SayTo(from, 501048); // You are too young to join my guild...
+                //}
                 else if (this.CheckCustomReqs(pm))
                 {
                     this.SayWelcomeTo(from);

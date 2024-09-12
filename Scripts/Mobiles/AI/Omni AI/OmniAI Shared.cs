@@ -2,7 +2,7 @@
 using System;
 using Server.Items;
 using Server.Spells;
-using Server.Spells.Chivalry;
+using Server.Spells.Rycerstwo;
 using Server.Spells.First;
 using Server.Spells.Fourth;
 using Server.Spells.Mystic;
@@ -61,7 +61,7 @@ namespace Server.Mobiles
             }
             else if (this.m_CanUseNecromancy)
             {
-                this.m_Mobile.UseSkill(SkillName.SpiritSpeak);
+                this.m_Mobile.UseSkill(SkillName.MowaDuchow);
                 this.m_NextHealTime = DateTime.UtcNow + TimeSpan.FromSeconds(10);
             }
             else if (this.m_CanUseChivalry)
@@ -75,7 +75,7 @@ namespace Server.Mobiles
             {
                 spell = new CleansingWindsSpell(this.m_Mobile, null);
             }
-            else if (this.m_Mobile.Skills[SkillName.Healing].Value > 10.0)
+            else if (this.m_Mobile.Skills[SkillName.Leczenie].Value > 10.0)
             {
                 int delay = (int)(5.0 + (0.5 * ((120 - this.m_Mobile.Dex) / 10)));
                 new BandageContext(this.m_Mobile, this.m_Mobile, TimeSpan.FromSeconds(delay), false);
@@ -151,7 +151,7 @@ namespace Server.Mobiles
                 WeaponAbility.SetCurrentAbility(this.m_Mobile, weapon.PrimaryAbility);
             else if (this.m_Mobile.Skills[weapon.Skill].Value >= 60.0)
                 WeaponAbility.SetCurrentAbility(this.m_Mobile, weapon.SecondaryAbility);
-            else if (this.m_Mobile.Skills[SkillName.Wrestling].Value >= 60.0 && /*weapon == Fist &&*/ this.m_CanStun && !this.m_Mobile.StunReady)
+            else if (this.m_Mobile.Skills[SkillName.Boks].Value >= 60.0 && /*weapon == Fist &&*/ this.m_CanStun && !this.m_Mobile.StunReady)
                 EventSink.InvokeStunRequest(new StunRequestEventArgs(this.m_Mobile));
         }
 

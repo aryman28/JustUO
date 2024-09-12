@@ -90,7 +90,7 @@ Replace with This:
 STEP 5:  (RECOMMENDED)
 ------------------------------------------------
 To make the chance of taming a creature depend on the players faction with that creatures group, 
-around line 323 of Scripts/Skills/AnimalTaming.cs in the OnTick method, change
+around line 323 of Scripts/Skills/Oswajanie.cs in the OnTick method, change
 
 Find:
 
@@ -110,55 +110,55 @@ Replace with This:
 STEP 6:  (RECOMMENDED, FOLLOW CLOSELY)
 -----------------------------------------------------
 To make the chance of barding a creature depend on the players faction with that creatures group, 
-make the following changes to Peacemaking.cs, Discordance.cs, and Provocation.cs. 
+make the following changes to Uspokajanie.cs, Manipulacja.cs, and Prowokacja.cs. 
 You dont have to do them all if you dont want to. For instance, 
 if you just wanted to mod peacemaking, that would be fine.
 
 
 
-#6A) around line 148 of Scripts/Skills/Peacemaking.cs in the OnTarget method, change
+#6A) around line 148 of Scripts/Skills/Uspokajanie.cs in the OnTarget method, change
 
 Find:
 
 	double diff = m_Instrument.GetDifficultyFor( targ ) - 10.0;
-	double music = from.Skills[SkillName.Musicianship].Value;
+	double music = from.Skills[SkillName.Muzykowanie].Value;
 
 Replace with This:
 
 	double diff = m_Instrument.GetDifficultyFor( targ ) - 10.0;
-	double music = from.Skills[SkillName.Musicianship].Value;
+	double music = from.Skills[SkillName.Muzykowanie].Value;
 	// Xml Spawner 3.26c XmlFactionMob - SOF
 	diff += XmlMobFactions.GetScaledFaction(from, targ, -25, 25, -0.001);
 	// Xml Spawner 3.26c XmlFactionMob - SOF
 
 
-#6B)  around line 111 of Scripts/Skills/Provocation.cs in the OnTarget method, change
+#6B)  around line 111 of Scripts/Skills/Prowokacja.cs in the OnTarget method, change
 
 Find:
 
 	double diff = ((m_Instrument.GetDifficultyFor( m_Creature ) + m_Instrument.GetDifficultyFor( creature )) * 0.5) - 5.0;
-	double music = from.Skills[SkillName.Musicianship].Value;
+	double music = from.Skills[SkillName.Muzykowanie].Value;
 
 Replace with This:
 
 	double diff = ((m_Instrument.GetDifficultyFor( m_Creature ) + m_Instrument.GetDifficultyFor( creature )) * 0.5) - 5.0;
-	double music = from.Skills[SkillName.Musicianship].Value;
+	double music = from.Skills[SkillName.Muzykowanie].Value;
 	// Xml Spawner 2.36c XmlFactionMob - SOF
 	diff += (XmlMobFactions.GetScaledFaction(from, m_Creature, -25, 25, -0.001) + XmlMobFactions.GetScaledFaction(from, creature, -25, 25, -0.001))*0.5;
 	// Xml Spawner 2.36c XmlFaction Mob - EOF
 
 
-#6C) around line 145 of Scripts/Skills/Discordance.cs in the OnTarget method, change
+#6C) around line 145 of Scripts/Skills/Manipulacja.cs in the OnTarget method, change
 
 Find:
 
 	double diff = m_Instrument.GetDifficultyFor( targ ) - 10.0;
-	double music = from.Skills[SkillName.Musicianship].Value;
+	double music = from.Skills[SkillName.Muzykowanie].Value;
 
 Replace with This:
 
 	double diff = m_Instrument.GetDifficultyFor( targ ) - 10.0;
-	double music = from.Skills[SkillName.Musicianship].Value;
+	double music = from.Skills[SkillName.Muzykowanie].Value;
 	// Xml Spawner 3.26c XmlFactionMob - SOF
 	diff += XmlMobFactions.GetScaledFaction(from, targ, -25, 25, -0.001);
 	// Xml Spawner 3.26c XmlFactionMob - EOF

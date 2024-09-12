@@ -11,6 +11,7 @@ namespace Server.Items
         {
             this.Weight = 6.0;
             this.Layer = Layer.TwoHanded;
+            this.Name = "Bojowe półksiężyce";
         }
 
         public Tessen(Serial serial)
@@ -29,7 +30,7 @@ namespace Server.Items
         {
             get
             {
-                return WeaponAbility.DualWield;
+                return WeaponAbility.Block;
             }
         }
         public override int AosStrengthReq

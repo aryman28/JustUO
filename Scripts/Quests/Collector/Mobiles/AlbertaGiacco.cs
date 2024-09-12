@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -18,25 +19,25 @@ namespace Server.Engines.Quests.Collector
 
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
+            this.InitStats(100, 100, 25);
 
-            Hue = 0x83F2;
+            this.Hue = 0x83F2;
 
-            Female = true;
-            Body = 0x191;
-            Name = "Alberta Giacco";
+            this.Female = true;
+            this.Body = 0x191;
+            this.Name = "Alberta Giacco";
         }
 
         public override void InitOutfit()
         {
-            AddItem(new FancyShirt());
-            AddItem(new Skirt(0x59B));
-            AddItem(new Boots());
-            AddItem(new FeatheredHat(0x59B));
-            AddItem(new FullApron(0x59B));
+            this.AddItem(new FancyShirt());
+            this.AddItem(new Skirt(0x59B));
+            this.AddItem(new Boots());
+            this.AddItem(new FeatheredHat(0x59B));
+            this.AddItem(new FullApron(0x59B));
 
-            HairItemID = 0x203D; // Pony Tail
-            HairHue = 0x457;
+            this.HairItemID = 0x203D; // Pony Tail
+            this.HairHue = 0x457;
         }
 
         public override bool CanTalkTo(PlayerMobile to)
@@ -46,30 +47,30 @@ namespace Server.Engines.Quests.Collector
             if (qs == null)
                 return false;
 
-            return (qs.IsObjectiveInProgress(typeof (FindAlbertaObjective)) ||
-                    qs.IsObjectiveInProgress(typeof (SitOnTheStoolObjective)) ||
-                    qs.IsObjectiveInProgress(typeof (ReturnPaintingObjective)));
+            return (qs.IsObjectiveInProgress(typeof(FindAlbertaObjective)) ||
+                    qs.IsObjectiveInProgress(typeof(SitOnTheStoolObjective)) ||
+                    qs.IsObjectiveInProgress(typeof(ReturnPaintingObjective)));
         }
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
         {
-            var qs = player.Quest;
+            QuestSystem qs = player.Quest;
 
             if (qs is CollectorQuest)
             {
-                Direction = GetDirectionTo(player);
+                this.Direction = this.GetDirectionTo(player);
 
-                var obj = qs.FindObjective(typeof (FindAlbertaObjective));
+                QuestObjective obj = qs.FindObjective(typeof(FindAlbertaObjective));
 
                 if (obj != null && !obj.Completed)
                 {
                     obj.Complete();
                 }
-                else if (qs.IsObjectiveInProgress(typeof (SitOnTheStoolObjective)))
+                else if (qs.IsObjectiveInProgress(typeof(SitOnTheStoolObjective)))
                 {
                     qs.AddConversation(new AlbertaStoolConversation());
                 }
-                else if (qs.IsObjectiveInProgress(typeof (ReturnPaintingObjective)))
+                else if (qs.IsObjectiveInProgress(typeof(ReturnPaintingObjective)))
                 {
                     qs.AddConversation(new AlbertaAfterPaintingConversation());
                 }
@@ -80,14 +81,14 @@ namespace Server.Engines.Quests.Collector
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

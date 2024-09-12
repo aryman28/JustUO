@@ -1,0 +1,340 @@
+grafika konia:                   IdTiledata:
+0xC8,                            0x3E9F, - zastapiona
+0xE2,                            0x3EA0, - zastapiona
+0xE4,                            0x3EA1, - zastapiona
+0xCC,                            0x3EA2 - orginalna
+
+Lista Mountow:
+NowaChimera - 0xDB                0x3F0A
+Gryf - 0xFE                       0x3F0B
+UjezdzalnyRaptor - 0xD2           0x3F0C
+WielkiWilk - 0x117                0x3F0D
+czerwony strus - 0xBB             0x3EBA
+niebieski strus - 0xBC            0x3EB8
+BojowyRumak - 0x11B               0x3F0E
+LamaTygrysia - 0x11A              0x3F0F
+OgnistyRumak - 0xC8               0x3F10
+RumakBilay - 226 0xE2             0x3F11
+RumakKasztanowaty - 228 0xE4      0x3F12
+KonBojowy - 283 0x11B             0x3F13
+Panda - 252 0xFC                  0x3F14
+MiniaturowyStygijski - 262 0x106  0x3F15
+MiniaturowyStygijski2 - 263 0x107 0x3F16
+UjezdzalnyWodnyJaszczur - 53      0x3F17
+UjezdzalnyOgnistyJaszczur - 45    0x3F18
+UjezdzalnyLodowyJaszczur - 44     0x3F19
+UjezdzalnyCentaur
+UjezdzalnyMlodySmok
+UjezdzalnyMrowkolew
+UjezdzalnyNiedzwiedzPolarny
+UjezdzalnySfinks
+
+anim5:                                                           ShrinkArt:
+260 - slon                                                       xxx
+262 - maly czerwony stygijski (za minotaury)                     0x2634
+263 - maly niebieski stygijski (za minotaury)                    0x2635
+264 - kosciany drakon (za Changling)                             0x20D6
+197 - smoki stygijskie                                           0x2634
+198 - ------""-------                                            0x2635
+272 - ognisty drakon (za MonstrousInterredGryzzle2)              0x20D6
+273 - czarny drakon (za szkielet 2)                              0x20D6
+278 - wsciekly niedzwiedz polarny (za wiewiorka)                 0x20E1
+279 - wielki wilk (za fredka)                                    0x20EA
+282 - lama tygrysia (za parrot)                                  0x20F6
+283 - bojowy rumak (za crow)                                     0x259B
+269 - poczwarka                                                  0x2765
+anim4:
+254 - gryf (za crane)                                            0x276A
+252 - panda (za lady of snow)                                    0x20E1
+anim2:
+20 - cien (za frost spider)                                      0x2109
+767 - PancernyZuk (za blackthorn cohort)                         0x276F
+768 - larwa (za Juggemaut)                                       0x2633
+786 - leopard (za chariot)                                       0x2583
+999 - krysztalowy golem (za wielokolorowy demon hordy)           0x2610
+753 - mroczna wywerna (za duzy robot)                            0x25D4
+187 - czerwony strus (za savage rideback)                        0x2764
+188 - niebieski strus ----- ""---------                          0x2764
+152 - zloty drzewiec (za teratiana msciciela)                    0x20FA
+124 - pawian mutant (za zlego maga)                              0x210E
+77 - ogromny drzewiec (za krakena)                               0x20FA
+anim1:
+33 - yeti (za race lizardman)                                    0x2D8D
+35 - sniezny olbrzym (za race lizardman2)                        0x2D8D
+41 - mroczny drakon (za orka z maczuga)                          0x20D6
+44 - wodny jaszczur (za ratman 2)                                0x25A1
+45 - ognisty jaszczur (za ratman 3)                              0x25A1
+53 - lodowy jaszczur (za troll2) - zmienia frost troll           0x25A1
+56 - kolczasty drakon (za fetid essence)                         0x20D6
+200 - ognisty rumak (za kon 1)                                   0x21F1
+210 - niebieski raptor (za pustynny ostard)                      0x213E
+219 - chimera (za szalony ostard)                                0x2117
+226 - bialy rumak (za szary kon)                                 0x211F
+228 - kasztanowaty rumak (za brazowy kon)                        0x2120
+233 - krab (za byk 2)                                            0x2154
+
+39 - Nowych Animacji
+
+
+Za Pomoca UoFiddler doda³em animacje p³onacego drzewa:
+DO: 
+---------art.mul-----------
+---------art.idx-----------
++ p³on¹ce liscieste drzewo ( 3 .bmp bitmapy ) 6028/6029/6030
++ p³on¹ca choinka ( 2 bitmapy ) 6026/6027
++ komora elektryczna (4 bitmapy ) 4330/4331/4332/4333
++ komora promieñ (4 bitmapy ) 4318/4319/4320/4330
++ komora klonkobieta (3 bitmapy )  4274/4275/4276
++ komora klonfacet (3 bitmapy) 4277/4278/4279
+
+DO:  
+--------animdata.mul-------------
+
+0x178C Plonace Drzewo
+3 grafiki klatek - 0x178C 0x178D 0x178E
+frame delay 3 s
+
+0x178A Plonaca Choinka
+2 grafiki klatek - 0x178A 0x178B 
+frame delay 3 s
+
+0x10EA Komora 1
+4 grafiki - 0x10EA/0x10EB/0x10EC/0x10ED
+frame delay 4 s
+
+0x10DE KomoraPromien
+4 grafiki - 0x10DE/0x10DF/0x10E0/0x10F4
+
+0x10B2 KlonKobieta
+3 grafiki - 0x10B2/0x10B3/0x10B4
+
+0x10B5 KlonFacet
+3 grafiki 0x10B5/0x10B6/0x10B7
+
+DO:
+------------tiledata.mul-----------
+
+0x178A jako animacja - Plonaca Choinka ---- Height 20
+0x178B -------------
+0x178C jako animacja - Plonace Drzewo ---- Height 20
+0x178D -----------     --------
+0x178E -----------     --------
+0x10EA jako animacja - Komora 1 ---- Height 10
+0x10EB ------------    --------
+0x10EC ------------    --------
+0x10ED ------------    --------
+0x10DE jako animacja - KomoraPromien ---- Height 10
+0x10DF ------------    --------
+0x10E0 ------------    --------
+0x10F4 ------------    --------
+0x10B2 jako animacja - KlonKobieta ---- Height 10
+0x10B3 ------------    --------
+0x10B4 ------------    --------
+0x10B5 jako animacja - KlonFacet ---- Height 10
+0x10B6 ------------    --------
+0x10B7 ------------    --------
+
+NOWE DRZEWA:
++ art.mul
++ art.idx
++ tiledata.mul - dodanie nazw
+
+2188 - metalowy p³ot 1
+2189 - metalowy p³ot 2
+2190 - metalowy p³ot 3
+2191 - metalowy p³ot 4
+2192 - metalowy p³ot 5
+2193 - metalowy p³ot 6
+2194 - metalowy p³ot 7
+2195 - metalowy p³ot 8
+2196 - metalowy p³ot 9
+
+3524 Palma 1
+3525 Palma 2
+3526 Palma 3
+3527 Palma 4
+
+3563 Palma 5
+3564 Palma 6
+3565 Palma 7
+3566 Palma 8
+
+3664 Kufer 1
+3665 Kufer 2
+3666 Kufer 3
+3667 Kufer 4
+3668 Kufer 5
+3669 Kufer 6
+
+3674 Kufer 7
+3675 Kufer 8
+
+4999 - Aniol 1
+5000 - Aniol 2
+5001 - Aniol 3
+5002 - Aniol a
+5003 - Aniol b
+5004 - Aniol c
+5005 - Nagrobek 1
+5006 - Nagrobek 2
+5007 - Nagrobek 3
+5008 - Nagrobek 4
+5009 - Nagrobek 5
+5010 - Nagrobek 6
+5011 - Nagrobek 7
+
+5979 - Wiekowy Jesion
+5980 - Liscie Jesiona
+
+5996 - Kasztan         (Impassable, Background, ArticleAn) Height 20 (zeby nie dalo sie przez nie przebiegaæ) 
+5997 - Liscie Kasztana (Background, Foliage ) Height 2
+5998 - Kasztan         (Impassable, Background, ArticleAn) Height 20
+5999 - Liscie Kasztana (Background, Foliage ) Height 2
+
+6031 - Duzy Buk
+6032 - Liscie Buku
+6033 - Sredni Buk
+6034 - Liscie Buku
+6035 - Maly Buk
+6036 - Liscie Buku
+
+6067 - Maly Dab
+6068 - Liscie Debu
+6069 - Duzy Dab
+6070 - Liscie Debu
+6071 - Sredni Dab
+6072 - Liscie Debu
+6073 - Karlowaty Dab
+6074 - Liscie Debu
+6075 - Dab
+6076 - Liscie Debu
+
+6131 - Duzy Jesion
+6132 - Liscie Jesiona
+6133 - Sredni Jesion
+6134 - Liscie Jesiona
+6135 - Maly Jesion
+6136 - Liscie Jesiona
+6137 - Ogromny Jesion
+6138 - Liscie Jesiona
+6158 - Olbrzymi Jesion
+6159 - Liscie Jesiona
+
+6239 - Duza Wierzba
+6240 - Liscie Wierzby
+6241 - Srednia Wierzba
+6242 - Liscie Wierzby
+6243 - Mala Wierzba
+6244 - Liscie Wierzby
+6266 - Ogromna Wierzba
+6267 - Liscie Wierzby
+6268 - Wielka Wierzba
+6269 - Liscie Wierzby
+6284 - Potezna Wierzba
+6285 - Liscie Wierzby
+6286 - Karlowata Wierzba
+6287 - Liscie Wierzby
+6288 - Wiekowa Wierzba
+6289 - Liscie Wierzby
+
+6326 Szyszki
+6327 Szyszki 1
+6328 Szyszki 2
+6329 Cis
+6330 IglyCisu1
+6331 Cis 2
+6332 IglyCisu 2
+6333 Cis 3
+6334 IglyCisu 3
+6335 Cis 4
+6336 IglyCisu 4
+
+6337 Pniak
+6338 Pniak 1
+6339 Pniak 2
+6340 Pniak 3
+6341 Pniak 4
+6342 Pniak 5
+
+6343 Sosna
+6344 Igly Sosny
+6345 Sosna 1
+6346 Igly Sosny 1
+6347 Igly Sosny 2a
+6348 Sosna 2
+6349 Igly Sosny 2b
+
+6356 Sosna 3
+6357 Igly Sosny 3
+
+6488 Swierk 1
+6489 Swierk 2
+6490 IglyA
+6491 IglyB
+6492 Swierk 3
+6493 Swierk 4
+6494 IglyC
+6495 IglyD
+6496 IglyE
+6497 IglyF
+6498 Swierk 5
+6499 IglyG
+
+6671 Topola
+6672 Liscie Topoli
+6673 Topola 1
+6674 Liscie Topoli 1
+6675 Topola 2
+6676 Liscie Topoli 2
+6677 Topola 3
+6678 Liscie Topoli 3
+6679 Topola 4
+6680 Liscie Topoli 4
+
+
+UBRANIA:
+
+KAPTUR:
+---------------
+Anim 1:
+0x1A4  slot - 420
+
+w Art i Artidx:
+5401 0x151
+
+W Gumpart.mul i Gumpidx.mul
+50420 - meski 0xC4F4
+60420 - damski 0xEC04
+
+w Tiledata:
+werable ,armor, articleA , loyer 6 , anim 420, waight 1
+-----------------------------
+Pliki klient v2.2
+-----------------------------
+
+Gumpart.mul Gumpidx.mul Nowe ikony ataków specjalnych
+0x5220 błyszczący miecz
+0x5221 obrotowy atak
+0z5222 wsciekle piesci
+0x5223 zabojcze uderzenie
+0x5224 ankh
+0x5225 strzaly
+0x5226 ogluszajaca tarcza
+0x5227 rarcza
+0x5228 tarcza poprzeczny krzyz
+0x5229 wysysanie zycia tarcza
+0x522A wysysanie staminy
+0x522B wysysanie staminy
+0x522c wysysanie many tarcza
+----------------------------
+Gumpidx,gumpart dodano ikony czarow barda
+0x5030 - 0x503B
+
+
+
+
+
+
+
+
+

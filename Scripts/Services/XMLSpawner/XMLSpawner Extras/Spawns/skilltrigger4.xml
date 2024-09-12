@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <Spawns>
   <Points>
-    <Name>Hiding#2</Name>
+    <Name>Ukrywanie#2</Name>
     <UniqueId>71d0d872-4a92-4aea-a9af-11c4d18346a8</UniqueId>
     <Map>Felucca</Map>
     <X>5439</X>
@@ -21,7 +21,7 @@
     <ProximityRange>10</ProximityRange>
     <ProximityTriggerSound>0</ProximityTriggerSound>
     <TriggerProbability>1</TriggerProbability>
-    <SkillTrigger>Hiding,-</SkillTrigger>
+    <SkillTrigger>Ukrywanie,-</SkillTrigger>
     <InContainer>False</InContainer>
     <ContainerX>0</ContainerX>
     <ContainerY>0</ContainerY>

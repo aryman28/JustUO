@@ -11,6 +11,7 @@ namespace Server.Items
         {
             this.Weight = 10.0;
             this.Layer = Layer.TwoHanded;
+            this.Name = "Dwuręczne bojowe ostrze";
         }
 
         public NoDachi(Serial serial)

@@ -6,14 +6,14 @@ namespace Server.Mobiles
     {
         [Constructable]
         public BardGuildmaster()
-            : base("bard")
+            : base("- Mistrz Gildii Bardów")
         {
-            this.SetSkill(SkillName.Archery, 80.0, 100.0);
-            this.SetSkill(SkillName.Discordance, 80.0, 100.0);
-            this.SetSkill(SkillName.Musicianship, 80.0, 100.0);
-            this.SetSkill(SkillName.Peacemaking, 80.0, 100.0);
-            this.SetSkill(SkillName.Provocation, 80.0, 100.0);
-            this.SetSkill(SkillName.Swords, 80.0, 100.0);
+            this.SetSkill(SkillName.Lucznictwo, 80.0, 100.0);
+            this.SetSkill(SkillName.Manipulacja, 80.0, 100.0);
+            this.SetSkill(SkillName.Muzykowanie, 120.0, 150.0);
+            this.SetSkill(SkillName.Uspokajanie, 80.0, 100.0);
+            this.SetSkill(SkillName.Prowokacja, 80.0, 100.0);
+            this.SetSkill(SkillName.WalkaMieczami, 80.0, 100.0);
         }
 
         public BardGuildmaster(Serial serial)

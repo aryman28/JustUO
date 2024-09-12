@@ -33,7 +33,7 @@ namespace Server.Engines.XmlSpawner2
 		// This can be overridden with the XmlSocketLimit attachment on specific items (100 by default)
 		public static double DefaultSocketDifficulty = 100.0;
         
-		public static SkillName DefaultSocketSkill = SkillName.Blacksmith;
+		public static SkillName DefaultSocketSkill = SkillName.Kowalstwo;
 
 		public static Type DefaultSocketResource = typeof(ValoriteIngot);
 

@@ -10,6 +10,8 @@ namespace Server.Items
             : base(0x2D33)
         {
             this.Weight = 9.0;
+            this.Name = "Promienisty sejmitar";
+
         }
 
         public RadiantScimitar(Serial serial)

@@ -1,3 +1,4 @@
+using System;
 using Server.Engines.Plants;
 using Server.Items;
 using Server.Mobiles;
@@ -19,50 +20,50 @@ namespace Server.Engines.Quests.Naturalist
 
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
+            this.InitStats(100, 100, 25);
 
-            Hue = Utility.RandomSkinHue();
+            this.Hue = Utility.RandomSkinHue();
 
-            Female = false;
-            Body = 0x190;
-            Name = NameList.RandomName("male");
+            this.Female = false;
+            this.Body = 0x190;
+            this.Name = NameList.RandomName("male");
         }
 
         public override void InitOutfit()
         {
-            AddItem(new Tunic(0x598));
-            AddItem(new LongPants(0x59B));
-            AddItem(new Boots());
+            this.AddItem(new Tunic(0x598));
+            this.AddItem(new LongPants(0x59B));
+            this.AddItem(new Boots());
 
             Utility.AssignRandomHair(this);
-            Utility.AssignRandomFacialHair(this, HairHue);
+            Utility.AssignRandomFacialHair(this, this.HairHue);
         }
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
         {
-            var qs = player.Quest as StudyOfSolenQuest;
+            StudyOfSolenQuest qs = player.Quest as StudyOfSolenQuest;
 
             if (qs != null && qs.Naturalist == this)
             {
-                var study = qs.FindObjective(typeof (StudyNestsObjective)) as StudyNestsObjective;
+                StudyNestsObjective study = qs.FindObjective(typeof(StudyNestsObjective)) as StudyNestsObjective;
 
                 if (study != null)
                 {
                     if (!study.Completed)
                     {
-                        PlaySound(0x41F);
+                        this.PlaySound(0x41F);
                         qs.AddConversation(new NaturalistDuringStudyConversation());
                     }
                     else
                     {
-                        var obj = qs.FindObjective(typeof (ReturnToNaturalistObjective));
+                        QuestObjective obj = qs.FindObjective(typeof(ReturnToNaturalistObjective));
 
                         if (obj != null && !obj.Completed)
                         {
                             Seed reward;
 
                             PlantType type;
-                            switch (Utility.Random(17))
+                            switch ( Utility.Random(17) )
                             {
                                 case 0:
                                     type = PlantType.CampionFlowers;
@@ -119,12 +120,25 @@ namespace Server.Engines.Quests.Naturalist
 
                             if (study.StudiedSpecialNest)
                             {
-                                reward = new Seed(type, PlantHue.FireRed, false);
+                                PlantHue specialhue;
+                                switch (Utility.Random(3))
+                                {
+                                    case 0:
+                                        specialhue = PlantHue.FireRed;
+                                        break;
+                                    case 1:
+                                        specialhue = PlantHue.Black;
+                                        break;
+                                    default:
+                                        specialhue = PlantHue.White;
+                                        break;
+                                }
+                                reward = new Seed(type, specialhue, false);
                             }
                             else
                             {
                                 PlantHue hue;
-                                switch (Utility.Random(3))
+                                switch ( Utility.Random(3) )
                                 {
                                     case 0:
                                         hue = PlantHue.Pink;
@@ -144,8 +158,8 @@ namespace Server.Engines.Quests.Naturalist
                             {
                                 obj.Complete();
 
-                                PlaySound(0x449);
-                                PlaySound(0x41B);
+                                this.PlaySound(0x449);
+                                this.PlaySound(0x41B);
 
                                 if (study.StudiedSpecialNest)
                                     qs.AddConversation(new SpecialEndConversation());
@@ -166,14 +180,14 @@ namespace Server.Engines.Quests.Naturalist
             {
                 QuestSystem newQuest = new StudyOfSolenQuest(player, this);
 
-                if (player.Quest == null && QuestSystem.CanOfferQuest(player, typeof (StudyOfSolenQuest)))
+                if (player.Quest == null && QuestSystem.CanOfferQuest(player, typeof(StudyOfSolenQuest)))
                 {
-                    PlaySound(0x42F);
+                    this.PlaySound(0x42F);
                     newQuest.SendOffer();
                 }
                 else
                 {
-                    PlaySound(0x448);
+                    this.PlaySound(0x448);
                     newQuest.AddConversation(new DontOfferConversation());
                 }
             }
@@ -183,14 +197,14 @@ namespace Server.Engines.Quests.Naturalist
         {
             base.Serialize(writer);
 
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
         }
     }
 }

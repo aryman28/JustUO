@@ -51,7 +51,7 @@ namespace Server.Items
 
 		private static bool IsMageryCreature( BaseCreature bc )
 		{
-			return ( bc != null && bc.AI == AIType.AI_Mage && bc.Skills[SkillName.Magery].Base > 5.0 );
+			return ( bc != null && bc.AI == AIType.AI_Mage && bc.Skills[SkillName.Magia].Base > 5.0 );
 		}
 
 		private static bool IsFireBreathingCreature( BaseCreature bc )

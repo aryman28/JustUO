@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Items;
@@ -21,26 +22,26 @@ namespace Server.Engines.Quests.Necro
 
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
+            this.InitStats(100, 100, 25);
 
-            Hue = 0x83F3;
-            Body = 0x190;
+            this.Hue = 0x83F3;
+            this.Body = 0x190;
 
-            Name = "Horus";
+            this.Name = "Horus";
         }
 
         public override void InitOutfit()
         {
-            AddItem(SetHue(new PlateLegs(), 0x849));
-            AddItem(SetHue(new PlateChest(), 0x849));
-            AddItem(SetHue(new PlateArms(), 0x849));
-            AddItem(SetHue(new PlateGloves(), 0x849));
-            AddItem(SetHue(new PlateGorget(), 0x849));
+            this.AddItem(this.SetHue(new PlateLegs(), 0x849));
+            this.AddItem(this.SetHue(new PlateChest(), 0x849));
+            this.AddItem(this.SetHue(new PlateArms(), 0x849));
+            this.AddItem(this.SetHue(new PlateGloves(), 0x849));
+            this.AddItem(this.SetHue(new PlateGorget(), 0x849));
 
-            AddItem(SetHue(new Bardiche(), 0x482));
+            this.AddItem(this.SetHue(new Bardiche(), 0x482));
 
-            AddItem(SetHue(new Boots(), 0x001));
-            AddItem(SetHue(new Cloak(), 0x482));
+            this.AddItem(this.SetHue(new Boots(), 0x001));
+            this.AddItem(this.SetHue(new Cloak(), 0x482));
 
             Utility.AssignRandomHair(this, false);
             Utility.AssignRandomFacialHair(this, false);
@@ -53,18 +54,18 @@ namespace Server.Engines.Quests.Necro
 
         public override bool CanTalkTo(PlayerMobile to)
         {
-            var qs = to.Quest;
+            QuestSystem qs = to.Quest;
 
-            return (qs is DarkTidesQuest && qs.IsObjectiveInProgress(typeof (FindCrystalCaveObjective)));
+            return (qs is DarkTidesQuest && qs.IsObjectiveInProgress(typeof(FindCrystalCaveObjective)));
         }
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
         {
-            var qs = player.Quest;
+            QuestSystem qs = player.Quest;
 
             if (qs is DarkTidesQuest)
             {
-                var obj = qs.FindObjective(typeof (FindCrystalCaveObjective));
+                QuestObjective obj = qs.FindObjective(typeof(FindCrystalCaveObjective));
 
                 if (obj != null && !obj.Completed)
                     obj.Complete();
@@ -75,24 +76,24 @@ namespace Server.Engines.Quests.Necro
         {
             base.OnMovement(m, oldLocation);
 
-            if (InRange(m.Location, 2) && !InRange(oldLocation, 2) && m is PlayerMobile)
+            if (this.InRange(m.Location, 2) && !this.InRange(oldLocation, 2) && m is PlayerMobile)
             {
-                var pm = (PlayerMobile) m;
-                var qs = pm.Quest;
+                PlayerMobile pm = (PlayerMobile)m;
+                QuestSystem qs = pm.Quest;
 
                 if (qs is DarkTidesQuest)
                 {
-                    var obj = qs.FindObjective(typeof (ReturnToCrystalCaveObjective));
+                    QuestObjective obj = qs.FindObjective(typeof(ReturnToCrystalCaveObjective));
 
                     if (obj != null && !obj.Completed)
                         obj.Complete();
                     else
                     {
-                        obj = qs.FindObjective(typeof (FindHorusAboutRewardObjective));
+                        obj = qs.FindObjective(typeof(FindHorusAboutRewardObjective));
 
                         if (obj != null && !obj.Completed)
                         {
-                            var cont = GetNewContainer();
+                            Container cont = GetNewContainer();
 
                             cont.DropItem(new Gold(500));
 
@@ -104,8 +105,7 @@ namespace Server.Engines.Quests.Necro
                             if (!pm.PlaceInBackpack(cont))
                             {
                                 cont.Delete();
-                                pm.SendLocalizedMessage(1046260);
-                                    // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                                pm.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                             }
                             else
                             {
@@ -123,16 +123,16 @@ namespace Server.Engines.Quests.Necro
 
             if (from.Alive)
             {
-                var pm = from as PlayerMobile;
+                PlayerMobile pm = from as PlayerMobile;
 
                 if (pm != null)
                 {
-                    var qs = pm.Quest;
+                    QuestSystem qs = pm.Quest;
 
                     if (qs is DarkTidesQuest)
                     {
-                        var obj = qs.FindObjective(typeof (SpeakCavePasswordObjective));
-                        var enabled = (obj != null && !obj.Completed);
+                        QuestObjective obj = qs.FindObjective(typeof(SpeakCavePasswordObjective));
+                        bool enabled = (obj != null && !obj.Completed);
 
                         list.Add(new SpeakPasswordEntry(this, pm, enabled));
                     }
@@ -142,11 +142,11 @@ namespace Server.Engines.Quests.Necro
 
         public virtual void OnPasswordSpoken(PlayerMobile from)
         {
-            var qs = from.Quest;
+            QuestSystem qs = from.Quest;
 
             if (qs is DarkTidesQuest)
             {
-                var obj = qs.FindObjective(typeof (SpeakCavePasswordObjective));
+                QuestObjective obj = qs.FindObjective(typeof(SpeakCavePasswordObjective));
 
                 if (obj != null && !obj.Completed)
                 {
@@ -162,35 +162,34 @@ namespace Server.Engines.Quests.Necro
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
 
         private class SpeakPasswordEntry : ContextMenuEntry
         {
-            private readonly PlayerMobile m_From;
             private readonly Horus m_Horus;
-
+            private readonly PlayerMobile m_From;
             public SpeakPasswordEntry(Horus horus, PlayerMobile from, bool enabled)
                 : base(6193, 3)
             {
-                m_Horus = horus;
-                m_From = from;
+                this.m_Horus = horus;
+                this.m_From = from;
 
                 if (!enabled)
-                    Flags |= CMEFlags.Disabled;
+                    this.Flags |= CMEFlags.Disabled;
             }
 
             public override void OnClick()
             {
-                if (m_From.Alive)
-                    m_Horus.OnPasswordSpoken(m_From);
+                if (this.m_From.Alive)
+                    this.m_Horus.OnPasswordSpoken(this.m_From);
             }
         }
     }

@@ -24,7 +24,7 @@ namespace Services.Toolbar.Gumps
 
 		public int InitOptsW, InitOptsH;
 
-        public ToolbarGump(ToolbarInfo info, Mobile m)
+		public ToolbarGump(ToolbarInfo info)
 			: base(0, 28)
 		{
 			_Info = info;
@@ -49,7 +49,7 @@ namespace Services.Toolbar.Gumps
 			AddPage(0);
 			AddPage(1);
 
-			if (_Info.Stealth)
+			if (_Info.Zakradanie)
 			{
 				AddMinimized(by, offset);
 				AddPage(2);
@@ -70,18 +70,10 @@ namespace Services.Toolbar.Gumps
 
 			for (int i = 0; i < _Info.Rows * _Info.Collumns; i++)
 			{
-                NetState ns = m.NetState;
 				x = offset + ((i % _Info.Rows) * 110);
 				y = offset + (int)(Math.Floor((double)(i / _Info.Rows)) * 24) + cy;
 
-                if (ns.IsKRClient)
-                {
-                    AddButton(x + 1, y, 2435, 2436, temp + 10, GumpButtonType.Reply, 0);//4005, 4007
-                }
-                else
-                {
-                    AddButton(x + 1, y, 2445, 2445, temp + 10, GumpButtonType.Reply, 0);
-                }
+				AddButton(x + 1, y, 2445, 2445, temp + 10, GumpButtonType.Reply, 0);
 				AddBackground(x, y, 110, 24, GumpIDs.Misc[(int)GumpIDs.MiscIDs.Buttonground].Content[_Info.Skin, 0]);
 
 				if (_Info.Phantom)
@@ -90,17 +82,8 @@ namespace Services.Toolbar.Gumps
 					AddAlphaRegion(x + 2, y + 2, 106, 20); // Alpha Area 1_2
 				}
 
-                if (ns.IsKRClient)
-                {
-                    AddHtml(x + 30, y + 3, 100, 20, String.Format("<center>{0}{1}", font, _Info.Entries[temp]), false, false);
-                    //AddLabelCropped(x + 5, y + 3, 100, 20, GumpIDs.Misc[(int)GumpIDs.MiscIDs.Color].Content[p_Skin,0], Commands[temp]); 
-                }
-                else
-                {
-                    //AddHtml(x + 5, y + 3, 100, 20
-                    AddHtml(x + 5, y + 3, 100, 20, String.Format("<center>{0}{1}", font, _Info.Entries[temp]), false, false);
-                    //AddLabelCropped(x + 5, y + 3, 100, 20, GumpIDs.Misc[(int)GumpIDs.MiscIDs.Color].Content[p_Skin,0], Commands[temp]); 
-                }
+				AddHtml(x + 5, y + 3, 100, 20, String.Format("<center>{0}{1}", font, _Info.Entries[temp]), false, false);
+				//AddLabelCropped(x + 5, y + 3, 100, 20, GumpIDs.Misc[(int)GumpIDs.MiscIDs.Color].Content[p_Skin,0], Commands[temp]); 
 
 				if (i % _Info.Rows == _Info.Rows - 1)
 				{
@@ -119,7 +102,7 @@ namespace Services.Toolbar.Gumps
             5%5 == 0
             END TEST---*/
 
-			if (_Info.Stealth)
+			if (_Info.Zakradanie)
 			{
 				return;
 			}
@@ -191,7 +174,7 @@ namespace Services.Toolbar.Gumps
 				GumpIDs.Buttons[(int)GumpIDs.ButtonIDs.Minimize].Content[_Info.Skin, 1],
 				0,
 				GumpButtonType.Page,
-				_Info.Stealth ? 1 : 2);
+				_Info.Zakradanie ? 1 : 2);
 			AddButton(
 				offset + GumpIDs.Buttons[(int)GumpIDs.ButtonIDs.Minimize].Content[_Info.Skin, 2] + 5,
 				y + offset,
@@ -215,7 +198,7 @@ namespace Services.Toolbar.Gumps
 				GumpIDs.Buttons[(int)GumpIDs.ButtonIDs.Maximize].Content[_Info.Skin, 1],
 				0,
 				GumpButtonType.Page,
-				_Info.Stealth ? 2 : 1);
+				_Info.Zakradanie ? 2 : 1);
 			AddButton(
 				offset + GumpIDs.Buttons[(int)GumpIDs.ButtonIDs.Minimize].Content[_Info.Skin, 2] + 5,
 				y + offset,

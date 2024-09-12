@@ -184,7 +184,7 @@ namespace Server.Engines.XmlSpawner2
 		    ReferralRewardList.Add(new ReferralRewardItems(typeof (AnkhOfSacrificeDeed), "Ankh of Sacrifice Deed", 7,
 		        0x14F0,
 		        null, "A house addon in the form of a bloodied Ankh that can be used to self-resurrect one per hour."));
-		    ReferralRewardList.Add(new ReferralRewardItems(typeof (MiningCartDeed), "Mining Cart Deed", 7, 0x14F0, null,
+		    ReferralRewardList.Add(new ReferralRewardItems(typeof (MiningCartDeed), "Gornictwo Cart Deed", 7, 0x14F0, null,
 		        "A house add-on that randomly generates 10 ingots or 5 gems once a day."));
 
 		    ReferralRewardList.Add(new ReferralRewardItems(typeof (EtherealRidgeback), "Ethereal Ridgeback", 8, 0x2615,

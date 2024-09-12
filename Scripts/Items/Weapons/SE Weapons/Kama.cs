@@ -11,6 +11,7 @@ namespace Server.Items
         {
             this.Weight = 7.0;
             this.Layer = Layer.TwoHanded;
+            this.Name = "Podwójne haki";
         }
 
         public Kama(Serial serial)
@@ -127,7 +128,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Fencing;
+                return SkillName.WalkaSzpadami;
             }
         }
         public override WeaponType DefType

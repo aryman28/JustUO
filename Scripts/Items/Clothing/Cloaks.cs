@@ -128,6 +128,7 @@ namespace Server.Items
             : base(0x1515, hue)
         {
             this.Weight = 5.0;
+            this.Name = "P³aszcz";
         }
 
         public Cloak(Serial serial)
@@ -233,7 +234,7 @@ namespace Server.Items
             }
         }
 
-		public override void OnAdded(IEntity parent)
+        public override void OnAdded(object parent)
         {
             base.OnAdded(parent);
 
@@ -241,7 +242,7 @@ namespace Server.Items
                 ((Mobile)parent).VirtualArmorMod += 2;
         }
 
-		public override void OnRemoved(IEntity parent)
+        public override void OnRemoved(object parent)
         {
             base.OnRemoved(parent);
 
@@ -343,6 +344,7 @@ namespace Server.Items
             : base(0x230A, hue)
         {
             this.Weight = 4.0;
+            this.Name = "Zdobiony p³aszcz";
         }
 
         public FurCape(Serial serial)

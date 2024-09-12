@@ -6,20 +6,20 @@ using Server.Targeting;
 
 namespace Server.SkillHandlers
 {
-    public class RemoveTrap
+    public class UsuwaniePulapek
     {
         public static void Initialize()
         {
-            SkillInfo.Table[(int)SkillName.RemoveTrap].Callback = new SkillUseCallback(OnUse);
+            SkillInfo.Table[(int)SkillName.UsuwaniePulapek].Callback = new SkillUseCallback(OnUse);
         }
 
         public static TimeSpan OnUse(Mobile m)
         {
-            if (m.Skills[SkillName.Lockpicking].Value < 50)
+            if (m.Skills[SkillName.Wlamywanie].Value < 50)
             {
                 m.SendLocalizedMessage(502366); // You do not know enough about locks.  Become better at picking locks.
             }
-            else if (m.Skills[SkillName.DetectHidden].Value < 50)
+            else if (m.Skills[SkillName.Wykrywanie].Value < 50)
             {
                 m.SendLocalizedMessage(502367); // You are not perceptive enough.  Become better at detect hidden.
             }
@@ -60,7 +60,7 @@ namespace Server.SkillHandlers
 
                     from.PlaySound(0x241);
 					
-                    if (from.CheckTargetSkill(SkillName.RemoveTrap, targ, targ.TrapPower, targ.TrapPower + 30))
+                    if (from.CheckTargetSkill(SkillName.UsuwaniePulapek, targ, targ.TrapPower, targ.TrapPower + 30))
                     {
                         targ.TrapPower = 0;
                         targ.TrapLevel = 0;
@@ -95,7 +95,7 @@ namespace Server.SkillHandlers
                     }
                     else
                     {
-                        if ((Core.ML && isOwner) || (from.CheckTargetSkill(SkillName.RemoveTrap, trap, 80.0, 100.0) && from.CheckTargetSkill(SkillName.Tinkering, trap, 80.0, 100.0)))
+                        if ((Core.ML && isOwner) || (from.CheckTargetSkill(SkillName.UsuwaniePulapek, trap, 80.0, 100.0) && from.CheckTargetSkill(SkillName.Majsterkowanie, trap, 80.0, 100.0)))
                         {
                             from.PrivateOverheadMessage(MessageType.Regular, trap.MessageHue, trap.DisarmMessage, from.NetState);
 

@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -29,11 +30,11 @@ namespace Server.Mobiles
             SetResistance(ResistanceType.Poison, 50, 60);
             SetResistance(ResistanceType.Energy, 41, 56);
 
-            SetSkill(SkillName.Wrestling, 122.7, 130.5);
-            SetSkill(SkillName.Tactics, 109.3, 118.5);
-            SetSkill(SkillName.MagicResist, 72.9, 87.6);
-            SetSkill(SkillName.Anatomy, 110.5, 124.0);
-            SetSkill(SkillName.Healing, 84.1, 105.0);
+            SetSkill(SkillName.Boks, 122.7, 130.5);
+            SetSkill(SkillName.Taktyka, 109.3, 118.5);
+            SetSkill(SkillName.ObronaPrzedMagia, 72.9, 87.6);
+            SetSkill(SkillName.Anatomia, 110.5, 124.0);
+            SetSkill(SkillName.Leczenie, 84.1, 105.0);
 
             Fame = 10000;
             Karma = -10000;
@@ -43,17 +44,27 @@ namespace Server.Mobiles
             : base(serial)
         {
         }
-
+        public override bool AllureImmune
+        {
+            get
+            {
+                return true;
+            }
+        }
         public override bool GivesMLMinorArtifact
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 4; }
+            get
+            {
+                return 4;
+            }
         }
-
         public override void GenerateLoot()
         {
             AddLoot(LootPack.UltraRich, 2);
@@ -68,14 +79,14 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

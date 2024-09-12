@@ -40,14 +40,14 @@ namespace Server.Mobiles
             this.SetResistance(ResistanceType.Poison, 70, 75);
             this.SetResistance(ResistanceType.Energy, 70, 80);
 			
-            this.SetSkill(SkillName.Wrestling, 100, 105);
-            this.SetSkill(SkillName.Tactics, 100, 105);
-            this.SetSkill(SkillName.MagicResist, 120);
-            this.SetSkill(SkillName.Magery, 120);
-            this.SetSkill(SkillName.EvalInt, 120);
-            this.SetSkill(SkillName.Meditation, 120);
-            this.SetSkill(SkillName.Necromancy, 120);
-            this.SetSkill(SkillName.SpiritSpeak, 120);
+            this.SetSkill(SkillName.Boks, 100, 105);
+            this.SetSkill(SkillName.Taktyka, 100, 105);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 120);
+            this.SetSkill(SkillName.Magia, 120);
+            this.SetSkill(SkillName.Intelekt, 120);
+            this.SetSkill(SkillName.Medytacja, 120);
+            this.SetSkill(SkillName.Nekromancja, 120);
+            this.SetSkill(SkillName.MowaDuchow, 120);
 
             this.PackResources(8);
             this.PackTalismans(5);

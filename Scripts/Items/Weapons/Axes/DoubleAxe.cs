@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0xF4B)
         {
             this.Weight = 8.0;
+            this.Name = "Podwójny topór";
         }
 
         public DoubleAxe(Serial serial)

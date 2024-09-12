@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0xEC3)
         {
             this.Weight = 2.0;
+            this.Name = "Tasak";
         }
 
         public Cleaver(Serial serial)

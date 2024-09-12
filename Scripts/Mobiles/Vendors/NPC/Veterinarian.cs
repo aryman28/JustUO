@@ -8,10 +8,10 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Veterinarian()
-            : base("the vet")
+            : base("- Weterynarz")
         {
-            this.SetSkill(SkillName.AnimalLore, 85.0, 100.0);
-            this.SetSkill(SkillName.Veterinary, 90.0, 100.0);
+            this.SetSkill(SkillName.WiedzaOBestiach, 85.0, 100.0);
+            this.SetSkill(SkillName.Weterynaria, 90.0, 100.0);
         }
 
         public Veterinarian(Serial serial)

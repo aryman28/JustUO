@@ -2,7 +2,7 @@
 using System;
 using Server.Items;
 using Server.Spells;
-using Server.Spells.Bushido;
+using Server.Spells.Fanatyzm;
 
 namespace Server.Mobiles
 {
@@ -30,11 +30,11 @@ namespace Server.Mobiles
 
             int whichone = Utility.RandomMinMax(1, 3);
 
-            if (whichone == 3 && this.m_Mobile.Skills[SkillName.Bushido].Value >= 60.0)
+            if (whichone == 3 && this.m_Mobile.Skills[SkillName.Fanatyzm].Value >= 60.0)
                 spell = new Evasion(this.m_Mobile, null);
-            else if (whichone >= 2 && this.m_Mobile.Skills[SkillName.Bushido].Value >= 40.0)
+            else if (whichone >= 2 && this.m_Mobile.Skills[SkillName.Fanatyzm].Value >= 40.0)
                 spell = new CounterAttack(this.m_Mobile, null);
-            else if (whichone >= 1 && this.m_Mobile.Skills[SkillName.Bushido].Value >= 25.0)
+            else if (whichone >= 1 && this.m_Mobile.Skills[SkillName.Fanatyzm].Value >= 25.0)
                 spell = new Confidence(this.m_Mobile, null);
 
             if (spell != null)
@@ -58,15 +58,15 @@ namespace Server.Mobiles
 
             int whichone = Utility.RandomMinMax(1, 4);
 
-            if (whichone == 4 && this.m_Mobile.Skills[SkillName.Bushido].Value >= 70.0)
+            if (whichone == 4 && this.m_Mobile.Skills[SkillName.Fanatyzm].Value >= 70.0)
                 SamuraiMove.SetCurrentMove(this.m_Mobile, new MomentumStrike());
-            else if (whichone >= 3 && this.m_Mobile.Skills[SkillName.Bushido].Value >= 50.0)
+            else if (whichone >= 3 && this.m_Mobile.Skills[SkillName.Fanatyzm].Value >= 50.0)
                 SamuraiMove.SetCurrentMove(this.m_Mobile, new LightningStrike());
-            else if (whichone >= 2 && this.m_Mobile.Skills[SkillName.Bushido].Value >= 25.0 && comb.Hits <= this.m_Mobile.DamageMin)
+            else if (whichone >= 2 && this.m_Mobile.Skills[SkillName.Fanatyzm].Value >= 25.0 && comb.Hits <= this.m_Mobile.DamageMin)
                 SamuraiMove.SetCurrentMove(this.m_Mobile, new HonorableExecution());
-            else if (whichone >= 2 && this.m_Mobile.Skills[SkillName.Tactics].Value >= 90.0 && weapon != null)
+            else if (whichone >= 2 && this.m_Mobile.Skills[SkillName.Taktyka].Value >= 90.0 && weapon != null)
                 WeaponAbility.SetCurrentAbility(this.m_Mobile, weapon.PrimaryAbility);
-            else if (this.m_Mobile.Skills[SkillName.Tactics].Value >= 60.0 && weapon != null)
+            else if (this.m_Mobile.Skills[SkillName.Taktyka].Value >= 60.0 && weapon != null)
                 WeaponAbility.SetCurrentAbility(this.m_Mobile, weapon.SecondaryAbility);
         }
     }

@@ -4,7 +4,7 @@ using System.Collections;
 namespace Server.Items
 {
     /// <summary>
-    /// Raises your physical resistance for a short time while lowering your ability to inflict damage. Requires Bushido or Ninjitsu skill.
+    /// Raises your physical resistance for a short time while lowering your ability to inflict damage. Requires Fanatyzm or Skrytobojstwo skill.
     /// </summary>
     public class DefenseMastery : WeaponAbility
     {
@@ -13,7 +13,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -33,9 +33,9 @@ namespace Server.Items
 
         public override bool CheckSkills(Mobile from)
         {
-            if (this.GetSkill(from, SkillName.Ninjitsu) < 50.0 && this.GetSkill(from, SkillName.Bushido) < 50.0)
+            if (this.GetSkill(from, SkillName.Skrytobojstwo) < 50.0 && this.GetSkill(from, SkillName.Fanatyzm) < 50.0)
             {
-                from.SendLocalizedMessage(1063347, "50"); // You need ~1_SKILL_REQUIREMENT~ Bushido or Ninjitsu skill to perform that attack!
+                from.SendLocalizedMessage(1063347, "50"); // You need ~1_SKILL_REQUIREMENT~ Fanatyzm or Skrytobojstwo skill to perform that attack!
                 return false;
             }
 
@@ -44,7 +44,7 @@ namespace Server.Items
 
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
         {
-            if (!this.Validate(attacker) || !this.CheckMana(attacker, true))
+            if (!this.Validate(attacker) || !this.CheckStam(attacker, true))
                 return;
 
             ClearCurrentAbility(attacker);
@@ -53,7 +53,7 @@ namespace Server.Items
 
             attacker.FixedParticles(0x375A, 1, 17, 0x7F2, 0x3E8, 0x3, EffectLayer.Waist);
 
-            int modifier = (int)(30.0 * ((Math.Max(attacker.Skills[SkillName.Bushido].Value, attacker.Skills[SkillName.Ninjitsu].Value) - 50.0) / 70.0));
+            int modifier = (int)(30.0 * ((Math.Max(attacker.Skills[SkillName.Fanatyzm].Value, attacker.Skills[SkillName.Skrytobojstwo].Value) - 50.0) / 70.0));
 
             DefenseMasteryInfo info = m_Table[attacker] as DefenseMasteryInfo;
 

@@ -155,7 +155,7 @@ namespace Server.Items
 
 			if (direct)
 			{
-				alchemyBonus = (int)(from.Skills.Alchemy.Value / (Core.AOS ? 5 : 10));
+				alchemyBonus = (int)(from.Skills.Alchemia.Value / (Core.AOS ? 5 : 10));
 			}
 
 			IPooledEnumerable eable = LeveledExplosion

@@ -1,3 +1,4 @@
+using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Necro
@@ -16,36 +17,36 @@ namespace Server.Engines.Quests.Necro
 
         public override bool GetDestination(PlayerMobile player, ref Point3D loc, ref Map map)
         {
-            var qs = player.Quest;
+            QuestSystem qs = player.Quest;
 
             if (qs is DarkTidesQuest)
             {
-                if (qs.IsObjectiveInProgress(typeof (FindMaabusTombObjective)))
+                if (qs.IsObjectiveInProgress(typeof(FindMaabusTombObjective)))
                 {
                     loc = new Point3D(2038, 1263, -90);
                     map = Map.Malas;
                     qs.AddConversation(new RadarConversation());
                     return true;
                 }
-                if (qs.IsObjectiveInProgress(typeof (FindCrystalCaveObjective)))
+                else if (qs.IsObjectiveInProgress(typeof(FindCrystalCaveObjective)))
                 {
                     loc = new Point3D(1194, 521, -90);
                     map = Map.Malas;
                     return true;
                 }
-                if (qs.IsObjectiveInProgress(typeof (FindCityOfLightObjective)))
+                else if (qs.IsObjectiveInProgress(typeof(FindCityOfLightObjective)))
                 {
                     loc = new Point3D(1091, 519, -90);
                     map = Map.Malas;
                     return true;
                 }
-                if (qs.IsObjectiveInProgress(typeof (ReturnToCrystalCaveObjective)))
+                else if (qs.IsObjectiveInProgress(typeof(ReturnToCrystalCaveObjective)))
                 {
                     loc = new Point3D(1194, 521, -90);
                     map = Map.Malas;
                     return true;
                 }
-                if (DarkTidesQuest.HasLostCallingScroll(player))
+                else if (DarkTidesQuest.HasLostCallingScroll(player))
                 {
                     loc = new Point3D(1194, 521, -90);
                     map = Map.Malas;
@@ -60,14 +61,14 @@ namespace Server.Engines.Quests.Necro
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

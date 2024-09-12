@@ -45,12 +45,12 @@ namespace Server.Items
             from.BeginAction(typeof(FireHorn));
             Timer.DelayCall(Core.AOS ? TimeSpan.FromSeconds(6.0) : TimeSpan.FromSeconds(12.0), new TimerStateCallback(EndAction), from);
 
-            int music = from.Skills[SkillName.Musicianship].Fixed;
+            int music = from.Skills[SkillName.Muzykowanie].Fixed;
 
             int sucChance = 500 + (music - 775) * 2;
             double dSucChance = ((double)sucChance) / 1000.0;
 
-            if (!from.CheckSkill(SkillName.Musicianship, dSucChance))
+            if (!from.CheckSkill(SkillName.Muzykowanie, dSucChance))
             {
                 from.SendLocalizedMessage(1049618); // The horn emits a pathetic squeak.
                 from.PlaySound(0x18A);
@@ -86,9 +86,9 @@ namespace Server.Items
 
             if (targets.Count > 0)
             {
-                int prov = from.Skills[SkillName.Provocation].Fixed;
-                int disc = from.Skills[SkillName.Discordance].Fixed;
-                int peace = from.Skills[SkillName.Peacemaking].Fixed;
+                int prov = from.Skills[SkillName.Prowokacja].Fixed;
+                int disc = from.Skills[SkillName.Manipulacja].Fixed;
+                int peace = from.Skills[SkillName.Uspokajanie].Fixed;
 
                 int minDamage, maxDamage;
 
@@ -134,7 +134,7 @@ namespace Server.Items
 
                     double toDeal = damage;
 
-                    if (!Core.AOS && m.CheckSkill(SkillName.MagicResist, 0.0, 120.0))
+                    if (!Core.AOS && m.CheckSkill(SkillName.ObronaPrzedMagia, 0.0, 120.0))
                     {
                         toDeal *= 0.5;
                         m.SendLocalizedMessage(501783); // You feel yourself resisting magical energy.

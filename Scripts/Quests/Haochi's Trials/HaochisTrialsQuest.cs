@@ -1,52 +1,51 @@
 using System;
+using Server.Items;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Samurai
 {
     public class HaochisTrialsQuest : QuestSystem
     {
-        private static readonly Type[] m_TypeReferenceTable =
+        private static readonly Type[] m_TypeReferenceTable = new Type[]
         {
-            typeof (AcceptConversation),
-            typeof (RadarConversation),
-            typeof (FirstTrialIntroConversation),
-            typeof (FirstTrialKillConversation),
-            typeof (GainKarmaConversation),
-            typeof (SecondTrialIntroConversation),
-            typeof (SecondTrialAttackConversation),
-            typeof (ThirdTrialIntroConversation),
-            typeof (ThirdTrialKillConversation),
-            typeof (FourthTrialIntroConversation),
-            typeof (FourthTrialCatsConversation),
-            typeof (FifthTrialIntroConversation),
-            typeof (FifthTrialReturnConversation),
-            typeof (LostSwordConversation),
-            typeof (SixthTrialIntroConversation),
-            typeof (SeventhTrialIntroConversation),
-            typeof (EndConversation),
-            typeof (FindHaochiObjective),
-            typeof (FirstTrialIntroObjective),
-            typeof (FirstTrialKillObjective),
-            typeof (FirstTrialReturnObjective),
-            typeof (SecondTrialIntroObjective),
-            typeof (SecondTrialAttackObjective),
-            typeof (SecondTrialReturnObjective),
-            typeof (ThirdTrialIntroObjective),
-            typeof (ThirdTrialKillObjective),
-            typeof (ThirdTrialReturnObjective),
-            typeof (FourthTrialIntroObjective),
-            typeof (FourthTrialCatsObjective),
-            typeof (FourthTrialReturnObjective),
-            typeof (FifthTrialIntroObjective),
-            typeof (FifthTrialReturnObjective),
-            typeof (SixthTrialIntroObjective),
-            typeof (SixthTrialReturnObjective),
-            typeof (SeventhTrialIntroObjective),
-            typeof (SeventhTrialReturnObjective)
+            typeof(Samurai.AcceptConversation),
+            typeof(Samurai.RadarConversation),
+            typeof(Samurai.FirstTrialIntroConversation),
+            typeof(Samurai.FirstTrialKillConversation),
+            typeof(Samurai.GainKarmaConversation),
+            typeof(Samurai.SecondTrialIntroConversation),
+            typeof(Samurai.SecondTrialAttackConversation),
+            typeof(Samurai.ThirdTrialIntroConversation),
+            typeof(Samurai.ThirdTrialKillConversation),
+            typeof(Samurai.FourthTrialIntroConversation),
+            typeof(Samurai.FourthTrialCatsConversation),
+            typeof(Samurai.FifthTrialIntroConversation),
+            typeof(Samurai.FifthTrialReturnConversation),
+            typeof(Samurai.LostSwordConversation),
+            typeof(Samurai.SixthTrialIntroConversation),
+            typeof(Samurai.SeventhTrialIntroConversation),
+            typeof(Samurai.EndConversation),
+            typeof(Samurai.FindHaochiObjective),
+            typeof(Samurai.FirstTrialIntroObjective),
+            typeof(Samurai.FirstTrialKillObjective),
+            typeof(Samurai.FirstTrialReturnObjective),
+            typeof(Samurai.SecondTrialIntroObjective),
+            typeof(Samurai.SecondTrialAttackObjective),
+            typeof(Samurai.SecondTrialReturnObjective),
+            typeof(Samurai.ThirdTrialIntroObjective),
+            typeof(Samurai.ThirdTrialKillObjective),
+            typeof(Samurai.ThirdTrialReturnObjective),
+            typeof(Samurai.FourthTrialIntroObjective),
+            typeof(Samurai.FourthTrialCatsObjective),
+            typeof(Samurai.FourthTrialReturnObjective),
+            typeof(Samurai.FifthTrialIntroObjective),
+            typeof(Samurai.FifthTrialReturnObjective),
+            typeof(Samurai.SixthTrialIntroObjective),
+            typeof(Samurai.SixthTrialReturnObjective),
+            typeof(Samurai.SeventhTrialIntroObjective),
+            typeof(Samurai.SeventhTrialReturnObjective)
         };
-
         private bool m_SentRadarConversion;
-
         public HaochisTrialsQuest(PlayerMobile from)
             : base(from)
         {
@@ -59,9 +58,11 @@ namespace Server.Engines.Quests.Samurai
 
         public override Type[] TypeReferenceTable
         {
-            get { return m_TypeReferenceTable; }
+            get
+            {
+                return m_TypeReferenceTable;
+            }
         }
-
         public override object Name
         {
             get
@@ -70,7 +71,6 @@ namespace Server.Engines.Quests.Samurai
                 return 1063022;
             }
         }
-
         public override object OfferMessage
         {
             get
@@ -81,7 +81,7 @@ namespace Server.Engines.Quests.Samurai
                 * Welcome to your new home, Samurai.<br><br>
                 * 
                 * Though your skills are only a shadow of what they can be some day,
-                * you must prove your adherence to the code of the Bushido.<br><br>
+                * you must prove your adherence to the code of the Fanatyzm.<br><br>
                 * 
                 * Seek Daimyo Haochi for guidance.<br><br>
                 * 
@@ -90,38 +90,43 @@ namespace Server.Engines.Quests.Samurai
                 return 1063023;
             }
         }
-
         public override TimeSpan RestartDelay
         {
-            get { return TimeSpan.MaxValue; }
+            get
+            {
+                return TimeSpan.MaxValue;
+            }
         }
-
         public override bool IsTutorial
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int Picture
         {
-            get { return 0x15D7; }
+            get
+            {
+                return 0x15D7;
+            }
         }
-
         public static bool HasLostHaochisKatana(Mobile from)
         {
-            var pm = from as PlayerMobile;
+            PlayerMobile pm = from as PlayerMobile;
 
             if (pm == null)
                 return false;
 
-            var qs = pm.Quest;
+            QuestSystem qs = pm.Quest;
 
             if (qs is HaochisTrialsQuest)
             {
-                if (qs.IsObjectiveInProgress(typeof (FifthTrialReturnObjective)))
+                if (qs.IsObjectiveInProgress(typeof(FifthTrialReturnObjective)))
                 {
-                    var pack = from.Backpack;
+                    Container pack = from.Backpack;
 
-                    return (pack == null || pack.FindItemByType(typeof (HaochisKatana)) == null);
+                    return (pack == null || pack.FindItemByType(typeof(HaochisKatana)) == null);
                 }
             }
 
@@ -132,16 +137,15 @@ namespace Server.Engines.Quests.Samurai
         {
             base.Accept();
 
-            AddConversation(new AcceptConversation());
+            this.AddConversation(new AcceptConversation());
         }
 
         public override void Slice()
         {
-            if (!m_SentRadarConversion &&
-                (From.Map != Map.Malas || From.X < 360 || From.X > 400 || From.Y < 760 || From.Y > 780))
+            if (!this.m_SentRadarConversion && (this.From.Map != Map.Malas || this.From.X < 360 || this.From.X > 400 || this.From.Y < 760 || this.From.Y > 780))
             {
-                m_SentRadarConversion = true;
-                AddConversation(new RadarConversation());
+                this.m_SentRadarConversion = true;
+                this.AddConversation(new RadarConversation());
             }
 
             base.Slice();
@@ -149,16 +153,16 @@ namespace Server.Engines.Quests.Samurai
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            m_SentRadarConversion = reader.ReadBool();
+            this.m_SentRadarConversion = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
             writer.WriteEncodedInt(0); // version
 
-            writer.Write(m_SentRadarConversion);
+            writer.Write((bool)this.m_SentRadarConversion);
         }
     }
 }

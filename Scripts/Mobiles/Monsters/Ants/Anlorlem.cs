@@ -1,15 +1,16 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
 {
-    [CorpseName("an Anlorlem corpse")]
+    [CorpseName("Anlorlem - zw³oki")]
     public class Anlorlem : BaseCreature
     {
         [Constructable]
         public Anlorlem()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "an Anlorlem";
+            Name = "Anlorlem";
             Body = 72;
             Hue = 2071;
             BaseSoundID = 644;
@@ -30,21 +31,21 @@ namespace Server.Mobiles
             SetResistance(ResistanceType.Poison, 40, 50);
             SetResistance(ResistanceType.Energy, 35, 45);
 
-            SetSkill(SkillName.EvalInt, 90.1, 100.0);
-            SetSkill(SkillName.Magery, 90.1, 100.0);
-            SetSkill(SkillName.Meditation, 5.4, 25.0);
-            SetSkill(SkillName.MagicResist, 90.1, 100.0);
-            SetSkill(SkillName.Tactics, 50.1, 70.0);
-            SetSkill(SkillName.Wrestling, 60.1, 80.0);
+            SetSkill(SkillName.Intelekt, 90.1, 100.0);
+            SetSkill(SkillName.Magia, 90.1, 100.0);
+            SetSkill(SkillName.Medytacja, 5.4, 25.0);
+            SetSkill(SkillName.ObronaPrzedMagia, 90.1, 100.0);
+            SetSkill(SkillName.Taktyka, 50.1, 70.0);
+            SetSkill(SkillName.Boks, 60.1, 80.0);
 
             Fame = 16000;
             Karma = -16000;
 
+            QLPoints = 20;
+
             VirtualArmor = 50;
 
             PackItem(new DaemonBone(15));
-
-            QLPoints = 20;
         }
 
         public Anlorlem(Serial serial)
@@ -54,24 +55,32 @@ namespace Server.Mobiles
 
         public override bool BardImmune
         {
-            get { return !Core.AOS; }
+            get
+            {
+                return !Core.AOS;
+            }
         }
-
         public override bool Unprovokable
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool ReacquireOnMovement
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Greater; }
+            get
+            {
+                return Poison.Greater;
+            }
         }
-
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Rich);
@@ -87,7 +96,7 @@ namespace Server.Mobiles
                 c.DropItem(new VoidEssence(2));
 
             if (Utility.RandomDouble() < 0.20)
-            {
+            { 
                 c.DropItem(new VoidOrb());
             }
         }
@@ -95,13 +104,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

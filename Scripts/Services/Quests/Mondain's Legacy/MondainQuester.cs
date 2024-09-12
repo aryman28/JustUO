@@ -143,7 +143,7 @@ namespace Server.Engines.Quests
 
         public virtual void OnOfferFailed()
         { 
-            this.Say(1075575); // I'm sorry, but I don't have anything else for you right now. Could you check back with me in a few minutes?
+            this.Say("Przepraszam ale nie mam w tej chwili ¿adnego zadania dla ciebie lub ju¿ je wykona³eœ, mo¿liwe te¿ ¿e nie spe³niasz wymagañ aby podj¹æ siê tego zadania. Powodzenia"); // I'm sorry, but I don't have anything else for you right now. Could you check back with me in a few minutes?
         }
 
         public virtual void Advertise()

@@ -139,17 +139,17 @@ namespace Server.Items
                         return;
                     }
 
-                    if (this.m_From.Skills[SkillName.Lockpicking].Value < this.m_Item.RequiredSkill)
+                    if (this.m_From.Skills[SkillName.Wlamywanie].Value < this.m_Item.RequiredSkill)
                     {
                         /*
                         // Do some training to gain skills
-                        m_From.CheckSkill( SkillName.Lockpicking, 0, m_Item.LockLevel );*/
+                        m_From.CheckSkill( SkillName.Wlamywanie, 0, m_Item.LockLevel );*/
                         // The LockLevel is higher thant the LockPicking of the player
                         item.SendLocalizedMessageTo(this.m_From, 502072); // You don't see how that lock can be manipulated.
                         return;
                     }
 
-                    if (this.m_From.CheckTargetSkill(SkillName.Lockpicking, this.m_Item, this.m_Item.LockLevel, this.m_Item.MaxLockLevel))
+                    if (this.m_From.CheckTargetSkill(SkillName.Wlamywanie, this.m_Item, this.m_Item.LockLevel, this.m_Item.MaxLockLevel))
                     {
                         // Success! Pick the lock!
                         item.SendLocalizedMessageTo(this.m_From, 502076); // The lock quickly yields to your skill.

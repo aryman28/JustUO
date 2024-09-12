@@ -32,7 +32,7 @@ namespace Server.Items
             AddRecipe(
                 (int)Recipes.UnbakedMeatPie,                     // makes an uncooked meat pie
                 0,30,20,                                                                        // str, dex, int requirements
-                new SkillName [] { SkillName.Cooking },                                        //  skill requirement list
+                new SkillName [] { SkillName.Gotowanie },                                        //  skill requirement list
                 new int [] { 30 },                                                               // minimum skill levels
                 new Type [] {typeof(BowlFlour), typeof(Pitcher), typeof(RawRibs), typeof(Garlic), typeof(Carrot) }, // ingredient list                                                    // ingredient list
                 new int [] { 1, 1, 2, 1, 4 },                                                   // quantities

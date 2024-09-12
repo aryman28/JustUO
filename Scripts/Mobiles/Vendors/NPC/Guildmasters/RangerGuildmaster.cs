@@ -6,19 +6,19 @@ namespace Server.Mobiles
     {
         [Constructable]
         public RangerGuildmaster()
-            : base("ranger")
+            : base("- Mistrz Gildii Stra¿ników Lasu")
         {
-            this.SetSkill(SkillName.AnimalLore, 64.0, 100.0);
-            this.SetSkill(SkillName.Camping, 75.0, 98.0);
-            this.SetSkill(SkillName.Hiding, 75.0, 98.0);
-            this.SetSkill(SkillName.MagicResist, 75.0, 98.0);
-            this.SetSkill(SkillName.Tactics, 65.0, 88.0);
-            this.SetSkill(SkillName.Archery, 90.0, 100.0);
-            this.SetSkill(SkillName.Tracking, 90.0, 100.0);
-            this.SetSkill(SkillName.Stealth, 60.0, 83.0);
-            this.SetSkill(SkillName.Fencing, 36.0, 68.0);
-            this.SetSkill(SkillName.Herding, 36.0, 68.0);
-            this.SetSkill(SkillName.Swords, 45.0, 68.0);
+            this.SetSkill(SkillName.WiedzaOBestiach, 64.0, 100.0);
+            this.SetSkill(SkillName.Obozowanie, 75.0, 98.0);
+            this.SetSkill(SkillName.Ukrywanie, 120.0, 150.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 75.0, 98.0);
+            this.SetSkill(SkillName.Taktyka, 65.0, 88.0);
+            this.SetSkill(SkillName.Lucznictwo, 120.0, 150.0);
+            this.SetSkill(SkillName.Tropienie, 120.0, 150.0);
+            this.SetSkill(SkillName.Zakradanie, 120.0, 150.0);
+            this.SetSkill(SkillName.WalkaSzpadami, 36.0, 68.0);
+            this.SetSkill(SkillName.Zielarstwo, 36.0, 68.0);
+            this.SetSkill(SkillName.WalkaMieczami, 45.0, 68.0);
         }
 
         public RangerGuildmaster(Serial serial)

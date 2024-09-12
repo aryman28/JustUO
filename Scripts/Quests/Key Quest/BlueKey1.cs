@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Items
 {
     public class BlueKey1 : AbyssKey
@@ -6,10 +8,10 @@ namespace Server.Items
         public BlueKey1()
             : base(0x1012)
         {
-            Weight = 1.0;
-            Hue = 0x5D; // TODO check
-            LootType = LootType.Blessed;
-            Movable = false;
+            this.Weight = 1.0;
+            this.Hue = 0x5D; // TODO check
+            this.LootType = LootType.Blessed;
+            this.Movable = false;
         }
 
         public BlueKey1(Serial serial)
@@ -19,26 +21,30 @@ namespace Server.Items
 
         public override int LabelNumber
         {
-            get { return 1111646; }
-        } // Blue Key Fragment
-
+            get
+            {
+                return 1111646;
+            }
+        }// Blue Key Fragment
         public override int Lifespan
         {
-            get { return 21600; }
+            get
+            {
+                return 21600;
+            }
         }
-
         public override void OnDoubleClick(Mobile m)
         {
-            var a = m.Backpack.FindItemByType(typeof (RedKey1));
+            Item a = m.Backpack.FindItemByType(typeof(RedKey1));
             if (a != null)
             {
-                var b = m.Backpack.FindItemByType(typeof (YellowKey1));
+                Item b = m.Backpack.FindItemByType(typeof(YellowKey1));
                 if (b != null)
                 {
                     m.AddToBackpack(new TripartiteKey());
                     a.Delete();
                     b.Delete();
-                    Delete();
+                    this.Delete();
                     m.SendLocalizedMessage(1111649);
                 }
             }
@@ -47,15 +53,15 @@ namespace Server.Items
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-
-            writer.Write(0); // version
+			
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-
-            var version = reader.ReadInt();
+			
+            int version = reader.ReadInt();
         }
     }
 }

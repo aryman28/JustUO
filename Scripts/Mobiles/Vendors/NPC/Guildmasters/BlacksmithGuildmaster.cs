@@ -6,12 +6,12 @@ namespace Server.Mobiles
     {
         [Constructable]
         public BlacksmithGuildmaster()
-            : base("blacksmith")
+            : base("- Mistrz Gildii Kowalstwa")
         {
-            this.SetSkill(SkillName.ArmsLore, 65.0, 88.0);
-            this.SetSkill(SkillName.Blacksmith, 90.0, 100.0);
-            this.SetSkill(SkillName.Macing, 36.0, 68.0);
-            this.SetSkill(SkillName.Parry, 36.0, 68.0);
+            this.SetSkill(SkillName.WiedzaOUzbrojeniu, 120.0, 140.0);
+            this.SetSkill(SkillName.Kowalstwo, 130.0, 150.0);
+            this.SetSkill(SkillName.WalkaObuchami, 36.0, 68.0);
+            this.SetSkill(SkillName.Parowanie, 36.0, 68.0);
         }
 
         public BlacksmithGuildmaster(Serial serial)

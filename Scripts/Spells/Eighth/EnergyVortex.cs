@@ -38,6 +38,16 @@ namespace Server.Spells.Eighth
                 return false;
             }
 
+            // Magowie
+            if (this.Caster is PlayerMobile && (((PlayerMobile)this.Caster).Klasa != Klasa.Mag 
+            && ((PlayerMobile)this.Caster).Klasa != Klasa.Adept 
+            && ((PlayerMobile)this.Caster).Klasa != Klasa.Arcymag
+            && ((PlayerMobile)this.Caster).Klasa != Klasa.Czarnoksiê¿nik))
+            {   
+                this.Caster.SendMessage("Tylko magowie mog¹ u¿yæ tego czaru!"); // Only Elves may use this ability
+                return false;
+            }
+
             return true;
         }
 

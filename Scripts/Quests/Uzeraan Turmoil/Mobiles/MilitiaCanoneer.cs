@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -5,11 +6,12 @@ namespace Server.Engines.Quests.Haven
 {
     public class MilitiaCanoneer : BaseQuester
     {
+        private bool m_Active;
         [Constructable]
         public MilitiaCanoneer()
             : base("the Militia Canoneer")
         {
-            Active = true;
+            this.m_Active = true;
         }
 
         public MilitiaCanoneer(Serial serial)
@@ -18,32 +20,41 @@ namespace Server.Engines.Quests.Haven
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
-        public bool Active { get; set; }
-
+        public bool Active
+        {
+            get
+            {
+                return this.m_Active;
+            }
+            set
+            {
+                this.m_Active = value;
+            }
+        }
         public override void InitBody()
         {
-            InitStats(100, 125, 25);
+            this.InitStats(100, 125, 25);
 
-            Hue = Utility.RandomSkinHue();
+            this.Hue = Utility.RandomSkinHue();
 
-            Female = false;
-            Body = 0x190;
-            Name = NameList.RandomName("male");
+            this.Female = false;
+            this.Body = 0x190;
+            this.Name = NameList.RandomName("male");
         }
 
         public override void InitOutfit()
         {
             Utility.AssignRandomHair(this);
-            Utility.AssignRandomFacialHair(this, HairHue);
+            Utility.AssignRandomFacialHair(this, this.HairHue);
 
-            AddItem(new PlateChest());
-            AddItem(new PlateArms());
-            AddItem(new PlateGloves());
-            AddItem(new PlateLegs());
+            this.AddItem(new PlateChest());
+            this.AddItem(new PlateArms());
+            this.AddItem(new PlateGloves());
+            this.AddItem(new PlateLegs());
 
-            var torch = new Torch();
+            Torch torch = new Torch();
             torch.Movable = false;
-            AddItem(torch);
+            this.AddItem(torch);
             torch.Ignite();
         }
 
@@ -63,11 +74,11 @@ namespace Server.Engines.Quests.Haven
 
             if (m is BaseCreature)
             {
-                var bc = (BaseCreature) m;
+                BaseCreature bc = (BaseCreature)m;
 
-                var master = bc.GetMaster();
+                Mobile master = bc.GetMaster();
                 if (master != null)
-                    return IsEnemy(master);
+                    return this.IsEnemy(master);
             }
 
             return m.Karma < 0;
@@ -75,10 +86,10 @@ namespace Server.Engines.Quests.Haven
 
         public bool WillFire(Cannon cannon, Mobile target)
         {
-            if (Active && IsEnemy(target))
+            if (this.m_Active && this.IsEnemy(target))
             {
-                Direction = GetDirectionTo(target);
-                Say(Utility.RandomList(500651, 1049098, 1049320, 1043149));
+                this.Direction = this.GetDirectionTo(target);
+                this.Say(Utility.RandomList(500651, 1049098, 1049320, 1043149));
                 return true;
             }
 
@@ -89,18 +100,18 @@ namespace Server.Engines.Quests.Haven
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
 
-            writer.Write(Active);
+            writer.Write((bool)this.m_Active);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            Active = reader.ReadBool();
+            this.m_Active = reader.ReadBool();
         }
     }
 }

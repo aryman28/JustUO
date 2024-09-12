@@ -8,7 +8,7 @@ namespace Server.Mobiles
         [Constructable]
         public Messenger()
         {
-            this.Title = "the messenger";
+            this.Title = "- Pos³aniec";
         }
 
         public Messenger(Serial serial)

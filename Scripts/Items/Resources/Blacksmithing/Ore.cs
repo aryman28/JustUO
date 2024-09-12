@@ -348,7 +348,7 @@ namespace Server.Items
                     double minSkill = difficulty - 25.0;
                     double maxSkill = difficulty + 25.0;
 
-                    if (difficulty > 50.0 && difficulty > from.Skills[SkillName.Mining].Value)
+                    if (difficulty > 50.0 && difficulty > from.Skills[SkillName.Gornictwo].Value)
                     {
                         from.SendLocalizedMessage(501986); // You have no idea how to smelt this strange ore!
                         return;
@@ -360,7 +360,7 @@ namespace Server.Items
                         return;
                     }
 
-                    if (from.CheckTargetSkill(SkillName.Mining, targeted, minSkill, maxSkill))
+                    if (from.CheckTargetSkill(SkillName.Gornictwo, targeted, minSkill, maxSkill))
                     {
                         int toConsume = this.m_Ore.Amount;
 

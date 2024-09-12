@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x2D24)
         {
             this.Weight = 10.0;
+            this.Name = "Diamentowy buzdygan";
         }
 
         public DiamondMace(Serial serial)

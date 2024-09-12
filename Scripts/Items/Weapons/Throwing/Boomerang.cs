@@ -10,6 +10,7 @@ namespace Server.Items
         {
             this.Weight = 6.0;
             this.Layer = Layer.OneHanded;
+            this.Name = "Bumerang";
         }
 
         public Boomerang(Serial serial)
@@ -121,8 +122,8 @@ namespace Server.Items
             }
         }
 
-        public override Race RequiredRace { get { return Race.Gargoyle; } }
-        public override bool CanBeWornByGargoyles { get { return true; } }
+        //public override Race RequiredRace { get { return Race.Gargoyle; } }
+        //public override bool CanBeWornByGargoyles { get { return true; } }
 
         public override void Serialize(GenericWriter writer)
         {

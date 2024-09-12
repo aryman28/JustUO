@@ -356,10 +356,8 @@ namespace Server.Items
             this.Weight = 2.0;
         }
 
-		public override void OnAdded(IEntity parent)
-		{
-			base.OnAdded(parent);
-
+        public override void OnAdded(object parent)
+        {
             if (parent is Mobile)
             {
                 if (((Mobile)parent).Female)

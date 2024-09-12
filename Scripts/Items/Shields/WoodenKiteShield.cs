@@ -1,4 +1,6 @@
 using System;
+using Server;
+using Server.Engines.XmlSpawner2;
 
 namespace Server.Items
 {
@@ -9,6 +11,21 @@ namespace Server.Items
             : base(0x1B79)
         {
             this.Weight = 5.0;
+            switch(Utility.Random(1))
+            {
+                    case 0:
+                    // add a specific list of custom defenses like this
+                    XmlAttach.AttachTo(this, 
+                        new XmlCustomDefenses(
+                            new XmlCustomDefenses.SpecialDefenses []
+                            { 
+                                XmlCustomDefenses.SpecialDefenses.SpikeShield,
+                                XmlCustomDefenses.SpecialDefenses.ParalyzingFear
+                            }
+                        )
+                    );
+                    break;
+            }
         }
 
         public WoodenKiteShield(Serial serial)
@@ -20,7 +37,7 @@ namespace Server.Items
         {
             get
             {
-                return 0;
+                return 1;
             }
         }
         public override int BaseFireResistance

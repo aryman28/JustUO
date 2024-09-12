@@ -8,9 +8,9 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Cobbler()
-            : base("the cobbler")
+            : base("- Szewc")
         { 
-            this.SetSkill(SkillName.Tailoring, 60.0, 83.0);
+            this.SetSkill(SkillName.Krawiectwo, 60.0, 83.0);
         }
 
         public Cobbler(Serial serial)

@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x2D35)
         {
             this.Weight = 6.0;
+            this.Name = "Elfia maczeta";
         }
 
         public ElvenMachete(Serial serial)

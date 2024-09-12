@@ -9,13 +9,13 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Monk()
-            : base("the Monk")
+            : base("- Mnich")
         {
-            this.SetSkill(SkillName.EvalInt, 100.0);
-            this.SetSkill(SkillName.Tactics, 70.0, 90.0);
-            this.SetSkill(SkillName.Wrestling, 70.0, 90.0);
-            this.SetSkill(SkillName.MagicResist, 70.0, 90.0);
-            this.SetSkill(SkillName.Macing, 70.0, 90.0);
+            this.SetSkill(SkillName.Intelekt, 100.0);
+            this.SetSkill(SkillName.Taktyka, 70.0, 90.0);
+            this.SetSkill(SkillName.Boks, 70.0, 90.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 70.0, 90.0);
+            this.SetSkill(SkillName.WalkaObuchami, 70.0, 90.0);
         }
 
         public Monk(Serial serial)

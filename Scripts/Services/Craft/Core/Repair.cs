@@ -201,10 +201,6 @@ namespace Server.Engines.Craft
                            (armor is RoyalCirclet) ||
                            (armor is GemmedCirclet);
                 }
-				if (m_CraftSystem is DefTinkering)
-				{
-					return (armor is Glasses || armor is ElvenGlasses || armor is GargishGlasses);
-				}
                 #endregion
 
                 return false;
@@ -241,7 +237,7 @@ namespace Server.Engines.Craft
                     }
                     else
                     {
-                        double skillValue = (usingDeed) ? this.m_Deed.SkillLevel : from.Skills[SkillName.Tinkering].Value;
+                        double skillValue = (usingDeed) ? this.m_Deed.SkillLevel : from.Skills[SkillName.Majsterkowanie].Value;
 
                         if (skillValue < 60.0)
                         {
@@ -258,7 +254,7 @@ namespace Server.Engines.Craft
 
                             damage += 30;
 
-                            if (!from.CheckSkill(SkillName.Tinkering, 0.0, 100.0))
+                            if (!from.CheckSkill(SkillName.Majsterkowanie, 0.0, 100.0))
                                 damage /= 2;
 
                             Container pack = from.Backpack;
@@ -299,7 +295,7 @@ namespace Server.Engines.Craft
                     {
                         toWeaken = 1;
                     }
-                    else if (skill != SkillName.Tailoring)
+                    else if (skill != SkillName.Krawiectwo)
                     {
                         double skillLevel = (usingDeed) ? this.m_Deed.SkillLevel : from.Skills[skill].Base;
 
@@ -368,7 +364,7 @@ namespace Server.Engines.Craft
                     {
                         toWeaken = 1;
                     }
-                    else if (skill != SkillName.Tailoring)
+                    else if (skill != SkillName.Krawiectwo)
                     {
                         double skillLevel = (usingDeed) ? this.m_Deed.SkillLevel : from.Skills[skill].Base;
 
@@ -433,7 +429,7 @@ namespace Server.Engines.Craft
                     {
                         toWeaken = 1;
                     }
-                    else if (skill != SkillName.Tailoring)
+                    else if (skill != SkillName.Krawiectwo)
                     {
                         double skillLevel = (usingDeed) ? this.m_Deed.SkillLevel : from.Skills[skill].Base;
 

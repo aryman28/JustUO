@@ -4,11 +4,11 @@ using Server.Targeting;
 
 namespace Server.SkillHandlers
 {
-    public class Poisoning
+    public class Zatruwanie
     {
         public static void Initialize()
         {
-            SkillInfo.Table[(int)SkillName.Poisoning].Callback = new SkillUseCallback(OnUse);
+            SkillInfo.Table[(int)SkillName.Zatruwanie].Callback = new SkillUseCallback(OnUse);
         }
 
         public static TimeSpan OnUse(Mobile m)
@@ -116,7 +116,7 @@ namespace Server.SkillHandlers
 
                     protected override void OnTick()
                     {
-                        if (this.m_From.CheckTargetSkill(SkillName.Poisoning, this.m_Target, this.m_MinSkill, this.m_MaxSkill))
+                        if (this.m_From.CheckTargetSkill(SkillName.Zatruwanie, this.m_Target, this.m_MinSkill, this.m_MaxSkill))
                         {
                             if (this.m_Target is Food)
                             {
@@ -145,7 +145,7 @@ namespace Server.SkillHandlers
                         else // Failed
                         {
                             // 5% of chance of getting poisoned if failed
-                            if (this.m_From.Skills[SkillName.Poisoning].Base < 80.0 && Utility.Random(20) == 0)
+                            if (this.m_From.Skills[SkillName.Zatruwanie].Base < 80.0 && Utility.Random(20) == 0)
                             {
                                 this.m_From.SendLocalizedMessage(502148); // You make a grave mistake while applying the poison.
                                 this.m_From.ApplyPoison(this.m_From, this.m_Poison);

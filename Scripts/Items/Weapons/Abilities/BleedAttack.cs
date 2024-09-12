@@ -3,7 +3,7 @@ using System.Collections;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
-using Server.Spells.Necromancy;
+using Server.Spells.Nekromancja;
 
 namespace Server.Items
 {
@@ -19,7 +19,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -107,7 +107,7 @@ namespace Server.Items
 
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
         {
-            if (!Validate(attacker) || !CheckMana(attacker, true))
+            if (!Validate(attacker) || !CheckStam(attacker, true))
                 return;
 
             ClearCurrentAbility(attacker);

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Server.Targeting;
 
-namespace Server.Spells.Spellweaving
+namespace Server.Spells.Druidyzm
 {
     public class WildfireSpell : ArcanistSpell
     {

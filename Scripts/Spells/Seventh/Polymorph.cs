@@ -201,7 +201,7 @@ namespace Server.Spells.Seventh
             {
                 m_Owner = owner;
 
-                int val = (int)owner.Skills[SkillName.Magery].Value;
+                int val = (int)owner.Skills[SkillName.Magia].Value;
 
                 if (val > 120)
                     val = 120;

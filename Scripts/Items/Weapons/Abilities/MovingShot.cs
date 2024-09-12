@@ -12,7 +12,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -35,7 +35,7 @@ namespace Server.Items
         }
         public override bool OnBeforeSwing(Mobile attacker, Mobile defender)
         {
-            return (this.Validate(attacker) && this.CheckMana(attacker, true));
+            return (this.Validate(attacker) && this.CheckStam(attacker, true));
         }
 
         public override void OnMiss(Mobile attacker, Mobile defender)

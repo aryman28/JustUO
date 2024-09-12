@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Server.Items;
 
-namespace Server.Spells.Bushido
+namespace Server.Spells.Fanatyzm
 {
     public class Evasion : SamuraiSpell
     {
@@ -123,22 +123,22 @@ namespace Server.Spells.Bushido
 
         public static TimeSpan GetEvadeDuration(Mobile m)
         {
-            /* Evasion duration now scales with Bushido skill
+            /* Evasion duration now scales with Fanatyzm skill
             * 
-            * If the player has higher than GM Bushido, and GM Tactics and Anatomy, they get a 1 second bonus
+            * If the player has higher than GM Fanatyzm, and GM Taktyka and Anatomia, they get a 1 second bonus
             * Evasion duration range:
             * o 3-6 seconds w/o tactics/anatomy
-            * o 6-7 seconds w/ GM+ Bushido and GM tactics/anatomy 
+            * o 6-7 seconds w/ GM+ Fanatyzm and GM tactics/anatomy 
             */
             if (!Core.ML)
                 return TimeSpan.FromSeconds(8.0);
 
             double seconds = 3;
 
-            if (m.Skills.Bushido.Value > 60)
-                seconds += (m.Skills.Bushido.Value - 60) / 20;
+            if (m.Skills.Fanatyzm.Value > 60)
+                seconds += (m.Skills.Fanatyzm.Value - 60) / 20;
 
-            if (m.Skills.Anatomy.Value >= 100.0 && m.Skills.Tactics.Value >= 100.0 && m.Skills.Bushido.Value > 100.0)	//Bushido being HIGHER than 100 for bonus is intended
+            if (m.Skills.Anatomia.Value >= 100.0 && m.Skills.Taktyka.Value >= 100.0 && m.Skills.Fanatyzm.Value > 100.0)	//Fanatyzm being HIGHER than 100 for bonus is intended
                 seconds++;
 
             return TimeSpan.FromSeconds((int)seconds);
@@ -146,9 +146,9 @@ namespace Server.Spells.Bushido
 
         public static double GetParryScalar(Mobile m)
         {
-            /* Evasion modifier to parry now scales with Bushido skill
+            /* Evasion modifier to parry now scales with Fanatyzm skill
             * 
-            * If the player has higher than GM Bushido, and at least GM Tactics and Anatomy, they get a bonus to their evasion modifier (10% bonus to the evasion modifier to parry NOT 10% to the final parry chance)
+            * If the player has higher than GM Fanatyzm, and at least GM Taktyka and Anatomia, they get a bonus to their evasion modifier (10% bonus to the evasion modifier to parry NOT 10% to the final parry chance)
             * 
             * Bonus modifier to parry range: (these are the ranges for the evasion modifier)
             * o 16-40% bonus w/o tactics/anatomy
@@ -159,10 +159,10 @@ namespace Server.Spells.Bushido
 
             double bonus = 0;
 
-            if (m.Skills.Bushido.Value >= 60)
-                bonus += (((m.Skills.Bushido.Value - 60) * .004) + 0.16);
+            if (m.Skills.Fanatyzm.Value >= 60)
+                bonus += (((m.Skills.Fanatyzm.Value - 60) * .004) + 0.16);
 
-            if (m.Skills.Anatomy.Value >= 100 && m.Skills.Tactics.Value >= 100 && m.Skills.Bushido.Value > 100) //Bushido being HIGHER than 100 for bonus is intended
+            if (m.Skills.Anatomia.Value >= 100 && m.Skills.Taktyka.Value >= 100 && m.Skills.Fanatyzm.Value > 100) //Fanatyzm being HIGHER than 100 for bonus is intended
                 bonus += 0.10;
 
             return 1.0 + bonus;

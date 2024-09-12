@@ -5,22 +5,22 @@ namespace Server.Engines.Quests.Naturalist
 {
     public class StudyOfSolenQuest : QuestSystem
     {
-        private static readonly Type[] m_TypeReferenceTable =
+        private static readonly Type[] m_TypeReferenceTable = new Type[]
         {
-            typeof (StudyNestsObjective),
-            typeof (ReturnToNaturalistObjective),
-            typeof (DontOfferConversation),
-            typeof (AcceptConversation),
-            typeof (NaturalistDuringStudyConversation),
-            typeof (EndConversation),
-            typeof (SpecialEndConversation),
-            typeof (FullBackpackConversation)
+            typeof(StudyNestsObjective),
+            typeof(ReturnToNaturalistObjective),
+            typeof(DontOfferConversation),
+            typeof(AcceptConversation),
+            typeof(NaturalistDuringStudyConversation),
+            typeof(EndConversation),
+            typeof(SpecialEndConversation),
+            typeof(FullBackpackConversation)
         };
-
+        private Naturalist m_Naturalist;
         public StudyOfSolenQuest(PlayerMobile from, Naturalist naturalist)
             : base(from)
         {
-            Naturalist = naturalist;
+            this.m_Naturalist = naturalist;
         }
 
         // Serialization
@@ -30,9 +30,11 @@ namespace Server.Engines.Quests.Naturalist
 
         public override Type[] TypeReferenceTable
         {
-            get { return m_TypeReferenceTable; }
+            get
+            {
+                return m_TypeReferenceTable;
+            }
         }
-
         public override object Name
         {
             get
@@ -41,7 +43,6 @@ namespace Server.Engines.Quests.Naturalist
                 return 1054041;
             }
         }
-
         public override object OfferMessage
         {
             get
@@ -77,46 +78,56 @@ namespace Server.Engines.Quests.Naturalist
                 return 1054042;
             }
         }
-
         public override TimeSpan RestartDelay
         {
-            get { return TimeSpan.Zero; }
+            get
+            {
+                return TimeSpan.Zero;
+            }
         }
-
         public override bool IsTutorial
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override int Picture
         {
-            get { return 0x15C7; }
+            get
+            {
+                return 0x15C7;
+            }
         }
-
-        public Naturalist Naturalist { get; private set; }
-
+        public Naturalist Naturalist
+        {
+            get
+            {
+                return this.m_Naturalist;
+            }
+        }
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            Naturalist = (Naturalist) reader.ReadMobile();
+            this.m_Naturalist = (Naturalist)reader.ReadMobile();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(Naturalist);
+            writer.Write((Mobile)this.m_Naturalist);
         }
 
         public override void Accept()
         {
             base.Accept();
 
-            if (Naturalist != null)
-                Naturalist.PlaySound(0x431);
+            if (this.m_Naturalist != null)
+                this.m_Naturalist.PlaySound(0x431);
 
-            AddConversation(new AcceptConversation());
+            this.AddConversation(new AcceptConversation());
         }
     }
 }

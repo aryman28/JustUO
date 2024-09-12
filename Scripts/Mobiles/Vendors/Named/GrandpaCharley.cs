@@ -13,7 +13,7 @@ namespace Server.Mobiles
         { 
             this.Name = "Grandpa Charley";
 			
-            this.SetSkill(SkillName.ItemID, 70.0, 80.0);
+            this.SetSkill(SkillName.Identyfikacja, 70.0, 80.0);
         }
 
         public GrandpaCharley(Serial serial)

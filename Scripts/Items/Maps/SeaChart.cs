@@ -24,7 +24,7 @@ namespace Server.Items
         }// sea chart
         public override void CraftInit(Mobile from)
         {
-            double skillValue = from.Skills[SkillName.Cartography].Value;
+            double skillValue = from.Skills[SkillName.Kartografia].Value;
             int dist = 64 + (int)(skillValue * 10);
 
             if (dist < 200)

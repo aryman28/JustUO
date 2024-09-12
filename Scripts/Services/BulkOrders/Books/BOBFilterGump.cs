@@ -22,7 +22,7 @@ namespace Server.Engines.BulkOrders
             { 1018339, 11 }, // Valorite
             { 0, 0 }, // --Blank--
 
-            { 1044094, 2 }, // Tailoring
+            { 1044094, 2 }, // Krawiectwo
             { 1044286, 12 }, // Cloth
             { 1062235, 13 }, // Leather
             { 1062236, 14 }, // Spined

@@ -13,7 +13,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Server.Items
             if (!base.CheckSkills(from))
                 return false;
 
-            Skill skill = from.Skills[SkillName.Stealth];
+            Skill skill = from.Skills[SkillName.Zakradanie];
 
             if (skill != null && skill.Value >= 80.0)
                 return true;
@@ -49,7 +49,7 @@ namespace Server.Items
 
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
         {
-            if (!this.Validate(attacker) || !this.CheckMana(attacker, true))
+            if (!this.Validate(attacker) || !this.CheckStam(attacker, true))
                 return;
 
             ClearCurrentAbility(attacker);

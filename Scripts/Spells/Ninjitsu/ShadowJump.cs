@@ -4,7 +4,7 @@ using Server.Mobiles;
 using Server.Regions;
 using Server.Targeting;
 
-namespace Server.Spells.Ninjitsu
+namespace Server.Spells.Skrytobojstwo
 {
     public class Shadowjump : NinjaSpell
     {
@@ -120,7 +120,7 @@ namespace Server.Spells.Ninjitsu
 
                 m.PlaySound(0x512);
 				
-                Server.SkillHandlers.Stealth.OnUse(m); // stealth check after the a jump
+                Server.SkillHandlers.Zakradanie.OnUse(m); // stealth check after the a jump
             }
 
             this.FinishSequence();

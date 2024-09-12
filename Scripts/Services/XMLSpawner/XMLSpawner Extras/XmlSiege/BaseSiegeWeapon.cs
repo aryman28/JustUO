@@ -425,7 +425,7 @@ namespace Server.Items
 			// calculate attack parameters
 			double firingspeedbonus = projectile.FiringSpeed / 10.0;
 			double dexbonus = (double)from.Dex / 30.0;
-			int weaponskill = (int)from.Skills[SkillName.ArmsLore].Value;
+			int weaponskill = (int)from.Skills[SkillName.WiedzaOUzbrojeniu].Value;
 
 
 			int accuracybonus = projectile.AccuracyBonus;

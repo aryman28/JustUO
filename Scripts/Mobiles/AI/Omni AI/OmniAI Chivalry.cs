@@ -2,7 +2,7 @@
 using System;
 using Server.Items;
 using Server.Spells;
-using Server.Spells.Chivalry;
+using Server.Spells.Rycerstwo;
 
 namespace Server.Mobiles
 {
@@ -37,7 +37,7 @@ namespace Server.Mobiles
 
             int whichone = Utility.RandomMinMax(1, 4);
 
-            if (whichone == 4 && this.m_Mobile.Skills[SkillName.Chivalry].Value >= 55.0 && this.m_Mobile.Mana >= 10)
+            if (whichone == 4 && this.m_Mobile.Skills[SkillName.Rycerstwo].Value >= 55.0 && this.m_Mobile.Mana >= 10)
             {
                 if (this.m_Mobile.Debug)
                     this.m_Mobile.Say(1154, "Casting Holy Light");
@@ -51,7 +51,7 @@ namespace Server.Mobiles
 
                 return new DispelEvilSpell(this.m_Mobile, null);
             }
-            else if (whichone >= 2 && !(DivineFurySpell.UnderEffect(this.m_Mobile)) && this.m_Mobile.Skills[SkillName.Chivalry].Value >= 35.0)
+            else if (whichone >= 2 && !(DivineFurySpell.UnderEffect(this.m_Mobile)) && this.m_Mobile.Skills[SkillName.Rycerstwo].Value >= 35.0)
             {
                 if (this.m_Mobile.Debug)
                     this.m_Mobile.Say(1154, "Casting Divine Fury");
@@ -74,7 +74,7 @@ namespace Server.Mobiles
             if (this.m_Mobile.Debug)
                 this.m_Mobile.Say(1154, "Checking to bless my weapon");
 
-            if (this.m_Mobile.Skills[SkillName.Chivalry].Value < 15.0 || this.m_Mobile.Mana <= 9)
+            if (this.m_Mobile.Skills[SkillName.Rycerstwo].Value < 15.0 || this.m_Mobile.Mana <= 9)
                 return false;
 
             BaseWeapon weapon = this.m_Mobile.Weapon as BaseWeapon;
@@ -90,7 +90,7 @@ namespace Server.Mobiles
             if (this.m_Mobile.Debug)
                 this.m_Mobile.Say(1154, "Checking to dispel evil");
 
-            if (this.m_Mobile.Skills[SkillName.Chivalry].Value < 35.0 || this.m_Mobile.Mana <= 9)
+            if (this.m_Mobile.Skills[SkillName.Rycerstwo].Value < 35.0 || this.m_Mobile.Mana <= 9)
                 return false;
 
             bool cast = false;
@@ -117,7 +117,7 @@ namespace Server.Mobiles
             if (this.m_Mobile.Debug)
                 this.m_Mobile.Say(1154, "Checking for remove curse");
 
-            if (this.m_Mobile.Skills[SkillName.Chivalry].Value < 5.0 || this.m_Mobile.Mana <= 19)
+            if (this.m_Mobile.Skills[SkillName.Rycerstwo].Value < 5.0 || this.m_Mobile.Mana <= 19)
                 return false;
 
             StatMod mod;
@@ -139,7 +139,7 @@ namespace Server.Mobiles
                 return false;
 
             //There is no way to know if they are under blood oath or strangle without editing the spells so we just check for necro skills instead.
-            if (foe.Skills[SkillName.Necromancy].Value > 20.0 && Utility.RandomDouble() > 0.6)
+            if (foe.Skills[SkillName.Nekromancja].Value > 20.0 && Utility.RandomDouble() > 0.6)
                 return true;
 
             return false;

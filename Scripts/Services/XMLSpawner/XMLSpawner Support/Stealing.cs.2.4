@@ -8,14 +8,14 @@ using Server.Network;
 using Server.Factions;
 using Server.Spells.Seventh;
 using Server.Spells.Fifth;
-using Server.Spells.Necromancy;
+using Server.Spells.Nekromancja;
 using Server.Spells;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Skrytobojstwo;
 using Server.Engines.XmlSpawner2;
 
 namespace Server.SkillHandlers
 {
-	public class Stealing
+	public class Okradanie
 	{
 		public static void Initialize()
 		{
@@ -134,7 +134,7 @@ namespace Server.SkillHandlers
 						{
 							m_Thief.SendLocalizedMessage( 1005592 ); // You cannot steal this sigil until it has been purified
 						}
-						else if ( m_Thief.CheckTargetSkill( SkillName.Stealing, toSteal, 80.0, 80.0 ) )
+						else if ( m_Thief.CheckTargetSkill( SkillName.Okradanie, toSteal, 80.0, 80.0 ) )
 						{
 							if ( Sigil.ExistsOn( m_Thief ) )
 							{
@@ -189,7 +189,7 @@ namespace Server.SkillHandlers
 				{
 					m_Thief.SendLocalizedMessage( 502703 ); // You must be standing next to an item to steal it.
 				}
-				else if ( si != null && m_Thief.Skills[SkillName.Stealing].Value < 100.0 )
+				else if ( si != null && m_Thief.Skills[SkillName.Okradanie].Value < 100.0 )
 				{
 					m_Thief.SendLocalizedMessage( 1060025, "", 0x66D ); // You're not skilled enough to attempt the theft of this item.
 				}
@@ -227,7 +227,7 @@ namespace Server.SkillHandlers
 							// fix for zero-weight stackables
 							int maxAmount = toSteal.Amount;
 							if (toSteal.Weight > 0)
-								maxAmount = (int)((m_Thief.Skills[SkillName.Stealing].Value / 10.0) / toSteal.Weight);
+								maxAmount = (int)((m_Thief.Skills[SkillName.Okradanie].Value / 10.0) / toSteal.Weight);
 
 							if ( maxAmount < 1 )
 								maxAmount = 1;
@@ -241,7 +241,7 @@ namespace Server.SkillHandlers
 								int pileWeight = (int)Math.Ceiling( toSteal.Weight * toSteal.Amount );
 								pileWeight *= 10;
 
-								if ( m_Thief.CheckTargetSkill( SkillName.Stealing, toSteal, pileWeight - 22.5, pileWeight + 27.5 ) )
+								if ( m_Thief.CheckTargetSkill( SkillName.Okradanie, toSteal, pileWeight - 22.5, pileWeight + 27.5 ) )
 									stolen = toSteal;
 							}
 							else
@@ -249,7 +249,7 @@ namespace Server.SkillHandlers
 								int pileWeight = (int)Math.Ceiling( toSteal.Weight * amount );
 								pileWeight *= 10;
 
-								if ( m_Thief.CheckTargetSkill( SkillName.Stealing, toSteal, pileWeight - 22.5, pileWeight + 27.5 ) )
+								if ( m_Thief.CheckTargetSkill( SkillName.Okradanie, toSteal, pileWeight - 22.5, pileWeight + 27.5 ) )
 								{
 									stolen = Mobile.LiftItemDupe( toSteal, toSteal.Amount - amount );
 
@@ -263,7 +263,7 @@ namespace Server.SkillHandlers
 							int iw = (int)Math.Ceiling( w );
 							iw *= 10;
 
-							if ( m_Thief.CheckTargetSkill( SkillName.Stealing, toSteal, iw - 22.5, iw + 27.5 ) )
+							if ( m_Thief.CheckTargetSkill( SkillName.Okradanie, toSteal, iw - 22.5, iw + 27.5 ) )
 								stolen = toSteal;
 						}
 
@@ -290,7 +290,7 @@ namespace Server.SkillHandlers
 							m_Thief.SendLocalizedMessage( 502723 ); // You fail to steal the item.
 						}
 
-						caught = ( m_Thief.Skills[SkillName.Stealing].Value < Utility.Random( 150 ) );
+						caught = ( m_Thief.Skills[SkillName.Okradanie].Value < Utility.Random( 150 ) );
 					}
 				}
 
@@ -394,7 +394,7 @@ namespace Server.SkillHandlers
 			}
 			else
 			{
-				m.Target = new Stealing.StealingTarget( m );
+				m.Target = new Okradanie.StealingTarget( m );
 				m.RevealingAction();
 
 				m.SendLocalizedMessage( 502698 ); // Which item do you want to steal?

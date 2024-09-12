@@ -2,7 +2,7 @@
 using System;
 using Server.Items;
 using Server.Spells;
-using Server.Spells.Necromancy;
+using Server.Spells.Nekromancja;
 
 namespace Server.Mobiles
 {
@@ -39,7 +39,7 @@ namespace Server.Mobiles
                     {
                         int whichone = Utility.RandomMinMax(1, 2);
 
-                        if (whichone == 2 && this.m_Mobile.Skills[SkillName.Necromancy].Value > 50.0)
+                        if (whichone == 2 && this.m_Mobile.Skills[SkillName.Nekromancja].Value > 50.0)
                         {
                             if (this.m_Mobile.Debug)
                                 this.m_Mobile.Say(1109, "Undead: Casting Animate Dead");
@@ -73,7 +73,7 @@ namespace Server.Mobiles
                         if (this.m_Mobile.Debug)
                             this.m_Mobile.Say(1109, "Casting Blood Oath");
 
-                        if (this.m_Mobile.Skills[SkillName.Necromancy].Value > 30.0)
+                        if (this.m_Mobile.Skills[SkillName.Nekromancja].Value > 30.0)
                             spell = new BloodOathSpell(this.m_Mobile, null);
 
                         break;
@@ -108,7 +108,7 @@ namespace Server.Mobiles
 
         public Spell GetNecromancerDamageSpell()
         {
-            int maxCircle = (int)((this.m_Mobile.Skills[SkillName.Necromancy].Value + 20.0) / (100.0 / 7.0));
+            int maxCircle = (int)((this.m_Mobile.Skills[SkillName.Nekromancja].Value + 20.0) / (100.0 / 7.0));
 
             if (maxCircle < 2)
                 maxCircle = 2;
@@ -136,11 +136,11 @@ namespace Server.Mobiles
         {
             int whichone = Utility.RandomMinMax(1, 4);
 
-            if (whichone == 4 && this.m_Mobile.Skills[SkillName.Necromancy].Value >= 75.0)
+            if (whichone == 4 && this.m_Mobile.Skills[SkillName.Nekromancja].Value >= 75.0)
                 return new StrangleSpell(this.m_Mobile, null);
-            else if (whichone == 3 && this.m_Mobile.Skills[SkillName.Necromancy].Value >= 40.0)
+            else if (whichone == 3 && this.m_Mobile.Skills[SkillName.Nekromancja].Value >= 40.0)
                 return new MindRotSpell(this.m_Mobile, null);
-            else if (whichone >= 2 && this.m_Mobile.Skills[SkillName.Necromancy].Value >= 30.0)
+            else if (whichone >= 2 && this.m_Mobile.Skills[SkillName.Nekromancja].Value >= 30.0)
                 return new EvilOmenSpell(this.m_Mobile, null);
             else
                 return new CorpseSkinSpell(this.m_Mobile, null);
@@ -153,13 +153,13 @@ namespace Server.Mobiles
 
             this.m_NextShiftTime = DateTime.UtcNow + TimeSpan.FromSeconds(130);
 
-            if (this.m_Mobile.Skills[SkillName.Necromancy].Value > 110.0)
+            if (this.m_Mobile.Skills[SkillName.Nekromancja].Value > 110.0)
                 return new VampiricEmbraceSpell(this.m_Mobile, null);
-            else if (this.m_Mobile.Skills[SkillName.Necromancy].Value > 80.0)
+            else if (this.m_Mobile.Skills[SkillName.Nekromancja].Value > 80.0)
                 return new LichFormSpell(this.m_Mobile, null);
-            else if (this.m_Mobile.Skills[SkillName.Necromancy].Value > 50.0)
+            else if (this.m_Mobile.Skills[SkillName.Nekromancja].Value > 50.0)
                 return new HorrificBeastSpell(this.m_Mobile, null);
-            else if (this.m_Mobile.Skills[SkillName.Necromancy].Value > 30.0)
+            else if (this.m_Mobile.Skills[SkillName.Nekromancja].Value > 30.0)
                 return new WraithFormSpell(this.m_Mobile, null);
             else
                 return null;
@@ -167,7 +167,7 @@ namespace Server.Mobiles
 
         public Spell CheckForCurseWeapon()
         {
-            if (this.m_Mobile.Skills[SkillName.Necromancy].Value > 5.0)
+            if (this.m_Mobile.Skills[SkillName.Nekromancja].Value > 5.0)
             {
                 BaseWeapon weapon = this.m_Mobile.FindItemOnLayer(Layer.OneHanded) as BaseWeapon;
 
@@ -197,15 +197,15 @@ namespace Server.Mobiles
             int whichone = Utility.RandomMinMax(1, 5);
             BaseCreature mob = null;
 
-            if (whichone == 5 && this.m_Mobile.Skills[SkillName.Necromancy].Value >= 100.0)
+            if (whichone == 5 && this.m_Mobile.Skills[SkillName.Nekromancja].Value >= 100.0)
                 mob = new VampireBatFamiliar();
-            else if (whichone >= 4 && this.m_Mobile.Skills[SkillName.Necromancy].Value >= 80.0)
+            else if (whichone >= 4 && this.m_Mobile.Skills[SkillName.Nekromancja].Value >= 80.0)
                 mob = new DeathAdder();
-            else if (whichone >= 3 && this.m_Mobile.Skills[SkillName.Necromancy].Value >= 60.0)
+            else if (whichone >= 3 && this.m_Mobile.Skills[SkillName.Nekromancja].Value >= 60.0)
                 mob = new DarkWolfFamiliar();
-            else if (whichone >= 2 && this.m_Mobile.Skills[SkillName.Necromancy].Value >= 50.0)
+            else if (whichone >= 2 && this.m_Mobile.Skills[SkillName.Nekromancja].Value >= 50.0)
                 mob = new ShadowWispFamiliar();
-            else if (this.m_Mobile.Skills[SkillName.Necromancy].Value >= 30.0)
+            else if (this.m_Mobile.Skills[SkillName.Nekromancja].Value >= 30.0)
                 mob = new HordeMinionFamiliar();
 
             if (mob != null)

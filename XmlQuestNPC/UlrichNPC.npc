@@ -1,0 +1,139 @@
+<?xml version="1.0" standalone="yes"?>
+<XmlQuestNPC>
+  <NPC>
+    <Name>Ulrich</Name>
+    <Running>True</Running>
+    <ProximityRange>3</ProximityRange>
+    <ResetRange>16</ResetRange>
+    <TriggerOnCarried>Koniec Rycerz Artura | ATTACHMENT,Koniec Rycerz Artura,XmlQuestAttachment</TriggerOnCarried>
+    <NoTriggerOnCarried>Koniec Rycerz Ulricha | ATTACHMENT,Koniec Rycerz Ulricha,XmlQuestAttachment</NoTriggerOnCarried>
+    <AllowGhost>False</AllowGhost>
+    <SpeechPace>10</SpeechPace>
+    <ResetTime>1</ResetTime>
+    <ConfigFile>UlrichNPC</ConfigFile>
+    <SpeechEntries>9</SpeechEntries>
+  </NPC>
+  <SpeechEntry>
+    <EntryNumber>10</EntryNumber>
+    <ID>10</ID>
+    <Text>*Spogląda na postac*</Text>
+    <DependsOn>-2</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>20</EntryNumber>
+    <ID>20</ID>
+    <Keywords>witaj</Keywords>
+    <DependsOn>10</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Ulrich,4/Skoro już totaj jesteś znaczże Biskup nasz ciebie do mnie przysyła? Zatem nie mamy się chyba nad czźm zastanawiać i przejd�zmy do testu twego męstwa. Czy jesteś gotowy? ;Tak;accept;Nie;decline</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>30</EntryNumber>
+    <ID>30</ID>
+    <Keywords>accept</Keywords>
+    <DependsOn>20</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Ulrich,4/Twoim pierwszym zadaniem będzie oczyszczenie Valeriańskiego cmentarza z plugastw które się tam zalęgły. Wierni nie mogą teraz odwiedac swoich bliskich... Oczy�sc to miejsce! ;Zgadzam się;accept;Rezyhnuję;decline</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>40</EntryNumber>
+    <ID>40</ID>
+    <Keywords>decline</Keywords>
+    <DependsOn>20,30</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Ulrich,4/Wróć kiedy będziesz gotowy! ;Bywaj;bywaj</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>50</EntryNumber>
+    <ID>50</ID>
+    <Keywords>accept</Keywords>
+    <Action>GIVE/&lt;questholder/Name/Zadanie I/repeatable/false/visible/true/notestring/Doszły mnie słuchy że na cmentarzu pojawiły się nieumarłe istoty. Zbadaj to i unicestwij je aby nasi wiernmogli ponownie odwiedzać swoich zmarłych. /objective1/KILL,skeleton,20/objective2/KILL,zombie,15/objective3/KILL,lich,1&gt; ; TAKE/Koniec Rycerz Artura</Action>
+    <DependsOn>30</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>60</EntryNumber>
+    <ID>60</ID>
+    <Condition>GETONCARRIED,Zadanie I,questholder,iscompleted=false &amp; GETONCARRIED,Zadanie I,questholder,visible=true</Condition>
+    <DependsOn>-1</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Ulrich,4/Najpierw dokończ zadanie ;Bywaj;bywaj</Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>70</EntryNumber>
+    <ID>70</ID>
+    <Action>TAKE/Zadanie I ; GIVE/&lt;questholder/name/Koniec Rycerz Ulricha/visible/false/repeatable/false/objective1/COLLECT,Zakonczono,1/Completed1/true&gt;</Action>
+    <Condition>GETONCARRIED,Zadanie I,questholder,iscompleted=true &amp; GETONCARRIED,Zadanie I,questholder,visible=true</Condition>
+    <DependsOn>-1</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+    <Gump>GUMP,Ulrich,4/Ukończyłeś powierzone Ci zadanie i dowiodłeś swego męstwa. W nagrodę mogę otrzymujesz List polecający który naatychmiastowo czyni cię Rycerzem, twój własny modlitewnik oraz specjalny "Płaszcz Rycerza". Bądź zdrów drogi Rycerzu i witamy u naszego boku ! ;Bywaj;bywaj </Gump>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>0</EntryNumber>
+    <ID>0</ID>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+  </SpeechEntry>
+  <SpeechEntry>
+    <EntryNumber>80</EntryNumber>
+    <ID>80</ID>
+    <Text>Powodzenia </Text>
+    <Action>GIVE/RycerzDeed ; GIVE/BookOfChivalry ; GIVE/PlaszczRycerza</Action>
+    <DependsOn>70</DependsOn>
+    <Pause>1</Pause>
+    <PrePause>-1</PrePause>
+    <LockConversation>True</LockConversation>
+    <IgnoreCarried>False</IgnoreCarried>
+    <AllowNPCTrigger>False</AllowNPCTrigger>
+    <SpeechStyle>Regular</SpeechStyle>
+    <SpeechHue>-1</SpeechHue>
+  </SpeechEntry>
+</XmlQuestNPC>

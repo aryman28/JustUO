@@ -9,7 +9,7 @@ namespace Server.Items
         {
             this.LootType = LootType.Blessed;
 
-            this.SkillBonuses.SetValues(0, SkillName.Necromancy, 10.0);
+            this.SkillBonuses.SetValues(0, SkillName.Nekromancja, 10.0);
             this.Attributes.RegenMana = 1;
             this.Attributes.CastSpeed = 1;
             this.Attributes.IncreasedKarmaLoss = 5;

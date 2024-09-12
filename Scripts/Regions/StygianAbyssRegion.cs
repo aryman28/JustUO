@@ -1,6 +1,6 @@
 using System;
 using System.Xml;
-using Server.Spells.Chivalry;
+using Server.Spells.Rycerstwo;
 using Server.Spells.Seventh;
 using Server.Spells.Sixth;
 
@@ -20,7 +20,7 @@ namespace Server.Regions
 
         public override bool OnBeginSpellCast(Mobile m, ISpell s)
         {
-            if ((s is GateTravelSpell || s is MarkSpell) && m.IsPlayer())
+            if ((s is GateTravelSpell || s is MarkSpell || s is SacredJourneySpell) && m.IsPlayer())
             {
                 m.SendLocalizedMessage(501802); // Thy spell doth not appear to work...
 				

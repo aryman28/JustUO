@@ -11,6 +11,7 @@ namespace Server.Items
         {
             this.Weight = 12.0;
             this.Layer = Layer.TwoHanded;
+            this.Name = "Półksiężycowe podwójne ostrze";
         }
 
         public Lajatang(Serial serial)
@@ -127,7 +128,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Fencing;
+                return SkillName.WalkaSzpadami;
             }
         }
         public override WeaponType DefType

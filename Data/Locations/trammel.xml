@@ -191,7 +191,7 @@
 			<parent name="Minoc">
 				<child name="Bridge" x="2539" y="501" z="30" />
 				<child name="Gypsy Camp" x="2540" y="651" z="0" />
-				<child name="Mining Camp" x="2583" y="528" z="15" />
+				<child name="Gornictwo Camp" x="2583" y="528" z="15" />
 				<child name="North" x="2475" y="417" z="15" />
 				<child name="South" x="2526" y="583" z="0" />
 			</parent>

@@ -1,6 +1,6 @@
 using System;
 using Server.Mobiles;
-using Server.Spells.Chivalry;
+using Server.Spells.Rycerstwo;
 using Server.Targeting;
 
 namespace Server.Spells.Fifth
@@ -67,7 +67,7 @@ namespace Server.Spells.Fifth
                 else
                 {
                     // Algorithm: ((20% of magery) + 7) seconds [- 50% if resisted]
-                    duration = 7.0 + (this.Caster.Skills[SkillName.Magery].Value * 0.2);
+                    duration = 7.0 + (this.Caster.Skills[SkillName.Magia].Value * 0.2);
 
                     if (this.CheckResisted(m))
                         duration *= 0.75;

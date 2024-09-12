@@ -31,12 +31,14 @@ namespace Server.Mobiles
         {
             public InternalBuyInfo()
             {
-                this.Add(new GenericBuyInfo(typeof(Spellbook), 18, 10, 0xEFA, 0));
+                //this.Add(new GenericBuyInfo(typeof(Spellbook), 18, 10, 0xEFA, 0));
 				
-                if (Core.AOS)
-                    this.Add(new GenericBuyInfo(typeof(NecromancerSpellbook), 115, 10, 0x2253, 0));
+                //if (Core.AOS)
+                //    this.Add(new GenericBuyInfo(typeof(NecromancerSpellbook), 115, 10, 0x2253, 0));
 				
                 this.Add(new GenericBuyInfo(typeof(ScribesPen), 8, 10, 0xFBF, 0));
+
+                this.Add(new GenericBuyInfo(typeof(IdentificationScroll), 50, 50, 0x1F67, 0));
 
                 this.Add(new GenericBuyInfo(typeof(BlankScroll), 5, 20, 0x0E34, 0));
 
@@ -102,6 +104,7 @@ namespace Server.Mobiles
                 this.Add(typeof(Nightshade), 2); 
                 this.Add(typeof(SpidersSilk), 2); 
                 this.Add(typeof(SulfurousAsh), 2); 
+                this.Add(typeof(IdentificationScroll), 50);
 
                 if (Core.AOS)
                 {
@@ -113,7 +116,8 @@ namespace Server.Mobiles
                 }
 
                 this.Add(typeof(RecallRune), 13);
-                this.Add(typeof(Spellbook), 25);
+                this.Add(typeof(IdentificationScroll), 50);
+                //this.Add(typeof(Spellbook), 25);)
 
                 Type[] types = Loot.RegularScrollTypes;
 

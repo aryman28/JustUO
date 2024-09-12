@@ -77,7 +77,7 @@ namespace Server.Items
             {
                 return 1076272;
             }
-        }// Hanging Swords
+        }// Hanging WalkaMieczami
         public override void OnDoubleClick(Mobile from)
         {
             if (this.IsChildOf(from.Backpack))

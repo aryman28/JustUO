@@ -32,7 +32,7 @@ namespace Server.Mobiles
                 this.Name = NameList.RandomName("male");
                 this.AddItem(new ShortPants(Utility.RandomNeutralHue()));
             }
-            this.Title = "the peasant";
+            this.Title = "- Wieœniak(najemnik)";
             this.HairItemID = this.Race.RandomHair(this.Female);
             this.HairHue = this.Race.RandomHairHue();
             this.Race.RandomFacialHair(this);
@@ -45,9 +45,9 @@ namespace Server.Mobiles
 
             this.SetDamage(10, 23);
 
-            this.SetSkill(SkillName.Tactics, 5, 27);
-            this.SetSkill(SkillName.Wrestling, 5, 5);
-            this.SetSkill(SkillName.Swords, 5, 27);
+            this.SetSkill(SkillName.Taktyka, 5, 27);
+            this.SetSkill(SkillName.Boks, 5, 5);
+            this.SetSkill(SkillName.WalkaMieczami, 5, 27);
 
             this.Fame = 0;
             this.Karma = 0;

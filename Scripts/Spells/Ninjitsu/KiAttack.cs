@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Server.Items;
 
-namespace Server.Spells.Ninjitsu
+namespace Server.Spells.Skrytobojstwo
 {
     public class KiAttack : NinjaMove
     {

@@ -10,6 +10,8 @@ namespace Server.Items
             : base(0x26C2)
         {
             this.Weight = 5.0;
+            this.Name = "£uk kompozytowy";
+            this.Layer = Layer.TwoHanded;
         }
 
         public CompositeBow(Serial serial)

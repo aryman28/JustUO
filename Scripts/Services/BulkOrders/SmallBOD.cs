@@ -19,7 +19,7 @@ namespace Server.Engines.BulkOrders
             : base(Core.AOS ? 0x2258 : 0x14EF)
         {
             this.Weight = 1.0;
-            this.Hue = hue; // Blacksmith: 0x44E; Tailoring: 0x483
+            this.Hue = hue; // Blacksmith: 0x44E; Krawiectwo: 0x483
             this.LootType = LootType.Blessed;
 
             this.m_AmountMax = amountMax;
@@ -298,9 +298,9 @@ namespace Server.Engines.BulkOrders
                         bool isExceptional = false;
 
                         if (o is BaseWeapon)
-                            isExceptional = (((BaseWeapon)o).Quality == WeaponQuality.Exceptional);
+                            isExceptional = (((BaseWeapon)o).Quality == WeaponQuality.Doskona³);
                         else if (o is BaseArmor)
-                            isExceptional = (((BaseArmor)o).Quality == ArmorQuality.Exceptional);
+                            isExceptional = (((BaseArmor)o).Quality == ArmorQuality.Wspania³ || ((BaseArmor)o).Quality == ArmorQuality.Wyj¹tkow || ((BaseArmor)o).Quality == ArmorQuality.Niezwyk³ || ((BaseArmor)o).Quality == ArmorQuality.Cudown || ((BaseArmor)o).Quality == ArmorQuality.Mistyczn || ((BaseArmor)o).Quality == ArmorQuality.Legendarn );
                         else if (o is BaseClothing)
                             isExceptional = (((BaseClothing)o).Quality == ClothingQuality.Exceptional);
 

@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Items
 {
     public class AcidVine : Item
@@ -6,9 +8,9 @@ namespace Server.Items
         public AcidVine()
             : base(3313)
         {
-            Name = "vines";
-            Weight = 1.0;
-            Movable = false;
+            this.Name = "vines";
+            this.Weight = 1.0;
+            this.Movable = false;
         }
 
         public AcidVine(Serial serial)
@@ -18,20 +20,22 @@ namespace Server.Items
 
         public override bool ForceShowProperties
         {
-            get { return ObjectPropertyList.Enabled; }
+            get
+            {
+                return ObjectPropertyList.Enabled;
+            }
         }
-
         public override void OnDoubleClick(Mobile from)
         {
-            if (from.InRange(GetWorldLocation(), 1))
+            if (from.InRange(this.GetWorldLocation(), 1))
             {
                 from.SendMessage("The vines tighten their grip, stopping you from opening the secret door!");
             }
-            else if (from.InRange(GetWorldLocation(), 4))
+            else if (from.InRange(this.GetWorldLocation(), 4))
             {
                 from.SendMessage("You notice something odd about the vines covering the wall.");
             }
-            else if (!from.InRange(GetWorldLocation(), 4))
+            else if (!from.InRange(this.GetWorldLocation(), 4))
             {
                 from.SendMessage("I can't reach that!");
             }
@@ -43,14 +47,14 @@ namespace Server.Items
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

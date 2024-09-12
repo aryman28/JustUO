@@ -36,14 +36,14 @@ namespace Server.Engines.BulkOrders
         {
             get
             {
-                return GetEntries("Tailoring", "cloth");
+                return GetEntries("Krawiectwo", "cloth");
             }
         }
         public static SmallBulkEntry[] TailorLeather
         {
             get
             {
-                return GetEntries("Tailoring", "leather");
+                return GetEntries("Krawiectwo", "leather");
             }
         }
         public Type Type

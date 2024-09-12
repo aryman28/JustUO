@@ -11,6 +11,7 @@ namespace Server.Items
             : base(0x26BA)
         {
             this.Weight = 5.0;
+            this.Name = "Kosa bojowa";
         }
 
         public Scythe(Serial serial)

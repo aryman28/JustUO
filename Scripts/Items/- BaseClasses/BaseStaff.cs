@@ -32,7 +32,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Macing;
+                return SkillName.WalkaObuchami;
             }
         }
         public override WeaponType DefType

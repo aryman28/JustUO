@@ -5,16 +5,16 @@ using Server.Targeting;
 
 namespace Server.Engines.Harvest
 {
-    public class Mining : HarvestSystem
+    public class Gornictwo : HarvestSystem
     {
-        private static Mining m_System;
+        private static Gornictwo m_System;
 
-        public static Mining System
+        public static Gornictwo System
         {
             get
             {
                 if (m_System == null)
-                    m_System = new Mining();
+                    m_System = new Gornictwo();
 
                 return m_System;
             }
@@ -40,12 +40,12 @@ namespace Server.Engines.Harvest
             }
         }
 
-        private Mining()
+        private Gornictwo()
         {
             HarvestResource[] res;
             HarvestVein[] veins;
 
-            #region Mining for ore and stone
+            #region Gornictwo for ore and stone
             HarvestDefinition oreAndStone = this.m_OreAndStone = new HarvestDefinition();
 
             // Resource banks are every 8x8 tiles
@@ -60,8 +60,8 @@ namespace Server.Engines.Harvest
             oreAndStone.MinRespawn = TimeSpan.FromMinutes(10.0);
             oreAndStone.MaxRespawn = TimeSpan.FromMinutes(20.0);
 
-            // Skill checking is done on the Mining skill
-            oreAndStone.Skill = SkillName.Mining;
+            // Skill checking is done on the Gornictwo skill
+            oreAndStone.Skill = SkillName.Gornictwo;
 
             // Set the list of harvestable tiles
             oreAndStone.Tiles = m_MountainAndCaveTiles;
@@ -137,7 +137,7 @@ namespace Server.Engines.Harvest
             this.Definitions.Add(oreAndStone);
             #endregion
 
-            #region Mining for sand
+            #region Gornictwo for sand
             HarvestDefinition sand = this.m_Sand = new HarvestDefinition();
 
             // Resource banks are every 8x8 tiles
@@ -152,8 +152,8 @@ namespace Server.Engines.Harvest
             sand.MinRespawn = TimeSpan.FromMinutes(10.0);
             sand.MaxRespawn = TimeSpan.FromMinutes(20.0);
 
-            // Skill checking is done on the Mining skill
-            sand.Skill = SkillName.Mining;
+            // Skill checking is done on the Gornictwo skill
+            sand.Skill = SkillName.Gornictwo;
 
             // Set the list of harvestable tiles
             sand.Tiles = m_SandTiles;
@@ -203,10 +203,10 @@ namespace Server.Engines.Harvest
             {
                 PlayerMobile pm = from as PlayerMobile;
 
-                if (pm != null && pm.GemMining && pm.ToggleMiningGem && from.Skills[SkillName.Mining].Base >= 100.0 && 0.1 > Utility.RandomDouble())
+                if (pm != null && pm.GemMining && pm.ToggleMiningGem && from.Skills[SkillName.Gornictwo].Base >= 100.0 && 0.1 > Utility.RandomDouble())
                     return Loot.RandomGem().GetType();
 
-                if (pm != null && pm.StoneMining && pm.ToggleMiningStone && from.Skills[SkillName.Mining].Base >= 100.0 && 0.15 > Utility.RandomDouble())
+                if (pm != null && pm.StoneMining && pm.ToggleMiningStone && from.Skills[SkillName.Gornictwo].Base >= 100.0 && 0.15 > Utility.RandomDouble())
                     return resource.Types[1];
 
                 return resource.Types[0];
@@ -249,7 +249,7 @@ namespace Server.Engines.Harvest
             if (!base.CheckHarvest(from, tool, def, toHarvest))
                 return false;
 
-            if (def == this.m_Sand && !(from is PlayerMobile && from.Skills[SkillName.Mining].Base >= 100.0 && ((PlayerMobile)from).SandMining))
+            if (def == this.m_Sand && !(from is PlayerMobile && from.Skills[SkillName.Gornictwo].Base >= 100.0 && ((PlayerMobile)from).SandMining))
             {
                 this.OnBadHarvestTarget(from, tool, toHarvest);
                 return false;

@@ -34,7 +34,7 @@ namespace Server.Items
         {
             get
             {
-                return "a Tailoring Kit";
+                return "a Krawiectwo Kit";
             }
         }
         public override void Serialize(GenericWriter writer)

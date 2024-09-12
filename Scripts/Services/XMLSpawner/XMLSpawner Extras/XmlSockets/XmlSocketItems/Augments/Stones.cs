@@ -27,7 +27,7 @@ namespace Server.Items
         public override string OnIdentify(Mobile from)
         {
 
-            return "Armor, Jewelry: +5 Alchemy";
+            return "Armor, Jewelry: +5 Alchemia";
         }
 
         public override bool OnAugment(Mobile from, object target)
@@ -40,7 +40,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Alchemy, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Alchemia, 5.0 );
                         break;
                     }
                 }
@@ -54,7 +54,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Alchemy, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Alchemia, 5.0 );
                         break;
                     }
                 }
@@ -112,7 +112,7 @@ namespace Server.Items
         public override string OnIdentify(Mobile from)
         {
 
-            return "Armor, Jewelry: +5 Anatomy";
+            return "Armor, Jewelry: +5 Anatomia";
         }
 
         public override bool OnAugment(Mobile from, object target)
@@ -125,7 +125,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Anatomy, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Anatomia, 5.0 );
                         break;
                     }
                 }
@@ -139,7 +139,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Anatomy, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Anatomia, 5.0 );
                         break;
                     }
                 }
@@ -197,7 +197,7 @@ namespace Server.Items
         public override string OnIdentify(Mobile from)
         {
 
-            return "Armor, Jewelry: +5 AnimalLore";
+            return "Armor, Jewelry: +5 WiedzaOBestiach";
         }
 
         public override bool OnAugment(Mobile from, object target)
@@ -210,7 +210,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.AnimalLore, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.WiedzaOBestiach, 5.0 );
                         break;
                     }
                 }
@@ -224,7 +224,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.AnimalLore, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.WiedzaOBestiach, 5.0 );
                         break;
                     }
                 }
@@ -295,7 +295,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.ItemID, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Identyfikacja, 5.0 );
                         break;
                     }
                 }
@@ -309,7 +309,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.ItemID, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Identyfikacja, 5.0 );
                         break;
                     }
                 }
@@ -367,7 +367,7 @@ namespace Server.Items
         public override string OnIdentify(Mobile from)
         {
 
-            return "Armor, Jewelry: +5 ArmsLore";
+            return "Armor, Jewelry: +5 WiedzaOUzbrojeniu";
         }
 
         public override bool OnAugment(Mobile from, object target)
@@ -380,7 +380,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.ArmsLore, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.WiedzaOUzbrojeniu, 5.0 );
                         break;
                     }
                 }
@@ -394,7 +394,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.ArmsLore, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.WiedzaOUzbrojeniu, 5.0 );
                         break;
                     }
                 }
@@ -452,7 +452,7 @@ namespace Server.Items
         public override string OnIdentify(Mobile from)
         {
 
-            return "Armor, Jewelry: +5 Parry";
+            return "Armor, Jewelry: +5 Parowanie";
         }
 
         public override bool OnAugment(Mobile from, object target)
@@ -465,7 +465,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Parry, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Parowanie, 5.0 );
                         break;
                     }
                 }
@@ -479,7 +479,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Parry, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Parowanie, 5.0 );
                         break;
                     }
                 }
@@ -550,7 +550,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Blacksmith, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Kowalstwo, 5.0 );
                         break;
                     }
                 }
@@ -564,7 +564,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Blacksmith, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Kowalstwo, 5.0 );
                         break;
                     }
                 }
@@ -622,7 +622,7 @@ namespace Server.Items
         public override string OnIdentify(Mobile from)
         {
 
-            return "Armor, Jewelry: +5 Fletching";
+            return "Armor, Jewelry: +5 Lukmistrzostwo";
         }
 
         public override bool OnAugment(Mobile from, object target)
@@ -635,7 +635,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Fletching, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Lukmistrzostwo, 5.0 );
                         break;
                     }
                 }
@@ -649,7 +649,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Fletching, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Lukmistrzostwo, 5.0 );
                         break;
                     }
                 }
@@ -707,7 +707,7 @@ namespace Server.Items
         public override string OnIdentify(Mobile from)
         {
 
-            return "Armor, Jewelry: +5 Peacemaking";
+            return "Armor, Jewelry: +5 Uspokajanie";
         }
 
         public override bool OnAugment(Mobile from, object target)
@@ -720,7 +720,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Peacemaking, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Uspokajanie, 5.0 );
                         break;
                     }
                 }
@@ -734,7 +734,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Peacemaking, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Uspokajanie, 5.0 );
                         break;
                     }
                 }
@@ -792,7 +792,7 @@ namespace Server.Items
         public override string OnIdentify(Mobile from)
         {
 
-            return "Armor, Jewelry: +5 Healing";
+            return "Armor, Jewelry: +5 Leczenie";
         }
 
         public override bool OnAugment(Mobile from, object target)
@@ -805,7 +805,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Healing, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Leczenie, 5.0 );
                         break;
                     }
                 }
@@ -819,7 +819,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Healing, 5.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Leczenie, 5.0 );
                         break;
                     }
                 }

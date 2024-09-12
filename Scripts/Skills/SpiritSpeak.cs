@@ -8,7 +8,7 @@ using Server.Spells;
 
 namespace Server.SkillHandlers
 {
-	internal class SpiritSpeak
+	internal class MowaDuchow
 	{
 		public static void Initialize()
 		{
@@ -33,12 +33,12 @@ namespace Server.SkillHandlers
 
 			m.RevealingAction();
 
-			if (m.CheckSkill(SkillName.SpiritSpeak, 0, 100))
+			if (m.CheckSkill(SkillName.MowaDuchow, 0, 100))
 			{
 				if (!m.CanHearGhosts)
 				{
 					Timer t = new SpiritSpeakTimer(m);
-					double secs = m.Skills[SkillName.SpiritSpeak].Base / 50;
+					double secs = m.Skills[SkillName.MowaDuchow].Base / 50;
 					secs *= 90;
 					if (secs < 15)
 					{
@@ -158,14 +158,14 @@ namespace Server.SkillHandlers
 
 				if (toChannel != null)
 				{
-					min = 1 + (int)(Caster.Skills[SkillName.SpiritSpeak].Value * 0.25);
+					min = 1 + (int)(Caster.Skills[SkillName.MowaDuchow].Value * 0.25);
 					max = min + 4;
 					mana = 0;
 					number = 1061287; // You channel energy from a nearby corpse to heal your wounds.
 				}
 				else
 				{
-					min = 1 + (int)(Caster.Skills[SkillName.SpiritSpeak].Value * 0.25);
+					min = 1 + (int)(Caster.Skills[SkillName.MowaDuchow].Value * 0.25);
 					max = min + 4;
 					mana = 10;
 					number = 1061286; // You channel your own spiritual energy to heal your wounds.
@@ -177,9 +177,9 @@ namespace Server.SkillHandlers
 				}
 				else
 				{
-					Caster.CheckSkill(SkillName.SpiritSpeak, 0.0, 120.0);
+					Caster.CheckSkill(SkillName.MowaDuchow, 0.0, 120.0);
 
-					if (Utility.RandomDouble() > (Caster.Skills[SkillName.SpiritSpeak].Value / 100.0))
+					if (Utility.RandomDouble() > (Caster.Skills[SkillName.MowaDuchow].Value / 100.0))
 					{
 						Caster.SendLocalizedMessage(502443); // You fail your attempt at contacting the netherworld.
 					}

@@ -20,7 +20,7 @@ namespace Server.Items
                 return m_Registry;
             }
         }
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -29,9 +29,9 @@ namespace Server.Items
         }
         public override bool CheckSkills(Mobile from)
         {
-            if (this.GetSkill(from, SkillName.Ninjitsu) < 50.0 && this.GetSkill(from, SkillName.Bushido) < 50.0)
+            if (this.GetSkill(from, SkillName.Skrytobojstwo) < 50.0 && this.GetSkill(from, SkillName.Fanatyzm) < 50.0)
             {
-                from.SendLocalizedMessage(1063347, "50"); // You need ~1_SKILL_REQUIREMENT~ Bushido or Ninjitsu skill to perform that attack!
+                from.SendLocalizedMessage(1063347, "50"); // You need ~1_SKILL_REQUIREMENT~ Fanatyzm or Skrytobojstwo skill to perform that attack!
                 return false;
             }
 
@@ -40,7 +40,7 @@ namespace Server.Items
 
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
         {
-            if (!this.Validate(attacker) || !this.CheckMana(attacker, true))
+            if (!this.Validate(attacker) || !this.CheckStam(attacker, true))
                 return;
 
             if (Registry.Contains(defender))
@@ -57,7 +57,7 @@ namespace Server.Items
 
             attacker.FixedParticles(0x3728, 1, 13, 0x7F3, 0x962, 0, EffectLayer.Waist);
 
-            Timer t = new FeintTimer(defender, (int)(20.0 + 3.0 * (Math.Max(attacker.Skills[SkillName.Ninjitsu].Value, attacker.Skills[SkillName.Bushido].Value) - 50.0) / 7.0));	//20-50 % decrease
+            Timer t = new FeintTimer(defender, (int)(20.0 + 3.0 * (Math.Max(attacker.Skills[SkillName.Skrytobojstwo].Value, attacker.Skills[SkillName.Fanatyzm].Value) - 50.0) / 7.0));	//20-50 % decrease
 
             t.Start();
             Registry.Add(defender, t);

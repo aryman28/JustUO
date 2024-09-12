@@ -14,7 +14,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -30,9 +30,9 @@ namespace Server.Items
         }
         public override bool CheckSkills(Mobile from)
         {
-            if (this.GetSkill(from, SkillName.Bushido) < 50.0)
+            if (this.GetSkill(from, SkillName.Fanatyzm) < 50.0)
             {
-                from.SendLocalizedMessage(1070768, "50"); // You need ~1_SKILL_REQUIREMENT~ Bushido skill to perform that attack!
+                from.SendLocalizedMessage(1070768, "50"); // You need ~1_SKILL_REQUIREMENT~ Fanatyzm skill to perform that attack!
                 return false;
             }
 
@@ -48,7 +48,7 @@ namespace Server.Items
                 return;
             }
 
-            if (!this.Validate(attacker) || !this.CheckMana(attacker, true))
+            if (!this.Validate(attacker) || !this.CheckStam(attacker, true))
                 return;
 
             ClearCurrentAbility(attacker);
@@ -60,7 +60,7 @@ namespace Server.Items
 
                 if (mount != null)	//Ethy mounts don't take damage
                 {
-                    int amount = 10 + (int)(10.0 * (attacker.Skills[SkillName.Bushido].Value - 50.0) / 70.0 + 5);
+                    int amount = 10 + (int)(10.0 * (attacker.Skills[SkillName.Fanatyzm].Value - 50.0) / 70.0 + 5);
 										
                     AOS.Damage(mount, null, amount, 100, 0, 0, 0, 0);	//The mount just takes damage, there's no flagging as if it was attacking the mount directly
                     //TODO: Mount prevention until mount healed
@@ -68,7 +68,7 @@ namespace Server.Items
             }
             else
             {
-                int amount = 10 + (int)(10.0 * (attacker.Skills[SkillName.Bushido].Value - 50.0) / 70.0 + 5);
+                int amount = 10 + (int)(10.0 * (attacker.Skills[SkillName.Fanatyzm].Value - 50.0) / 70.0 + 5);
 				
                 AOS.Damage(defender, attacker, amount, 100, 0, 0, 0, 0);
 

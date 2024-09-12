@@ -197,18 +197,18 @@ namespace Server
 		}
 
 		#region Expansions
-		public static Expansion Expansion { get; set; }
+		private static Expansion m_Expansion;
+		public static Expansion Expansion { get { return m_Expansion; } set { m_Expansion = value; } }
 
-		public static bool T2A { get { return Expansion >= Expansion.T2A; } }
-		public static bool UOR { get { return Expansion >= Expansion.UOR; } }
-		public static bool UOTD { get { return Expansion >= Expansion.UOTD; } }
-		public static bool LBR { get { return Expansion >= Expansion.LBR; } }
-		public static bool AOS { get { return Expansion >= Expansion.AOS; } }
-		public static bool SE { get { return Expansion >= Expansion.SE; } }
-		public static bool ML { get { return Expansion >= Expansion.ML; } }
-		public static bool SA { get { return Expansion >= Expansion.SA; } }
-		public static bool HS { get { return Expansion >= Expansion.HS; } }
-		public static bool TOL { get { return Expansion >= Expansion.TOL; } }
+		public static bool T2A { get { return m_Expansion >= Expansion.T2A; } }
+		public static bool UOR { get { return m_Expansion >= Expansion.UOR; } }
+		public static bool UOTD { get { return m_Expansion >= Expansion.UOTD; } }
+		public static bool LBR { get { return m_Expansion >= Expansion.LBR; } }
+		public static bool AOS { get { return m_Expansion >= Expansion.AOS; } }
+		public static bool SE { get { return m_Expansion >= Expansion.SE; } }
+		public static bool ML { get { return m_Expansion >= Expansion.ML; } }
+		public static bool SA { get { return m_Expansion >= Expansion.SA; } }
+		public static bool HS { get { return m_Expansion >= Expansion.HS; } }
 		#endregion
 
 		public static string ExePath { get { return m_ExePath ?? (m_ExePath = Assembly.Location); } }
@@ -705,10 +705,8 @@ namespace Server
 			}
 		}
 
-		private static int m_GlobalUpdateRange = 18;
 		private static int m_GlobalMaxUpdateRange = 24;
 
-		public static int GlobalUpdateRange { get { return m_GlobalUpdateRange; } set { m_GlobalUpdateRange = value; } }
 		public static int GlobalMaxUpdateRange { get { return m_GlobalMaxUpdateRange; } set { m_GlobalMaxUpdateRange = value; } }
 
 		private static int m_ItemCount, m_MobileCount, m_CustomsCount;

@@ -13,7 +13,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Server.Items
             if (weapon == null)
                 return;
 
-            if (!this.CheckMana(attacker, true))
+            if (!this.CheckStam(attacker, true))
                 return;
 
             attacker.FixedEffect(0x3728, 10, 15);
@@ -69,7 +69,7 @@ namespace Server.Items
 
             if (targets.Count > 0)
             {
-                double bushido = attacker.Skills.Bushido.Value;
+                double bushido = attacker.Skills.Fanatyzm.Value;
                 double damageBonus = 1.0 + Math.Pow((targets.Count * bushido) / 60, 2) / 100;
 
                 if (damageBonus > 2.0)

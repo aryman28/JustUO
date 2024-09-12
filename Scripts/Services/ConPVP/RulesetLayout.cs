@@ -77,7 +77,7 @@ namespace Server.Engines.ConPVP
 
                     if (Core.AOS)
                     {
-                        entries.Add(new RulesetLayout("Chivalry", new string[]
+                        entries.Add(new RulesetLayout("Rycerstwo", new string[]
                         {
                             "Cleanse by Fire",
                             "Close Wounds",
@@ -91,7 +91,7 @@ namespace Server.Engines.ConPVP
                             "Sacred Journey"
                         }));
 
-                        entries.Add(new RulesetLayout("Necromancy", new string[]
+                        entries.Add(new RulesetLayout("Nekromancja", new string[]
                         {
                             "Animate Dead",
                             "Blood Oath",
@@ -113,7 +113,7 @@ namespace Server.Engines.ConPVP
 
                         if (Core.SE)
                         {
-                            entries.Add(new RulesetLayout("Bushido", new string[]
+                            entries.Add(new RulesetLayout("Fanatyzm", new string[]
                             {
                                 "Confidence",
                                 "Counter Attack",
@@ -123,7 +123,7 @@ namespace Server.Engines.ConPVP
                                 "Momentum Strike"
                             }));
 
-                            entries.Add(new RulesetLayout("Ninjitsu", new string[]
+                            entries.Add(new RulesetLayout("Skrytobojstwo", new string[]
                             {
                                 "Animal Form",
                                 "Backstab",
@@ -137,7 +137,7 @@ namespace Server.Engines.ConPVP
 
                             if (Core.ML)
                             {
-                                entries.Add(new RulesetLayout("Spellweaving", new string[]
+                                entries.Add(new RulesetLayout("Druidyzm", new string[]
                                 {
                                     "Arcane Circle",
                                     "Arcane Empowerment",
@@ -230,15 +230,15 @@ namespace Server.Engines.ConPVP
 
                     entries.Add(new RulesetLayout("Skills", new string[]
                     {
-                        "Anatomy",
+                        "Anatomia",
                         "Detect Hidden",
                         "Evaluating Intelligence",
-                        "Hiding",
-                        "Poisoning",
-                        "Snooping",
-                        "Stealing",
+                        "Ukrywanie",
+                        "Zatruwanie",
+                        "Zagladanie",
+                        "Okradanie",
                         "Spirit Speak",
-                        "Stealth"
+                        "Zakradanie"
                     }));
 
                     if (Core.AOS)
@@ -249,7 +249,7 @@ namespace Server.Engines.ConPVP
                             "Melee",
                             "Ranged",
                             "Poisoned",
-                            "Wrestling"
+                            "Boks"
                         }));
 
                         entries.Add(new RulesetLayout("Armor", new string[]
@@ -266,7 +266,7 @@ namespace Server.Engines.ConPVP
                             "Melee",
                             "Ranged",
                             "Poisoned",
-                            "Wrestling",
+                            "Boks",
                             "Runics"
                         }));
 
@@ -381,9 +381,9 @@ namespace Server.Engines.ConPVP
                         m5x.SetOption("Spells", "Chain Lightning", false);
                         m5x.SetOption("Spells", "Resurrection", false);
 
-                        m5x.SetOption("Weapons", "Wrestling", true);
+                        m5x.SetOption("Weapons", "Boks", true);
 
-                        m5x.SetOption("Skills", "Anatomy", true);
+                        m5x.SetOption("Skills", "Anatomia", true);
                         m5x.SetOption("Skills", "Detect Hidden", true);
                         m5x.SetOption("Skills", "Evaluating Intelligence", true);
 
@@ -431,12 +431,12 @@ namespace Server.Engines.ConPVP
 
                         m7x.SetOption("Combat Abilities", "Stun", true);
 
-                        m7x.SetOption("Skills", "Anatomy", true);
+                        m7x.SetOption("Skills", "Anatomia", true);
                         m7x.SetOption("Skills", "Detect Hidden", true);
-                        m7x.SetOption("Skills", "Poisoning", true);
+                        m7x.SetOption("Skills", "Zatruwanie", true);
                         m7x.SetOption("Skills", "Evaluating Intelligence", true);
 
-                        m7x.SetOption("Weapons", "Wrestling", true);
+                        m7x.SetOption("Weapons", "Boks", true);
 
                         m7x.SetOption("Potions", "Refresh", true);
                         m7x.SetOption("Items", "Trapped Containers", true);
@@ -482,9 +482,9 @@ namespace Server.Engines.ConPVP
 
                         s7x.SetOptionRange("Combat Abilities", true);
 
-                        s7x.SetOption("Skills", "Anatomy", true);
+                        s7x.SetOption("Skills", "Anatomia", true);
                         s7x.SetOption("Skills", "Detect Hidden", true);
-                        s7x.SetOption("Skills", "Poisoning", true);
+                        s7x.SetOption("Skills", "Zatruwanie", true);
                         s7x.SetOption("Skills", "Evaluating Intelligence", true);
 
                         s7x.SetOptionRange("Weapons", true);
@@ -537,25 +537,25 @@ namespace Server.Engines.ConPVP
                         all.SetOption("Spells", "Chain Lightning", false);
                         all.SetOption("Spells", "Resurrection", false);
 
-                        all.SetOptionRange("Necromancy", true);
-                        all.SetOption("Necromancy", "Summon Familiar", false);
-                        all.SetOption("Necromancy", "Vengeful Spirit", false);
-                        all.SetOption("Necromancy", "Animate Dead", false);
-                        all.SetOption("Necromancy", "Wither", false);
-                        all.SetOption("Necromancy", "Poison Strike", false);
+                        all.SetOptionRange("Nekromancja", true);
+                        all.SetOption("Nekromancja", "Summon Familiar", false);
+                        all.SetOption("Nekromancja", "Vengeful Spirit", false);
+                        all.SetOption("Nekromancja", "Animate Dead", false);
+                        all.SetOption("Nekromancja", "Wither", false);
+                        all.SetOption("Nekromancja", "Poison Strike", false);
 
-                        all.SetOptionRange("Chivalry", true);
-                        all.SetOption("Chivalry", "Sacred Journey", false);
-                        all.SetOption("Chivalry", "Enemy of One", false);
-                        all.SetOption("Chivalry", "Noble Sacrifice", false);
+                        all.SetOptionRange("Rycerstwo", true);
+                        all.SetOption("Rycerstwo", "Sacred Journey", false);
+                        all.SetOption("Rycerstwo", "Enemy of One", false);
+                        all.SetOption("Rycerstwo", "Noble Sacrifice", false);
 
                         all.SetOptionRange("Combat Abilities", true);
                         all.SetOption("Combat Abilities", "Paralyzing Blow", false);
                         all.SetOption("Combat Abilities", "Shadow Strike", false);
 
-                        all.SetOption("Skills", "Anatomy", true);
+                        all.SetOption("Skills", "Anatomia", true);
                         all.SetOption("Skills", "Detect Hidden", true);
-                        all.SetOption("Skills", "Poisoning", true);
+                        all.SetOption("Skills", "Zatruwanie", true);
                         all.SetOption("Skills", "Spirit Speak", true);
                         all.SetOption("Skills", "Evaluating Intelligence", true);
 
@@ -564,20 +564,20 @@ namespace Server.Engines.ConPVP
 
                         all.SetOptionRange("Armor", true);
 
-                        all.SetOptionRange("Ninjitsu", true);
-                        all.SetOption("Ninjitsu", "Animal Form", false);
-                        all.SetOption("Ninjitsu", "Mirror Image", false);
-                        all.SetOption("Ninjitsu", "Backstab", false);
-                        all.SetOption("Ninjitsu", "Suprise Attack", false);
-                        all.SetOption("Ninjitsu", "Shadow Jump", false);
+                        all.SetOptionRange("Skrytobojstwo", true);
+                        all.SetOption("Skrytobojstwo", "Animal Form", false);
+                        all.SetOption("Skrytobojstwo", "Mirror Image", false);
+                        all.SetOption("Skrytobojstwo", "Backstab", false);
+                        all.SetOption("Skrytobojstwo", "Suprise Attack", false);
+                        all.SetOption("Skrytobojstwo", "Shadow Jump", false);
 
-                        all.SetOptionRange("Bushido", true);
+                        all.SetOptionRange("Fanatyzm", true);
 
-                        all.SetOptionRange("Spellweaving", true);
-                        all.SetOption("Spellweaving", "Gift of Life", false);
-                        all.SetOption("Spellweaving", "Summon Fey", false);
-                        all.SetOption("Spellweaving", "Summon Fiend", false);
-                        all.SetOption("Spellweaving", "Nature's Fury", false);
+                        all.SetOptionRange("Druidyzm", true);
+                        all.SetOption("Druidyzm", "Gift of Life", false);
+                        all.SetOption("Druidyzm", "Summon Fey", false);
+                        all.SetOption("Druidyzm", "Summon Fiend", false);
+                        all.SetOption("Druidyzm", "Nature's Fury", false);
 
                         all.SetOption("Potions", "Refresh", true);
                         all.SetOption("Items", "Bandages", true);
@@ -618,8 +618,8 @@ namespace Server.Engines.ConPVP
                     area.SetOption("Spells", "Earthquake", true);
                     area.SetOption("Spells", "Meteor Swarm", true);
                     area.SetOption("Spells", "Chain Lightning", true);
-                    area.SetOption("Necromancy", "Wither", true);
-                    area.SetOption("Necromancy", "Poison Strike", true);
+                    area.SetOption("Nekromancja", "Wither", true);
+                    area.SetOption("Nekromancja", "Poison Strike", true);
 
                     Ruleset summons = new Ruleset(m_Root);
 
@@ -631,13 +631,13 @@ namespace Server.Engines.ConPVP
                     summons.SetOption("Spells", "Earth Elemental", true);
                     summons.SetOption("Spells", "Fire Elemental", true);
                     summons.SetOption("Spells", "Water Elemental", true);
-                    summons.SetOption("Necromancy", "Summon Familiar", true);
-                    summons.SetOption("Necromancy", "Vengeful Spirit", true);
-                    summons.SetOption("Necromancy", "Animate Dead", true);
-                    summons.SetOption("Ninjitsu", "Mirror Image", true);
-                    summons.SetOption("Spellweaving", "Summon Fey", true);
-                    summons.SetOption("Spellweaving", "Summon Fiend", true);
-                    summons.SetOption("Spellweaving", "Nature's Fury", true);
+                    summons.SetOption("Nekromancja", "Summon Familiar", true);
+                    summons.SetOption("Nekromancja", "Vengeful Spirit", true);
+                    summons.SetOption("Nekromancja", "Animate Dead", true);
+                    summons.SetOption("Skrytobojstwo", "Mirror Image", true);
+                    summons.SetOption("Druidyzm", "Summon Fey", true);
+                    summons.SetOption("Druidyzm", "Summon Fiend", true);
+                    summons.SetOption("Druidyzm", "Nature's Fury", true);
 
                     m_Root.Flavors = new Ruleset[] { pots, para, fields, area, summons };
                 }

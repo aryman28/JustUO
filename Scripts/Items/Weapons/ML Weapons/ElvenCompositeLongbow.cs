@@ -10,6 +10,8 @@ namespace Server.Items
             : base(0x2D1E)
         {
             this.Weight = 8.0;
+            this.Name = "Elfii łuk kompozytowy";
+            this.Layer = Layer.TwoHanded;
         }
 
         public ElvenCompositeLongbow(Serial serial)

@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x1403)
         {
             this.Weight = 4.0;
+            this.Name = "Krótka włócznia";
         }
 
         public ShortSpear(Serial serial)

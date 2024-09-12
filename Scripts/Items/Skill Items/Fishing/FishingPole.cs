@@ -28,14 +28,14 @@ namespace Server.Items
             if (!from.InLOS(loc) || !from.InRange(loc, 2))
                 from.LocalOverheadMessage(MessageType.Regular, 0x3E9, 1019045); // I can't reach that
             else
-                Fishing.System.BeginHarvesting(from, this);
+                Rybactwo.System.BeginHarvesting(from, this);
         }
 
         public override void GetContextMenuEntries(Mobile from, List<ContextMenuEntry> list)
         {
             base.GetContextMenuEntries(from, list);
 
-            BaseHarvestTool.AddContextMenuEntries(from, this, list, Fishing.System);
+            BaseHarvestTool.AddContextMenuEntries(from, this, list, Rybactwo.System);
         }
 
         public override bool CheckConflictingLayer(Mobile m, Item item, Layer layer)

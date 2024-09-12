@@ -176,7 +176,7 @@ namespace Server.Gumps
             this.AddHtmlLocalized(340, 376, 60, 20, 1011393, 0x7FFF, false, false); // Back
             this.AddImageTiledButton(14, 44, 0x918, 0x919, 0x8C, GumpButtonType.Reply, 0, 0x3F13, 0x0, 18, 8);
             this.AddTooltip(1076619);
-            this.AddHtmlLocalized(98, 44, 250, 60, 1076272, 0x7FFF, false, false); // Hanging Swords
+            this.AddHtmlLocalized(98, 44, 250, 60, 1076272, 0x7FFF, false, false); // Hanging WalkaMieczami
             this.AddImageTiledButton(264, 44, 0x918, 0x919, 0x8D, GumpButtonType.Reply, 0, 0x3F09, 0x0, 18, 8);
             this.AddTooltip(1076620);
             this.AddHtmlLocalized(348, 44, 250, 60, 1076273, 0x7FFF, false, false); // Blue fancy rug
@@ -318,7 +318,7 @@ namespace Server.Gumps
                     cliloc = 1075196;
                     break;
                 case 0x6E:
-                    types.Add(typeof(FountainOfLife));
+                    types.Add(typeof(FountainOfLifeDeed));
                     cliloc = 1075197;
                     break;
                 case 0x6F:

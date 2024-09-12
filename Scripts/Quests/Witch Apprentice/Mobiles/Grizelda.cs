@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -18,88 +19,90 @@ namespace Server.Engines.Quests.Hag
 
         public override bool ClickTitle
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
+            this.InitStats(100, 100, 25);
 
-            Hue = 0x83EA;
+            this.Hue = 0x83EA;
 
-            Female = true;
-            Body = 0x191;
-            Name = "Grizelda";
+            this.Female = true;
+            this.Body = 0x191;
+            this.Name = "Grizelda";
         }
 
         public override void InitOutfit()
         {
-            AddItem(new Robe(0x1));
-            AddItem(new Sandals());
-            AddItem(new WizardsHat(0x1));
-            AddItem(new GoldBracelet());
+            this.AddItem(new Robe(0x1));
+            this.AddItem(new Sandals());
+            this.AddItem(new WizardsHat(0x1));
+            this.AddItem(new GoldBracelet());
 
-            HairItemID = 0x203C;
+            this.HairItemID = 0x203C;
 
             Item staff = new GnarledStaff();
             staff.Movable = false;
-            AddItem(staff);
+            this.AddItem(staff);
         }
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
         {
-            Direction = GetDirectionTo(player);
+            this.Direction = this.GetDirectionTo(player);
 
-            var qs = player.Quest;
+            QuestSystem qs = player.Quest;
 
             if (qs is WitchApprenticeQuest)
             {
-                if (qs.IsObjectiveInProgress(typeof (FindApprenticeObjective)))
+                if (qs.IsObjectiveInProgress(typeof(FindApprenticeObjective)))
                 {
-                    PlaySound(0x259);
-                    PlaySound(0x206);
+                    this.PlaySound(0x259);
+                    this.PlaySound(0x206);
                     qs.AddConversation(new HagDuringCorpseSearchConversation());
                 }
                 else
                 {
-                    var obj = qs.FindObjective(typeof (FindGrizeldaAboutMurderObjective));
+                    QuestObjective obj = qs.FindObjective(typeof(FindGrizeldaAboutMurderObjective));
 
                     if (obj != null && !obj.Completed)
                     {
-                        PlaySound(0x420);
-                        PlaySound(0x20);
+                        this.PlaySound(0x420);
+                        this.PlaySound(0x20);
                         obj.Complete();
                     }
-                    else if (qs.IsObjectiveInProgress(typeof (KillImpsObjective)) ||
-                             qs.IsObjectiveInProgress(typeof (FindZeefzorpulObjective)))
+                    else if (qs.IsObjectiveInProgress(typeof(KillImpsObjective)) ||
+                             qs.IsObjectiveInProgress(typeof(FindZeefzorpulObjective)))
                     {
-                        PlaySound(0x259);
-                        PlaySound(0x206);
+                        this.PlaySound(0x259);
+                        this.PlaySound(0x206);
                         qs.AddConversation(new HagDuringImpSearchConversation());
                     }
                     else
                     {
-                        obj = qs.FindObjective(typeof (ReturnRecipeObjective));
+                        obj = qs.FindObjective(typeof(ReturnRecipeObjective));
 
                         if (obj != null && !obj.Completed)
                         {
-                            PlaySound(0x258);
-                            PlaySound(0x41B);
+                            this.PlaySound(0x258);
+                            this.PlaySound(0x41B);
                             obj.Complete();
                         }
-                        else if (qs.IsObjectiveInProgress(typeof (FindIngredientObjective)))
+                        else if (qs.IsObjectiveInProgress(typeof(FindIngredientObjective)))
                         {
-                            PlaySound(0x259);
-                            PlaySound(0x206);
+                            this.PlaySound(0x259);
+                            this.PlaySound(0x206);
                             qs.AddConversation(new HagDuringIngredientsConversation());
                         }
                         else
                         {
-                            obj = qs.FindObjective(typeof (ReturnIngredientsObjective));
+                            obj = qs.FindObjective(typeof(ReturnIngredientsObjective));
 
                             if (obj != null && !obj.Completed)
                             {
-                                var cont = GetNewContainer();
+                                Container cont = GetNewContainer();
 
                                 cont.DropItem(new BlackPearl(30));
                                 cont.DropItem(new Bloodmoss(30));
@@ -112,12 +115,12 @@ namespace Server.Engines.Quests.Hag
 
                                 cont.DropItem(new Cauldron());
                                 cont.DropItem(new MoonfireBrew());
-                                cont.DropItem(new TreasureMap(Utility.RandomMinMax(1, 4), Map));
+                                cont.DropItem(new TreasureMap(Utility.RandomMinMax(1, 4), this.Map));
                                 cont.DropItem(new Gold(2000, 2200));
 
                                 if (Utility.RandomBool())
                                 {
-                                    var weapon = Loot.RandomWeapon();
+                                    BaseWeapon weapon = Loot.RandomWeapon();
 
                                     if (Core.AOS)
                                     {
@@ -125,9 +128,9 @@ namespace Server.Engines.Quests.Hag
                                     }
                                     else
                                     {
-                                        weapon.DamageLevel = (WeaponDamageLevel) RandomMinMaxScaled(2, 3);
-                                        weapon.AccuracyLevel = (WeaponAccuracyLevel) RandomMinMaxScaled(2, 3);
-                                        weapon.DurabilityLevel = (WeaponDurabilityLevel) RandomMinMaxScaled(2, 3);
+                                        weapon.DamageLevel = (WeaponDamageLevel)BaseCreature.RandomMinMaxScaled(2, 3);
+                                        weapon.AccuracyLevel = (WeaponAccuracyLevel)BaseCreature.RandomMinMaxScaled(2, 3);
+                                        weapon.DurabilityLevel = (WeaponDurabilityLevel)BaseCreature.RandomMinMaxScaled(2, 3);
                                     }
 
                                     cont.DropItem(weapon);
@@ -135,23 +138,23 @@ namespace Server.Engines.Quests.Hag
                                 else
                                 {
                                     Item item;
-
+							
                                     if (Core.AOS)
                                     {
                                         item = Loot.RandomArmorOrShieldOrJewelry();
 
                                         if (item is BaseArmor)
-                                            BaseRunicTool.ApplyAttributesTo((BaseArmor) item, 2, 20, 30);
+                                            BaseRunicTool.ApplyAttributesTo((BaseArmor)item, 2, 20, 30);
                                         else if (item is BaseJewel)
-                                            BaseRunicTool.ApplyAttributesTo((BaseJewel) item, 2, 20, 30);
+                                            BaseRunicTool.ApplyAttributesTo((BaseJewel)item, 2, 20, 30);
                                     }
                                     else
                                     {
-                                        var armor = Loot.RandomArmorOrShield();
+                                        BaseArmor armor = Loot.RandomArmorOrShield();
                                         item = armor;
 
-                                        armor.ProtectionLevel = (ArmorProtectionLevel) RandomMinMaxScaled(2, 3);
-                                        armor.Durability = (ArmorDurabilityLevel) RandomMinMaxScaled(2, 3);
+                                        armor.ProtectionLevel = (ArmorProtectionLevel)BaseCreature.RandomMinMaxScaled(2, 3);
+                                        armor.Durability = (ArmorDurabilityLevel)BaseCreature.RandomMinMaxScaled(2, 3);
                                     }
 
                                     cont.DropItem(item);
@@ -162,21 +165,19 @@ namespace Server.Engines.Quests.Hag
 
                                 if (player.PlaceInBackpack(cont))
                                 {
-                                    var gainedPath = false;
+                                    bool gainedPath = false;
 
-                                    if (VirtueHelper.Award(player, VirtueName.Sacrifice, 250, ref gainedPath))
-                                        // TODO: Check amount on OSI.
+                                    if (VirtueHelper.Award(player, VirtueName.Sacrifice, 250, ref gainedPath)) // TODO: Check amount on OSI.
                                         player.SendLocalizedMessage(1054160); // You have gained in sacrifice.
 
-                                    PlaySound(0x253);
-                                    PlaySound(0x20);
+                                    this.PlaySound(0x253);
+                                    this.PlaySound(0x20);
                                     obj.Complete();
                                 }
                                 else
                                 {
                                     cont.Delete();
-                                    player.SendLocalizedMessage(1046260);
-                                        // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                                    player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                                 }
                             }
                         }
@@ -186,22 +187,22 @@ namespace Server.Engines.Quests.Hag
             else
             {
                 QuestSystem newQuest = new WitchApprenticeQuest(player);
-                var inRestartPeriod = false;
+                bool inRestartPeriod = false;
 
                 if (qs != null)
                 {
                     newQuest.AddConversation(new DontOfferConversation());
                 }
-                else if (QuestSystem.CanOfferQuest(player, typeof (WitchApprenticeQuest), out inRestartPeriod))
+                else if (QuestSystem.CanOfferQuest(player, typeof(WitchApprenticeQuest), out inRestartPeriod))
                 {
-                    PlaySound(0x20);
-                    PlaySound(0x206);
+                    this.PlaySound(0x20);
+                    this.PlaySound(0x206);
                     newQuest.SendOffer();
                 }
                 else if (inRestartPeriod)
                 {
-                    PlaySound(0x259);
-                    PlaySound(0x206);
+                    this.PlaySound(0x259);
+                    this.PlaySound(0x206);
                     newQuest.AddConversation(new RecentlyFinishedConversation());
                 }
             }
@@ -211,14 +212,14 @@ namespace Server.Engines.Quests.Hag
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

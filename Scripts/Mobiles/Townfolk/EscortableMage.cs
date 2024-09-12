@@ -8,13 +8,13 @@ namespace Server.Mobiles
         [Constructable]
         public EscortableMage()
         {
-            this.Title = "the mage";
+            this.Title = "- Mag (podró¿nik)";
 
-            this.SetSkill(SkillName.EvalInt, 80.0, 100.0);
-            this.SetSkill(SkillName.Inscribe, 80.0, 100.0);
-            this.SetSkill(SkillName.Magery, 80.0, 100.0);
-            this.SetSkill(SkillName.Meditation, 80.0, 100.0);
-            this.SetSkill(SkillName.MagicResist, 80.0, 100.0);
+            this.SetSkill(SkillName.Intelekt, 80.0, 100.0);
+            this.SetSkill(SkillName.Inskrypcja, 80.0, 100.0);
+            this.SetSkill(SkillName.Magia, 80.0, 100.0);
+            this.SetSkill(SkillName.Medytacja, 80.0, 100.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 80.0, 100.0);
         }
 
         public EscortableMage(Serial serial)

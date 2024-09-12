@@ -10,7 +10,7 @@ namespace Server.Engines.Craft
         { 
             get
             {
-                return SkillName.Carpentry;
+                return SkillName.Stolarstwo;
             }
         }
 
@@ -56,7 +56,7 @@ namespace Server.Engines.Craft
                 return 1044038; // You have worn out your tool!
             else if (!BaseTool.CheckTool(tool, from))
                 return 1048146; // If you have a tool equipped, you must use that tool.
-            else if (!(from is PlayerMobile && ((PlayerMobile)from).Masonry && from.Skills[SkillName.Carpentry].Base >= 100.0))
+            else if (!(from is PlayerMobile && ((PlayerMobile)from).Masonry && from.Skills[SkillName.Stolarstwo].Base >= 100.0))
                 return 1044633; // You havent learned stonecraft.
             else if (!BaseTool.CheckAccessible(tool, from))
                 return 1044263; // The tool must be on your person to use.
@@ -152,22 +152,22 @@ namespace Server.Engines.Craft
             if (Core.SA)
             {
                 int index = this.AddCraft(typeof(LargeGargoyleBedSouthDeed), 1044502, 1111761, 76.0, 126.0, typeof(Granite), 1044514, 3, 1044513);
-                this.AddSkill(index, SkillName.Tailoring, 70.0, 75.0);
+                this.AddSkill(index, SkillName.Krawiectwo, 70.0, 75.0);
                 this.AddRes(index, typeof(Cloth), 1044286, 100, 1044287);
                 this.SetNeededExpansion(index, Expansion.SA);
  
                 index = this.AddCraft(typeof(LargeGargoyleBedEastDeed), 1044502, 1111762, 76.0, 126.0, typeof(Granite), 1044514, 3, 1044513);
-                this.AddSkill(index, SkillName.Tailoring, 70.0, 75.0);
+                this.AddSkill(index, SkillName.Krawiectwo, 70.0, 75.0);
                 this.AddRes(index, typeof(Cloth), 1044286, 100, 1044287);
                 this.SetNeededExpansion(index, Expansion.SA);
  
                 index = this.AddCraft(typeof(GargishCotEastDeed), 1044502, 1111921, 76.0, 126.0, typeof(Granite), 1044514, 3, 1044513);
-                this.AddSkill(index, SkillName.Tailoring, 70.0, 75.0);
+                this.AddSkill(index, SkillName.Krawiectwo, 70.0, 75.0);
                 this.AddRes(index, typeof(Cloth), 1044286, 100, 1044287);
                 this.SetNeededExpansion(index, Expansion.SA);
  
                 index = this.AddCraft(typeof(GargishCotSouthDeed), 1044502, 1111920, 76.0, 126.0, typeof(Granite), 1044514, 3, 1044513);
-                this.AddSkill(index, SkillName.Tailoring, 70.0, 75.0);
+                this.AddSkill(index, SkillName.Krawiectwo, 70.0, 75.0);
                 this.AddRes(index, typeof(Cloth), 1044286, 100, 1044287);
                 this.SetNeededExpansion(index, Expansion.SA);
             }            

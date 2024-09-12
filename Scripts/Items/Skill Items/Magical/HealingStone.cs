@@ -44,7 +44,7 @@ namespace Server.Items
 		{
 			base.AddNameProperties(list);
 
-			list.Add("Healing Points: {0}", m_Amount);
+			list.Add("Leczenie Points: {0}", m_Amount);
 		}
 		
 		public override void OnDoubleClick(Mobile from)
@@ -67,7 +67,7 @@ namespace Server.Items
 
             if (weapon != null)
             {
-                from.SendLocalizedMessage(1080116); // You must have a free hand to use a Healing Stone.
+                from.SendLocalizedMessage(1080116); // You must have a free hand to use a Leczenie Stone.
             }
 			else if (from.Hits >= from.HitsMax)
 						from.SendMessage("You are at full health,");
@@ -93,7 +93,7 @@ namespace Server.Items
 				
             }
             else
-                from.SendLocalizedMessage(1095172); // You must wait a few seconds before using another Healing Stone.
+                from.SendLocalizedMessage(1095172); // You must wait a few seconds before using another Leczenie Stone.
         }
 
         public override bool DropToWorld(Mobile from, Point3D p)

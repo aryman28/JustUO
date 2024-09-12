@@ -6,11 +6,11 @@ using Server.Targeting;
 
 namespace Server.SkillHandlers
 {
-    public class DetectHidden
+    public class Wykrywanie
     {
         public static void Initialize()
         {
-            SkillInfo.Table[(int)SkillName.DetectHidden].Callback = new SkillUseCallback(OnUse);
+            SkillInfo.Table[(int)SkillName.Wykrywanie].Callback = new SkillUseCallback(OnUse);
         }
 
         public static TimeSpan OnUse(Mobile src)
@@ -42,10 +42,10 @@ namespace Server.SkillHandlers
                 else 
                     p = src.Location;
 
-                double srcSkill = src.Skills[SkillName.DetectHidden].Value;
+                double srcSkill = src.Skills[SkillName.Wykrywanie].Value;
                 int range = (int)(srcSkill / 10.0);
 
-                if (!src.CheckSkill(SkillName.DetectHidden, 0.0, 100.0))
+                if (!src.CheckSkill(SkillName.Wykrywanie, 0.0, 100.0))
                     range /= 2;
 
                 BaseHouse house = BaseHouse.FindHouseAt(p, src.Map, 16);
@@ -64,7 +64,7 @@ namespace Server.SkillHandlers
                         if (trg.Hidden && src != trg)
                         {
                             double ss = srcSkill + Utility.Random(21) - 10;
-                            double ts = trg.Skills[SkillName.Hiding].Value + Utility.Random(21) - 10;
+                            double ts = trg.Skills[SkillName.Ukrywanie].Value + Utility.Random(21) - 10;
 
                             if (src.AccessLevel >= trg.AccessLevel && (ss >= ts || (inHouse && house.IsInside(trg))))
                             {
@@ -90,7 +90,7 @@ namespace Server.SkillHandlers
                             {
                                 BaseFactionTrap trap = (BaseFactionTrap)item;
 
-                                if (src.CheckTargetSkill(SkillName.DetectHidden, trap, 80.0, 100.0))
+                                if (src.CheckTargetSkill(SkillName.Wykrywanie, trap, 80.0, 100.0))
                                 {
                                     src.SendLocalizedMessage(1042712, true, " " + (trap.Faction == null ? "" : trap.Faction.Definition.FriendlyName)); // You reveal a trap placed by a faction:
 

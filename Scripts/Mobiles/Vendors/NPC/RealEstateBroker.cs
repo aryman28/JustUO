@@ -13,7 +13,7 @@ namespace Server.Mobiles
         private DateTime m_NextCheckPack;
         [Constructable]
         public RealEstateBroker()
-            : base("the real estate broker")
+            : base("- Agent Nieruchomoœci")
         {
         }
 

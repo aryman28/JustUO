@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a Moug-Guur corpse")]
@@ -24,9 +26,9 @@ namespace Server.Mobiles
             SetResistance(ResistanceType.Poison, 21, 24);
             SetResistance(ResistanceType.Energy, 19, 25);
 
-            SetSkill(SkillName.MagicResist, 70.2, 75.0);
-            SetSkill(SkillName.Tactics, 80.8, 81.7);
-            SetSkill(SkillName.Wrestling, 93.9, 99.4);
+            SetSkill(SkillName.ObronaPrzedMagia, 70.2, 75.0);
+            SetSkill(SkillName.Taktyka, 80.8, 81.7);
+            SetSkill(SkillName.Boks, 93.9, 99.4);
 
             Fame = 3000;
             Karma = -3000;
@@ -37,18 +39,26 @@ namespace Server.Mobiles
         {
         }
 
+        public override bool AllureImmune
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

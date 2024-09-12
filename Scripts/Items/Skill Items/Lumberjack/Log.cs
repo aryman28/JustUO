@@ -89,8 +89,8 @@ namespace Server.Items
 		{
 			if ( Deleted || !from.CanSee( this ) ) 
 				return false;
-			else if ( from.Skills.Carpentry.Value < skill &&
-				from.Skills.Lumberjacking.Value < skill )
+			else if ( from.Skills.Stolarstwo.Value < skill &&
+				from.Skills.Drwalnictwo.Value < skill )
 			{
 				item.Delete();
 				from.SendLocalizedMessage( 1072652 ); // You cannot work this strange and unusual wood.

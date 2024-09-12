@@ -8,7 +8,7 @@ namespace Server.Mobiles
         public NatureFury()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a nature's fury";
+            this.Name = "gniew natury";
             this.Body = 0x33;
             this.Hue = 0x4001;
 
@@ -26,9 +26,9 @@ namespace Server.Mobiles
             this.SetDamageType(ResistanceType.Physical, 0);
             this.SetResistance(ResistanceType.Physical, 90);
 
-            this.SetSkill(SkillName.Wrestling, 90.0);
-            this.SetSkill(SkillName.MagicResist, 70.0);
-            this.SetSkill(SkillName.Tactics, 100.0);
+            this.SetSkill(SkillName.Boks, 90.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 70.0);
+            this.SetSkill(SkillName.Taktyka, 100.0);
 
             this.Fame = 0;
             this.Karma = 0;

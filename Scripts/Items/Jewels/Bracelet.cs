@@ -42,12 +42,28 @@ namespace Server.Items
         public GoldBracelet()
             : base(0x1086)
         {
+            this.Name = "Branzoleta";
             this.Weight = 0.1;
         }
 
         public GoldBracelet(Serial serial)
             : base(serial)
         {
+        }
+
+        public override int InitMinHits
+        {
+            get
+            {
+                return 12;
+            }
+        }
+        public override int InitMaxHits
+        {
+            get
+            {
+                return 12;
+            }
         }
 
         public override void Serialize(GenericWriter writer)
@@ -71,12 +87,28 @@ namespace Server.Items
         public SilverBracelet()
             : base(0x1F06)
         {
+            this.Name = "Branzoleta";
             this.Weight = 0.1;
         }
 
         public SilverBracelet(Serial serial)
             : base(serial)
         {
+        }
+
+        public override int InitMinHits
+        {
+            get
+            {
+                return 12;
+            }
+        }
+        public override int InitMaxHits
+        {
+            get
+            {
+                return 12;
+            }
         }
 
         public override void Serialize(GenericWriter writer)

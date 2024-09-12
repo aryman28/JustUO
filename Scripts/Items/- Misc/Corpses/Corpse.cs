@@ -12,6 +12,9 @@ using Server.Guilds;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Network;
+////System Wieku////
+using Server.Accounting;
+/////////////
 #endregion
 
 namespace Server.Items
@@ -98,7 +101,7 @@ namespace Server.Items
 		private readonly HairInfo m_Hair; // This contains the hair of the owner
 		private readonly FacialHairInfo m_FacialHair; // This contains the facial hair of the owner
 
-		// For Forensics Evaluation
+		// For Kryminalistyka Evaluation
 		public string m_Forensicist; // Name of the first PlayerMobile who used Forensic Evaluation on the corpse
 
 		public static readonly TimeSpan MonsterLootRightSacrifice = TimeSpan.FromMinutes(2.0);
@@ -1023,11 +1026,7 @@ namespace Server.Items
 				if (corpse != null && Owner.From.CheckAlive())
 				{
 					corpse.Open(Owner.From, false);
-                    #region Enhance Client
-                    if (corpse != null)
-                        Owner.From.NetState.Send(new RemoveWaypoint(corpse.Serial));
-                    #endregion
-                }
+				}
 			}
 		}
 
@@ -1301,7 +1300,7 @@ namespace Server.Items
 				}
 				#endregion
 
-                base.OnDoubleClick(from);
+				base.OnDoubleClick(from);
 			}
 			else
 			{
@@ -1310,18 +1309,10 @@ namespace Server.Items
 			}
 		}
 
-        public override void OnDoubleClick(Mobile from)
-        {
-            Open(from, Core.AOS);
-            #region Enhance Client
-            if (m_Owner == from)
-            {
-                if (from.Corpse != null)
-                    from.NetState.Send(new RemoveWaypoint(from.Corpse.Serial));
-            }
-            #endregion
-
-        }
+		public override void OnDoubleClick(Mobile from)
+		{
+			Open(from, Core.AOS);
+		}
 
 		public override bool CheckContentDisplay(Mobile from)
 		{
@@ -1405,14 +1396,49 @@ namespace Server.Items
 			}
 			else if (((Body)Amount).IsHuman && ItemID == 0x2006)
 			{
-				new Blood(0x122D).MoveToWorld(Location, Map);
+				new Blood( 0x122D ).MoveToWorld( Location, Map );
 
-				new Torso().MoveToWorld(Location, Map);
-				new LeftLeg().MoveToWorld(Location, Map);
-				new LeftArm().MoveToWorld(Location, Map);
-				new RightLeg().MoveToWorld(Location, Map);
-				new RightArm().MoveToWorld(Location, Map);
-				new Head(dead.Name).MoveToWorld(Location, Map);
+				new Torso().MoveToWorld( Location, Map );
+				new LeftLeg().MoveToWorld( Location, Map );
+				new LeftArm().MoveToWorld( Location, Map );
+				new RightLeg().MoveToWorld( Location, Map );
+				new RightArm().MoveToWorld( Location, Map );
+				//new Head( dead.Name ).MoveToWorld( Location, Map );
+
+//bounty sytem
+                            if ( m_Owner is PlayerMobile )
+                            {
+                                Head head = new Head();
+				head.MoveToWorld( Location, Map );
+
+				head.Owner = m_Owner;
+				head.Killer = m_Killer;
+				head.CreationTime = DateTime.Now;
+				head.IsPlayer = true;
+
+                                 if ( ((Account)dead.Account).GetTag( "Age of " + (dead.RawName) ) != null )
+                                 {
+                                 head.Name = String.Format( "Glowa {0} - Zyl {1} Lat", m_Owner.Name, ((Account)dead.Account).GetTag("Age of " + (dead.RawName)) );
+                                 }
+                                 if ( ((Account)dead.Account).GetTag( "Age of " + (dead.RawName) ) == null )
+                                 {
+                                 head.Name = String.Format( "Glowa {0}", m_Owner.Name );
+                                 } 
+                             }                                   
+
+                                 if ( m_Owner is BaseCreature )
+                                 {
+                                   Head xhead = new Head();
+                                   xhead.MoveToWorld( Location, Map );
+
+                                   xhead.Owner = m_Owner;
+                                   xhead.Killer = m_Killer;
+                                   xhead.IsPlayer = false;
+                                   xhead.CreationTime = DateTime.Now;
+                                   xhead.Name = String.Format( "Glowa {0} {1}", m_Owner.Name, m_Owner.Title );
+                                 }
+
+//end bounty sytem
 
 				SetFlag(CorpseFlag.Carved, true);
 

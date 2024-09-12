@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -18,28 +19,28 @@ namespace Server.Engines.Quests.Haven
 
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
+            this.InitStats(100, 100, 25);
 
-            Hue = Utility.RandomSkinHue();
+            this.Hue = Utility.RandomSkinHue();
 
-            Female = false;
-            Body = 0x190;
-            Name = NameList.RandomName("male");
+            this.Female = false;
+            this.Body = 0x190;
+            this.Name = NameList.RandomName("male");
         }
 
         public override void InitOutfit()
         {
-            AddItem(new PlateChest());
-            AddItem(new PlateArms());
-            AddItem(new PlateGloves());
-            AddItem(new PlateLegs());
+            this.AddItem(new PlateChest());
+            this.AddItem(new PlateArms());
+            this.AddItem(new PlateGloves());
+            this.AddItem(new PlateLegs());
 
             Utility.AssignRandomHair(this);
-            Utility.AssignRandomFacialHair(this, HairHue);
+            Utility.AssignRandomFacialHair(this, this.HairHue);
 
-            var weapon = new Bardiche();
+            Bardiche weapon = new Bardiche();
             weapon.Movable = false;
-            AddItem(weapon);
+            this.AddItem(weapon);
         }
 
         public override int GetAutoTalkRange(PlayerMobile pm)
@@ -49,14 +50,14 @@ namespace Server.Engines.Quests.Haven
 
         public override bool CanTalkTo(PlayerMobile to)
         {
-            return (to.Quest == null && QuestSystem.CanOfferQuest(to, typeof (UzeraanTurmoilQuest)));
+            return (to.Quest == null && QuestSystem.CanOfferQuest(to, typeof(UzeraanTurmoilQuest)));
         }
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
         {
-            if (player.Quest == null && QuestSystem.CanOfferQuest(player, typeof (UzeraanTurmoilQuest)))
+            if (player.Quest == null && QuestSystem.CanOfferQuest(player, typeof(UzeraanTurmoilQuest)))
             {
-                Direction = GetDirectionTo(player);
+                this.Direction = this.GetDirectionTo(player);
 
                 new UzeraanTurmoilQuest(player).SendOffer();
             }
@@ -66,14 +67,14 @@ namespace Server.Engines.Quests.Haven
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

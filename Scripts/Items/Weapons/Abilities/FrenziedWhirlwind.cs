@@ -5,7 +5,7 @@ using Server.Spells;
 namespace Server.Items
 {
     /// <summary>
-    /// A quick attack to all enemies in range of your weapon that causes damage over time. Requires Bushido or Ninjitsu skill.
+    /// A quick attack to all enemies in range of your weapon that causes damage over time. Requires Fanatyzm or Skrytobojstwo skill.
     /// </summary>
     public class FrenziedWhirlwind : WeaponAbility
     {
@@ -21,7 +21,7 @@ namespace Server.Items
                 return m_Registry;
             }
         }
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -30,9 +30,9 @@ namespace Server.Items
         }
         public override bool CheckSkills(Mobile from)
         {
-            if (this.GetSkill(from, SkillName.Ninjitsu) < 50.0 && this.GetSkill(from, SkillName.Bushido) < 50.0)
+            if (this.GetSkill(from, SkillName.Skrytobojstwo) < 50.0 && this.GetSkill(from, SkillName.Fanatyzm) < 50.0)
             {
-                from.SendLocalizedMessage(1063347, "50"); // You need ~1_SKILL_REQUIREMENT~ Bushido or Ninjitsu skill to perform that attack!
+                from.SendLocalizedMessage(1063347, "50"); // You need ~1_SKILL_REQUIREMENT~ Fanatyzm or Skrytobojstwo skill to perform that attack!
                 return false;
             }
 
@@ -82,14 +82,14 @@ namespace Server.Items
 
             if (targets.Count > 0)
             {
-                if (!this.CheckMana(attacker, true))
+                if (!this.CheckStam(attacker, true))
                     return;
 
                 attacker.FixedEffect(0x3728, 10, 15);
                 attacker.PlaySound(0x2A1);
 
                 // 5-15 damage
-                int amount = (int)(10.0 * ((Math.Max(attacker.Skills[SkillName.Bushido].Value, attacker.Skills[SkillName.Ninjitsu].Value) - 50.0) / 70.0 + 5));
+                int amount = (int)(10.0 * ((Math.Max(attacker.Skills[SkillName.Fanatyzm].Value, attacker.Skills[SkillName.Skrytobojstwo].Value) - 50.0) / 70.0 + 5));
 
                 for (int i = 0; i < targets.Count; ++i)
                 {

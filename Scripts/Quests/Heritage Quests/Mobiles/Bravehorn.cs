@@ -1,13 +1,14 @@
 using System;
 
 namespace Server.Engines.Quests
-{
+{ 
     public class Bravehorn : BaseEscort
-    {
+    { 
         [Constructable]
         public Bravehorn()
-        {
-            Name = "Bravehorn";
+            : base()
+        { 
+            this.Name = "Bravehorn";
         }
 
         public Bravehorn(Serial serial)
@@ -17,25 +18,28 @@ namespace Server.Engines.Quests
 
         public override bool InitialInnocent
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool IsInvulnerable
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override Type[] Quests
         {
             get
             {
-                return new[]
+                return new Type[] 
                 {
-                    typeof (DefendingTheHerdQuest)
+                    typeof(DefendingTheHerdQuest)
                 };
             }
         }
-
         public override bool CanBeDamaged()
         {
             return true;
@@ -43,25 +47,25 @@ namespace Server.Engines.Quests
 
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
-
-            Blessed = false;
-            Female = false;
-            Body = 0xEA;
+            this.InitStats(100, 100, 25);
+			
+            this.Blessed = false;
+            this.Female = false;
+            this.Body = 0xEA;
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }
@@ -69,12 +73,13 @@ namespace Server.Engines.Quests
 namespace Server.Mobiles
 {
     public class BravehornsMate : Hind
-    {
+    { 
         [Constructable]
         public BravehornsMate()
-        {
-            Name = "bravehorn's mate";
-            Tamable = false;
+            : base()
+        { 
+            this.Name = "bravehorn's mate";
+            this.Tamable = false;
         }
 
         public BravehornsMate(Serial serial)
@@ -86,14 +91,14 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

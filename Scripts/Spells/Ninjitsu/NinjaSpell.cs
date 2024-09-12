@@ -1,7 +1,7 @@
 using System;
 using Server.Mobiles;
 
-namespace Server.Spells.Ninjitsu
+namespace Server.Spells.Skrytobojstwo
 {
     public abstract class NinjaSpell : Spell
     {
@@ -16,14 +16,14 @@ namespace Server.Spells.Ninjitsu
         {
             get
             {
-                return SkillName.Ninjitsu;
+                return SkillName.Skrytobojstwo;
             }
         }
         public override SkillName DamageSkill
         {
             get
             {
-                return SkillName.Ninjitsu;
+                return SkillName.Skrytobojstwo;
             }
         }
         public override bool RevealOnCast
@@ -107,7 +107,7 @@ namespace Server.Spells.Ninjitsu
 
             if (this.Caster.Skills[this.CastSkill].Value < this.RequiredSkill)
             {
-                this.Caster.SendLocalizedMessage(1063352, this.RequiredSkill.ToString("F1")); // You need ~1_SKILL_REQUIREMENT~ Ninjitsu skill to perform that attack!
+                this.Caster.SendLocalizedMessage(1063352, this.RequiredSkill.ToString("F1")); // You need ~1_SKILL_REQUIREMENT~ Skrytobojstwo skill to perform that attack!
                 return false;
             }
             else if (this.Caster.Mana < mana)

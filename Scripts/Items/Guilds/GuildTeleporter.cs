@@ -1,114 +1,103 @@
 using System;
+using Server.Network;
+using Server.Prompts;
 using Server.Guilds;
 using Server.Multis;
+using Server.Regions;
 
 namespace Server.Items
 {
-    public class GuildTeleporter : Item
-    {
-        private Item m_Stone;
-        [Constructable]
-        public GuildTeleporter()
-            : this(null)
-        {
-        }
+	public class GuildTeleporter : Item
+	{
+		private Item m_Stone;
 
-        public GuildTeleporter(Item stone)
-            : base(0x1869)
-        {
-            this.Weight = 1.0;
-            this.LootType = LootType.Blessed;
+		public override int LabelNumber{ get{ return 1041054; } } // guildstone teleporter
 
-            this.m_Stone = stone;
-        }
+		[Constructable]
+		public GuildTeleporter() : this( null )
+		{
+		}
 
-        public GuildTeleporter(Serial serial)
-            : base(serial)
-        {
-        }
+		public GuildTeleporter( Item stone ) : base( 0x1869 )
+		{
+			Weight = 1.0;
+			LootType = LootType.Blessed;
 
-        public override int LabelNumber
-        {
-            get
-            {
-                return 1041054;
-            }
-        }// guildstone teleporter
-        public override bool DisplayLootType
-        {
-            get
-            {
-                return false;
-            }
-        }
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+			m_Stone = stone;
+		}
 
-            writer.Write((int)0); // version
+		public GuildTeleporter( Serial serial ) : base( serial )
+		{
+		}
 
-            writer.Write(this.m_Stone);
-        }
+		public override bool DisplayLootType{ get{ return false; } }
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
-            this.LootType = LootType.Blessed;
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
 
-            int version = reader.ReadInt();
+			writer.Write( (int) 0 ); // version
 
-            switch ( version )
-            {
-                case 0:
-                    {
-                        this.m_Stone = reader.ReadItem();
+			writer.Write( m_Stone );
+		}
 
-                        break;
-                    }
-            }
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+			LootType = LootType.Blessed;
 
-            if (this.Weight == 0.0)
-                this.Weight = 1.0;
-        }
+			int version = reader.ReadInt();
 
-        public override void OnDoubleClick(Mobile from)
-        {
-            if (Guild.NewGuildSystem)
-                return;
+			switch ( version )
+			{
+				case 0:
+				{
+					m_Stone = reader.ReadItem();
 
-            Guildstone stone = this.m_Stone as Guildstone;
+					break;
+				}
+			}
 
-            if (!this.IsChildOf(from.Backpack))
-            {
-                from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
-            }
-            else if (stone == null || stone.Deleted || stone.Guild == null || stone.Guild.Teleporter != this)
-            {
-                from.SendLocalizedMessage(501197); // This teleporting object can not determine what guildstone to teleport
-            }
-            else
-            {
-                BaseHouse house = BaseHouse.FindHouseAt(from);
+			if ( Weight == 0.0 )
+				Weight = 1.0;
+		}
 
-                if (house == null)
-                {
-                    from.SendLocalizedMessage(501138); // You can only place a guildstone in a house.
-                }
-                else if (!house.IsOwner(from))
-                {
-                    from.SendLocalizedMessage(501141); // You can only place a guildstone in a house you own!
-                }
-                else if (house.FindGuildstone() != null)
-                {
-                    from.SendLocalizedMessage(501142);//Only one guildstone may reside in a given house.
-                }
-                else
-                {
-                    this.m_Stone.MoveToWorld(from.Location, from.Map);
-                    this.Delete();
-                    stone.Guild.Teleporter = null;
-                }
-            }
-        }
-    }
+		public override void OnDoubleClick( Mobile from )
+		{
+
+			Guildstone stone = m_Stone as Guildstone;
+
+			if ( !IsChildOf( from.Backpack ) )
+			{
+				from.SendLocalizedMessage( 1042001 ); // That must be in your pack for you to use it.
+			}
+			else if ( stone == null || stone.Deleted || stone.Guild == null || stone.Guild.Teleporter != this )
+			{
+				from.SendLocalizedMessage( 501197 ); // This teleporting object can not determine what guildstone to teleport
+			}
+			else
+			{
+				BaseHouse house = BaseHouse.FindHouseAt( from );
+
+				if ( house == null )
+				{
+					from.SendLocalizedMessage( 501138 ); // You can only place a guildstone in a house.
+				}
+				else if ( !house.IsOwner( from ) )
+				{
+					from.SendLocalizedMessage( 501141 ); // You can only place a guildstone in a house you own!
+				}
+				else if( house.FindGuildstone() != null )
+				{
+					from.SendLocalizedMessage( 501142 );//Only one guildstone may reside in a given house.
+				}
+				else
+				{
+					m_Stone.MoveToWorld( from.Location, from.Map );
+					Delete();
+					stone.Guild.Teleporter = null;
+				}
+			}
+		}
+	}
 }

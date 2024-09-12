@@ -7,7 +7,7 @@ using Server.Guilds;
 using Server.Items;
 using Server.Regions;
 
-namespace Server.Spells.Necromancy
+namespace Server.Spells.Nekromancja
 {
     public class ExorcismSpell : NecromancerSpell
     {
@@ -85,7 +85,7 @@ namespace Server.Spells.Necromancy
         }
         public override bool CheckCast()
         {
-            if (this.Caster.Skills.SpiritSpeak.Value < 100.0)
+            if (this.Caster.Skills.MowaDuchow.Value < 100.0)
             {
                 this.Caster.SendLocalizedMessage(1072112); // You must have GM Spirit Speak to use this spell
                 return false;

@@ -1,7 +1,7 @@
 using System;
 using Server.Network;
 
-namespace Server.Spells.Spellweaving
+namespace Server.Spells.Druidyzm
 {
     public class ReaperFormSpell : ArcaneForm
     {
@@ -36,7 +36,7 @@ namespace Server.Spells.Spellweaving
         {
             get
             {
-                return 0x11D;
+                return 0x2F;
             }
         }
         public override int FireResistOffset

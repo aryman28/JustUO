@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Server.Items;
 using Server.Targeting;
 
+using Server.Items.Crops;
+
 namespace Server.Engines.Harvest
 {
     public abstract class HarvestSystem
@@ -470,6 +472,16 @@ namespace Server.Engines.Harvest
                 map = from.Map;
                 loc = obj.Location;
             }
+////
+            else if (toHarvest is BaseCrop)
+            {
+                BaseCrop obj = (BaseCrop)toHarvest;
+
+                tileID = (obj.ItemID & 0x3FFF) | 0x4000;
+                map = from.Map;
+                loc = obj.Location;
+            }
+////
             else if (toHarvest is LandTarget)
             {
                 LandTarget obj = (LandTarget)toHarvest;

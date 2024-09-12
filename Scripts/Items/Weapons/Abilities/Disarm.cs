@@ -13,7 +13,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -30,7 +30,7 @@ namespace Server.Items
         if ( !(from.Weapon is Fists) )
         return true;
 
-        Skill skill = from.Skills[SkillName.ArmsLore];
+        Skill skill = from.Skills[SkillName.WiedzaOUzbrojeniu];
 
         if ( skill != null && skill.Base >= 80.0 )
         return true;
@@ -46,7 +46,7 @@ namespace Server.Items
             if (weapon == null)
                 return false;
 
-            return weapon.Skill != SkillName.Wrestling;
+            return weapon.Skill != SkillName.Boks;
         }
 
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
@@ -71,7 +71,7 @@ namespace Server.Items
             {
                 attacker.SendLocalizedMessage(1060849); // Your target is already unarmed!
             }
-            else if (this.CheckMana(attacker, true))
+            else if (this.CheckStam(attacker, true))
             {
                 attacker.SendLocalizedMessage(1060092); // You disarm their weapon!
                 defender.SendLocalizedMessage(1060093); // Your weapon has been disarmed!

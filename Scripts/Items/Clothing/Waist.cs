@@ -48,6 +48,7 @@ namespace Server.Items
             : base(0x153b, hue)
         {
             this.Weight = 2.0;
+            this.Name = "Krótki fartuch";
         }
 
         public HalfApron(Serial serial)

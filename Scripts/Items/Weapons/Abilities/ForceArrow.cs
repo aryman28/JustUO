@@ -11,7 +11,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -20,7 +20,7 @@ namespace Server.Items
         }
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
         {
-            if (!this.Validate(attacker) || !this.CheckMana(attacker, true))
+            if (!this.Validate(attacker) || !this.CheckStam(attacker, true))
                 return;
 
             ClearCurrentAbility(attacker);
@@ -28,7 +28,7 @@ namespace Server.Items
             attacker.SendMessage("Enemie are temporarily easier to hit"); 
             defender.SendMessage("You are temporarily easier to hit");
 
-            if (Utility.RandomDouble() >= attacker.Skills[SkillName.Anatomy].Value / 600)
+            if (Utility.RandomDouble() >= attacker.Skills[SkillName.Anatomia].Value / 600)
             {
                 defender.Warmode = false;
                 attacker.SendMessage("Mobile forget who are attacking."); 

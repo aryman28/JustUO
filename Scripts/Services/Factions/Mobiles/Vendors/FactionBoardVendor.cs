@@ -10,8 +10,8 @@ namespace Server.Factions
         public FactionBoardVendor(Town town, Faction faction)
             : base(town, faction, "the LumberMan")// NOTE: title inconsistant, as OSI
         {
-            this.SetSkill(SkillName.Carpentry, 85.0, 100.0);
-            this.SetSkill(SkillName.Lumberjacking, 60.0, 83.0);
+            this.SetSkill(SkillName.Stolarstwo, 85.0, 100.0);
+            this.SetSkill(SkillName.Drwalnictwo, 60.0, 83.0);
         }
 
         public FactionBoardVendor(Serial serial)

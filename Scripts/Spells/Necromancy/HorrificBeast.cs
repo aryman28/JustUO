@@ -1,6 +1,6 @@
 using System;
 
-namespace Server.Spells.Necromancy
+namespace Server.Spells.Nekromancja
 {
     public class HorrificBeastSpell : TransformationSpell
     {

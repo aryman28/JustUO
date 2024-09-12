@@ -6,15 +6,15 @@ namespace Server.Mobiles
     {
         [Constructable]
         public WarriorGuildmaster()
-            : base("warrior")
+            : base("- Mistrz Gildii Wojowników")
         {
-            this.SetSkill(SkillName.ArmsLore, 75.0, 98.0);
-            this.SetSkill(SkillName.Parry, 85.0, 100.0);
-            this.SetSkill(SkillName.MagicResist, 60.0, 83.0);
-            this.SetSkill(SkillName.Tactics, 85.0, 100.0);
-            this.SetSkill(SkillName.Swords, 90.0, 100.0);
-            this.SetSkill(SkillName.Macing, 60.0, 83.0);
-            this.SetSkill(SkillName.Fencing, 60.0, 83.0);
+            this.SetSkill(SkillName.WiedzaOUzbrojeniu, 75.0, 98.0);
+            this.SetSkill(SkillName.Parowanie, 85.0, 100.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 60.0, 83.0);
+            this.SetSkill(SkillName.Taktyka, 120.0, 150.0);
+            this.SetSkill(SkillName.WalkaMieczami, 120.0, 150.0);
+            this.SetSkill(SkillName.WalkaObuchami, 120.0, 150.0);
+            this.SetSkill(SkillName.WalkaSzpadami, 120.0, 150.0);
         }
 
         public WarriorGuildmaster(Serial serial)

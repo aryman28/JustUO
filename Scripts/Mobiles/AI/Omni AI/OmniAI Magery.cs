@@ -76,9 +76,9 @@ namespace Server.Mobiles
             // scaling chance to drain mana based on how much of a caster the opponent is
             if (this.CheckManaDrain() > 0.75)
             {
-                if (this.m_Mobile.Skills[SkillName.Magery].Value > 80.0)
+                if (this.m_Mobile.Skills[SkillName.Magia].Value > 80.0)
                     spell = new ManaVampireSpell(this.m_Mobile, null);
-                else if (this.m_Mobile.Skills[SkillName.Magery].Value > 40.0)
+                else if (this.m_Mobile.Skills[SkillName.Magia].Value > 40.0)
                     spell = new ManaDrainSpell(this.m_Mobile, null);
 
                 if (spell != null)
@@ -114,7 +114,7 @@ namespace Server.Mobiles
             if (mod != null && mod.Offset > 0)
                 return null;
 
-            if (this.m_Mobile.Skills[SkillName.Magery].Value >= 40.0)
+            if (this.m_Mobile.Skills[SkillName.Magia].Value >= 40.0)
                 return new BlessSpell(this.m_Mobile, null);
 
             mod = this.m_Mobile.GetStatMod("[Magic] Int Offset");
@@ -142,7 +142,7 @@ namespace Server.Mobiles
             if (mod != null && mod.Offset < 0)
                 return null;
 
-            if (this.m_Mobile.Skills[SkillName.Magery].Value >= 40.0)
+            if (this.m_Mobile.Skills[SkillName.Magia].Value >= 40.0)
                 return new CurseSpell(this.m_Mobile, null);
 
             int whichone = 1;
@@ -179,15 +179,15 @@ namespace Server.Mobiles
 
             double drain = 0.0;
 
-            if (foe.Skills[SkillName.Bushido].Value > 35.0)
+            if (foe.Skills[SkillName.Fanatyzm].Value > 35.0)
                 drain += 0.1;
-            if (foe.Skills[SkillName.Chivalry].Value > 35.0)
+            if (foe.Skills[SkillName.Rycerstwo].Value > 35.0)
                 drain += 0.1;
-            if (foe.Skills[SkillName.Magery].Value > 35.0)
+            if (foe.Skills[SkillName.Magia].Value > 35.0)
                 drain += 0.2;
-            if (foe.Skills[SkillName.Necromancy].Value > 35.0)
+            if (foe.Skills[SkillName.Nekromancja].Value > 35.0)
                 drain += 0.2;
-            if (foe.Skills[SkillName.Ninjitsu].Value > 35.0)
+            if (foe.Skills[SkillName.Skrytobojstwo].Value > 35.0)
                 drain += 0.1;
 
             if (drain == 0.0)
@@ -205,7 +205,7 @@ namespace Server.Mobiles
 
             Spell spell = null;
 
-            if (this.m_Mobile.Skills[SkillName.Magery].Value > 95.0 && this.m_Mobile.Mana > 50)
+            if (this.m_Mobile.Skills[SkillName.Magia].Value > 95.0 && this.m_Mobile.Mana > 50)
             {
                 int whichone = Utility.Random(10);
 
@@ -222,7 +222,7 @@ namespace Server.Mobiles
                 else
                     spell = new EnergyVortexSpell(this.m_Mobile, null);
             }
-            else if (this.m_Mobile.Skills[SkillName.Magery].Value > 55.0 && this.m_Mobile.Mana > 14) // 5th level
+            else if (this.m_Mobile.Skills[SkillName.Magia].Value > 55.0 && this.m_Mobile.Mana > 14) // 5th level
             {
                 if (this.m_Mobile.InitialInnocent) // peace loving hippy using nature friendly animals
                     spell = new SummonCreatureSpell(this.m_Mobile, null);
@@ -238,7 +238,7 @@ namespace Server.Mobiles
             if (this.m_Mobile.Debug)
                 this.m_Mobile.Say(1156, "Random damage spell");
 
-            int whichone = (int)(this.m_Mobile.Skills[SkillName.Magery].Value / 14.2) - 1;
+            int whichone = (int)(this.m_Mobile.Skills[SkillName.Magia].Value / 14.2) - 1;
 
             whichone += Utility.RandomMinMax(-2, -0);
 

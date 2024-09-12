@@ -14,7 +14,6 @@
 
 #region References
 using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -22,10 +21,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml;
-using Microsoft.Win32;
-using Server.Network;
 #endregion
 
 namespace Server
@@ -559,8 +555,7 @@ namespace Server
 			return i;
 		}
 		#endregion
-		
-		
+
 		#region Get[Something]
 		public static int GetXMLInt32(string intString, int defaultValue)
 		{
@@ -572,24 +567,6 @@ namespace Server
 			{
 				int val;
 				if (int.TryParse(intString, out val))
-				{
-					return val;
-				}
-
-				return defaultValue;
-			}
-		}
-
-		public static double GetXMLDouble(string doubleString, double defaultValue)
-		{
-			try
-			{
-				return XmlConvert.ToDouble(doubleString);
-			}
-			catch
-			{
-				double val;
-				if (double.TryParse(doubleString, out val))
 				{
 					return val;
 				}
@@ -696,14 +673,27 @@ namespace Server
 		#endregion
 
 		#region In[...]Range
-		public static bool InRange(IPoint2D p1, IPoint2D p2, int range)
+		public static bool InRange(Point3D p1, Point3D p2, int range)
 		{
-			return (p1.X >= (p2.X - range)) && (p1.X <= (p2.X + range)) && (p1.Y >= (p2.Y - range)) && (p1.Y <= (p2.Y + range));
+			return (p1.m_X >= (p2.m_X - range)) && (p1.m_X <= (p2.m_X + range)) && (p1.m_Y >= (p2.m_Y - range)) &&
+				   (p1.m_Y <= (p2.m_Y + range));
+		}
+
+		public static bool InUpdateRange(Point3D p1, Point3D p2)
+		{
+			return (p1.m_X >= (p2.m_X - 18)) && (p1.m_X <= (p2.m_X + 18)) && (p1.m_Y >= (p2.m_Y - 18)) &&
+				   (p1.m_Y <= (p2.m_Y + 18));
+		}
+
+		public static bool InUpdateRange(Point2D p1, Point2D p2)
+		{
+			return (p1.m_X >= (p2.m_X - 18)) && (p1.m_X <= (p2.m_X + 18)) && (p1.m_Y >= (p2.m_Y - 18)) &&
+				   (p1.m_Y <= (p2.m_Y + 18));
 		}
 
 		public static bool InUpdateRange(IPoint2D p1, IPoint2D p2)
 		{
-			return InRange(p1, p2, Core.GlobalUpdateRange);
+			return (p1.X >= (p2.X - 18)) && (p1.X <= (p2.X + 18)) && (p1.Y >= (p2.Y - 18)) && (p1.Y <= (p2.Y + 18));
 		}
 		#endregion
 
@@ -761,56 +751,54 @@ namespace Server
 			}
 		}
 
-		/* Should probably be rewritten to use an ITile interface */
-		/*
-		public static bool CanMobileFit(int z, StaticTile[] tiles)
-		{
-			int checkHeight = 15;
-			int checkZ = z;
+		/* Should probably be rewritten to use an ITile interface
 
-			for (int i = 0; i < tiles.Length; ++i)
-			{
-				StaticTile tile = tiles[i];
+        public static bool CanMobileFit( int z, StaticTile[] tiles )
+        {
+        int checkHeight = 15;
+        int checkZ = z;
 
-				if (((checkZ + checkHeight) > tile.Z && checkZ < (tile.Z + tile.Height))
-					// || (tile.Z < (checkZ + checkHeight) && (tile.Z + tile.Height) > checkZ)
-					)
-				{
-					return false;
-				}
-				else if (checkHeight == 0 && tile.Height == 0 && checkZ == tile.Z)
-				{
-					return false;
-				}
-			}
+        for ( int i = 0; i < tiles.Length; ++i )
+        {
+        StaticTile tile = tiles[i];
 
-			return true;
-		}
+        if ( ((checkZ + checkHeight) > tile.Z && checkZ < (tile.Z + tile.Height))*/
+		/* || (tile.Z < (checkZ + checkHeight) && (tile.Z + tile.Height) > checkZ)*/ /* )
+        {
+        return false;
+        }
+        else if ( checkHeight == 0 && tile.Height == 0 && checkZ == tile.Z )
+        {
+        return false;
+        }
+        }
 
-		public static bool IsInContact(StaticTile check, StaticTile[] tiles)
-		{
-			int checkHeight = check.Height;
-			int checkZ = check.Z;
+        return true;
+        }
 
-			for (int i = 0; i < tiles.Length; ++i)
-			{
-				StaticTile tile = tiles[i];
+        public static bool IsInContact( StaticTile check, StaticTile[] tiles )
+        {
+        int checkHeight = check.Height;
+        int checkZ = check.Z;
 
-				if (((checkZ + checkHeight) > tile.Z && checkZ < (tile.Z + tile.Height))
-					// || (tile.Z < (checkZ + checkHeight) && (tile.Z + tile.Height) > checkZ)
-					)
-				{
-					return true;
-				}
-				else if (checkHeight == 0 && tile.Height == 0 && checkZ == tile.Z)
-				{
-					return true;
-				}
-			}
+        for ( int i = 0; i < tiles.Length; ++i )
+        {
+        StaticTile tile = tiles[i];
 
-			return false;
-		}
-		*/
+        if ( ((checkZ + checkHeight) > tile.Z && checkZ < (tile.Z + tile.Height))*/
+		/* || (tile.Z < (checkZ + checkHeight) && (tile.Z + tile.Height) > checkZ)*/ /* )
+        {
+        return true;
+        }
+        else if ( checkHeight == 0 && tile.Height == 0 && checkZ == tile.Z )
+        {
+        return true;
+        }
+        }
+
+        return false;
+        }
+        */
 
 		public static object GetArrayCap(Array array, int index)
 		{
@@ -856,21 +844,6 @@ namespace Server
 		public static int RandomList(params int[] list)
 		{
 			return list[RandomImpl.Next(list.Length)];
-		}
-
-		public static T RandomList<T>(params T[] list)
-		{
-			return list[RandomImpl.Next(list.Length)];
-		}
-
-		public static T RandomList<T>(List<T> list)
-		{
-			return list[RandomImpl.Next(list.Count)];
-		}
-
-		public static object RandomList(ArrayList list)
-		{
-			return list[RandomImpl.Next(list.Count)];
 		}
 
 		public static bool RandomBool()
@@ -1133,26 +1106,26 @@ namespace Server
 
 		private static readonly SkillName[] m_AllSkills = new[]
 		{
-			SkillName.Alchemy, SkillName.Anatomy, SkillName.AnimalLore, SkillName.ItemID, SkillName.ArmsLore, SkillName.Parry,
-			SkillName.Begging, SkillName.Blacksmith, SkillName.Fletching, SkillName.Peacemaking, SkillName.Camping,
-			SkillName.Carpentry, SkillName.Cartography, SkillName.Cooking, SkillName.DetectHidden, SkillName.Discordance,
-			SkillName.EvalInt, SkillName.Healing, SkillName.Fishing, SkillName.Forensics, SkillName.Herding, SkillName.Hiding,
-			SkillName.Provocation, SkillName.Inscribe, SkillName.Lockpicking, SkillName.Magery, SkillName.MagicResist,
-			SkillName.Tactics, SkillName.Snooping, SkillName.Musicianship, SkillName.Poisoning, SkillName.Archery,
-			SkillName.SpiritSpeak, SkillName.Stealing, SkillName.Tailoring, SkillName.AnimalTaming, SkillName.TasteID,
-			SkillName.Tinkering, SkillName.Tracking, SkillName.Veterinary, SkillName.Swords, SkillName.Macing, SkillName.Fencing,
-			SkillName.Wrestling, SkillName.Lumberjacking, SkillName.Mining, SkillName.Meditation, SkillName.Stealth,
-			SkillName.RemoveTrap, SkillName.Necromancy, SkillName.Focus, SkillName.Chivalry, SkillName.Bushido,
-			SkillName.Ninjitsu, SkillName.Spellweaving, SkillName.Mysticism, SkillName.Imbuing, SkillName.Throwing
+			SkillName.Alchemia, SkillName.Anatomia, SkillName.WiedzaOBestiach, SkillName.Identyfikacja, SkillName.WiedzaOUzbrojeniu, SkillName.Parowanie,
+			SkillName.Rolnictwo, SkillName.Kowalstwo, SkillName.Lukmistrzostwo, SkillName.Uspokajanie, SkillName.Obozowanie,
+			SkillName.Stolarstwo, SkillName.Kartografia, SkillName.Gotowanie, SkillName.Wykrywanie, SkillName.Manipulacja,
+			SkillName.Intelekt, SkillName.Leczenie, SkillName.Rybactwo, SkillName.Kryminalistyka, SkillName.Zielarstwo, SkillName.Ukrywanie,
+			SkillName.Prowokacja, SkillName.Inskrypcja, SkillName.Wlamywanie, SkillName.Magia, SkillName.ObronaPrzedMagia,
+			SkillName.Taktyka, SkillName.Zagladanie, SkillName.Muzykowanie, SkillName.Zatruwanie, SkillName.Lucznictwo,
+			SkillName.MowaDuchow, SkillName.Okradanie, SkillName.Krawiectwo, SkillName.Oswajanie, SkillName.OcenaSmaku,
+			SkillName.Majsterkowanie, SkillName.Tropienie, SkillName.Weterynaria, SkillName.WalkaMieczami, SkillName.WalkaObuchami, SkillName.WalkaSzpadami,
+			SkillName.Boks, SkillName.Drwalnictwo, SkillName.Gornictwo, SkillName.Medytacja, SkillName.Zakradanie,
+			SkillName.UsuwaniePulapek, SkillName.Nekromancja, SkillName.Logistyka, SkillName.Rycerstwo, SkillName.Fanatyzm,
+			SkillName.Skrytobojstwo, SkillName.Druidyzm, SkillName.Mistycyzm, SkillName.Umagicznianie, SkillName.Rzucanie
 		};
 
 		private static readonly SkillName[] m_CombatSkills = new[]
-		{SkillName.Archery, SkillName.Swords, SkillName.Macing, SkillName.Fencing, SkillName.Wrestling};
+		{SkillName.Lucznictwo, SkillName.WalkaMieczami, SkillName.WalkaObuchami, SkillName.WalkaSzpadami, SkillName.Boks};
 
 		private static readonly SkillName[] m_CraftSkills = new[]
 		{
-			SkillName.Alchemy, SkillName.Blacksmith, SkillName.Fletching, SkillName.Carpentry, SkillName.Cartography,
-			SkillName.Cooking, SkillName.Inscribe, SkillName.Tailoring, SkillName.Tinkering
+			SkillName.Alchemia, SkillName.Kowalstwo, SkillName.Lukmistrzostwo, SkillName.Stolarstwo, SkillName.Kartografia,
+			SkillName.Gotowanie, SkillName.Inskrypcja, SkillName.Krawiectwo, SkillName.Majsterkowanie
 		};
 
 		public static SkillName RandomSkill()
@@ -1243,7 +1216,7 @@ namespace Server
 						bytes.Append("  ");
 					}
 
-                    if (c >= 0x20 && c < 0x80 /*0x7F*/)
+					if (c >= 0x20 && c < 0x7F)
 					{
 						chars.Append((char)c);
 					}
@@ -1282,7 +1255,7 @@ namespace Server
 							bytes.Append("  ");
 						}
 
-						if (c >= 0x20 && c < 0x80 /*0x7F*/)
+						if (c >= 0x20 && c < 0x7F)
 						{
 							chars.Append((char)c);
 						}
@@ -1410,25 +1383,5 @@ namespace Server
 
 			return output;
 		}
-
-        public static String RemoveHtml(String str)
-        {
-            return str.Replace("<", "").Replace(">", "").Trim();
-        }
-
-        public static bool IsNumeric(String str)
-        {
-            return !Regex.IsMatch(str, "[^0-9]");
-        }
-
-        public static bool IsAlpha(String str)
-        {
-            return !Regex.IsMatch(str, "[^a-z]", RegexOptions.IgnoreCase);
-        }
-
-        public static bool IsAlphaNumeric(String str)
-        {
-            return !Regex.IsMatch(str, "[^a-z0-9]", RegexOptions.IgnoreCase);
-        }
 	}
 }

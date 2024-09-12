@@ -158,10 +158,9 @@ namespace Server.Items
 
         }
 
-        #region Enhance Client
-        public override bool OnDragDropInto(Mobile from, Item item, Point3D p, byte gridloc)
+        public override bool OnDragDropInto( Mobile from, Item item, Point3D p )
         {
-            bool diddrop = base.OnDragDropInto( from, item, p, gridloc);
+            bool diddrop = base.OnDragDropInto( from, item, p);
 
             if(from != null && diddrop)
             {
@@ -171,7 +170,6 @@ namespace Server.Items
 
             return diddrop;
         }
-        #endregion
 
 
         public static bool CheckRequirements(Mobile from, Recipe s)

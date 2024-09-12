@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
 using Server.Spells;
-using Server.Spells.Necromancy;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Nekromancja;
+using Server.Spells.Skrytobojstwo;
 
 namespace Server.Misc
 {
@@ -96,7 +96,7 @@ namespace Server.Misc
                 points += 20;
 
             if (CheckAnimal(from, typeof(Dog)) || CheckAnimal(from, typeof(Cat)))
-                points += from.Skills[SkillName.Ninjitsu].Fixed / 30;
+                points += from.Skills[SkillName.Skrytobojstwo].Fixed / 30;
 
             if (Core.AOS)
                 foreach (RegenBonusHandler handler in HitsBonusHandlers)
@@ -110,9 +110,20 @@ namespace Server.Misc
             if (from.Skills == null)
                 return Mobile.DefaultStamRate;
 
-            CheckBonusSkill(from, from.Stam, from.StamMax, SkillName.Focus);
+            CheckBonusSkill(from, from.Stam, from.StamMax, SkillName.Logistyka);
 
-            int points = (int)(from.Skills[SkillName.Focus].Value * 0.1);
+            int points = (int)(from.Skills[SkillName.Logistyka].Value * 0.1);  //100 Logistyki skraca czas regeneracji staminy z 7/6s -1s
+
+///czas regeneracji staminy z 7s -2 s dla wszystkich graczy jesli logistyka 100% -3 s
+if (from is PlayerMobile && from.RawDex < 40 )
+points += 20;
+////
+
+if (from is PlayerMobile && from.RawDex >= 40 && from.RawDex < 80 )  // jesli dex 40-80  7 -3/4
+points += 30;
+
+if (from is PlayerMobile && from.RawDex >= 80 )                      // jesli dex > 80  7 -4/5
+points += 40;
 
             if ((from is BaseCreature && ((BaseCreature)from).IsParagon) || from is Leviathan)
                 points += 40;
@@ -123,7 +134,8 @@ namespace Server.Misc
                 cappedPoints += 15;
 
             if (CheckAnimal(from, typeof(Kirin)))
-                cappedPoints += 20;
+                //cappedPoints += 20;
+                cappedPoints += 10;
 
             if (Core.ML && from is PlayerMobile)
                 cappedPoints = Math.Min(cappedPoints, 24);
@@ -146,20 +158,20 @@ namespace Server.Misc
                 return Mobile.DefaultManaRate;
 
             if (!from.Meditating)
-                CheckBonusSkill(from, from.Mana, from.ManaMax, SkillName.Meditation);
+                CheckBonusSkill(from, from.Mana, from.ManaMax, SkillName.Medytacja);
 
             double rate;
             double armorPenalty = GetArmorOffset(from);
 
             if (Core.AOS)
             {
-                double medPoints = from.Int + (from.Skills[SkillName.Meditation].Value * 3);
+                double medPoints = from.Int + (from.Skills[SkillName.Medytacja].Value * 3);
 
-                medPoints *= (from.Skills[SkillName.Meditation].Value < 100.0) ? 0.025 : 0.0275;
+                medPoints *= (from.Skills[SkillName.Medytacja].Value < 100.0) ? 0.025 : 0.0275;
 
-                CheckBonusSkill(from, from.Mana, from.ManaMax, SkillName.Focus);
+                CheckBonusSkill(from, from.Mana, from.ManaMax, SkillName.Logistyka);
 
-                double focusPoints = (from.Skills[SkillName.Focus].Value * 0.05);
+                double focusPoints = (from.Skills[SkillName.Logistyka].Value * 0.05);
 
                 if (armorPenalty > 0)
                     medPoints = 0; // In AOS, wearing any meditation-blocking armor completely removes meditation bonus
@@ -194,7 +206,7 @@ namespace Server.Misc
             }
             else
             {
-                double medPoints = (from.Int + from.Skills[SkillName.Meditation].Value) * 0.5;
+                double medPoints = (from.Int + from.Skills[SkillName.Medytacja].Value) * 0.5;
 
                 if (medPoints <= 0)
                     rate = 7.0;

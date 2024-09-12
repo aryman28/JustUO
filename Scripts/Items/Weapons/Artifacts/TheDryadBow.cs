@@ -6,12 +6,12 @@ namespace Server.Items
     {
         private static readonly SkillName[] m_PossibleBonusSkills = new SkillName[]
         {
-            SkillName.Archery,
-            SkillName.Healing,
-            SkillName.MagicResist,
-            SkillName.Peacemaking,
-            SkillName.Chivalry,
-            SkillName.Ninjitsu
+            SkillName.Lucznictwo,
+            SkillName.Leczenie,
+            SkillName.ObronaPrzedMagia,
+            SkillName.Uspokajanie,
+            SkillName.Rycerstwo,
+            SkillName.Skrytobojstwo
         };
         [Constructable]
         public TheDryadBow()

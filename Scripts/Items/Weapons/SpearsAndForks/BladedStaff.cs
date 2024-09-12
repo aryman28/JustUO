@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x26BD)
         {
             this.Weight = 4.0;
+            this.Name = "Zaostrzony kij";
         }
 
         public BladedStaff(Serial serial)
@@ -112,7 +113,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Swords;
+                return SkillName.WalkaMieczami;
             }
         }
         public override void Serialize(GenericWriter writer)

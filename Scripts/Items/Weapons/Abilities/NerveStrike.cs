@@ -11,7 +11,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -20,9 +20,9 @@ namespace Server.Items
         }
         public override bool CheckSkills(Mobile from)
         {
-            if (this.GetSkill(from, SkillName.Bushido) < 50.0)
+            if (this.GetSkill(from, SkillName.Fanatyzm) < 50.0)
             {
-                from.SendLocalizedMessage(1070768, "50"); // You need ~1_SKILL_REQUIREMENT~ Bushido skill to perform that attack!
+                from.SendLocalizedMessage(1070768, "50"); // You need ~1_SKILL_REQUIREMENT~ Fanatyzm skill to perform that attack!
                 return false;
             }
 
@@ -42,7 +42,7 @@ namespace Server.Items
 
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
         {
-            if (!this.Validate(attacker) || !this.CheckMana(attacker, true))
+            if (!this.Validate(attacker) || !this.CheckStam(attacker, true))
                 return;
 
             ClearCurrentAbility(attacker);
@@ -63,8 +63,8 @@ namespace Server.Items
 
             if (Core.ML)
             {
-                AOS.Damage(defender, attacker, (int)(15.0 * (attacker.Skills[SkillName.Bushido].Value - 50.0) / 70.0 + Utility.Random(10)), true, 100, 0, 0, 0, 0);	//0-25
-                if (((150.0 / 7.0 + (4.0 * attacker.Skills[SkillName.Bushido].Value) / 7.0) / 100.0) > Utility.RandomDouble())
+                AOS.Damage(defender, attacker, (int)(15.0 * (attacker.Skills[SkillName.Fanatyzm].Value - 50.0) / 70.0 + Utility.Random(10)), true, 100, 0, 0, 0, 0);	//0-25
+                if (((150.0 / 7.0 + (4.0 * attacker.Skills[SkillName.Fanatyzm].Value) / 7.0) / 100.0) > Utility.RandomDouble())
                 {
                     defender.Paralyze(TimeSpan.FromSeconds(2.0));
                     Server.Items.ParalyzingBlow.BeginImmunity(defender, Server.Items.ParalyzingBlow.FreezeDelayDuration);				
@@ -72,7 +72,7 @@ namespace Server.Items
             }
             else
             {
-                AOS.Damage(defender, attacker, (int)(15.0 * (attacker.Skills[SkillName.Bushido].Value - 50.0) / 70.0 + 10), true, 100, 0, 0, 0, 0); //10-25
+                AOS.Damage(defender, attacker, (int)(15.0 * (attacker.Skills[SkillName.Fanatyzm].Value - 50.0) / 70.0 + 10), true, 100, 0, 0, 0, 0); //10-25
                 defender.Freeze(TimeSpan.FromSeconds(2.0));
                 Server.Items.ParalyzingBlow.BeginImmunity(defender, Server.Items.ParalyzingBlow.FreezeDelayDuration);				
             }

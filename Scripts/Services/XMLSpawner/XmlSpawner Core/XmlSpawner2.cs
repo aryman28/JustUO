@@ -1,4 +1,4 @@
-﻿//#define TRACE
+//#define TRACE
 //#define RESTRICTCONSTRUCTABLE
 
 using System;
@@ -2161,7 +2161,7 @@ namespace Server.Mobiles
 				m_ShowContainerStatic.Delete();
 
 			// unregister all triggerskills that might have been added
-			XmlSpawnerSkillCheck.UnRegisterSkillTrigger(this, SkillName.Alchemy, this.Map, true);
+			XmlSpawnerSkillCheck.UnRegisterSkillTrigger(this, SkillName.Alchemia, this.Map, true);
 		}
 
 		static bool IgnoreLocationChange = false;

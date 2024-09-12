@@ -33,7 +33,7 @@ namespace Server.Items
         public override string OnIdentify(Mobile from)
         {
 
-            return "Armor: +40 Lumberjacking";
+            return "Armor: +40 Drwalnictwo";
         }
 
         public override bool OnAugment(Mobile from, object target)
@@ -46,7 +46,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Lumberjacking, 40.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Drwalnictwo, 40.0 );
                         break;
                     }
                 }
@@ -110,7 +110,7 @@ namespace Server.Items
         public override string OnIdentify(Mobile from)
         {
 
-            return "Armor: +25 Lumberjacking";
+            return "Armor: +25 Drwalnictwo";
         }
 
         public override bool OnAugment(Mobile from, object target)
@@ -123,7 +123,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Lumberjacking, 25.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Drwalnictwo, 25.0 );
                         break;
                     }
                 }
@@ -186,7 +186,7 @@ namespace Server.Items
         public override string OnIdentify(Mobile from)
         {
 
-            return "Armor: +10 Lumberjacking";
+            return "Armor: +10 Drwalnictwo";
         }
 
         public override bool OnAugment(Mobile from, object target)
@@ -199,7 +199,7 @@ namespace Server.Items
                 {
                     if(a.SkillBonuses.GetBonus(i) == 0)
                     {
-                        a.SkillBonuses.SetValues( i, SkillName.Lumberjacking, 10.0 );
+                        a.SkillBonuses.SetValues( i, SkillName.Drwalnictwo, 10.0 );
                         break;
                     }
                 }

@@ -75,9 +75,9 @@ namespace Server.Spells.Seventh
                 TimeSpan duration;
 
                 if (Core.AOS)
-                    duration = TimeSpan.FromSeconds((15 + (this.Caster.Skills.Magery.Fixed / 5)) / 7);
+                    duration = TimeSpan.FromSeconds((15 + (this.Caster.Skills.Magia.Fixed / 5)) / 7);
                 else
-                    duration = TimeSpan.FromSeconds(this.Caster.Skills[SkillName.Magery].Value * 0.28 + 2.0); // (28% of magery) + 2.0 seconds
+                    duration = TimeSpan.FromSeconds(this.Caster.Skills[SkillName.Magia].Value * 0.28 + 2.0); // (28% of magery) + 2.0 seconds
 
                 int itemID = eastToWest ? 0x3946 : 0x3956;
 

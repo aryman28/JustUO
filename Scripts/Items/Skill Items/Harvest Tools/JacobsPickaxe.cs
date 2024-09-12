@@ -8,7 +8,7 @@ namespace Server.Items
         public JacobsPickaxe()
             : base()
         {
-            this.SkillBonuses.SetValues(0, SkillName.Mining, 10.0);
+            this.SkillBonuses.SetValues(0, SkillName.Gornictwo, 10.0);
             this.UsesRemaining = 20;
 
             Timer.DelayCall(TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(5), new TimerCallback(Tick_Callback));

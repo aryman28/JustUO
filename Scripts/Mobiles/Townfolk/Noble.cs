@@ -8,11 +8,24 @@ namespace Server.Mobiles
         [Constructable]
         public Noble()
         {
-            this.Title = "the noble";
+            if (this.Female = Utility.RandomBool())
+            {
+                this.Body = 0x191;
+                this.Name = NameList.RandomName("female");
+                
+                this.Title = "- Szlachcianka";
+            }
+            else
+            {
+                this.Body = 0x190;
+                this.Name = NameList.RandomName("male");
+                
+                this.Title = "- Szlachcic";
+            }
 
-            this.SetSkill(SkillName.Parry, 80.0, 100.0);
-            this.SetSkill(SkillName.Swords, 80.0, 100.0);
-            this.SetSkill(SkillName.Tactics, 80.0, 100.0);
+            this.SetSkill(SkillName.Parowanie, 80.0, 100.0);
+            this.SetSkill(SkillName.WalkaMieczami, 80.0, 100.0);
+            this.SetSkill(SkillName.Taktyka, 80.0, 100.0);
         }
 
         public Noble(Serial serial)

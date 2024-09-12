@@ -10,7 +10,7 @@ namespace Server.Items
             this.ItemID = 0x2D34;
             this.Hue = 0x47E;
 
-            this.SkillBonuses.SetValues(0, SkillName.Tactics, 10.0);
+            this.SkillBonuses.SetValues(0, SkillName.Taktyka, 10.0);
 
             this.Attributes.BonusDex = 8;
             this.Attributes.WeaponSpeed = 20;

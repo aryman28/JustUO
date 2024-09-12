@@ -1,6 +1,6 @@
 ﻿using System;
 using Server.Mobiles;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Skrytobojstwo;
 
 namespace Server.Items
 {
@@ -67,7 +67,7 @@ namespace Server.Items
             int version = reader.ReadEncodedInt();
         }
 
-		public override void OnRemoved(IEntity parent)
+        public override void OnRemoved(object parent)
         {
             base.OnRemoved(parent);
 

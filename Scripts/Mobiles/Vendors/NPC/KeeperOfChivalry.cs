@@ -9,12 +9,12 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public KeeperOfChivalry()
-            : base("the Keeper of Chivalry")
+            : base("- Znawca Rycerstwa")
         {
-            this.SetSkill(SkillName.Fencing, 75.0, 85.0);
-            this.SetSkill(SkillName.Macing, 75.0, 85.0);
-            this.SetSkill(SkillName.Swords, 75.0, 85.0);
-            this.SetSkill(SkillName.Chivalry, 100.0);
+            this.SetSkill(SkillName.WalkaSzpadami, 75.0, 85.0);
+            this.SetSkill(SkillName.WalkaObuchami, 75.0, 85.0);
+            this.SetSkill(SkillName.WalkaMieczami, 75.0, 85.0);
+            this.SetSkill(SkillName.Rycerstwo, 100.0);
         }
 
         public KeeperOfChivalry(Serial serial)

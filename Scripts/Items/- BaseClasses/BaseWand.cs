@@ -10,7 +10,7 @@ namespace Server.Items
     {
         Clumsiness,
         Identification,
-        Healing,
+        Leczenie,
         Feeblemindedness,
         Weakness,
         MagicArrow,
@@ -29,6 +29,7 @@ namespace Server.Items
             : base(Utility.RandomList(0xDF2, 0xDF3, 0xDF4, 0xDF5))
         {
             this.Weight = 1.0;
+            this.Identified = true;
             this.Effect = effect;
             this.Charges = Utility.RandomMinMax(minCharges, maxCharges);
             this.Attributes.SpellChanneling = 1;
@@ -247,7 +248,7 @@ namespace Server.Items
                 case WandEffect.Identification:
                     list.Add(1017350, this.m_Charges.ToString());
                     break; // identification charges: ~1_val~
-                case WandEffect.Healing:
+                case WandEffect.Leczenie:
                     list.Add(1017329, this.m_Charges.ToString());
                     break; // healing charges: ~1_val~
                 case WandEffect.Feeblemindedness:
@@ -305,7 +306,7 @@ namespace Server.Items
                     case WandEffect.Identification:
                         num = 1044063;
                         break;
-                    case WandEffect.Healing:
+                    case WandEffect.Leczenie:
                         num = 3002014;
                         break;
                     case WandEffect.Feeblemindedness:

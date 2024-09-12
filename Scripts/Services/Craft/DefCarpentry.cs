@@ -42,7 +42,7 @@ namespace Server.Engines.Craft
         {
             get
             {
-                return SkillName.Carpentry;
+                return SkillName.Stolarstwo;
             }
         }
 
@@ -147,12 +147,12 @@ namespace Server.Engines.Craft
                 SetNeededExpansion(index, Expansion.SE);
 
                 index = AddCraft(typeof(ShojiScreen), 1044294, 1029423, 80.0, 105.0, typeof(Board), 1044041, 75, 1044351);
-                AddSkill(index, SkillName.Tailoring, 50.0, 55.0);
+                AddSkill(index, SkillName.Krawiectwo, 50.0, 55.0);
                 AddRes(index, typeof(Cloth), 1044286, 60, 1044287);
                 SetNeededExpansion(index, Expansion.SE);
 
                 index = AddCraft(typeof(BambooScreen), 1044294, 1029428, 80.0, 105.0, typeof(Board), 1044041, 75, 1044351);
-                AddSkill(index, SkillName.Tailoring, 50.0, 55.0);
+                AddSkill(index, SkillName.Krawiectwo, 50.0, 55.0);
                 AddRes(index, typeof(Cloth), 1044286, 60, 1044287);
                 SetNeededExpansion(index, Expansion.SE);
             }
@@ -160,7 +160,7 @@ namespace Server.Engines.Craft
             if (Core.AOS)	//Duplicate Entries to preserve ordering depending on era
             {
                 index = AddCraft(typeof(FishingPole), 1044294, 1023519, 68.4, 93.4, typeof(Board), 1044041, 5, 1044351); //This is in the categor of Other during AoS
-                AddSkill(index, SkillName.Tailoring, 40.0, 45.0);
+                AddSkill(index, SkillName.Krawiectwo, 40.0, 45.0);
                 AddRes(index, typeof(Cloth), 1044286, 5, 1044287);
             }
 
@@ -224,7 +224,7 @@ namespace Server.Engines.Craft
             if (Core.SA)
             {
                 index = AddCraft(typeof(GargishBanner), 1044294, 1095312, 94.7, 115.0, typeof(Board), 1044041, 50, 1044351);
-                AddSkill(index, SkillName.Tailoring, 75.0, 105.0);
+                AddSkill(index, SkillName.Krawiectwo, 75.0, 105.0);
                 AddRes(index, typeof(Cloth), 1044286, 50, 1044287);
                 SetNeededExpansion(index, Expansion.SA);
             }            
@@ -413,31 +413,31 @@ namespace Server.Engines.Craft
             #endregion
 
             // Staves and Shields
-            AddCraft(typeof(ShepherdsCrook), 1044295, 1023713, 78.9, 103.9, typeof(Board), 1044041, 7, 1044351);
-            AddCraft(typeof(QuarterStaff), 1044295, 1023721, 73.6, 98.6, typeof(Board), 1044041, 6, 1044351);
-            AddCraft(typeof(GnarledStaff), 1044295, 1025112, 78.9, 103.9, typeof(Board), 1044041, 7, 1044351);
-            AddCraft(typeof(WoodenShield), 1044295, 1027034, 52.6, 77.6, typeof(Board), 1044041, 9, 1044351);
+            AddCraft(typeof(ShepherdsCrook), 1044295, "kij pasterski", 78.9, 98.9, typeof(Board), 1044041, 7, 1044351);
+            AddCraft(typeof(QuarterStaff), 1044295, "prosty kij", 73.6, 93.6, typeof(Board), 1044041, 6, 1044351);
+            AddCraft(typeof(GnarledStaff), 1044295, "kostur", 78.9, 98.9, typeof(Board), 1044041, 7, 1044351);
+            AddCraft(typeof(WoodenShield), 1044295, "drewniana tarcza", 52.6, 72.6, typeof(Board), 1044041, 9, 1044351);
 
             if (!Core.AOS)	//Duplicate Entries to preserve ordering depending on era
             {
-                index = AddCraft(typeof(FishingPole), 1044295, 1023519, 68.4, 93.4, typeof(Board), 1044041, 5, 1044351); //This is in the categor of Other during AoS
-                AddSkill(index, SkillName.Tailoring, 40.0, 45.0);
+                index = AddCraft(typeof(FishingPole), 1044295, "wedka", 68.4, 93.4, typeof(Board), 1044041, 5, 1044351); //This is in the categor of Other during AoS
+                AddSkill(index, SkillName.Krawiectwo, 40.0, 45.0);
                 AddRes(index, typeof(Cloth), 1044286, 5, 1044287);
             }
 
             if (Core.SE)
             {
-                index = AddCraft(typeof(Bokuto), 1044295, 1030227, 70.0, 95.0, typeof(Board), 1044041, 6, 1044351);
+                index = AddCraft(typeof(Bokuto), 1044295, 1030227, 70.0, 90.0, typeof(Board), 1044041, 6, 1044351);
                 SetNeededExpansion(index, Expansion.SE);
 
-                index = AddCraft(typeof(Fukiya), 1044295, 1030229, 60.0, 85.0, typeof(Board), 1044041, 6, 1044351);
+                index = AddCraft(typeof(Fukiya), 1044295, 1030229, 60.0, 80.0, typeof(Board), 1044041, 6, 1044351);
                 SetNeededExpansion(index, Expansion.SE);
 
-                index = AddCraft(typeof(Tetsubo), 1044295, 1030225, 80.0, 140.3, typeof(Board), 1044041, 10, 1044351);
+                index = AddCraft(typeof(Tetsubo), 1044295, 1030225, 80.0, 100.0, typeof(Board), 1044041, 10, 1044351);
                 SetNeededExpansion(index, Expansion.SE);
             }
 
-            #region Mondain's Legacy
+            /*#region Mondain's Legacy
             if (Core.ML)
             {
                 index = AddCraft(typeof(PhantomStaff), 1044566, 1072919, 90.0, 130.0, typeof(Board), 1044041, 16, 1044351);
@@ -478,50 +478,50 @@ namespace Server.Engines.Craft
                 index = AddCraft(typeof(GargishGnarledStaff), 1044566, 1097488, 78.9, 103.9, typeof(Board), 1044041, 7,
                 1044351);
             }
-            #endregion
+            #endregion*/
 
-            AddCraft(typeof(Club), 1044566, 1025043, 65, 115.0, typeof(Board), 1044041, 10, 1044351);
-            AddCraft(typeof(BlackStaff), 1044566, 1023568, 81.5, 106.5, typeof(Board), 1044041, 9, 1044351);
+            AddCraft(typeof(Club), "Bronie", 1025043, 65.0, 85.0, typeof(Board), 1044041, 10, 1044351);
+            AddCraft(typeof(BlackStaff), "Bronie", 1023568, 81.5, 101.5, typeof(Board), 1044041, 9, 1044351);
 
             #region Mondain's Legacy
             if (Core.ML)
             {
-                index = AddCraft(typeof(WoodlandChest), 1062760, 1031111, 90.0, 115.0, typeof(Board), 1044041, 20, 1044351);
-                AddRes(index, typeof(BarkFragment), 1032687, 6, 1053098);
+                index = AddCraft(typeof(WoodlandChest), "Zbroje", 1031111, 75.0, 110.0, typeof(Board), 1044041, 20, 1044351);
+                //AddRes(index, typeof(BarkFragment), 1032687, 6, 1053098);
                 SetNeededExpansion(index, Expansion.ML);
 
-                index = AddCraft(typeof(WoodlandArms), 1062760, 1031116, 80.0, 105.0, typeof(Board), 1044041, 15, 1044351);
-                AddRes(index, typeof(BarkFragment), 1032687, 4, 1053098);
+                index = AddCraft(typeof(WoodlandArms), "Zbroje", 1031116, 60.0, 100.0, typeof(Board), 1044041, 15, 1044351);
+                //AddRes(index, typeof(BarkFragment), 1032687, 4, 1053098);
                 SetNeededExpansion(index, Expansion.ML);
 
-                index = AddCraft(typeof(WoodlandGloves), 1062760, 1031114, 85.0, 110.0, typeof(Board), 1044041, 15, 1044351);
-                AddRes(index, typeof(BarkFragment), 1032687, 4, 1053098);
+                index = AddCraft(typeof(WoodlandGloves), "Zbroje", 1031114, 60.0, 105.0, typeof(Board), 1044041, 15, 1044351);
+                //AddRes(index, typeof(BarkFragment), 1032687, 4, 1053098);
                 SetNeededExpansion(index, Expansion.ML);
 
-                index = AddCraft(typeof(WoodlandLegs), 1062760, 1031115, 85.0, 110.0, typeof(Board), 1044041, 15, 1044351);
-                AddRes(index, typeof(BarkFragment), 1032687, 4, 1053098);
+                index = AddCraft(typeof(WoodlandLegs), "Zbroje", 1031115, 70.0, 105.0, typeof(Board), 1044041, 15, 1044351);
+                //AddRes(index, typeof(BarkFragment), 1032687, 4, 1053098);
                 SetNeededExpansion(index, Expansion.ML);
 
-                index = AddCraft(typeof(WoodlandGorget), 1062760, 1031113, 85.0, 110.0, typeof(Board), 1044041, 15, 1044351);
-                AddRes(index, typeof(BarkFragment), 1032687, 4, 1053098);
+                index = AddCraft(typeof(WoodlandGorget), "Zbroje", 1031113, 55.0, 105.0, typeof(Board), 1044041, 15, 1044351);
+                //AddRes(index, typeof(BarkFragment), 1032687, 4, 1053098);
                 SetNeededExpansion(index, Expansion.ML);
 
-                index = AddCraft(typeof(RavenHelm), 1062760, 1031121, 65.0, 115.0, typeof(Board), 1044041, 10, 1044351);
-                AddRes(index, typeof(BarkFragment), 1032687, 4, 1053098);
+                index = AddCraft(typeof(RavenHelm), "Zbroje", "kruczy he³m", 65.0, 85.0, typeof(Board), 1044041, 10, 1044351);
+                //AddRes(index, typeof(BarkFragment), 1032687, 4, 1053098);
                 AddRes(index, typeof(Feather), 1027123, 25, 1053098);
                 SetNeededExpansion(index, Expansion.ML);
 
-                index = AddCraft(typeof(VultureHelm), 1062760, 1031122, 63.9, 113.9, typeof(Board), 1044041, 10, 1044351);
-                AddRes(index, typeof(BarkFragment), 1032687, 4, 1053098);
+                index = AddCraft(typeof(VultureHelm), "Zbroje", "sêpi he³m", 63.9, 83.9, typeof(Board), 1044041, 10, 1044351);
+                //AddRes(index, typeof(BarkFragment), 1032687, 4, 1053098);
                 AddRes(index, typeof(Feather), 1027123, 25, 1053098);
                 SetNeededExpansion(index, Expansion.ML);
 
-                index = AddCraft(typeof(WingedHelm), 1062760, 1031123, 58.4, 108.4, typeof(Board), 1044041, 10, 1044351);
-                AddRes(index, typeof(BarkFragment), 1032687, 4, 1053098);
+                index = AddCraft(typeof(WingedHelm), "Zbroje", "skrzydlaty he³m", 58.4, 78.4, typeof(Board), 1044041, 10, 1044351);
+                //AddRes(index, typeof(BarkFragment), 1032687, 4, 1053098);
                 AddRes(index, typeof(Feather), 1027123, 60, 1053098);
                 SetNeededExpansion(index, Expansion.ML);
 
-                index = AddCraft(typeof(IronwoodCrown), 1062760, 1072924, 85.0, 120.0, typeof(Board), 1044041, 10, 1044351);
+                /*index = AddCraft(typeof(IronwoodCrown), 1062760, 1072924, 85.0, 120.0, typeof(Board), 1044041, 10, 1044351);
                 AddRes(index, typeof(DiseasedBark), 1032683, 1, 1053098);
                 AddRes(index, typeof(Corruption), 1032676, 10, 1053098);
                 AddRes(index, typeof(Putrefication), 1032678, 10, 1053098);
@@ -577,39 +577,39 @@ namespace Server.Engines.Craft
                 AddRes(index, typeof(Putrefication), 1032678, 10, 1053098);
                 AddRes(index, typeof(Muculent), 1032680, 10, 1053098);
                 ForceNonExceptional(index);
-                SetNeededExpansion(index, Expansion.ML);
+                SetNeededExpansion(index, Expansion.ML);*/
             }
             #endregion
 
             // Instruments
             index = AddCraft(typeof(LapHarp), 1044293, 1023762, 63.1, 88.1, typeof(Board), 1044041, 20, 1044351);
-            AddSkill(index, SkillName.Musicianship, 45.0, 50.0);
+            AddSkill(index, SkillName.Muzykowanie, 45.0, 50.0);
             AddRes(index, typeof(Cloth), 1044286, 10, 1044287);
 
             index = AddCraft(typeof(Harp), 1044293, 1023761, 78.9, 103.9, typeof(Board), 1044041, 35, 1044351);
-            AddSkill(index, SkillName.Musicianship, 45.0, 50.0);
+            AddSkill(index, SkillName.Muzykowanie, 45.0, 50.0);
             AddRes(index, typeof(Cloth), 1044286, 15, 1044287);
 
             index = AddCraft(typeof(Drums), 1044293, 1023740, 57.8, 82.8, typeof(Board), 1044041, 20, 1044351);
-            AddSkill(index, SkillName.Musicianship, 45.0, 50.0);
+            AddSkill(index, SkillName.Muzykowanie, 45.0, 50.0);
             AddRes(index, typeof(Cloth), 1044286, 10, 1044287);
 
             index = AddCraft(typeof(Lute), 1044293, 1023763, 68.4, 93.4, typeof(Board), 1044041, 25, 1044351);
-            AddSkill(index, SkillName.Musicianship, 45.0, 50.0);
+            AddSkill(index, SkillName.Muzykowanie, 45.0, 50.0);
             AddRes(index, typeof(Cloth), 1044286, 10, 1044287);
 
             index = AddCraft(typeof(Tambourine), 1044293, 1023741, 57.8, 82.8, typeof(Board), 1044041, 15, 1044351);
-            AddSkill(index, SkillName.Musicianship, 45.0, 50.0);
+            AddSkill(index, SkillName.Muzykowanie, 45.0, 50.0);
             AddRes(index, typeof(Cloth), 1044286, 10, 1044287);
 
             index = AddCraft(typeof(TambourineTassel), 1044293, 1044320, 57.8, 82.8, typeof(Board), 1044041, 15, 1044351);
-            AddSkill(index, SkillName.Musicianship, 45.0, 50.0);
+            AddSkill(index, SkillName.Muzykowanie, 45.0, 50.0);
             AddRes(index, typeof(Cloth), 1044286, 15, 1044287);
 
             if (Core.SE)
             {
                 index = AddCraft(typeof(BambooFlute), 1044293, 1030247, 80.0, 105.0, typeof(Board), 1044041, 15, 1044351);
-                AddSkill(index, SkillName.Musicianship, 45.0, 50.0);
+                AddSkill(index, SkillName.Muzykowanie, 45.0, 50.0);
                 SetNeededExpansion(index, Expansion.SE);
             }
 
@@ -629,16 +629,16 @@ namespace Server.Engines.Craft
                 SetNeededExpansion(index, Expansion.ML);
 
                 index = AddCraft(typeof(TallElvenBedSouthDeed), 1044290, 1072858, 94.7, 119.7, typeof(Board), 1044041, 200, 1044351);
-                AddSkill(index, SkillName.Tailoring, 75.0, 80.0);
+                AddSkill(index, SkillName.Krawiectwo, 75.0, 80.0);
                 AddRes(index, typeof(Cloth), 1044286, 100, 1044287);
-                AddRecipe(index, (int)CarpRecipes.TallElvenBedSouth);
+                //AddRecipe(index, (int)CarpRecipes.TallElvenBedSouth);
                 ForceNonExceptional(index);
                 SetNeededExpansion(index, Expansion.ML);
 
                 index = AddCraft(typeof(TallElvenBedEastDeed), 1044290, 1072859, 94.7, 119.7, typeof(Board), 1044041, 200, 1044351);
-                AddSkill(index, SkillName.Tailoring, 75.0, 80.0);
+                AddSkill(index, SkillName.Krawiectwo, 75.0, 80.0);
                 AddRes(index, typeof(Cloth), 1044286, 100, 1044287);
-                AddRecipe(index, (int)CarpRecipes.TallElvenBedEast);
+                //AddRecipe(index, (int)CarpRecipes.TallElvenBedEast);
                 ForceNonExceptional(index);
                 SetNeededExpansion(index, Expansion.ML);
 
@@ -671,25 +671,25 @@ namespace Server.Engines.Craft
             #endregion
 
             index = AddCraft(typeof(SmallBedSouthDeed), 1044290, 1044321, 94.7, 119.8, typeof(Board), 1044041, 100, 1044351);
-            AddSkill(index, SkillName.Tailoring, 75.0, 80.0);
+            AddSkill(index, SkillName.Krawiectwo, 75.0, 80.0);
             AddRes(index, typeof(Cloth), 1044286, 100, 1044287);
             index = AddCraft(typeof(SmallBedEastDeed), 1044290, 1044322, 94.7, 119.8, typeof(Board), 1044041, 100, 1044351);
-            AddSkill(index, SkillName.Tailoring, 75.0, 80.0);
+            AddSkill(index, SkillName.Krawiectwo, 75.0, 80.0);
             AddRes(index, typeof(Cloth), 1044286, 100, 1044287);
             index = AddCraft(typeof(LargeBedSouthDeed), 1044290, 1044323, 94.7, 119.8, typeof(Board), 1044041, 150, 1044351);
-            AddSkill(index, SkillName.Tailoring, 75.0, 80.0);
+            AddSkill(index, SkillName.Krawiectwo, 75.0, 80.0);
             AddRes(index, typeof(Cloth), 1044286, 150, 1044287);
             index = AddCraft(typeof(LargeBedEastDeed), 1044290, 1044324, 94.7, 119.8, typeof(Board), 1044041, 150, 1044351);
-            AddSkill(index, SkillName.Tailoring, 75.0, 80.0);
+            AddSkill(index, SkillName.Krawiectwo, 75.0, 80.0);
             AddRes(index, typeof(Cloth), 1044286, 150, 1044287);
             AddCraft(typeof(DartBoardSouthDeed), 1044290, 1044325, 15.7, 40.7, typeof(Board), 1044041, 5, 1044351);
             AddCraft(typeof(DartBoardEastDeed), 1044290, 1044326, 15.7, 40.7, typeof(Board), 1044041, 5, 1044351);
             AddCraft(typeof(BallotBoxDeed), 1044290, 1044327, 47.3, 72.3, typeof(Board), 1044041, 5, 1044351);
             index = AddCraft(typeof(PentagramDeed), 1044290, 1044328, 100.0, 125.0, typeof(Board), 1044041, 100, 1044351);
-            AddSkill(index, SkillName.Magery, 75.0, 80.0);
+            AddSkill(index, SkillName.Magia, 75.0, 80.0);
             AddRes(index, typeof(IronIngot), 1044036, 40, 1044037);
             index = AddCraft(typeof(AbbatoirDeed), 1044290, 1044329, 100.0, 125.0, typeof(Board), 1044041, 100, 1044351);
-            AddSkill(index, SkillName.Magery, 50.0, 55.0);
+            AddSkill(index, SkillName.Magia, 50.0, 55.0);
             AddRes(index, typeof(IronIngot), 1044036, 40, 1044037);
 
             if (Core.AOS)
@@ -709,63 +709,63 @@ namespace Server.Engines.Craft
             #endregion
 
             index = AddCraft(typeof(SmallForgeDeed), 1044296, 1044330, 73.6, 98.6, typeof(Board), 1044041, 5, 1044351);
-            AddSkill(index, SkillName.Blacksmith, 75.0, 80.0);
+            AddSkill(index, SkillName.Kowalstwo, 75.0, 80.0);
             AddRes(index, typeof(IronIngot), 1044036, 75, 1044037);
             index = AddCraft(typeof(LargeForgeEastDeed), 1044296, 1044331, 78.9, 103.9, typeof(Board), 1044041, 5, 1044351);
-            AddSkill(index, SkillName.Blacksmith, 80.0, 85.0);
+            AddSkill(index, SkillName.Kowalstwo, 80.0, 85.0);
             AddRes(index, typeof(IronIngot), 1044036, 100, 1044037);
             index = AddCraft(typeof(LargeForgeSouthDeed), 1044296, 1044332, 78.9, 103.9, typeof(Board), 1044041, 5, 1044351);
-            AddSkill(index, SkillName.Blacksmith, 80.0, 85.0);
+            AddSkill(index, SkillName.Kowalstwo, 80.0, 85.0);
             AddRes(index, typeof(IronIngot), 1044036, 100, 1044037);
             index = AddCraft(typeof(AnvilEastDeed), 1044296, 1044333, 73.6, 98.6, typeof(Board), 1044041, 5, 1044351);
-            AddSkill(index, SkillName.Blacksmith, 75.0, 80.0);
+            AddSkill(index, SkillName.Kowalstwo, 75.0, 80.0);
             AddRes(index, typeof(IronIngot), 1044036, 150, 1044037);
             index = AddCraft(typeof(AnvilSouthDeed), 1044296, 1044334, 73.6, 98.6, typeof(Board), 1044041, 5, 1044351);
-            AddSkill(index, SkillName.Blacksmith, 75.0, 80.0);
+            AddSkill(index, SkillName.Kowalstwo, 75.0, 80.0);
             AddRes(index, typeof(IronIngot), 1044036, 150, 1044037);
 
             // Training
             index = AddCraft(typeof(TrainingDummyEastDeed), 1044297, 1044335, 68.4, 93.4, typeof(Board), 1044041, 55, 1044351);
-            AddSkill(index, SkillName.Tailoring, 50.0, 55.0);
+            AddSkill(index, SkillName.Krawiectwo, 50.0, 55.0);
             AddRes(index, typeof(Cloth), 1044286, 60, 1044287);
             index = AddCraft(typeof(TrainingDummySouthDeed), 1044297, 1044336, 68.4, 93.4, typeof(Board), 1044041, 55, 1044351);
-            AddSkill(index, SkillName.Tailoring, 50.0, 55.0);
+            AddSkill(index, SkillName.Krawiectwo, 50.0, 55.0);
             AddRes(index, typeof(Cloth), 1044286, 60, 1044287);
             index = AddCraft(typeof(PickpocketDipEastDeed), 1044297, 1044337, 73.6, 98.6, typeof(Board), 1044041, 65, 1044351);
-            AddSkill(index, SkillName.Tailoring, 50.0, 55.0);
+            AddSkill(index, SkillName.Krawiectwo, 50.0, 55.0);
             AddRes(index, typeof(Cloth), 1044286, 60, 1044287);
             index = AddCraft(typeof(PickpocketDipSouthDeed), 1044297, 1044338, 73.6, 98.6, typeof(Board), 1044041, 65, 1044351);
-            AddSkill(index, SkillName.Tailoring, 50.0, 55.0);
+            AddSkill(index, SkillName.Krawiectwo, 50.0, 55.0);
             AddRes(index, typeof(Cloth), 1044286, 60, 1044287);
 
-            // Tailoring
+            // Krawiectwo
             index = AddCraft(typeof(Dressform), 1044298, 1044339, 63.1, 88.1, typeof(Board), 1044041, 25, 1044351);
-            AddSkill(index, SkillName.Tailoring, 65.0, 70.0);
+            AddSkill(index, SkillName.Krawiectwo, 65.0, 70.0);
             AddRes(index, typeof(Cloth), 1044286, 10, 1044287);
             index = AddCraft(typeof(SpinningwheelEastDeed), 1044298, 1044341, 73.6, 98.6, typeof(Board), 1044041, 75, 1044351);
-            AddSkill(index, SkillName.Tailoring, 65.0, 70.0);
+            AddSkill(index, SkillName.Krawiectwo, 65.0, 70.0);
             AddRes(index, typeof(Cloth), 1044286, 25, 1044287);
             index = AddCraft(typeof(SpinningwheelSouthDeed), 1044298, 1044342, 73.6, 98.6, typeof(Board), 1044041, 75, 1044351);
-            AddSkill(index, SkillName.Tailoring, 65.0, 70.0);
+            AddSkill(index, SkillName.Krawiectwo, 65.0, 70.0);
             AddRes(index, typeof(Cloth), 1044286, 25, 1044287);
             index = AddCraft(typeof(LoomEastDeed), 1044298, 1044343, 84.2, 109.2, typeof(Board), 1044041, 85, 1044351);
-            AddSkill(index, SkillName.Tailoring, 65.0, 70.0);
+            AddSkill(index, SkillName.Krawiectwo, 65.0, 70.0);
             AddRes(index, typeof(Cloth), 1044286, 25, 1044287);
             index = AddCraft(typeof(LoomSouthDeed), 1044298, 1044344, 84.2, 109.2, typeof(Board), 1044041, 85, 1044351);
-            AddSkill(index, SkillName.Tailoring, 65.0, 70.0);
+            AddSkill(index, SkillName.Krawiectwo, 65.0, 70.0);
             AddRes(index, typeof(Cloth), 1044286, 25, 1044287);
 
             #region Mondain's Legacy
             if (Core.ML)
             {
                 index = AddCraft(typeof(ElvenSpinningwheelEastDeed), 1044298, 1073393, 75.0, 100.0, typeof(Board), 1044041, 60, 1044351);
-                AddSkill(index, SkillName.Tailoring, 65.0, 85.0);
+                AddSkill(index, SkillName.Krawiectwo, 65.0, 85.0);
                 AddRes(index, typeof(Cloth), 1044286, 40, 1044287);
                 ForceNonExceptional(index);
                 SetNeededExpansion(index, Expansion.ML);
 
                 index = AddCraft(typeof(ElvenSpinningwheelSouthDeed), 1044298, 1072878, 75.0, 100.0, typeof(Board), 1044041, 60, 1044351);
-                AddSkill(index, SkillName.Tailoring, 65.0, 85.0);
+                AddSkill(index, SkillName.Krawiectwo, 65.0, 85.0);
                 AddRes(index, typeof(Cloth), 1044286, 40, 1044287);
                 ForceNonExceptional(index);
                 SetNeededExpansion(index, Expansion.ML);
@@ -780,18 +780,18 @@ namespace Server.Engines.Craft
             }
             #endregion
 
-            // Cooking
+            // Gotowanie
             index = AddCraft(typeof(StoneOvenEastDeed), 1044299, 1044345, 68.4, 93.4, typeof(Board), 1044041, 85, 1044351);
-            AddSkill(index, SkillName.Tinkering, 50.0, 55.0);
+            AddSkill(index, SkillName.Majsterkowanie, 50.0, 55.0);
             AddRes(index, typeof(IronIngot), 1044036, 125, 1044037);
             index = AddCraft(typeof(StoneOvenSouthDeed), 1044299, 1044346, 68.4, 93.4, typeof(Board), 1044041, 85, 1044351);
-            AddSkill(index, SkillName.Tinkering, 50.0, 55.0);
+            AddSkill(index, SkillName.Majsterkowanie, 50.0, 55.0);
             AddRes(index, typeof(IronIngot), 1044036, 125, 1044037);
             index = AddCraft(typeof(FlourMillEastDeed), 1044299, 1044347, 94.7, 119.7, typeof(Board), 1044041, 100, 1044351);
-            AddSkill(index, SkillName.Tinkering, 50.0, 55.0);
+            AddSkill(index, SkillName.Majsterkowanie, 50.0, 55.0);
             AddRes(index, typeof(IronIngot), 1044036, 50, 1044037);
             index = AddCraft(typeof(FlourMillSouthDeed), 1044299, 1044348, 94.7, 119.7, typeof(Board), 1044041, 100, 1044351);
-            AddSkill(index, SkillName.Tinkering, 50.0, 55.0);
+            AddSkill(index, SkillName.Majsterkowanie, 50.0, 55.0);
             AddRes(index, typeof(IronIngot), 1044036, 50, 1044037);
             AddCraft(typeof(WaterTroughEastDeed), 1044299, 1044349, 94.7, 119.7, typeof(Board), 1044041, 150, 1044351);
             AddCraft(typeof(WaterTroughSouthDeed), 1044299, 1044350, 94.7, 119.7, typeof(Board), 1044041, 150, 1044351);

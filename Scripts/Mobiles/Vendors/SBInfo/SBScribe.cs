@@ -37,6 +37,7 @@ namespace Server.Mobiles
                 this.Add(new GenericBuyInfo(typeof(BrownBook), 15, 10, 0xFEF, 0));
                 this.Add(new GenericBuyInfo(typeof(TanBook), 15, 10, 0xFF0, 0));
                 this.Add(new GenericBuyInfo(typeof(BlueBook), 15, 10, 0xFF2, 0));
+                this.Add(new GenericBuyInfo(typeof(IdentificationScroll), 50, 50, 0x1F67, 0));
                 //Add( new GenericBuyInfo( "1041267", typeof( Runebook ), 3500, 10, 0xEFA, 0x461 ) );
             }
         }
@@ -50,6 +51,7 @@ namespace Server.Mobiles
                 this.Add(typeof(TanBook), 7);
                 this.Add(typeof(BlueBook), 7);
                 this.Add(typeof(BlankScroll), 3);
+                this.Add(typeof(IdentificationScroll), 50);
             }
         }
     }

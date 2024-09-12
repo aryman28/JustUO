@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using Server.Mobiles;
+using Server.Items; 
+using Server; 
 
-namespace Server.Spells.Chivalry
+namespace Server.Spells.Rycerstwo
 {
     public class EnemyOfOneSpell : PaladinSpell
     {
@@ -11,6 +13,7 @@ namespace Server.Spells.Chivalry
             -1,
             9002);
         private static readonly Hashtable m_Table = new Hashtable();
+
         public EnemyOfOneSpell(Mobile caster, Item scroll)
             : base(caster, scroll, m_Info)
         {
@@ -23,6 +26,7 @@ namespace Server.Spells.Chivalry
                 return TimeSpan.FromSeconds(0.5);
             }
         }
+
         public override double RequiredSkill
         {
             get
@@ -30,6 +34,7 @@ namespace Server.Spells.Chivalry
                 return 45.0;
             }
         }
+
         public override int RequiredMana
         {
             get
@@ -37,6 +42,7 @@ namespace Server.Spells.Chivalry
                 return 20;
             }
         }
+
         public override int RequiredTithing
         {
             get
@@ -44,13 +50,15 @@ namespace Server.Spells.Chivalry
                 return 10;
             }
         }
+
         public override int MantraNumber
         {
             get
             {
                 return 1060723;
             }
-        }// Forul Solum
+        }
+
         public override bool BlocksMovement
         {
             get
@@ -58,10 +66,12 @@ namespace Server.Spells.Chivalry
                 return false;
             }
         }
+
         public override void OnCast()
         {
             if (this.CheckSequence())
             {
+                
                 this.Caster.PlaySound(0x0F5);
                 this.Caster.PlaySound(0x1ED);
                 this.Caster.FixedParticles(0x375A, 1, 30, 9966, 33, 2, EffectLayer.Head);
@@ -74,7 +84,6 @@ namespace Server.Spells.Chivalry
 
                 double delay = (double)this.ComputePowerValue(1) / 60;
 
-                // TODO: Should caps be applied?
                 if (delay < 1.5)
                     delay = 1.5;
                 else if (delay > 3.5)
@@ -84,8 +93,24 @@ namespace Server.Spells.Chivalry
 
                 if (this.Caster is PlayerMobile)
                 {
-                    ((PlayerMobile)this.Caster).EnemyOfOneType = null;
-                    ((PlayerMobile)this.Caster).WaitingForEnemy = true;
+                    PlayerMobile pm = (PlayerMobile)this.Caster;
+
+                    pm.EnemyOfOneType = null;
+                    pm.WaitingForEnemy = true;
+
+                    // Sprawdzenie klasy Mœciciela
+                    if (pm.Klasa == Klasa.Mœciciel)
+                    {
+                        // Zmniejszenie dodatkowych obra¿eñ
+                        delay *= 0.9; // Obra¿enia zmniejszone o 10%
+
+                        // Dodanie unikalnego efektu dla Mœciciela - zwiêkszona odpornoœæ na obra¿enia
+                        pm.VirtualArmorMod += 50; // Dodajemy 10% do pancerza, co zmniejsza obra¿enia
+                        Timer.DelayCall(TimeSpan.FromMinutes(delay), () => 
+                        {
+                            pm.VirtualArmorMod -= 50; // Po up³ywie czasu efekt znika
+                        });
+                    }
 
                     BuffInfo.AddBuff(this.Caster, new BuffInfo(BuffIcon.EnemyOfOne, 1075653, 1044111, TimeSpan.FromMinutes(delay), this.Caster));
                 }
@@ -104,8 +129,9 @@ namespace Server.Spells.Chivalry
 
             if (m is PlayerMobile)
             {
-                ((PlayerMobile)m).EnemyOfOneType = null;
-                ((PlayerMobile)m).WaitingForEnemy = false;
+                PlayerMobile pm = (PlayerMobile)m;
+                pm.EnemyOfOneType = null;
+                pm.WaitingForEnemy = false;
             }
         }
     }

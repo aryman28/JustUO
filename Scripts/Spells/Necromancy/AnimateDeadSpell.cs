@@ -6,7 +6,7 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Targeting;
 
-namespace Server.Spells.Necromancy
+namespace Server.Spells.Nekromancja
 {
     public class AnimateDeadSpell : NecromancerSpell
     {
@@ -326,8 +326,8 @@ namespace Server.Spells.Necromancy
             if (owner == null)
                 return;
 
-            double necromancy = caster.Skills[SkillName.Necromancy].Value;
-            double spiritSpeak = caster.Skills[SkillName.SpiritSpeak].Value;
+            double necromancy = caster.Skills[SkillName.Nekromancja].Value;
+            double spiritSpeak = caster.Skills[SkillName.MowaDuchow].Value;
 
             int casterAbility = 0;
 

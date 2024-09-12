@@ -1,7 +1,13 @@
+using System;
+
 namespace Server.Engines.Quests.Haven
 {
     public class AcceptConversation : QuestConversation
     {
+        public AcceptConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -34,15 +40,18 @@ namespace Server.Engines.Quests.Haven
                 return 1049092;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FindUzeraanBeginObjective());
+            this.System.AddObjective(new FindUzeraanBeginObjective());
         }
     }
 
     public class UzeraanTitheConversation : QuestConversation
     {
+        public UzeraanTitheConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -80,7 +89,7 @@ namespace Server.Engines.Quests.Haven
                 * 
                 * Tithing points and mana are automatically consumed when a special Paladin
                 * ability is activated. All Paladin abilities are activated through the
-                * <a href = "?ForceTopic114">Book of Chivalry</a><BR><BR>
+                * <a href = "?ForceTopic114">Book of Rycerstwo</a><BR><BR>
                 * 
                 * Go now, to the shrine just East of here, just before the doors and
                 * <a href = "?ForceTopic109">tithe</a> at least 500 gold.<BR><BR>
@@ -90,25 +99,27 @@ namespace Server.Engines.Quests.Haven
                 return 1060209;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new TitheGoldObjective());
+            this.System.AddObjective(new TitheGoldObjective());
         }
     }
 
     public class UzeraanFirstTaskConversation : QuestConversation
     {
-        private static readonly QuestItemInfo[] m_Info =
+        private static readonly QuestItemInfo[] m_Info = new QuestItemInfo[]
         {
-            new QuestItemInfo(1023676, 0xE68) // glowing rune
+            new QuestItemInfo(1023676, 0xE68)// glowing rune
         };
+        public UzeraanFirstTaskConversation()
+        {
+        }
 
         public override object Message
         {
             get
             {
-                if (System.From.Profession == 1) // warrior
+                if (this.System.From.Profession == 1) // warrior
                 {
                     /* <I>Uzeraan greets you as you approach...</I><BR><BR>
                     * 
@@ -138,7 +149,7 @@ namespace Server.Engines.Quests.Haven
                     */
                     return 1049088;
                 }
-                if (System.From.Profession == 2) // magician
+                else if (this.System.From.Profession == 2) // magician
                 {
                     /* <I>Uzeraan greets you as you approach...</I><BR><BR>
                     * 
@@ -169,7 +180,9 @@ namespace Server.Engines.Quests.Haven
                     */
                     return 1049386;
                 }
-                /* <I>Uzeraan nods at you with approval and begins to speak...</I><BR><BR>
+                else
+                {
+                    /* <I>Uzeraan nods at you with approval and begins to speak...</I><BR><BR>
                     * 
                     * Now that you are ready, let me give you your first task.<BR><BR>
                     * 
@@ -192,34 +205,39 @@ namespace Server.Engines.Quests.Haven
                     * 
                     * Good luck young Paladin!
                     */
-                return 1060388;
+                    return 1060388;
+                }
             }
         }
-
         public override QuestItemInfo[] Info
         {
-            get { return m_Info; }
+            get
+            {
+                return m_Info;
+            }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new KillHordeMinionsObjective());
+            this.System.AddObjective(new KillHordeMinionsObjective());
         }
     }
 
     public class UzeraanReportConversation : QuestConversation
     {
-        private static readonly QuestItemInfo[] m_Info =
+        private static readonly QuestItemInfo[] m_Info = new QuestItemInfo[]
         {
             new QuestItemInfo(1026153, 0x1822), // teleporter
-            new QuestItemInfo(1048032, 0xE76) // a bag
+            new QuestItemInfo(1048032, 0xE76)// a bag
         };
+        public UzeraanReportConversation()
+        {
+        }
 
         public override object Message
         {
             get
             {
-                if (System.From.Profession == 2) // magician
+                if (this.System.From.Profession == 2) // magician
                 {
                     /* <I>You give your report to Uzeraan and after a while, he begins to
                     * speak...</I><BR><BR>
@@ -252,7 +270,9 @@ namespace Server.Engines.Quests.Haven
                     */
                     return 1049387;
                 }
-                /* <I>You give your report to Uzeraan and after a while,
+                else
+                {
+                    /* <I>You give your report to Uzeraan and after a while,
                     * he begins to speak...</I><BR><BR>
                     * 
                     * Your report is grim, but all hope is not lost!  It has become apparent
@@ -275,36 +295,41 @@ namespace Server.Engines.Quests.Haven
                     * Step onto the teleporter, located against the wall, and seek Schmendrick in the mines.<BR><BR>
                     * 
                     * I've given you a bag with some <a href="?ForceTopic75">Night Sight</a>
-                    * and <a href="?ForceTopic76">Healing</a> <a href="?ForceTopic74">potions</a>
+                    * and <a href="?ForceTopic76">Leczenie</a> <a href="?ForceTopic74">potions</a>
                     * to help you out along the way.  Good luck.
                     */
-                return 1049119;
+                    return 1049119;
+                }
             }
         }
-
         public override QuestItemInfo[] Info
         {
-            get { return m_Info; }
+            get
+            {
+                return m_Info;
+            }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FindSchmendrickObjective());
+            this.System.AddObjective(new FindSchmendrickObjective());
         }
     }
 
     public class SchmendrickConversation : QuestConversation
     {
-        private static readonly QuestItemInfo[] m_Info =
+        private static readonly QuestItemInfo[] m_Info = new QuestItemInfo[]
         {
-            new QuestItemInfo(1023637, 0xE34) // scroll
+            new QuestItemInfo(1023637, 0xE34)// scroll
         };
+        public SchmendrickConversation()
+        {
+        }
 
         public override object Message
         {
             get
             {
-                if (System.From.Profession == 5) // paladin
+                if (this.System.From.Profession == 5) // paladin
                 {
                     /* <I>Schmendrick barely pays you any attention as you approach him.
                     * His mind seems to be occupied with something else. You explain to him that
@@ -333,7 +358,9 @@ namespace Server.Engines.Quests.Haven
                     */
                     return 1060749;
                 }
-                /* <I>Schmendrick barely pays you any attention as you approach him.  His
+                else
+                {
+                    /* <I>Schmendrick barely pays you any attention as you approach him.  His
                     * mind seems to be occupied with something else.  You explain to him that
                     * you came for the scroll of power and after a long while he begins to speak,
                     * but apparently still not giving you his full attention...</I><BR><BR>
@@ -350,29 +377,34 @@ namespace Server.Engines.Quests.Haven
                     * <I>Schmendrick goes back to his work and you seem to completely fade from his
                     * awareness...
                     */
-                return 1049322;
+                    return 1049322;
+                }
             }
         }
-
         public override QuestItemInfo[] Info
         {
-            get { return m_Info; }
+            get
+            {
+                return m_Info;
+            }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FindApprenticeObjective());
+            this.System.AddObjective(new FindApprenticeObjective());
         }
     }
 
     public class UzeraanScrollOfPowerConversation : QuestConversation
     {
-        private static readonly QuestItemInfo[] m_Info =
+        private static readonly QuestItemInfo[] m_Info = new QuestItemInfo[]
         {
             new QuestItemInfo(1048030, 0x14EB), // a Treasure Map
             new QuestItemInfo(1023969, 0xF81), // Fertile Dirt
-            new QuestItemInfo(1049117, 0xFC4) // Horn of Retreat
+            new QuestItemInfo(1049117, 0xFC4)// Horn of Retreat
         };
+        public UzeraanScrollOfPowerConversation()
+        {
+        }
 
         public override object Message
         {
@@ -414,20 +446,25 @@ namespace Server.Engines.Quests.Haven
                 return 1049325;
             }
         }
-
         public override QuestItemInfo[] Info
         {
-            get { return m_Info; }
+            get
+            {
+                return m_Info;
+            }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FindDryadObjective());
+            this.System.AddObjective(new FindDryadObjective());
         }
     }
 
     public class DryadConversation : QuestConversation
     {
+        public DryadConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -449,26 +486,28 @@ namespace Server.Engines.Quests.Haven
                 return 1049326;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new ReturnFertileDirtObjective());
+            this.System.AddObjective(new ReturnFertileDirtObjective());
         }
     }
 
     public class UzeraanFertileDirtConversation : QuestConversation
     {
-        private static readonly QuestItemInfo[] m_Info =
+        private static readonly QuestItemInfo[] m_Info = new QuestItemInfo[]
         {
             new QuestItemInfo(1023965, 0xF7D), // Daemon Blood
-            new QuestItemInfo(1022581, 0xA22) // lantern
+            new QuestItemInfo(1022581, 0xA22), // lantern
         };
+        public UzeraanFertileDirtConversation()
+        {
+        }
 
         public override object Message
         {
             get
             {
-                if (System.From.Profession == 2) // magician
+                if (this.System.From.Profession == 2) // magician
                 {
                     /* <I>Uzeraan takes the dirt from you and smiles...<BR><BR></I>
                     * 
@@ -491,7 +530,9 @@ namespace Server.Engines.Quests.Haven
                     */
                     return 1049388;
                 }
-                /* <I>Uzeraan takes the dirt from you and smiles...<BR><BR></I>
+                else
+                {
+                    /* <I>Uzeraan takes the dirt from you and smiles...<BR><BR></I>
                     * 
                     * Wonderful!  I knew I could count on you.  As a token of my appreciation
                     * I've given you a bag with some bandages as well as some healing potions.
@@ -511,39 +552,43 @@ namespace Server.Engines.Quests.Haven
                     * 
                     * Good luck!
                     */
-                return 1049329;
+                    return 1049329;
+                }
             }
         }
-
         public override QuestItemInfo[] Info
         {
-            get { return m_Info; }
+            get
+            {
+                return m_Info;
+            }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new GetDaemonBloodObjective());
+            this.System.AddObjective(new GetDaemonBloodObjective());
         }
     }
 
     public class UzeraanDaemonBloodConversation : QuestConversation
     {
-        private static readonly QuestItemInfo[] m_Info =
-        {
-            new QuestItemInfo(1017412, 0xF80) // Daemon Bone
-        };
-
-        private static readonly QuestItemInfo[] m_InfoPaladin =
+        private static readonly QuestItemInfo[] m_Info = new QuestItemInfo[]
         {
             new QuestItemInfo(1017412, 0xF80), // Daemon Bone
-            new QuestItemInfo(1060577, 0x1F14) // Recall Rune
         };
+        private static readonly QuestItemInfo[] m_InfoPaladin = new QuestItemInfo[]
+        {
+            new QuestItemInfo(1017412, 0xF80), // Daemon Bone
+            new QuestItemInfo(1060577, 0x1F14), // Recall Rune
+        };
+        public UzeraanDaemonBloodConversation()
+        {
+        }
 
         public override object Message
         {
             get
             {
-                if (System.From.Profession == 2) // magician
+                if (this.System.From.Profession == 2) // magician
                 {
                     //return 1049389; // localized message is bugged
                     return "<I>You hand Uzeraan the Vial of Blood, which he hastily accepts...</I><BR>" +
@@ -563,7 +608,9 @@ namespace Server.Engines.Quests.Haven
                            "<BR>" +
                            "Return here when you have found a <I>Daemon Bone</I>.";
                 }
-                /* <I>You hand Uzeraan the Vial of Blood, which he hastily accepts...</I><BR><BR>
+                else
+                {
+                    /* <I>You hand Uzeraan the Vial of Blood, which he hastily accepts...</I><BR><BR>
                     * 
                     * Excellent work!  Only one reagent remains and the spell is complete!
                     * The final requirement is a <I>Daemon Bone</I>, which will not be as easily
@@ -580,28 +627,32 @@ namespace Server.Engines.Quests.Haven
                     * 
                     * Return here when you have found a <I>Daemon Bone</I>.
                     */
-                return 1049333;
+                    return 1049333;
+                }
             }
         }
-
         public override QuestItemInfo[] Info
         {
             get
             {
-                if (System.From.Profession == 5) // paladin
+                if (this.System.From.Profession == 5) // paladin
                     return m_InfoPaladin;
-                return m_Info;
+                else
+                    return m_Info;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new GetDaemonBoneObjective());
+            this.System.AddObjective(new GetDaemonBoneObjective());
         }
     }
 
     public class UzeraanDaemonBoneConversation : QuestConversation
     {
+        public UzeraanDaemonBoneConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -630,15 +681,18 @@ namespace Server.Engines.Quests.Haven
                 return 1049335;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new CashBankCheckObjective());
+            this.System.AddObjective(new CashBankCheckObjective());
         }
     }
 
     public class BankerConversation : QuestConversation
     {
+        public BankerConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -663,15 +717,18 @@ namespace Server.Engines.Quests.Haven
                 return 1060137;
             }
         }
-
         public override void OnRead()
         {
-            System.Complete();
+            this.System.Complete();
         }
     }
 
     public class RadarConversation : QuestConversation
     {
+        public RadarConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -687,20 +744,21 @@ namespace Server.Engines.Quests.Haven
                 return 1049660;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class LostScrollOfPowerConversation : QuestConversation
     {
         private bool m_FromUzeraan;
-
         public LostScrollOfPowerConversation(bool fromUzeraan)
         {
-            m_FromUzeraan = fromUzeraan;
+            this.m_FromUzeraan = fromUzeraan;
         }
 
         public LostScrollOfPowerConversation()
@@ -711,7 +769,7 @@ namespace Server.Engines.Quests.Haven
         {
             get
             {
-                if (m_FromUzeraan)
+                if (this.m_FromUzeraan)
                 {
                     /* You return without the scroll???<BR><BR>
                     * 
@@ -720,7 +778,9 @@ namespace Server.Engines.Quests.Haven
                     */
                     return 1049377;
                 }
-                /* You've lost the scroll?  Argh!  I will have to try and re-construct
+                else
+                {
+                    /* You've lost the scroll?  Argh!  I will have to try and re-construct
                     * the scroll from memory.  Bring me a blank scroll, which you can
                     * <a href = "?ForceTopic33">purchase from the mage shop</a> just
                     * <a href = "?ForceTopic13">East</a> of Uzeraan's mansion in Haven.<BR><BR>
@@ -729,37 +789,38 @@ namespace Server.Engines.Quests.Haven
                     * 
                     * When you return, be sure to hand me the scroll (drag and drop).
                     */
-                return 1049345;
+                    return 1049345;
+                }
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            m_FromUzeraan = reader.ReadBool();
+            this.m_FromUzeraan = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(m_FromUzeraan);
+            writer.Write((bool)this.m_FromUzeraan);
         }
     }
 
     public class LostFertileDirtConversation : QuestConversation
     {
         private bool m_FromUzeraan;
-
         public LostFertileDirtConversation(bool fromUzeraan)
         {
-            m_FromUzeraan = fromUzeraan;
+            this.m_FromUzeraan = fromUzeraan;
         }
 
         public LostFertileDirtConversation()
@@ -770,7 +831,7 @@ namespace Server.Engines.Quests.Haven
         {
             get
             {
-                if (m_FromUzeraan)
+                if (this.m_FromUzeraan)
                 {
                     /* You return without <I>Fertile Dirt</I>?  It is imperative that we
                     * get all of the ingredients friend.<BR><BR>
@@ -779,7 +840,9 @@ namespace Server.Engines.Quests.Haven
                     */
                     return 1049374;
                 }
-                /* You've lost the dirt I gave you?<BR><BR>
+                else
+                {
+                    /* You've lost the dirt I gave you?<BR><BR>
                     * 
                     * My, my, my... What ever shall we do now?<BR><BR>
                     * 
@@ -796,32 +859,38 @@ namespace Server.Engines.Quests.Haven
                     * 
                     * Good luck.<BR><BR>
                     */
-                return 1049359;
+                    return 1049359;
+                }
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            m_FromUzeraan = reader.ReadBool();
+            this.m_FromUzeraan = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(m_FromUzeraan);
+            writer.Write((bool)this.m_FromUzeraan);
         }
     }
 
     public class DryadAppleConversation : QuestConversation
     {
+        public DryadAppleConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -837,15 +906,21 @@ namespace Server.Engines.Quests.Haven
                 return 1049360;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class LostDaemonBloodConversation : QuestConversation
     {
+        public LostDaemonBloodConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -858,15 +933,21 @@ namespace Server.Engines.Quests.Haven
                 return 1049375;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class LostDaemonBoneConversation : QuestConversation
     {
+        public LostDaemonBoneConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -880,15 +961,21 @@ namespace Server.Engines.Quests.Haven
                 return 1049376;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class FewReagentsConversation : QuestConversation
     {
+        public FewReagentsConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -908,10 +995,12 @@ namespace Server.Engines.Quests.Haven
                 return 1049390;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 }

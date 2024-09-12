@@ -23,7 +23,7 @@ namespace Server.Items
         public static void Configure()
         {
             m_SpellNames.Add(677, "Nether Bolt");
-            m_SpellNames.Add(678, "Healing Stone");
+            m_SpellNames.Add(678, "Leczenie Stone");
             m_SpellNames.Add(679, "Purge Magic");
             m_SpellNames.Add(680, "Enchant");
             m_SpellNames.Add(681, "Sleep");

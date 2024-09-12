@@ -147,7 +147,7 @@ namespace Server.Items
                         if (!(this is StatCapScroll))
                             this.m_Skill = (SkillName)reader.ReadInt();
                         else
-                            this.m_Skill = SkillName.Alchemy;
+                            this.m_Skill = SkillName.Alchemia;
 
                         if (this is ScrollofAlacrity)
                             this.m_Value = 0.0;

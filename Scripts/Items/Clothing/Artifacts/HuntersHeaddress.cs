@@ -9,7 +9,7 @@ namespace Server.Items
         {
             this.Hue = 0x594;
 
-            this.SkillBonuses.SetValues(0, SkillName.Archery, 20);
+            this.SkillBonuses.SetValues(0, SkillName.Lucznictwo, 20);
 
             this.Attributes.BonusDex = 8;
             this.Attributes.NightSight = 1;

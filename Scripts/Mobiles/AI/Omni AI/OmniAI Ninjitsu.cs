@@ -1,7 +1,7 @@
 // Created by Peoharen
 using System;
 using Server.Spells;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Skrytobojstwo;
 
 namespace Server.Mobiles
 {
@@ -38,7 +38,7 @@ namespace Server.Mobiles
             if (DateTime.UtcNow > this.m_NextShurikenThrow && this.m_Mobile.Combatant != null && this.m_Mobile.InRange(this.m_Mobile.Combatant, 12))
             {
                 if (this.m_Mobile.Debug)
-                    this.m_Mobile.Say(995, "Throwing a shuriken");
+                    this.m_Mobile.Say(995, "Rzucanie a shuriken");
 
                 this.m_Mobile.Direction = this.m_Mobile.GetDirectionTo(this.m_Mobile.Combatant);
 
@@ -61,11 +61,11 @@ namespace Server.Mobiles
 
             int whichone = Utility.RandomMinMax(1, 3);
 
-            if (whichone == 3 && this.m_Mobile.Skills[SkillName.Ninjitsu].Value >= 80.0)
+            if (whichone == 3 && this.m_Mobile.Skills[SkillName.Skrytobojstwo].Value >= 80.0)
                 NinjaMove.SetCurrentMove(this.m_Mobile, new KiAttack());
-            else if (whichone >= 2 && this.m_Mobile.Skills[SkillName.Ninjitsu].Value >= 30.0)
+            else if (whichone >= 2 && this.m_Mobile.Skills[SkillName.Skrytobojstwo].Value >= 30.0)
                 NinjaMove.SetCurrentMove(this.m_Mobile, new SurpriseAttack());
-            else if (this.m_Mobile.Skills[SkillName.Ninjitsu].Value >= 20.0)
+            else if (this.m_Mobile.Skills[SkillName.Skrytobojstwo].Value >= 20.0)
                 NinjaMove.SetCurrentMove(this.m_Mobile, new Backstab());
         }
 
@@ -76,9 +76,9 @@ namespace Server.Mobiles
 
             int whichone = Utility.RandomMinMax(1, 3);
 
-            if (whichone == 3 && this.m_Mobile.Skills[SkillName.Ninjitsu].Value >= 85.0)
+            if (whichone == 3 && this.m_Mobile.Skills[SkillName.Skrytobojstwo].Value >= 85.0)
                 NinjaMove.SetCurrentMove(this.m_Mobile, new DeathStrike());
-            else if (whichone >= 2 && this.m_Mobile.Skills[SkillName.Ninjitsu].Value >= 60.0)
+            else if (whichone >= 2 && this.m_Mobile.Skills[SkillName.Skrytobojstwo].Value >= 60.0)
                 NinjaMove.SetCurrentMove(this.m_Mobile, new FocusAttack());
             else
                 this.UseWeaponStrike();
@@ -93,15 +93,15 @@ namespace Server.Mobiles
                 this.m_Mobile.DoHarmful(target);
                 AOS.Damage(target, this.m_Mobile, Utility.RandomMinMax(3, 5), 100, 0, 0, 0, 0);
 
-                if (this.m_Mobile.Skills[SkillName.Ninjitsu].Value >= 120.0)
+                if (this.m_Mobile.Skills[SkillName.Skrytobojstwo].Value >= 120.0)
                     target.ApplyPoison(this.m_Mobile, Poison.Lethal);
-                else if (this.m_Mobile.Skills[SkillName.Ninjitsu].Value >= 101.0)
+                else if (this.m_Mobile.Skills[SkillName.Skrytobojstwo].Value >= 101.0)
                     target.ApplyPoison(this.m_Mobile, Poison.Deadly);
-                else if (this.m_Mobile.Skills[SkillName.Ninjitsu].Value >= 100.0)
+                else if (this.m_Mobile.Skills[SkillName.Skrytobojstwo].Value >= 100.0)
                     target.ApplyPoison(this.m_Mobile, Poison.Greater);
-                else if (this.m_Mobile.Skills[SkillName.Ninjitsu].Value >= 70.0)
+                else if (this.m_Mobile.Skills[SkillName.Skrytobojstwo].Value >= 70.0)
                     target.ApplyPoison(this.m_Mobile, Poison.Regular);
-                else if (this.m_Mobile.Skills[SkillName.Ninjitsu].Value >= 50.0)
+                else if (this.m_Mobile.Skills[SkillName.Skrytobojstwo].Value >= 50.0)
                     target.ApplyPoison(this.m_Mobile, Poison.Lesser);
             }
         }

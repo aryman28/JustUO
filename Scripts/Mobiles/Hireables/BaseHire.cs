@@ -10,7 +10,7 @@ namespace Server.Mobiles
     {
         private int m_Pay = 1;
         private bool m_IsHired;
-        private int m_HoldGold = 8;
+        private int m_HoldGold = 80;
         private Timer m_PayTimer;
 
         public BaseHire(AIType AI)
@@ -167,13 +167,13 @@ namespace Server.Mobiles
         #region [ Payday ] 
         public virtual bool Payday(BaseHire m) 
         { 
-            this.m_Pay = (int)m.Skills[SkillName.Anatomy].Value + (int)m.Skills[SkillName.Tactics].Value;
-            this.m_Pay += (int)m.Skills[SkillName.Macing].Value + (int)m.Skills[SkillName.Swords].Value;
-            this.m_Pay += (int)m.Skills[SkillName.Fencing].Value + (int)m.Skills[SkillName.Archery].Value;
-            this.m_Pay += (int)m.Skills[SkillName.MagicResist].Value + (int)m.Skills[SkillName.Healing].Value;
-            this.m_Pay += (int)m.Skills[SkillName.Magery].Value + (int)m.Skills[SkillName.Parry].Value;
-            this.m_Pay /= 35;
-            this.m_Pay += 1;
+            this.m_Pay = (int)m.Skills[SkillName.Anatomia].Value + (int)m.Skills[SkillName.Taktyka].Value;
+            this.m_Pay += (int)m.Skills[SkillName.WalkaObuchami].Value + (int)m.Skills[SkillName.WalkaMieczami].Value;
+            this.m_Pay += (int)m.Skills[SkillName.WalkaSzpadami].Value + (int)m.Skills[SkillName.Lucznictwo].Value;
+            this.m_Pay += (int)m.Skills[SkillName.ObronaPrzedMagia].Value + (int)m.Skills[SkillName.Leczenie].Value;
+            this.m_Pay += (int)m.Skills[SkillName.Magia].Value + (int)m.Skills[SkillName.Parowanie].Value;
+            this.m_Pay /= 1;
+            this.m_Pay += 1000;
             return true;
         }
 

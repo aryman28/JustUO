@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0xDF0)
         {
             this.Weight = 6.0;
+            this.Name = "Czarna laska";
         }
 
         public BlackStaff(Serial serial)

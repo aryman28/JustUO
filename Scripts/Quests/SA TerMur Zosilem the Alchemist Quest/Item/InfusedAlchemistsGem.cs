@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Items
 {
     public class InfusedAlchemistsGem : Item
@@ -6,7 +8,7 @@ namespace Server.Items
         public InfusedAlchemistsGem()
             : base(0x1EA7)
         {
-            Weight = 1.0;
+            this.Weight = 1.0;
         }
 
         public InfusedAlchemistsGem(Serial serial)
@@ -16,35 +18,37 @@ namespace Server.Items
 
         public override int LabelNumber
         {
-            get { return 1113006; }
+            get
+            {
+                return 1113006;
+            }
         }
-
         public override void AddNameProperties(ObjectPropertyList list)
         {
             base.AddNameProperties(list);
-
-            list.Add(1070722, "Alchemy Skill Increaser + 1");
+              
+            list.Add(1070722, "Alchemia Skill Increaser + 1");
         }
 
         public override void OnDoubleClick(Mobile from)
         {
-            from.Skills[SkillName.Alchemy].Base += 1;
-            from.SendMessage("You have increased your Alchemy Skill by 1 Point !.");
-            Delete();
+            from.Skills[SkillName.Alchemia].Base += 1;
+            from.SendMessage("You have increased your Alchemia Skill by 1 Point !."); 
+            this.Delete();
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

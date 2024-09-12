@@ -14,7 +14,7 @@ namespace Server.Gumps
             this.Dragable = true;
             this.Resizable = false;
 
-            int skill = (int)m.Skills[SkillName.Mysticism].Value;
+            int skill = (int)m.Skills[SkillName.Mistycyzm].Value;
 
             this.AddPage(0);
             this.AddBackground(0, 0, 170, 400, 9270);
@@ -68,8 +68,8 @@ namespace Server.Gumps
             }
 
             // No skill required.
-            this.AddLabel(40, 165, 0, "Healing Stone");
-            this.AddButton(15, 165, 9702, 9703, 678, GumpButtonType.Reply, 0); // Healing Stone
+            this.AddLabel(40, 165, 0, "Leczenie Stone");
+            this.AddButton(15, 165, 9702, 9703, 678, GumpButtonType.Reply, 0); // Leczenie Stone
 
             // Srsly, 0 skill?
             this.AddLabel(40, 190, 0, "Mass Sleep");

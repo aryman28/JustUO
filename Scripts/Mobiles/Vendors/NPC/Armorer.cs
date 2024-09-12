@@ -8,10 +8,10 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Armorer()
-            : base("the armorer")
+            : base("- Zbrojmistrz")
         {
-            this.SetSkill(SkillName.ArmsLore, 64.0, 100.0);
-            this.SetSkill(SkillName.Blacksmith, 60.0, 83.0);
+            this.SetSkill(SkillName.WiedzaOUzbrojeniu, 64.0, 100.0);
+            this.SetSkill(SkillName.Kowalstwo, 60.0, 83.0);
         }
 
         public Armorer(Serial serial)

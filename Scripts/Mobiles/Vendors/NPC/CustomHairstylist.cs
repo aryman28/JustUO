@@ -71,7 +71,7 @@ namespace Server.Mobiles
 
 		[Constructable]
 		public CustomHairstylist()
-			: base("the hairstylist")
+			: base("- Fryzjer")
 		{ }
 
 		public CustomHairstylist(Serial serial)

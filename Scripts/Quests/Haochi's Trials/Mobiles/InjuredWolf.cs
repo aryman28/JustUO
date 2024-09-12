@@ -1,3 +1,4 @@
+using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Samurai
@@ -9,28 +10,28 @@ namespace Server.Engines.Quests.Samurai
         public InjuredWolf()
             : base(AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            Body = 0xE1;
-            Name = "an injured wolf";
-            BaseSoundID = 0xE5;
+            this.Body = 0xE1;
+            this.Name = "an injured wolf";
+            this.BaseSoundID = 0xE5;
 
-            Hue = Utility.RandomAnimalHue();
+            this.Hue = Utility.RandomAnimalHue();
 
-            SetStr(10, 20);
-            SetDex(45, 65);
-            SetInt(10, 15);
+            this.SetStr(10, 20);
+            this.SetDex(45, 65);
+            this.SetInt(10, 15);
 
-            SetHits(1);
+            this.SetHits(1);
 
-            SetDamage(1, 3);
+            this.SetDamage(1, 3);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 15);
-            SetResistance(ResistanceType.Fire, 5, 10);
+            this.SetResistance(ResistanceType.Physical, 15);
+            this.SetResistance(ResistanceType.Fire, 5, 10);
 
-            SetSkill(SkillName.MagicResist, 10.0);
-            SetSkill(SkillName.Tactics, 0.0, 5.0);
-            SetSkill(SkillName.Wrestling, 20.0, 30.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 10.0);
+            this.SetSkill(SkillName.Taktyka, 0.0, 5.0);
+            this.SetSkill(SkillName.Boks, 20.0, 30.0);
         }
 
         public InjuredWolf(Serial serial)
@@ -54,7 +55,7 @@ namespace Server.Engines.Quests.Samurai
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
         }
     }
 }

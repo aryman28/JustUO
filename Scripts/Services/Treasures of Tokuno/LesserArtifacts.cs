@@ -27,7 +27,7 @@ namespace Server.Items
             this.Attributes.BonusStam = 5;
             this.Attributes.RegenStam = 5;
 
-            this.SkillBonuses.SetValues(0, SkillName.AnimalLore, 5.0);
+            this.SkillBonuses.SetValues(0, SkillName.WiedzaOBestiach, 5.0);
         }
 
         public AncientFarmersKasa(Serial serial)
@@ -83,7 +83,7 @@ namespace Server.Items
             }
 
             if (version == 0)
-                this.SkillBonuses.SetValues(0, SkillName.AnimalLore, 5.0);
+                this.SkillBonuses.SetValues(0, SkillName.WiedzaOBestiach, 5.0);
         }
     }
 
@@ -95,7 +95,7 @@ namespace Server.Items
         {
             this.ArmorAttributes.LowerStatReq = 100;
             this.ArmorAttributes.MageArmor = 1;
-            this.SkillBonuses.SetValues(0, SkillName.Parry, 10.0);
+            this.SkillBonuses.SetValues(0, SkillName.Parowanie, 10.0);
         }
 
         public AncientSamuraiDo(Serial serial)
@@ -181,7 +181,7 @@ namespace Server.Items
             : base()
         {
             this.Attributes.BonusDex = 5;
-            this.SkillBonuses.SetValues(0, SkillName.Tactics, 12.0);
+            this.SkillBonuses.SetValues(0, SkillName.Taktyka, 12.0);
         }
 
         public ArmsOfTacticalExcellence(Serial serial)
@@ -641,7 +641,7 @@ namespace Server.Items
 
             this.Attributes.WeaponDamage = 50;
 
-            this.SkillBonuses.SetValues(0, SkillName.Ninjitsu, 10);
+            this.SkillBonuses.SetValues(0, SkillName.Skrytobojstwo, 10);
         }
 
         public HanzosBow(Serial serial)
@@ -1203,7 +1203,7 @@ namespace Server.Items
             {
                 return 1071015;
             }
-        }// Honorable Swords
+        }// Honorable WalkaMieczami
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
@@ -1224,12 +1224,12 @@ namespace Server.Items
 
         public override void AddNameProperty(ObjectPropertyList list)
         {
-            list.Add(1070936, this.m_SwordsName); // Honorable Swords of ~1_name~
+            list.Add(1070936, this.m_SwordsName); // Honorable WalkaMieczami of ~1_name~
         }
 
         public override void OnSingleClick(Mobile from)
         {
-            this.LabelTo(from, 1070936, this.m_SwordsName); // Honorable Swords of ~1_name~
+            this.LabelTo(from, 1070936, this.m_SwordsName); // Honorable WalkaMieczami of ~1_name~
         }
     }
 

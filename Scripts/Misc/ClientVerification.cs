@@ -85,7 +85,7 @@ namespace Server.Misc
             EventSink.ClientVersionReceived += new ClientVersionReceivedHandler(EventSink_ClientVersionReceived);
 
             //ClientVersion.Required = null;
-            //Required = new ClientVersion( "6.0.0.0" );
+            //Required = new ClientVersion( "6.9.9.9" );
 
             if (m_DetectClientRequirement)
             {

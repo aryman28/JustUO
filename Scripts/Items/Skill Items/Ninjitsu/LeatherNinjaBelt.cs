@@ -17,6 +17,7 @@ namespace Server.Items
 
         {
             this.Weight = 1.0;
+            this.Name = "Lekki skórzany pas";
             this.Layer = Layer.Waist;
         }
 

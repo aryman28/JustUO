@@ -11,7 +11,7 @@ namespace Server.Items
 		
             this.Hue = 95;
 			
-            this.SkillBonuses.SetValues(0, SkillName.Mysticism, 15.0);		
+            this.SkillBonuses.SetValues(0, SkillName.Mistycyzm, 15.0);		
             this.Attributes.SpellDamage = 10;
             this.Attributes.LowerManaCost = 5;	
             this.Attributes.SpellChanneling = 1;	

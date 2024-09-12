@@ -25,9 +25,9 @@ namespace Server.Mobiles
 
         [Constructable]
         public Tailor()
-            : base("the tailor")
+            : base("- Krawiec")
         {
-            this.SetSkill(SkillName.Tailoring, 64.0, 100.0);
+            this.SetSkill(SkillName.Krawiectwo, 64.0, 100.0);
         }
 
         public override void InitSBInfo()
@@ -50,7 +50,7 @@ namespace Server.Mobiles
 
             if (pm != null && pm.NextTailorBulkOrder == TimeSpan.Zero && (fromContextMenu || 0.2 > Utility.RandomDouble()))
             {
-                double theirSkill = pm.Skills[SkillName.Tailoring].Base;
+                double theirSkill = pm.Skills[SkillName.Krawiectwo].Base;
 
                 if (theirSkill >= 70.1)
                     pm.NextTailorBulkOrder = TimeSpan.FromHours(6.0);
@@ -75,7 +75,7 @@ namespace Server.Mobiles
 
         public override bool SupportsBulkOrders(Mobile from)
         {
-            return (from is PlayerMobile && from.Skills[SkillName.Tailoring].Base > 0);
+            return (from is PlayerMobile && from.Skills[SkillName.Krawiectwo].Base > 0);
         }
 
         public override TimeSpan GetNextBulkOrder(Mobile from)

@@ -36,10 +36,8 @@ namespace Server.Items
                 return true;
             }
         }
-		public override void OnAdded(IEntity parent)
-		{
-			base.OnAdded(parent);
-
+        public override void OnAdded(object parent)
+        {
             if (parent is Mobile)
             {
                 if (((Mobile)parent).Female)

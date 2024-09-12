@@ -5,11 +5,11 @@ using Server.Targeting;
 
 namespace Server.SkillHandlers
 {
-    public class AnimalLore
+    public class WiedzaOBestiach
     {
         public static void Initialize()
         {
-            SkillInfo.Table[(int)SkillName.AnimalLore].Callback = new SkillUseCallback(OnUse);
+            SkillInfo.Table[(int)SkillName.WiedzaOBestiach].Callback = new SkillUseCallback(OnUse);
         }
 
         public static TimeSpan OnUse(Mobile m)
@@ -42,15 +42,15 @@ namespace Server.SkillHandlers
                     {
                         if (c.Body.IsAnimal || c.Body.IsMonster || c.Body.IsSea)
                         {
-                            if (!c.Controlled && from.Skills[SkillName.AnimalLore].Value < 100.0)
+                            if (!c.Controlled && from.Skills[SkillName.WiedzaOBestiach].Value < 100.0)
                             {
                                 from.SendLocalizedMessage(1049674); // At your skill level, you can only lore tamed creatures.
                             }
-                            else if (!c.Controlled && !c.Tamable && from.Skills[SkillName.AnimalLore].Value < 110.0)
+                            else if (!c.Controlled && !c.Tamable && from.Skills[SkillName.WiedzaOBestiach].Value < 110.0)
                             {
                                 from.SendLocalizedMessage(1049675); // At your skill level, you can only lore tamed or tameable creatures.
                             }
-                            else if (!from.CheckTargetSkill(SkillName.AnimalLore, c, 0.0, 120.0))
+                            else if (!from.CheckTargetSkill(SkillName.WiedzaOBestiach, c, 0.0, 120.0))
                             {
                                 from.SendLocalizedMessage(500334); // You can't think of anything you know offhand.
                             }
@@ -285,42 +285,42 @@ namespace Server.SkillHandlers
             this.AddImage(128, 152, 2086);
             this.AddHtmlLocalized(147, 150, 160, 18, 3001030, 200, false, false); // Combat Ratings
 
-            this.AddHtmlLocalized(153, 168, 160, 18, 1044103, LabelColor, false, false); // Wrestling
-            this.AddHtml(320, 168, 35, 18, FormatSkill(c, SkillName.Wrestling), false, false);
+            this.AddHtmlLocalized(153, 168, 160, 18, 1044103, LabelColor, false, false); // Boks
+            this.AddHtml(320, 168, 35, 18, FormatSkill(c, SkillName.Boks), false, false);
 
-            this.AddHtmlLocalized(153, 186, 160, 18, 1044087, LabelColor, false, false); // Tactics
-            this.AddHtml(320, 186, 35, 18, FormatSkill(c, SkillName.Tactics), false, false);
+            this.AddHtmlLocalized(153, 186, 160, 18, 1044087, LabelColor, false, false); // Taktyka
+            this.AddHtml(320, 186, 35, 18, FormatSkill(c, SkillName.Taktyka), false, false);
 
             this.AddHtmlLocalized(153, 204, 160, 18, 1044086, LabelColor, false, false); // Magic Resistance
-            this.AddHtml(320, 204, 35, 18, FormatSkill(c, SkillName.MagicResist), false, false);
+            this.AddHtml(320, 204, 35, 18, FormatSkill(c, SkillName.ObronaPrzedMagia), false, false);
 
-            this.AddHtmlLocalized(153, 222, 160, 18, 1044061, LabelColor, false, false); // Anatomy
-            this.AddHtml(320, 222, 35, 18, FormatSkill(c, SkillName.Anatomy), false, false);
+            this.AddHtmlLocalized(153, 222, 160, 18, 1044061, LabelColor, false, false); // Anatomia
+            this.AddHtml(320, 222, 35, 18, FormatSkill(c, SkillName.Anatomia), false, false);
 
             #region Mondain's Legacy
             if (c is CuSidhe)
             {
-                this.AddHtmlLocalized(153, 240, 160, 18, 1044077, LabelColor, false, false); // Healing
-                this.AddHtml(320, 240, 35, 18, FormatSkill(c, SkillName.Healing), false, false);
+                this.AddHtmlLocalized(153, 240, 160, 18, 1044077, LabelColor, false, false); // Leczenie
+                this.AddHtml(320, 240, 35, 18, FormatSkill(c, SkillName.Leczenie), false, false);
             }
             else
             {
-                this.AddHtmlLocalized(153, 240, 160, 18, 1044090, LabelColor, false, false); // Poisoning
-                this.AddHtml(320, 240, 35, 18, FormatSkill(c, SkillName.Poisoning), false, false);
+                this.AddHtmlLocalized(153, 240, 160, 18, 1044090, LabelColor, false, false); // Zatruwanie
+                this.AddHtml(320, 240, 35, 18, FormatSkill(c, SkillName.Zatruwanie), false, false);
             }
             #endregion
 
             this.AddImage(128, 260, 2086);
             this.AddHtmlLocalized(147, 258, 160, 18, 3001032, 200, false, false); // Lore & Knowledge
 
-            this.AddHtmlLocalized(153, 276, 160, 18, 1044085, LabelColor, false, false); // Magery
-            this.AddHtml(320, 276, 35, 18, FormatSkill(c, SkillName.Magery), false, false);
+            this.AddHtmlLocalized(153, 276, 160, 18, 1044085, LabelColor, false, false); // Magia
+            this.AddHtml(320, 276, 35, 18, FormatSkill(c, SkillName.Magia), false, false);
 
             this.AddHtmlLocalized(153, 294, 160, 18, 1044076, LabelColor, false, false); // Evaluating Intelligence
-            this.AddHtml(320, 294, 35, 18, FormatSkill(c, SkillName.EvalInt), false, false);
+            this.AddHtml(320, 294, 35, 18, FormatSkill(c, SkillName.Intelekt), false, false);
 
-            this.AddHtmlLocalized(153, 312, 160, 18, 1044106, LabelColor, false, false); // Meditation
-            this.AddHtml(320, 312, 35, 18, FormatSkill(c, SkillName.Meditation), false, false);
+            this.AddHtmlLocalized(153, 312, 160, 18, 1044106, LabelColor, false, false); // Medytacja
+            this.AddHtml(320, 312, 35, 18, FormatSkill(c, SkillName.Medytacja), false, false);
 
             this.AddButton(340, 358, 5601, 5605, 0, GumpButtonType.Page, page + 1);
             this.AddButton(317, 358, 5603, 5607, 0, GumpButtonType.Page, page - 1);

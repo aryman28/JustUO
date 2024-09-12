@@ -8,9 +8,9 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Waiter()
-            : base("the waiter")
+            : base("- Kelner")
         {
-            this.SetSkill(SkillName.Discordance, 36.0, 68.0);
+            this.SetSkill(SkillName.Manipulacja, 36.0, 68.0);
         }
 
         public Waiter(Serial serial)

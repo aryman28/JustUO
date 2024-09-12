@@ -24,86 +24,14 @@ using Server.Network;
 namespace Server.Items
 {
 	public delegate void OnItemConsumed(Item item, int amount);
+
 	public delegate int CheckItemGroup(Item a, Item b);
 
 	public delegate void ContainerSnoopHandler(Container cont, Mobile from);
 
 	public class Container : Item
-    {
-        #region Enhance Client
-        private List<byte> m_FreePositions = new List<byte>();
-
-        public void FreePosition(byte pos)
-        {
-            int maxpos = -1;
-
-            foreach (Item item in Items)
-            {
-                if (item.GridLocation > maxpos && item.GridLocation != pos)
-                    maxpos = item.GridLocation;
-            }
-
-            maxpos++;
-
-            if (pos > maxpos)
-            {
-                pos = (byte)maxpos;
-
-                for (int i = 0; i < m_FreePositions.Count; i++)
-                {
-                    byte b = m_FreePositions[i];
-
-                    if (b > (pos))
-                    {
-                        m_FreePositions.RemoveAt(i);
-                        i--;
-                    }
-                }
-            }
-
-            if (!m_FreePositions.Contains(pos))
-                m_FreePositions.Add(pos);
-        }
-
-        public bool IsFreePosition(byte pos)
-        {
-            if (m_FreePositions.Contains(pos))
-            {
-                m_FreePositions.Remove(pos);
-                return true;
-            }
-
-            foreach (Item item in this.Items)
-            {
-                if (item.GridLocation == pos)
-                    return false;
-            }
-
-            return true;
-        }
-
-        public byte GetNewPosition()
-        {
-            if (m_FreePositions.Count > 0)
-            {
-                byte newpos = m_FreePositions[m_FreePositions.Count - 1];
-                m_FreePositions.RemoveAt(m_FreePositions.Count - 1);
-                return newpos;
-            }
-
-            int pos = -1;
-
-            foreach (Item item in Items)
-            {
-                if (item.GridLocation > pos)
-                    pos = item.GridLocation;
-            }
-
-            return (byte)(pos + 1);
-        }
-        #endregion
-
-        private static ContainerSnoopHandler m_SnoopHandler;
+	{
+		private static ContainerSnoopHandler m_SnoopHandler;
 
 		public static ContainerSnoopHandler SnoopHandler { get { return m_SnoopHandler; } set { m_SnoopHandler = value; } }
 
@@ -194,11 +122,7 @@ namespace Server.Items
 		}
 
 		public virtual Rectangle2D Bounds { get { return ContainerData.Bounds; } }
-
-		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual int DefaultGumpID { get { return ContainerData.GumpID; } }
-
-		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual int DefaultDropSound { get { return ContainerData.DropSound; } }
 
 		public virtual int DefaultMaxItems { get { return m_GlobalMaxItems; } }
@@ -331,8 +255,7 @@ namespace Server.Items
 			to.SendLocalizedMessage(500176); // That is not your container, you can't store things here.
 		}
 
-        #region Enhance Client
-        public virtual bool OnDragDropInto(Mobile from, Item item, Point3D p, byte gridloc)
+		public virtual bool OnDragDropInto(Mobile from, Item item, Point3D p)
 		{
 			if (!CheckHold(from, item, true, true))
 			{
@@ -340,16 +263,14 @@ namespace Server.Items
 			}
 
 			item.Location = new Point3D(p.m_X, p.m_Y, 0);
-            item.SetGridLocation(gridloc, this);
 			AddItem(item);
 
 			from.SendSound(GetDroppedSound(item), GetWorldLocation());
 
 			return true;
 		}
-        #endregion
 
-        private class GroupComparer : IComparer
+		private class GroupComparer : IComparer
 		{
 			private readonly CheckItemGroup m_Grouper;
 
@@ -452,7 +373,7 @@ namespace Server.Items
 								callback(item, theirAmount);
 							}
 
-							item.Consume(theirAmount);
+							item.Delete();
 							need -= theirAmount;
 						}
 						else
@@ -571,7 +492,7 @@ namespace Server.Items
 									callback(item, theirAmount);
 								}
 
-								item.Consume(theirAmount);
+								item.Delete();
 								need -= theirAmount;
 							}
 							else
@@ -690,7 +611,7 @@ namespace Server.Items
 									callback(item, theirAmount);
 								}
 
-								item.Consume(theirAmount);
+								item.Delete();
 								need -= theirAmount;
 							}
 							else
@@ -765,7 +686,7 @@ namespace Server.Items
 							callback(item, theirAmount);
 						}
 
-						item.Consume(theirAmount);
+						item.Delete();
 						need -= theirAmount;
 					}
 					else
@@ -836,7 +757,7 @@ namespace Server.Items
 							callback(item, theirAmount);
 						}
 
-						item.Consume(theirAmount);
+						item.Delete();
 						need -= theirAmount;
 					}
 					else
@@ -896,7 +817,7 @@ namespace Server.Items
 							callback(item, theirAmount);
 						}
 
-						item.Consume(theirAmount);
+						item.Delete();
 						need -= theirAmount;
 					}
 					else
@@ -1695,13 +1616,17 @@ namespace Server.Items
 			m_TotalItems = 0;
 			m_TotalWeight = 0;
 
-			if (m_Items == null)
+			List<Item> items = m_Items;
+
+			if (items == null)
 			{
 				return;
 			}
 
-			foreach (Item item in m_Items)
+			for (int i = 0; i < items.Count; ++i)
 			{
+				Item item = items[i];
+
 				item.UpdateTotals();
 
 				if (item.IsVirtualItem)
@@ -1786,15 +1711,12 @@ namespace Server.Items
 
 		public virtual void DropItem(Item dropped)
 		{
-			if (dropped == null || dropped.Deleted)
+			if (dropped == null)
 			{
 				return;
-            }
-            #region Enhance Client
-            dropped.SetGridLocation(0, this);
-            #endregion
+			}
 
-            AddItem(dropped);
+			AddItem(dropped);
 
 			Rectangle2D bounds = dropped.GetGraphicBounds();
 			Rectangle2D ourBounds = Bounds;
@@ -1881,11 +1803,7 @@ namespace Server.Items
 
 			if (CheckContentDisplay(from))
 			{
-				LabelTo(from, "({0} item{1}, {2} stone{3})", 
-						TotalItems, 
-						TotalItems != 1 ? "s" : String.Empty, 
-						TotalWeight, 
-						TotalWeight != 1 ? "s" : String.Empty);
+				LabelTo(from, "({0} items, {1} stones)", TotalItems, TotalWeight);
 			}
 		}
 

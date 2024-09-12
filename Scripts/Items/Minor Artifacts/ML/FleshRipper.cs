@@ -9,7 +9,7 @@ namespace Server.Items
         {
             this.Hue = 0x341;
 
-            this.SkillBonuses.SetValues(0, SkillName.Anatomy, 10.0);
+            this.SkillBonuses.SetValues(0, SkillName.Anatomia, 10.0);
 
             this.Attributes.BonusStr = 5;
             this.Attributes.AttackChance = 15;

@@ -210,7 +210,7 @@ namespace Server.Items
         protected virtual void AddNetProperties(ObjectPropertyList list)
         {
             // as if the name wasn't enough..
-            list.Add(1017410); // Special Fishing Net
+            list.Add(1017410); // Special Rybactwo Net
         }
 
         protected virtual int GetSpawnCount()

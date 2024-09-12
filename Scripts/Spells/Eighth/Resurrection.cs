@@ -1,6 +1,7 @@
 using System;
 using Server.Gumps;
 using Server.Targeting;
+using Server.Mobiles;
 
 namespace Server.Spells.Eighth
 {
@@ -27,11 +28,26 @@ namespace Server.Spells.Eighth
         }
         public override bool CheckCast()
         {
+            //if (!base.CheckCast())
+            //    return false;
+
+            
+            // Magowie
+            if (this.Caster is PlayerMobile && (((PlayerMobile)this.Caster).Klasa != Klasa.Mag 
+            && ((PlayerMobile)this.Caster).Klasa != Klasa.Adept 
+            && ((PlayerMobile)this.Caster).Klasa != Klasa.Arcymag
+            && ((PlayerMobile)this.Caster).Klasa != Klasa.Czarnoksiê¿nik))
+            {   
+                this.Caster.SendMessage("Tylko magowie mog¹ u¿yæ tego czaru!"); // Only Elves may use this ability
+                return false;
+            }
+
             if (Engines.ConPVP.DuelContext.CheckSuddenDeath(this.Caster))
             {
                 this.Caster.SendMessage(0x22, "You cannot cast this spell when in sudden death.");
                 return false;
             }
+
 
             return base.CheckCast();
         }

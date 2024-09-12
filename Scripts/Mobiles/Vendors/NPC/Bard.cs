@@ -8,14 +8,14 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Bard()
-            : base("the bard")
+            : base("- Bard")
         {
-            this.SetSkill(SkillName.Discordance, 64.0, 100.0);
-            this.SetSkill(SkillName.Musicianship, 64.0, 100.0);
-            this.SetSkill(SkillName.Peacemaking, 65.0, 88.0);
-            this.SetSkill(SkillName.Provocation, 60.0, 83.0);
-            this.SetSkill(SkillName.Archery, 36.0, 68.0);
-            this.SetSkill(SkillName.Swords, 36.0, 68.0);
+            this.SetSkill(SkillName.Manipulacja, 64.0, 100.0);
+            this.SetSkill(SkillName.Muzykowanie, 64.0, 100.0);
+            this.SetSkill(SkillName.Uspokajanie, 65.0, 88.0);
+            this.SetSkill(SkillName.Prowokacja, 60.0, 83.0);
+            this.SetSkill(SkillName.Lucznictwo, 36.0, 68.0);
+            this.SetSkill(SkillName.WalkaMieczami, 36.0, 68.0);
         }
 
         public Bard(Serial serial)

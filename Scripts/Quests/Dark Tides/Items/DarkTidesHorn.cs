@@ -1,3 +1,4 @@
+using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Necro
@@ -7,8 +8,8 @@ namespace Server.Engines.Quests.Necro
         [Constructable]
         public DarkTidesHorn()
         {
-            DestLoc = new Point3D(2103, 1319, -68);
-            DestMap = Map.Malas;
+            this.DestLoc = new Point3D(2103, 1319, -68);
+            this.DestMap = Map.Malas;
         }
 
         public DarkTidesHorn(Serial serial)
@@ -18,7 +19,7 @@ namespace Server.Engines.Quests.Necro
 
         public override bool ValidateUse(Mobile from)
         {
-            var pm = from as PlayerMobile;
+            PlayerMobile pm = from as PlayerMobile;
 
             return (pm != null && pm.Quest is DarkTidesQuest);
         }
@@ -27,14 +28,14 @@ namespace Server.Engines.Quests.Necro
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

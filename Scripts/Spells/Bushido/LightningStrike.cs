@@ -1,7 +1,7 @@
 using System;
 using Server.Mobiles;
 
-namespace Server.Spells.Bushido
+namespace Server.Spells.Fanatyzm
 {
     public class LightningStrike : SamuraiMove
     {
@@ -62,7 +62,7 @@ namespace Server.Spells.Bushido
 
         public override bool IgnoreArmor(Mobile attacker)
         {
-            double bushido = attacker.Skills[SkillName.Bushido].Value;
+            double bushido = attacker.Skills[SkillName.Fanatyzm].Value;
             double criticalChance = (bushido * bushido) / 72000.0;
             return (criticalChance >= Utility.RandomDouble());
         }

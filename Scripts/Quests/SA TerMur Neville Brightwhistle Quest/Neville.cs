@@ -1,21 +1,3 @@
-/*                                                             .---.
-/  .  \
-|\_/|   |
-|   |  /|
-.----------------------------------------------------------------' |
-/  .-.                                                              |
-|  /   \         Contribute To The Orbsydia SA Project               |
-| |\_.  |                                                            |
-|\|  | /|                        By Lotar84                          |
-| `---' |                                                            |
-|       |       (Orbanised by Orb SA Core Development Team)          | 
-|       |                                                           /
-|       |----------------------------------------------------------'
-\       |
-\     /
-`---'
-*/
-
 using System;
 using Server.Items;
 
@@ -25,8 +7,9 @@ namespace Server.Engines.Quests
     {
         [Constructable]
         public Neville()
+            : base()
         {
-            Name = "Neville Brightwhistle";
+            this.Name = "Neville Brightwhistle";
         }
 
         public Neville(Serial serial)
@@ -36,25 +19,28 @@ namespace Server.Engines.Quests
 
         public override bool InitialInnocent
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool IsInvulnerable
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Type[] Quests
         {
             get
             {
-                return new[]
+                return new Type[] 
                 {
-                    typeof (EscortToDugan)
+                    typeof(EscortToDugan)
                 };
             }
         }
-
         public override bool CanBeDamaged()
         {
             return false;
@@ -62,37 +48,37 @@ namespace Server.Engines.Quests
 
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
+            this.InitStats(100, 100, 25);
 
-            Female = false;
-            Race = Race.Human;
+            this.Female = false;
+            this.Race = Race.Human;
 
-            Hue = 0x8412;
-            HairItemID = 0x2047;
-            HairHue = 0x465;
+            this.Hue = 0x8412;
+            this.HairItemID = 0x2047;
+            this.HairHue = 0x465;
         }
 
         public override void InitOutfit()
         {
-            AddItem(new Backpack());
-            AddItem(new Shoes(0x1BB));
-            AddItem(new LongPants(0x901));
-            AddItem(new Tunic(0x70A));
-            AddItem(new Cloak(0x675));
+            this.AddItem(new Backpack());
+            this.AddItem(new Shoes(0x1BB));
+            this.AddItem(new LongPants(0x901));
+            this.AddItem(new Tunic(0x70A));
+            this.AddItem(new Cloak(0x675));
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

@@ -9,16 +9,16 @@ namespace Server.Mobiles
         public Ninja()
             : base(AIType.AI_Melee, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            this.Title = "the ninja";
+            this.Title = "- Najemnik (skrytobójca)";
 
             this.InitStats(100, 100, 25);
 
-            this.SetSkill(SkillName.Fencing, 64.0, 80.0);
-            this.SetSkill(SkillName.Macing, 64.0, 80.0);
-            this.SetSkill(SkillName.Ninjitsu, 60.0, 80.0);
-            this.SetSkill(SkillName.Parry, 64.0, 80.0);
-            this.SetSkill(SkillName.Tactics, 64.0, 85.0);
-            this.SetSkill(SkillName.Swords, 64.0, 85.0);
+            this.SetSkill(SkillName.WalkaSzpadami, 64.0, 80.0);
+            this.SetSkill(SkillName.WalkaObuchami, 64.0, 80.0);
+            this.SetSkill(SkillName.Skrytobojstwo, 60.0, 80.0);
+            this.SetSkill(SkillName.Parowanie, 64.0, 80.0);
+            this.SetSkill(SkillName.Taktyka, 64.0, 85.0);
+            this.SetSkill(SkillName.WalkaMieczami, 64.0, 85.0);
 
             this.SpeechHue = Utility.RandomDyedHue();
 

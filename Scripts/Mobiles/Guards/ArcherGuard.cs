@@ -51,7 +51,7 @@ namespace Server.Mobiles
 
 			bow.Movable = false;
 			bow.Crafter = this;
-			bow.Quality = WeaponQuality.Exceptional;
+			bow.Quality = WeaponQuality.Doskona³;
 
 			AddItem(bow);
 
@@ -68,11 +68,11 @@ namespace Server.Mobiles
 
 			AddItem(pack);
 
-			Skills[SkillName.Anatomy].Base = 120.0;
-			Skills[SkillName.Tactics].Base = 120.0;
-			Skills[SkillName.Archery].Base = 120.0;
-			Skills[SkillName.MagicResist].Base = 120.0;
-			Skills[SkillName.DetectHidden].Base = 100.0;
+			Skills[SkillName.Anatomia].Base = 120.0;
+			Skills[SkillName.Taktyka].Base = 120.0;
+			Skills[SkillName.Lucznictwo].Base = 120.0;
+			Skills[SkillName.ObronaPrzedMagia].Base = 120.0;
+			Skills[SkillName.Wykrywanie].Base = 100.0;
 
 			NextCombatTime = Core.TickCount + 500;
 			Focus = target;
@@ -322,7 +322,7 @@ namespace Server.Mobiles
                 }
                 else
                 {
-                if ( !m_Owner.UseSkill( SkillName.DetectHidden ) && Utility.Random( 50 ) == 0 )
+                if ( !m_Owner.UseSkill( SkillName.Wykrywanie ) && Utility.Random( 50 ) == 0 )
                 m_Owner.Say( "Reveal!" );
                 }
                 }

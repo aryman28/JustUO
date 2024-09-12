@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <places>
 	<parent name="Felucca">
+		<parent name="Miejsce startowe">
+		
+			<child name="Miejsce startowe" x="5204" y="1177" z="22" />
+		</parent>
 		<parent name="Factions">
 			<parent name="Towns">
 				<child name="Britain" x="1592" y="1680" z="10" />
@@ -209,7 +213,7 @@
 			<parent name="Minoc">
 				<child name="Bridge" x="2539" y="501" z="30" />
 				<child name="Gypsy Camp" x="2540" y="651" z="0" />
-				<child name="Mining Camp" x="2583" y="528" z="15" />
+				<child name="Gornictwo Camp" x="2583" y="528" z="15" />
 				<child name="North" x="2475" y="417" z="15" />
 				<child name="South" x="2526" y="583" z="0" />
 			</parent>

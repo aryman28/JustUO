@@ -8,16 +8,16 @@ using Server.Network;
 
 namespace Server.Engines.Harvest
 {
-    public class Fishing : HarvestSystem
+    public class Rybactwo : HarvestSystem
     {
-        private static Fishing m_System;
+        private static Rybactwo m_System;
 
-        public static Fishing System
+        public static Rybactwo System
         {
             get
             {
                 if (m_System == null)
-                    m_System = new Fishing();
+                    m_System = new Rybactwo();
 
                 return m_System;
             }
@@ -33,12 +33,12 @@ namespace Server.Engines.Harvest
             }
         }
 
-        private Fishing()
+        private Rybactwo()
         {
             HarvestResource[] res;
             HarvestVein[] veins;
 
-            #region Fishing
+            #region Rybactwo
             HarvestDefinition fish = new HarvestDefinition();
 
             // Resource banks are every 8x8 tiles
@@ -53,8 +53,8 @@ namespace Server.Engines.Harvest
             fish.MinRespawn = TimeSpan.FromMinutes(10.0);
             fish.MaxRespawn = TimeSpan.FromMinutes(20.0);
 
-            // Skill checking is done on the Fishing skill
-            fish.Skill = SkillName.Fishing;
+            // Skill checking is done on the Rybactwo skill
+            fish.Skill = SkillName.Rybactwo;
 
             // Set the list of harvestable tiles
             fish.Tiles = m_WaterTiles;
@@ -211,8 +211,8 @@ namespace Server.Engines.Harvest
         {
             bool deepWater = SpecialFishingNet.FullValidation(map, loc.X, loc.Y);
 
-            double skillBase = from.Skills[SkillName.Fishing].Base;
-            double skillValue = from.Skills[SkillName.Fishing].Value;
+            double skillBase = from.Skills[SkillName.Rybactwo].Base;
+            double skillValue = from.Skills[SkillName.Rybactwo].Value;
 
             for (int i = 0; i < m_MutateTable.Length; ++i)
             {

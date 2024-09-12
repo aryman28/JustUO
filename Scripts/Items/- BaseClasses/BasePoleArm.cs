@@ -38,7 +38,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Swords;
+                return SkillName.WalkaMieczami;
             }
         }
         public override WeaponType DefType
@@ -59,7 +59,7 @@ namespace Server.Items
         {
             get
             {
-                return Lumberjacking.System;
+                return Drwalnictwo.System;
             }
         }
         [CommandProperty(AccessLevel.GameMaster)]
@@ -150,7 +150,7 @@ namespace Server.Items
         {
             base.OnHit(attacker, defender, damageBonus);
 
-            if (!Core.AOS && (attacker.Player || attacker.Body.IsHuman) && this.Layer == Layer.TwoHanded && (attacker.Skills[SkillName.Anatomy].Value / 400.0) >= Utility.RandomDouble() && Engines.ConPVP.DuelContext.AllowSpecialAbility(attacker, "Concussion Blow", false))
+            if (!Core.AOS && (attacker.Player || attacker.Body.IsHuman) && this.Layer == Layer.TwoHanded && (attacker.Skills[SkillName.Anatomia].Value / 400.0) >= Utility.RandomDouble() && Engines.ConPVP.DuelContext.AllowSpecialAbility(attacker, "Concussion Blow", false))
             {
                 StatMod mod = defender.GetStatMod("Concussion");
 

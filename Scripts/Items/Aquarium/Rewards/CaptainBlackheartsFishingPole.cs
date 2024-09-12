@@ -21,7 +21,7 @@ namespace Server.Items
             {
                 return 1074571;
             }
-        }// Captain Blackheart's Fishing Pole
+        }// Captain Blackheart's Rybactwo Pole
         public override void AddNameProperties(ObjectPropertyList list)
         {
             base.AddNameProperties(list);

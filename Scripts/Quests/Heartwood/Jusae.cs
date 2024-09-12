@@ -2,15 +2,15 @@ using System;
 using Server.Items;
 
 namespace Server.Engines.Quests
-{
+{ 
     public class Jusae : MondainQuester
-    {
+    { 
         [Constructable]
         public Jusae()
             : base("Jusae", "the bowcrafter")
-        {
-            SetSkill(SkillName.Meditation, 60.0, 83.0);
-            SetSkill(SkillName.Focus, 60.0, 83.0);
+        { 
+            this.SetSkill(SkillName.Medytacja, 60.0, 83.0);
+            this.SetSkill(SkillName.Logistyka, 60.0, 83.0);
         }
 
         public Jusae(Serial serial)
@@ -19,62 +19,61 @@ namespace Server.Engines.Quests
         }
 
         public override Type[] Quests
-        {
+        { 
             get
             {
-                return new[]
+                return new Type[] 
                 {
-                    typeof (LethalDartsQuest),
-                    typeof (SimpleBowQuest),
-                    typeof (IngeniousArcheryPartOneQuest),
-                    typeof (IngeniousArcheryPartTwoQuest),
-                    typeof (IngeniousArcheryPartThreeQuest),
-                    typeof (StopHarpingOnMeQuest)
+                    typeof(LethalDartsQuest),
+                    typeof(SimpleBowQuest),
+                    typeof(IngeniousArcheryPartOneQuest),
+                    typeof(IngeniousArcheryPartTwoQuest),
+                    typeof(IngeniousArcheryPartThreeQuest),
+                    typeof(StopHarpingOnMeQuest)
                 };
             }
         }
-
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
-
-            Female = false;
-            Race = Race.Elf;
-
-            Hue = 0x83E5;
-            HairItemID = 0x2FD0;
-            HairHue = 0x238;
+            this.InitStats(100, 100, 25);
+			
+            this.Female = false;
+            this.Race = Race.Elf;
+			
+            this.Hue = 0x83E5;
+            this.HairItemID = 0x2FD0;
+            this.HairHue = 0x238;
         }
 
         public override void InitOutfit()
         {
-            AddItem(new Sandals(0x901));
-            AddItem(new ShortPants(0x651));
-            AddItem(new MagicalShortbow());
-
+            this.AddItem(new Sandals(0x901));
+            this.AddItem(new ShortPants(0x651));
+            this.AddItem(new MagicalShortbow());
+			
             Item item;
-
+			
             item = new HideChest();
             item.Hue = 0x27B;
-            AddItem(item);
-
+            this.AddItem(item);
+			
             item = new HidePauldrons();
             item.Hue = 0x27E;
-            AddItem(item);
+            this.AddItem(item);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

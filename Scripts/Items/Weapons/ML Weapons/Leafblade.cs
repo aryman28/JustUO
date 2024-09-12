@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x2D22)
         {
             this.Weight = 8.0;
+            this.Name = "Lekkie ostrze";
         }
 
         public Leafblade(Serial serial)
@@ -105,7 +106,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Fencing;
+                return SkillName.WalkaSzpadami;
             }
         }
         public override int InitMinHits

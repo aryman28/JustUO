@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x143E)
         {
             this.Weight = 16.0;
+            this.Name = "Halabarda";
         }
 
         public Halberd(Serial serial)

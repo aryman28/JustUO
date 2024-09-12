@@ -114,7 +114,7 @@ namespace Server.Spells.Mystic
                 m.FixedParticles(0x3728, 1, 13, 9502, 1161, 7, (EffectLayer)255);
 
                 TimeSpan duration = TimeSpan.FromSeconds(((this.GetDamageSkill(this.Caster) - this.GetResistSkill(m)) / 8) + 8);
-                m.CheckSkill(SkillName.MagicResist, 0.0, 120.0);	//Skill check for gain
+                m.CheckSkill(SkillName.ObronaPrzedMagia, 0.0, 120.0);	//Skill check for gain
 
                 timer = new ExpireTimer(this.Caster, m, duration);
                 timer.Start();

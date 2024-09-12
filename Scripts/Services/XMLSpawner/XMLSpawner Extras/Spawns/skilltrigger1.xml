@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <Spawns>
   <Points>
-    <Name>Musicianship#1</Name>
+    <Name>Muzykowanie#1</Name>
     <UniqueId>de526238-6c51-47b8-8d09-59c8123915c9</UniqueId>
     <Map>Felucca</Map>
     <X>5439</X>
@@ -21,7 +21,7 @@
     <ProximityRange>5</ProximityRange>
     <ProximityTriggerSound>500</ProximityTriggerSound>
     <TriggerProbability>1</TriggerProbability>
-    <SkillTrigger>Musicianship</SkillTrigger>
+    <SkillTrigger>Muzykowanie</SkillTrigger>
     <InContainer>False</InContainer>
     <ContainerX>0</ContainerX>
     <ContainerY>0</ContainerY>

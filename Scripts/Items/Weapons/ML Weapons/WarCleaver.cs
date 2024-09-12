@@ -10,6 +10,8 @@ namespace Server.Items
             : base(0x2D2F)
         {
             this.Weight = 10.0;
+            this.Name = "Tasak bojowy";
+
         }
 
         public WarCleaver(Serial serial)
@@ -126,7 +128,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Fencing;
+                return SkillName.WalkaSzpadami;
             }
         }
         public override WeaponType DefType

@@ -11,6 +11,7 @@ namespace Server.Items
         {
             this.Weight = 7.0;
             this.Layer = Layer.TwoHanded;
+            this.Name = "Kusza";
         }
 
         public Crossbow(Serial serial)

@@ -42,7 +42,8 @@ namespace Server.Items
         Tavern,
         ThiefGuild,
         Tinker,
-        Veterinarian
+        Veterinarian,
+        Biblioteka
     }
 
     public abstract class FillableContainer : LockableContainer
@@ -410,6 +411,527 @@ namespace Server.Items
             return (5 - this.GetItemsCount());
         }
     }
+////Dodano
+    [Flipable(0xA97, 0xA99, 0xA98, 0xA9A, 0xA9B, 0xA9C)]
+    public class SzafkaBiblioteka : FillableContainer
+    {
+        [Constructable]
+        public SzafkaBiblioteka()
+            : base(0xA97)
+        {
+            this.Weight = 1.0;
+            this.Hue = 142;
+        }
+
+        public SzafkaBiblioteka(Serial serial)
+            : base(serial)
+        {
+        }
+
+        public override bool IsLockable
+        {
+            get
+            {
+                return false;
+            }
+        }
+        public override int SpawnThreshold
+        {
+            get
+            {
+                return 5;
+            }
+        }
+        public override void AcquireContent()
+        {
+            if (this.m_Content != null)
+                return;
+
+            this.m_Content = FillableContent.Biblioteka;
+
+            if (this.m_Content != null)
+                this.Respawn();
+        }
+////Dodano
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.WriteEncodedInt((int)1); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadEncodedInt();
+
+            if (version == 0 && this.m_Content == null)
+                Timer.DelayCall(TimeSpan.Zero, new TimerCallback(AcquireContent));
+        }
+
+        protected override int GetSpawnCount()
+        {
+            return (5 - this.GetItemsCount());
+        }
+    }
+    ////////////////// Dodano  Kodeksy//////////////////
+    [Flipable( 0xA97, 0xA99, 0xA98, 0xA9A, 0xA9B, 0xA9C )]
+	public class KodeksPaladynaBookcase : FillableContainer
+	{
+		public override bool IsLockable{ get{ return false; } }
+		public override int SpawnThreshold{ get{ return 5; } }
+
+		protected override int GetSpawnCount()
+		{
+			return ( 5 - GetItemsCount() );
+		}
+
+		public override void AcquireContent()
+		{
+			if ( m_Content != null )
+				return;
+
+			m_Content = FillableContent.PalX;
+
+			if ( m_Content != null )
+				Respawn();
+		}
+
+		[Constructable]
+		public KodeksPaladynaBookcase() : base( 0xA97 )
+		{
+			Weight = 1.0;
+                        Hue = 1150;
+		}
+
+		public KodeksPaladynaBookcase( Serial serial ) : base( serial )
+		{
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.WriteEncodedInt( (int) 1 ); // version
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			int version = reader.ReadEncodedInt();
+
+			if ( version == 0 && m_Content == null )
+				Timer.DelayCall( TimeSpan.Zero, new TimerCallback( AcquireContent ) );
+		}
+	}
+
+
+	[Flipable( 0xA97, 0xA99, 0xA98, 0xA9A, 0xA9B, 0xA9C )]
+	public class KodeksNekromantyBookcase : FillableContainer
+	{
+		public override bool IsLockable{ get{ return false; } }
+		public override int SpawnThreshold{ get{ return 5; } }
+
+		protected override int GetSpawnCount()
+		{
+			return ( 5 - GetItemsCount() );
+		}
+
+		public override void AcquireContent()
+		{
+			if ( m_Content != null )
+				return;
+
+			m_Content = FillableContent.NekroX;
+
+			if ( m_Content != null )
+				Respawn();
+		}
+
+		[Constructable]
+		public KodeksNekromantyBookcase() : base( 0xA97 )
+		{
+			Weight = 1.0;
+                        Hue = 1109;
+		}
+
+		public KodeksNekromantyBookcase( Serial serial ) : base( serial )
+		{
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.WriteEncodedInt( (int) 1 ); // version
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			int version = reader.ReadEncodedInt();
+
+			if ( version == 0 && m_Content == null )
+				Timer.DelayCall( TimeSpan.Zero, new TimerCallback( AcquireContent ) );
+		}
+	}
+
+	[Flipable( 0xA97, 0xA99, 0xA98, 0xA9A, 0xA9B, 0xA9C )]
+	public class KodeksMagaBookcase : FillableContainer
+	{
+		public override bool IsLockable{ get{ return false; } }
+		public override int SpawnThreshold{ get{ return 5; } }
+
+		protected override int GetSpawnCount()
+		{
+			return ( 5 - GetItemsCount() );
+		}
+
+		public override void AcquireContent()
+		{
+			if ( m_Content != null )
+				return;
+
+			m_Content = FillableContent.MagX;
+
+			if ( m_Content != null )
+				Respawn();
+		}
+
+		[Constructable]
+		public KodeksMagaBookcase() : base( 0xA97 )
+		{
+			Weight = 1.0;
+                        Hue = 142;
+		}
+
+		public KodeksMagaBookcase( Serial serial ) : base( serial )
+		{
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.WriteEncodedInt( (int) 1 ); // version
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			int version = reader.ReadEncodedInt();
+
+			if ( version == 0 && m_Content == null )
+				Timer.DelayCall( TimeSpan.Zero, new TimerCallback( AcquireContent ) );
+		}
+	}
+
+//////////////////////////////////////
+
+[Flipable( 0xE3D, 0xE3C )]
+public class FillableMineLargeCrate : FillableContainer
+	{
+		public override bool IsLockable{ get{ return false; } }
+		public override int SpawnThreshold{ get{ return 5; } }
+
+		protected override int GetSpawnCount()
+		{
+			return ( 5 - GetItemsCount() );
+		}
+
+		public override void AcquireContent()
+		{
+			if ( m_Content != null )
+				return;
+
+			m_Content = FillableContent.Mine;
+
+			if ( m_Content != null )
+				Respawn();
+		}
+
+		[Constructable]
+		public FillableMineLargeCrate() : base( 0xE3D )
+		{
+			Weight = 1.0;
+		}
+
+		public FillableMineLargeCrate( Serial serial ) : base( serial )
+		{
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.WriteEncodedInt( (int) 1 ); // version
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			int version = reader.ReadEncodedInt();
+
+			if ( version == 0 && m_Content == null )
+				Timer.DelayCall( TimeSpan.Zero, new TimerCallback( AcquireContent ) );
+		}
+	}
+
+[Flipable( 0xE3D, 0xE3C )]
+public class FillableDocksLargeCrate : FillableContainer
+	{
+		public override bool IsLockable{ get{ return false; } }
+		public override int SpawnThreshold{ get{ return 5; } }
+
+		protected override int GetSpawnCount()
+		{
+			return ( 5 - GetItemsCount() );
+		}
+
+		public override void AcquireContent()
+		{
+			if ( m_Content != null )
+				return;
+
+			m_Content = FillableContent.Docks;
+
+			if ( m_Content != null )
+				Respawn();
+		}
+
+		[Constructable]
+		public FillableDocksLargeCrate() : base( 0xE3D )
+		{
+			Weight = 1.0;
+		}
+
+		public FillableDocksLargeCrate( Serial serial ) : base( serial )
+		{
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.WriteEncodedInt( (int) 1 ); // version
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			int version = reader.ReadEncodedInt();
+
+			if ( version == 0 && m_Content == null )
+				Timer.DelayCall( TimeSpan.Zero, new TimerCallback( AcquireContent ) );
+		}
+	}
+
+[Flipable( 0xE3D, 0xE3C )]
+public class FillableCarpenterLargeCrate : FillableContainer
+	{
+		public override bool IsLockable{ get{ return false; } }
+		public override int SpawnThreshold{ get{ return 5; } }
+
+		protected override int GetSpawnCount()
+		{
+			return ( 5 - GetItemsCount() );
+		}
+
+		public override void AcquireContent()
+		{
+			if ( m_Content != null )
+				return;
+
+			m_Content = FillableContent.Carpenter;
+
+			if ( m_Content != null )
+				Respawn();
+		}
+
+		[Constructable]
+		public FillableCarpenterLargeCrate() : base( 0xE3D )
+		{
+			Weight = 1.0;
+		}
+
+		public FillableCarpenterLargeCrate( Serial serial ) : base( serial )
+		{
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.WriteEncodedInt( (int) 1 ); // version
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			int version = reader.ReadEncodedInt();
+
+			if ( version == 0 && m_Content == null )
+				Timer.DelayCall( TimeSpan.Zero, new TimerCallback( AcquireContent ) );
+		}
+	}
+
+[Flipable( 0x9A9, 0xE7E )]
+public class FillableTinkerSmallCrate : FillableContainer
+	{
+		public override bool IsLockable{ get{ return false; } }
+		public override int SpawnThreshold{ get{ return 5; } }
+
+		protected override int GetSpawnCount()
+		{
+			return ( 5 - GetItemsCount() );
+		}
+
+		public override void AcquireContent()
+		{
+			if ( m_Content != null )
+				return;
+
+			m_Content = FillableContent.Tinker;
+
+			if ( m_Content != null )
+				Respawn();
+		}
+
+		[Constructable]
+		public FillableTinkerSmallCrate() : base( 0x9A9 )
+		{
+			Weight = 1.0;
+		}
+
+		public FillableTinkerSmallCrate( Serial serial ) : base( serial )
+		{
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.WriteEncodedInt( (int) 1 ); // version
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			int version = reader.ReadEncodedInt();
+
+			if ( version == 0 && m_Content == null )
+				Timer.DelayCall( TimeSpan.Zero, new TimerCallback( AcquireContent ) );
+		}
+	}
+
+[Flipable( 0x9A9, 0xE7E )]
+public class FillableBowyerSmallCrate : FillableContainer
+	{
+		public override bool IsLockable{ get{ return false; } }
+		public override int SpawnThreshold{ get{ return 5; } }
+
+		protected override int GetSpawnCount()
+		{
+			return ( 5 - GetItemsCount() );
+		}
+
+		public override void AcquireContent()
+		{
+			if ( m_Content != null )
+				return;
+
+			m_Content = FillableContent.Bowyer;
+
+			if ( m_Content != null )
+				Respawn();
+		}
+
+		[Constructable]
+		public FillableBowyerSmallCrate() : base( 0x9A9 )
+		{
+			Weight = 1.0;
+		}
+
+		public FillableBowyerSmallCrate( Serial serial ) : base( serial )
+		{
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.WriteEncodedInt( (int) 1 ); // version
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			int version = reader.ReadEncodedInt();
+
+			if ( version == 0 && m_Content == null )
+				Timer.DelayCall( TimeSpan.Zero, new TimerCallback( AcquireContent ) );
+		}
+	}
+
+public class FillableMerchantBarrel : FillableContainer
+	{
+		public override bool IsLockable{ get{ return false; } }
+		public override int SpawnThreshold{ get{ return 5; } }
+
+		protected override int GetSpawnCount()
+		{
+			return ( 5 - GetItemsCount() );
+		}
+
+		public override void AcquireContent()
+		{
+			if ( m_Content != null )
+				return;
+
+			m_Content = FillableContent.Merchant;
+
+			if ( m_Content != null )
+				Respawn();
+		}
+
+		[Constructable]
+		public FillableMerchantBarrel() : base( 0xE77 )
+		{
+			Weight = 1.0;
+		}
+
+		public FillableMerchantBarrel( Serial serial ) : base( serial )
+		{
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.WriteEncodedInt( (int) 1 ); // version
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			int version = reader.ReadEncodedInt();
+
+			if ( version == 0 && m_Content == null )
+				Timer.DelayCall( TimeSpan.Zero, new TimerCallback( AcquireContent ) );
+		}
+	}
+
+////////////////////////////////////////
 
     [Flipable(0xE3D, 0xE3C)]
     public class FillableLargeCrate : FillableContainer
@@ -1132,6 +1654,55 @@ namespace Server.Items
                 new FillableEntry(1, typeof(RedBook)),
                 new FillableEntry(1, typeof(BlueBook))
             });
+////Dodano
+        public static FillableContent Biblioteka = new FillableContent(
+            1,
+          new Type[]
+          {
+            //typeof()
+          },
+          new FillableEntry[]
+          {
+            new FillableEntry( 1, typeof( KodeksMaga ) )
+          } );
+	////Na kodeksy////
+
+		public static FillableContent PalX = new FillableContent(
+			1,
+			new Type[]
+			{
+				//typeof()
+			},
+			new FillableEntry[]
+			{
+				new FillableEntry( 1, typeof( KodeksPaladyna ) )
+			} );
+
+		public static FillableContent NekroX = new FillableContent(
+			1,
+			new Type[]
+			{
+				//typeof()
+			},
+			new FillableEntry[]
+			{
+				new FillableEntry( 1, typeof( KodeksNekromanty ) )
+			} );
+
+		public static FillableContent MagX = new FillableContent(
+			1,
+			new Type[]
+			{
+				//typeof()
+			},
+			new FillableEntry[]
+			{
+				new FillableEntry( 1, typeof( KodeksMaga ) )
+			} );
+
+/////////////
+
+////Dodano
         public static FillableContent Mage = new FillableContent(
             2,
             new Type[]
@@ -1478,7 +2049,8 @@ namespace Server.Items
             Mill, Mine, Observatory,
             Painter, Ranger, Stables,
             Tanner, Tavern, ThiefGuild,
-            Tinker, Veterinarian
+            Tinker, Veterinarian,MagX,
+            PalX, NekroX
         };
         private static Hashtable m_AcquireTable;
         private readonly int m_Level;

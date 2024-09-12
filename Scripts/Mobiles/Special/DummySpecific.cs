@@ -26,10 +26,10 @@ namespace Server.Mobiles
 
             // Skills and Stats
             this.InitStats(125, 125, 90);
-            this.Skills[SkillName.Macing].Base = 120;
-            this.Skills[SkillName.Anatomy].Base = 120;
-            this.Skills[SkillName.Healing].Base = 120;
-            this.Skills[SkillName.Tactics].Base = 120;
+            this.Skills[SkillName.WalkaObuchami].Base = 120;
+            this.Skills[SkillName.Anatomia].Base = 120;
+            this.Skills[SkillName.Leczenie].Base = 120;
+            this.Skills[SkillName.Taktyka].Base = 120;
 
             // Name
             this.Name = "Macer";
@@ -38,7 +38,7 @@ namespace Server.Mobiles
             WarHammer war = new WarHammer();
             war.Movable = true;
             war.Crafter = this;
-            war.Quality = WeaponQuality.Regular;
+            war.Quality = WeaponQuality.Zwyk³;
             this.AddItem(war);
 
             Boots bts = new Boots();
@@ -49,21 +49,21 @@ namespace Server.Mobiles
             cht.Movable = false;
             cht.LootType = LootType.Newbied;
             cht.Crafter = this;
-            cht.Quality = ArmorQuality.Regular;
+            cht.Quality = ArmorQuality.None;
             this.AddItem(cht);
 
             ChainLegs chl = new ChainLegs();
             chl.Movable = false;
             chl.LootType = LootType.Newbied;
             chl.Crafter = this;
-            chl.Quality = ArmorQuality.Regular;
+            chl.Quality = ArmorQuality.None;
             this.AddItem(chl);
 
             PlateArms pla = new PlateArms();
             pla.Movable = false;
             pla.LootType = LootType.Newbied;
             pla.Crafter = this;
-            pla.Quality = ArmorQuality.Regular;
+            pla.Quality = ArmorQuality.None;
             this.AddItem(pla);
 
             Bandage band = new Bandage(50);
@@ -102,10 +102,10 @@ namespace Server.Mobiles
 
             // Skills and Stats
             this.InitStats(125, 125, 90);
-            this.Skills[SkillName.Fencing].Base = 120;
-            this.Skills[SkillName.Anatomy].Base = 120;
-            this.Skills[SkillName.Healing].Base = 120;
-            this.Skills[SkillName.Tactics].Base = 120;
+            this.Skills[SkillName.WalkaSzpadami].Base = 120;
+            this.Skills[SkillName.Anatomia].Base = 120;
+            this.Skills[SkillName.Leczenie].Base = 120;
+            this.Skills[SkillName.Taktyka].Base = 120;
 
             // Name
             this.Name = "Fencer";
@@ -114,7 +114,7 @@ namespace Server.Mobiles
             Spear ssp = new Spear();
             ssp.Movable = true;
             ssp.Crafter = this;
-            ssp.Quality = WeaponQuality.Regular;
+            ssp.Quality = WeaponQuality.Zwyk³;
             this.AddItem(ssp);
 
             Boots snd = new Boots();
@@ -126,21 +126,21 @@ namespace Server.Mobiles
             cht.Movable = false;
             cht.LootType = LootType.Newbied;
             cht.Crafter = this;
-            cht.Quality = ArmorQuality.Regular;
+            cht.Quality = ArmorQuality.None;
             this.AddItem(cht);
 
             ChainLegs chl = new ChainLegs();
             chl.Movable = false;
             chl.LootType = LootType.Newbied;
             chl.Crafter = this;
-            chl.Quality = ArmorQuality.Regular;
+            chl.Quality = ArmorQuality.None;
             this.AddItem(chl);
 
             PlateArms pla = new PlateArms();
             pla.Movable = false;
             pla.LootType = LootType.Newbied;
             pla.Crafter = this;
-            pla.Quality = ArmorQuality.Regular;
+            pla.Quality = ArmorQuality.None;
             this.AddItem(pla);
 
             Bandage band = new Bandage(50);
@@ -179,11 +179,11 @@ namespace Server.Mobiles
 
             // Skills and Stats
             this.InitStats(125, 125, 90);
-            this.Skills[SkillName.Swords].Base = 120;
-            this.Skills[SkillName.Anatomy].Base = 120;
-            this.Skills[SkillName.Healing].Base = 120;
-            this.Skills[SkillName.Tactics].Base = 120;
-            this.Skills[SkillName.Parry].Base = 120;
+            this.Skills[SkillName.WalkaMieczami].Base = 120;
+            this.Skills[SkillName.Anatomia].Base = 120;
+            this.Skills[SkillName.Leczenie].Base = 120;
+            this.Skills[SkillName.Taktyka].Base = 120;
+            this.Skills[SkillName.Parowanie].Base = 120;
 
             // Name
             this.Name = "Swordsman";
@@ -192,7 +192,7 @@ namespace Server.Mobiles
             Katana kat = new Katana();
             kat.Crafter = this;
             kat.Movable = true;
-            kat.Quality = WeaponQuality.Regular;
+            kat.Quality = WeaponQuality.Zwyk³;
             this.AddItem(kat);
 
             Boots bts = new Boots();
@@ -203,21 +203,21 @@ namespace Server.Mobiles
             cht.Movable = false;
             cht.LootType = LootType.Newbied;
             cht.Crafter = this;
-            cht.Quality = ArmorQuality.Regular;
+            cht.Quality = ArmorQuality.None;
             this.AddItem(cht);
 
             ChainLegs chl = new ChainLegs();
             chl.Movable = false;
             chl.LootType = LootType.Newbied;
             chl.Crafter = this;
-            chl.Quality = ArmorQuality.Regular;
+            chl.Quality = ArmorQuality.None;
             this.AddItem(chl);
 
             PlateArms pla = new PlateArms();
             pla.Movable = false;
             pla.LootType = LootType.Newbied;
             pla.Crafter = this;
-            pla.Quality = ArmorQuality.Regular;
+            pla.Quality = ArmorQuality.None;
             this.AddItem(pla);
 
             Bandage band = new Bandage(50);
@@ -256,12 +256,12 @@ namespace Server.Mobiles
 
             // Skills and Stats
             this.InitStats(90, 90, 125);
-            this.Skills[SkillName.Magery].Base = 120;
-            this.Skills[SkillName.EvalInt].Base = 120;
-            this.Skills[SkillName.Inscribe].Base = 100;
-            this.Skills[SkillName.Wrestling].Base = 120;
-            this.Skills[SkillName.Meditation].Base = 120;
-            this.Skills[SkillName.Poisoning].Base = 100;
+            this.Skills[SkillName.Magia].Base = 120;
+            this.Skills[SkillName.Intelekt].Base = 120;
+            this.Skills[SkillName.Inskrypcja].Base = 100;
+            this.Skills[SkillName.Boks].Base = 120;
+            this.Skills[SkillName.Medytacja].Base = 120;
+            this.Skills[SkillName.Zatruwanie].Base = 100;
 
             // Name
             this.Name = "Nox Mage";
@@ -326,12 +326,12 @@ namespace Server.Mobiles
 
             // Skills and Stats
             this.InitStats(90, 90, 125);
-            this.Skills[SkillName.Magery].Base = 100;
-            this.Skills[SkillName.EvalInt].Base = 120;
-            this.Skills[SkillName.Anatomy].Base = 80;
-            this.Skills[SkillName.Wrestling].Base = 80;
-            this.Skills[SkillName.Meditation].Base = 100;
-            this.Skills[SkillName.Poisoning].Base = 100;
+            this.Skills[SkillName.Magia].Base = 100;
+            this.Skills[SkillName.Intelekt].Base = 120;
+            this.Skills[SkillName.Anatomia].Base = 80;
+            this.Skills[SkillName.Boks].Base = 80;
+            this.Skills[SkillName.Medytacja].Base = 100;
+            this.Skills[SkillName.Zatruwanie].Base = 100;
 
             // Name
             this.Name = "Stun Mage";
@@ -347,28 +347,28 @@ namespace Server.Mobiles
             lea.Movable = false;
             lea.LootType = LootType.Newbied;
             lea.Crafter = this;
-            lea.Quality = ArmorQuality.Regular;
+            lea.Quality = ArmorQuality.None;
             this.AddItem(lea);
 
             LeatherChest lec = new LeatherChest();
             lec.Movable = false;
             lec.LootType = LootType.Newbied;
             lec.Crafter = this;
-            lec.Quality = ArmorQuality.Regular;
+            lec.Quality = ArmorQuality.None;
             this.AddItem(lec);
 
             LeatherGorget leg = new LeatherGorget();
             leg.Movable = false;
             leg.LootType = LootType.Newbied;
             leg.Crafter = this;
-            leg.Quality = ArmorQuality.Regular;
+            leg.Quality = ArmorQuality.None;
             this.AddItem(leg);
 
             LeatherLegs lel = new LeatherLegs();
             lel.Movable = false;
             lel.LootType = LootType.Newbied;
             lel.Crafter = this;
-            lel.Quality = ArmorQuality.Regular;
+            lel.Quality = ArmorQuality.None;
             this.AddItem(lel);
 
             Boots bts = new Boots();
@@ -419,13 +419,13 @@ namespace Server.Mobiles
 
             // Skills and Stats
             this.InitStats(125, 125, 125);
-            this.Skills[SkillName.Magery].Base = 120;
-            this.Skills[SkillName.EvalInt].Base = 120;
-            this.Skills[SkillName.Anatomy].Base = 120;
-            this.Skills[SkillName.Wrestling].Base = 120;
-            this.Skills[SkillName.Meditation].Base = 120;
-            this.Skills[SkillName.Poisoning].Base = 100;
-            this.Skills[SkillName.Inscribe].Base = 100;
+            this.Skills[SkillName.Magia].Base = 120;
+            this.Skills[SkillName.Intelekt].Base = 120;
+            this.Skills[SkillName.Anatomia].Base = 120;
+            this.Skills[SkillName.Boks].Base = 120;
+            this.Skills[SkillName.Medytacja].Base = 120;
+            this.Skills[SkillName.Zatruwanie].Base = 100;
+            this.Skills[SkillName.Inskrypcja].Base = 100;
 
             // Name
             this.Name = "Super Mage";
@@ -441,28 +441,28 @@ namespace Server.Mobiles
             lea.Movable = false;
             lea.LootType = LootType.Newbied;
             lea.Crafter = this;
-            lea.Quality = ArmorQuality.Regular;
+            lea.Quality = ArmorQuality.None;
             this.AddItem(lea);
 
             LeatherChest lec = new LeatherChest();
             lec.Movable = false;
             lec.LootType = LootType.Newbied;
             lec.Crafter = this;
-            lec.Quality = ArmorQuality.Regular;
+            lec.Quality = ArmorQuality.None;
             this.AddItem(lec);
 
             LeatherGorget leg = new LeatherGorget();
             leg.Movable = false;
             leg.LootType = LootType.Newbied;
             leg.Crafter = this;
-            leg.Quality = ArmorQuality.Regular;
+            leg.Quality = ArmorQuality.None;
             this.AddItem(leg);
 
             LeatherLegs lel = new LeatherLegs();
             lel.Movable = false;
             lel.LootType = LootType.Newbied;
             lel.Crafter = this;
-            lel.Quality = ArmorQuality.Regular;
+            lel.Quality = ArmorQuality.None;
             this.AddItem(lel);
 
             Sandals snd = new Sandals();
@@ -518,12 +518,12 @@ namespace Server.Mobiles
 
             // Skills and Stats
             this.InitStats(125, 125, 125);
-            this.Skills[SkillName.Magery].Base = 120;
-            this.Skills[SkillName.EvalInt].Base = 120;
-            this.Skills[SkillName.Anatomy].Base = 120;
-            this.Skills[SkillName.Wrestling].Base = 120;
-            this.Skills[SkillName.Meditation].Base = 120;
-            this.Skills[SkillName.Healing].Base = 100;
+            this.Skills[SkillName.Magia].Base = 120;
+            this.Skills[SkillName.Intelekt].Base = 120;
+            this.Skills[SkillName.Anatomia].Base = 120;
+            this.Skills[SkillName.Boks].Base = 120;
+            this.Skills[SkillName.Medytacja].Base = 120;
+            this.Skills[SkillName.Leczenie].Base = 100;
 
             // Name
             this.Name = "Healer";
@@ -539,28 +539,28 @@ namespace Server.Mobiles
             lea.Movable = false;
             lea.LootType = LootType.Newbied;
             lea.Crafter = this;
-            lea.Quality = ArmorQuality.Regular;
+            lea.Quality = ArmorQuality.None;
             this.AddItem(lea);
 
             LeatherChest lec = new LeatherChest();
             lec.Movable = false;
             lec.LootType = LootType.Newbied;
             lec.Crafter = this;
-            lec.Quality = ArmorQuality.Regular;
+            lec.Quality = ArmorQuality.None;
             this.AddItem(lec);
 
             LeatherGorget leg = new LeatherGorget();
             leg.Movable = false;
             leg.LootType = LootType.Newbied;
             leg.Crafter = this;
-            leg.Quality = ArmorQuality.Regular;
+            leg.Quality = ArmorQuality.None;
             this.AddItem(leg);
 
             LeatherLegs lel = new LeatherLegs();
             lel.Movable = false;
             lel.LootType = LootType.Newbied;
             lel.Crafter = this;
-            lel.Quality = ArmorQuality.Regular;
+            lel.Quality = ArmorQuality.None;
             this.AddItem(lel);
 
             Sandals snd = new Sandals();
@@ -609,12 +609,12 @@ namespace Server.Mobiles
 
             // Skills and Stats
             this.InitStats(105, 105, 105);
-            this.Skills[SkillName.Magery].Base = 120;
-            this.Skills[SkillName.EvalInt].Base = 120;
-            this.Skills[SkillName.Swords].Base = 120;
-            this.Skills[SkillName.Tactics].Base = 120;
-            this.Skills[SkillName.Meditation].Base = 120;
-            this.Skills[SkillName.Poisoning].Base = 100;
+            this.Skills[SkillName.Magia].Base = 120;
+            this.Skills[SkillName.Intelekt].Base = 120;
+            this.Skills[SkillName.WalkaMieczami].Base = 120;
+            this.Skills[SkillName.Taktyka].Base = 120;
+            this.Skills[SkillName.Medytacja].Base = 120;
+            this.Skills[SkillName.Zatruwanie].Base = 100;
 
             // Name
             this.Name = "Hybrid Assassin";
@@ -632,35 +632,35 @@ namespace Server.Mobiles
             kat.Crafter = this;
             kat.Poison = Poison.Deadly;
             kat.PoisonCharges = 12;
-            kat.Quality = WeaponQuality.Regular;
+            kat.Quality = WeaponQuality.Zwyk³;
             this.AddToBackpack(kat);
 
             LeatherArms lea = new LeatherArms();
             lea.Movable = false;
             lea.LootType = LootType.Newbied;
             lea.Crafter = this;
-            lea.Quality = ArmorQuality.Regular;
+            lea.Quality = ArmorQuality.None;
             this.AddItem(lea);
 
             LeatherChest lec = new LeatherChest();
             lec.Movable = false;
             lec.LootType = LootType.Newbied;
             lec.Crafter = this;
-            lec.Quality = ArmorQuality.Regular;
+            lec.Quality = ArmorQuality.None;
             this.AddItem(lec);
 
             LeatherGorget leg = new LeatherGorget();
             leg.Movable = false;
             leg.LootType = LootType.Newbied;
             leg.Crafter = this;
-            leg.Quality = ArmorQuality.Regular;
+            leg.Quality = ArmorQuality.None;
             this.AddItem(leg);
 
             LeatherLegs lel = new LeatherLegs();
             lel.Movable = false;
             lel.LootType = LootType.Newbied;
             lel.Crafter = this;
-            lel.Quality = ArmorQuality.Regular;
+            lel.Quality = ArmorQuality.None;
             this.AddItem(lel);
 
             Sandals snd = new Sandals();
@@ -729,12 +729,12 @@ namespace Server.Mobiles
 
             // Skills and Stats
             this.InitStats(105, 105, 105);
-            this.Skills[SkillName.Healing].Base = 120;
-            this.Skills[SkillName.Anatomy].Base = 120;
-            this.Skills[SkillName.Stealing].Base = 120;
-            this.Skills[SkillName.ArmsLore].Base = 100;
-            this.Skills[SkillName.Meditation].Base = 120;
-            this.Skills[SkillName.Wrestling].Base = 120;
+            this.Skills[SkillName.Leczenie].Base = 120;
+            this.Skills[SkillName.Anatomia].Base = 120;
+            this.Skills[SkillName.Okradanie].Base = 120;
+            this.Skills[SkillName.WiedzaOUzbrojeniu].Base = 100;
+            this.Skills[SkillName.Medytacja].Base = 120;
+            this.Skills[SkillName.Boks].Base = 120;
 
             // Name
             this.Name = "Hybrid Thief";
@@ -750,28 +750,28 @@ namespace Server.Mobiles
             lea.Movable = false;
             lea.LootType = LootType.Newbied;
             lea.Crafter = this;
-            lea.Quality = ArmorQuality.Regular;
+            lea.Quality = ArmorQuality.None;
             this.AddItem(lea);
 
             LeatherChest lec = new LeatherChest();
             lec.Movable = false;
             lec.LootType = LootType.Newbied;
             lec.Crafter = this;
-            lec.Quality = ArmorQuality.Regular;
+            lec.Quality = ArmorQuality.None;
             this.AddItem(lec);
 
             LeatherGorget leg = new LeatherGorget();
             leg.Movable = false;
             leg.LootType = LootType.Newbied;
             leg.Crafter = this;
-            leg.Quality = ArmorQuality.Regular;
+            leg.Quality = ArmorQuality.None;
             this.AddItem(leg);
 
             LeatherLegs lel = new LeatherLegs();
             lel.Movable = false;
             lel.LootType = LootType.Newbied;
             lel.Crafter = this;
-            lel.Quality = ArmorQuality.Regular;
+            lel.Quality = ArmorQuality.None;
             this.AddItem(lel);
 
             Sandals snd = new Sandals();

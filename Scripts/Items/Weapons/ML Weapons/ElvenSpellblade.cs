@@ -11,6 +11,7 @@ namespace Server.Items
         {
             this.Weight = 5.0;
             this.Layer = Layer.TwoHanded;
+            this.Name = "Elfie magiczne ostrze";
         }
 
         public ElvenSpellblade(Serial serial)
@@ -22,7 +23,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Fencing;
+                return SkillName.WalkaSzpadami;
             }
         }
 	

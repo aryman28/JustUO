@@ -559,6 +559,7 @@ namespace Server.Items
             : base(0x230E, hue)
         {
             this.Weight = 3.0;
+            this.Name = "Gildyjna szata";
         }
 
         public GildedDress(Serial serial)
@@ -595,6 +596,7 @@ namespace Server.Items
             : base(0x1F00, hue)
         {
             this.Weight = 3.0;
+            this.Name = "Zdobiona suknia";
         }
 
         public FancyDress(Serial serial)
@@ -808,7 +810,7 @@ namespace Server.Items
             }
         }
 
-		public override void OnAdded(IEntity parent)
+        public override void OnAdded(object parent)
         {
             base.OnAdded(parent);
 
@@ -816,7 +818,7 @@ namespace Server.Items
                 ((Mobile)parent).VirtualArmorMod += 2;
         }
 
-		public override void OnRemoved(IEntity parent)
+        public override void OnRemoved(object parent)
         {
             base.OnRemoved(parent);
 
@@ -956,7 +958,7 @@ namespace Server.Items
             }
         }
 
-		public override void OnAdded(IEntity parent)
+        public override void OnAdded(object parent)
         {
             base.OnAdded(parent);
 
@@ -964,7 +966,7 @@ namespace Server.Items
                 ((Mobile)parent).VirtualArmorMod += 2;
         }
 
-		public override void OnRemoved(IEntity parent)
+        public override void OnRemoved(object parent)
         {
             base.OnRemoved(parent);
 
@@ -1145,6 +1147,7 @@ namespace Server.Items
             : base(0x1F03, hue)
         {
             this.Weight = 3.0;
+            this.Name = "Szata";
         }
 
         public Robe(Serial serial)
@@ -1265,6 +1268,7 @@ namespace Server.Items
             : base(0x1F01, hue)
         {
             this.Weight = 2.0;
+            this.Name = "Szata mnicha";
         }
 
         public PlainDress(Serial serial)
@@ -1472,6 +1476,7 @@ namespace Server.Items
             : base(0x2FB9, hue)
         {
             this.Weight = 2.0;
+            this.Name = "Elfia mêska szata";
         }
 
         public MaleElvenRobe(Serial serial)
@@ -1515,6 +1520,7 @@ namespace Server.Items
             : base(0x2FBA, hue)
         {
             this.Weight = 2.0;
+            this.Name = "Elfia damska szata";
         }
 
         public override bool AllowMaleWearer

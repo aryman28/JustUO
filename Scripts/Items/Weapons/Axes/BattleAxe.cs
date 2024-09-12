@@ -11,6 +11,7 @@ namespace Server.Items
         {
             this.Weight = 4.0;
             this.Layer = Layer.TwoHanded;
+            this.Name = "Topor bojowy";
         }
 
         public BattleAxe(Serial serial)

@@ -39,6 +39,7 @@ namespace Server
 			FileMode dwCreationDisposition,
 			int dwFlagsAndAttributes,
 			IntPtr hTemplateFile);
+
 #endif
 
 		private static int bufferSize = 1 * MB;

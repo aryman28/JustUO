@@ -8,7 +8,7 @@ namespace Server.Items
         public LunaLance()
         {
             this.Hue = 0x47E;
-            this.SkillBonuses.SetValues(0, SkillName.Chivalry, 10.0);
+            this.SkillBonuses.SetValues(0, SkillName.Rycerstwo, 10.0);
             this.Attributes.BonusStr = 5;
             this.Attributes.WeaponSpeed = 20;
             this.Attributes.WeaponDamage = 35;

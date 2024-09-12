@@ -42,12 +42,12 @@ namespace Server.Mobiles
                         {
                             int whichone = Utility.Random(3);
 
-                            if (this.m_Mobile.Skills[SkillName.Mysticism].Value > 80.0 && whichone > 0)
+                            if (this.m_Mobile.Skills[SkillName.Mistycyzm].Value > 80.0 && whichone > 0)
                             {
                                 this.m_Mobile.DebugSay("Casting Rising Colossus");
                                 spell = new RisingColossusSpell(this.m_Mobile, null);
                             }
-                            else if (this.m_Mobile.Skills[SkillName.Mysticism].Value > 30.0)
+                            else if (this.m_Mobile.Skills[SkillName.Mistycyzm].Value > 30.0)
                             {
                                 this.m_Mobile.DebugSay("Casting Animated Weapon");
                                 spell = new AnimatedWeaponSpell(this.m_Mobile, null);
@@ -61,7 +61,7 @@ namespace Server.Mobiles
                     }
                 case 3:
                     {
-                        if (this.m_CanShapeShift && this.m_Mobile.Skills[SkillName.Mysticism].Value > 30.0)
+                        if (this.m_CanShapeShift && this.m_Mobile.Skills[SkillName.Mistycyzm].Value > 30.0)
                         {
                             this.m_Mobile.DebugSay("Casting Stone Form");
                             spell = new StoneFormSpell(this.m_Mobile, null);
@@ -73,7 +73,7 @@ namespace Server.Mobiles
                 case 4:
                 case 5:
                     {
-                        if (SpellPlagueSpell.GetSpellPlague(this.m_Mobile.Combatant) == null && this.m_Mobile.Skills[SkillName.Mysticism].Value > 70.0)
+                        if (SpellPlagueSpell.GetSpellPlague(this.m_Mobile.Combatant) == null && this.m_Mobile.Skills[SkillName.Mistycyzm].Value > 70.0)
                         {
                             this.m_Mobile.DebugSay("Casting Spell Plague");
                             spell = new SpellPlagueSpell(this.m_Mobile, null);
@@ -85,7 +85,7 @@ namespace Server.Mobiles
                 case 6:
                 case 7:
                     {
-                        switch( Utility.Random((int)(this.m_Mobile.Skills[SkillName.Mysticism].Value / 20)) )
+                        switch( Utility.Random((int)(this.m_Mobile.Skills[SkillName.Mistycyzm].Value / 20)) )
                         {
                             default:
                                 spell = new NetherBoltSpell(this.m_Mobile, null);

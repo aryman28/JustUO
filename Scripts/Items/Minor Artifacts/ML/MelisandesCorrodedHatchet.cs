@@ -9,7 +9,7 @@ namespace Server.Items
         {
             this.Hue = 0x494;
 
-            this.SkillBonuses.SetValues(0, SkillName.Lumberjacking, 5.0);
+            this.SkillBonuses.SetValues(0, SkillName.Drwalnictwo, 5.0);
 
             this.Attributes.SpellChanneling = 1;
             this.Attributes.WeaponSpeed = 15;

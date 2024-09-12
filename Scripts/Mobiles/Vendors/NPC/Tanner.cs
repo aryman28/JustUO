@@ -8,9 +8,9 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Tanner()
-            : base("the tanner")
+            : base("- Garbarz")
         {
-            this.SetSkill(SkillName.Tailoring, 36.0, 68.0);
+            this.SetSkill(SkillName.Krawiectwo, 36.0, 68.0);
         }
 
         public Tanner(Serial serial)

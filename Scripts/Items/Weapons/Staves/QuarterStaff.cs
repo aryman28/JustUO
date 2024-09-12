@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0xE89)
         {
             this.Weight = 4.0;
+            this.Name = "Prosty kij";
         }
 
         public QuarterStaff(Serial serial)

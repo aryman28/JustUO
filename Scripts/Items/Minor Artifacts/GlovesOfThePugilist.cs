@@ -8,7 +8,7 @@ namespace Server.Items
         public GlovesOfThePugilist()
         {
             this.Hue = 0x6D1;
-            this.SkillBonuses.SetValues(0, SkillName.Wrestling, 10.0);
+            this.SkillBonuses.SetValues(0, SkillName.Boks, 10.0);
             this.Attributes.BonusDex = 8;
             this.Attributes.WeaponDamage = 15;
         }

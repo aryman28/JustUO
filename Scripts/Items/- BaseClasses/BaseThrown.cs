@@ -79,7 +79,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Throwing;
+                return SkillName.Rzucanie;
             }
         }
         //public override WeaponType DefType{ get{ return WeaponType.Ranged; } }
@@ -94,7 +94,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Throwing;
+                return SkillName.Rzucanie;
             }
         }
         public override TimeSpan OnSwing(Mobile attacker, Mobile defender)

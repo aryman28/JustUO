@@ -11,10 +11,10 @@ namespace Server.Mobiles
         {
             this.InitStats(31, 41, 51);
 
-            this.SetSkill(SkillName.Healing, 36, 68);
+            this.SetSkill(SkillName.Leczenie, 36, 68);
 
             this.SpeechHue = Utility.RandomDyedHue();
-            this.Title = "the artist";
+            this.Title = "- Artysta";
             this.Hue = Utility.RandomSkinHue();
 
             if (this.Female = Utility.RandomBool())

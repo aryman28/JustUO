@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x1405)
         {
             this.Weight = 9.0;
+            this.Name = "Krótkie widły bojowe";
         }
 
         public WarFork(Serial serial)

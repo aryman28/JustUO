@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Server.SkillHandlers;
 
-namespace Server.Spells.Ninjitsu
+namespace Server.Spells.Skrytobojstwo
 {
     public class SurpriseAttack : NinjaMove
     {
@@ -67,8 +67,8 @@ namespace Server.Spells.Ninjitsu
 
             if (valid)
             {
-                attacker.BeginAction(typeof(Stealth));
-                Timer.DelayCall(TimeSpan.FromSeconds(5.0), delegate { attacker.EndAction(typeof(Stealth)); });
+                attacker.BeginAction(typeof(Zakradanie));
+                Timer.DelayCall(TimeSpan.FromSeconds(5.0), delegate { attacker.EndAction(typeof(Zakradanie)); });
             }
 
             return valid;
@@ -98,9 +98,9 @@ namespace Server.Spells.Ninjitsu
                 m_Table.Remove(defender);
             }
 
-            int ninjitsu = attacker.Skills[SkillName.Ninjitsu].Fixed;
+            int ninjitsu = attacker.Skills[SkillName.Skrytobojstwo].Fixed;
 
-            int malus = ninjitsu / 60 + (int)Tracking.GetStalkingBonus(attacker, defender);
+            int malus = ninjitsu / 60 + (int)Tropienie.GetStalkingBonus(attacker, defender);
 
             info = new SurpriseAttackInfo(defender, malus);
             info.m_Timer = Timer.DelayCall(TimeSpan.FromSeconds(8.0), new TimerStateCallback(EndSurprise), info);

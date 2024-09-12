@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -32,18 +33,18 @@ namespace Server.Mobiles
             SetResistance(ResistanceType.Poison, 30, 40);
             SetResistance(ResistanceType.Energy, 30, 40);
 
-            SetSkill(SkillName.EvalInt, 20.1, 30.0);
-            SetSkill(SkillName.Magery, 90.1, 100.0);
-            SetSkill(SkillName.MagicResist, 30.1, 50.0);
-            SetSkill(SkillName.Tactics, 42.1, 50.0);
-            SetSkill(SkillName.Wrestling, 40.1, 44.0);
+            SetSkill(SkillName.Intelekt, 20.1, 30.0);
+            SetSkill(SkillName.Magia, 90.1, 100.0);
+            SetSkill(SkillName.ObronaPrzedMagia, 30.1, 50.0);
+            SetSkill(SkillName.Taktyka, 42.1, 50.0);
+            SetSkill(SkillName.Boks, 40.1, 44.0);
 
             Fame = 2500;
             Karma = -2500;
 
-            VirtualArmor = 50;
-
             QLPoints = 10;
+
+            VirtualArmor = 50;
         }
 
         public Anzuanord(Serial serial)
@@ -53,39 +54,53 @@ namespace Server.Mobiles
 
         public override bool AlwaysMurderer
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool BardImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override int Hides
         {
-            get { return 7; }
+            get
+            {
+                return 7;
+            }
         }
-
         public override HideType HideType
         {
-            get { return HideType.Spined; }
+            get
+            {
+                return HideType.Spined;
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.Meat; }
+            get
+            {
+                return FoodType.Meat;
+            }
         }
-
         public override PackInstinct PackInstinct
         {
-            get { return PackInstinct.Daemon; }
+            get
+            {
+                return PackInstinct.Daemon;
+            }
         }
-
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Meager);
@@ -103,13 +118,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

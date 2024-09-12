@@ -11,11 +11,11 @@ using Server.XMLConfiguration;
 
 namespace Server.SkillHandlers
 {
-	public class Peacemaking
+	public class Uspokajanie
 	{
 		public static void Initialize()
 		{
-			SkillInfo.Table[(int)SkillName.Peacemaking].Callback = OnUse;
+			SkillInfo.Table[(int)SkillName.Uspokajanie].Callback = OnUse;
 		}
 
 		public static TimeSpan OnUse(Mobile m)
@@ -41,7 +41,7 @@ namespace Server.SkillHandlers
 			private bool m_SetSkillTime = true;
 
 			public InternalTarget(Mobile from, BaseInstrument instrument)
-				: base(BaseInstrument.GetBardRange(from, SkillName.Peacemaking), false, TargetFlags.None)
+				: base(BaseInstrument.GetBardRange(from, SkillName.Uspokajanie), false, TargetFlags.None)
 			{
 				m_Instrument = instrument;
 			}
@@ -88,7 +88,7 @@ namespace Server.SkillHandlers
 							m_Instrument.PlayInstrumentBadly(from);
 							m_Instrument.ConsumeUse(from);
 						}
-						else if (!from.CheckSkill(SkillName.Peacemaking, 0.0, 120.0))
+						else if (!from.CheckSkill(SkillName.Uspokajanie, 0.0, 120.0))
 						{
 							from.SendLocalizedMessage(500613); // You attempt to calm everyone, but fail.
 							m_Instrument.PlayInstrumentBadly(from);
@@ -104,7 +104,7 @@ namespace Server.SkillHandlers
 
 							if (map != null)
 							{
-								int range = BaseInstrument.GetBardRange(from, SkillName.Peacemaking);
+								int range = BaseInstrument.GetBardRange(from, SkillName.Uspokajanie);
 
 								bool calmed = false;
 
@@ -169,7 +169,7 @@ namespace Server.SkillHandlers
 						else
 						{
 							double diff = m_Instrument.GetDifficultyFor(targ) - 10.0;
-							double music = from.Skills[SkillName.Musicianship].Value;
+							double music = from.Skills[SkillName.Muzykowanie].Value;
 
                             if (XmlConfig.XmlMobFactionsEnabled)
                                 diff += XmlMobFactions.GetScaledFaction(from, targ, -25, 25, -0.001);
@@ -179,7 +179,7 @@ namespace Server.SkillHandlers
 								diff -= (music - 100.0) * 0.5;
 							}
 
-							if (!from.CheckTargetSkill(SkillName.Peacemaking, targ, diff - 25.0, diff + 25.0))
+							if (!from.CheckTargetSkill(SkillName.Uspokajanie, targ, diff - 25.0, diff + 25.0))
 							{
 								from.SendLocalizedMessage(1049531); // You attempt to calm your target, but fail.
 								m_Instrument.PlayInstrumentBadly(from);

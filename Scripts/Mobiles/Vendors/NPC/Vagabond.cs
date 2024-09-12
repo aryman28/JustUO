@@ -12,9 +12,9 @@ namespace Server.Mobiles
 
 		[Constructable]
 		public Vagabond()
-			: base("the vagabond")
+			: base("- W³óczêga")
 		{
-			SetSkill(SkillName.ItemID, 60.0, 83.0);
+			SetSkill(SkillName.Identyfikacja, 60.0, 83.0);
 		}
 
 		public Vagabond(Serial serial)

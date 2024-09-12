@@ -6,10 +6,10 @@ namespace Server.Mobiles
     {
         [Constructable]
         public MerchantGuildmaster()
-            : base("merchant")
+            : base("- Mistrz Gildii Kupiectwa")
         {
-            this.SetSkill(SkillName.ItemID, 85.0, 100.0);
-            this.SetSkill(SkillName.ArmsLore, 85.0, 100.0);
+            this.SetSkill(SkillName.Identyfikacja, 120.0, 150.0);
+            this.SetSkill(SkillName.WiedzaOUzbrojeniu, 120.0, 150.0);
         }
 
         public MerchantGuildmaster(Serial serial)

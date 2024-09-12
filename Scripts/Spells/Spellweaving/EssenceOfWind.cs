@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Server.Spells.Spellweaving
+namespace Server.Spells.Druidyzm
 {
     public class EssenceOfWindSpell : ArcanistSpell
     {
@@ -75,7 +75,7 @@ namespace Server.Spells.Spellweaving
                 int range = 5 + this.FocusLevel;
 
 
-                double skill = this.Caster.Skills[SkillName.Spellweaving].Value;
+                double skill = this.Caster.Skills[SkillName.Druidyzm].Value;
 
                 double damage = 10 + this.FocusLevel + (((skill / 24) > 1) ? (skill / 240) : 1);
 

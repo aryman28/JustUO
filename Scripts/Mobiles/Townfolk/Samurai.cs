@@ -9,14 +9,14 @@ namespace Server.Mobiles
         public Samurai()
             : base(AIType.AI_Melee, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            this.Title = "the samurai";
+            //this.Title = "- Wojownik (fanatyk)";
 
             this.InitStats(100, 100, 25);
 
-            this.SetSkill(SkillName.ArmsLore, 64.0, 80.0);
-            this.SetSkill(SkillName.Bushido, 64.0, 85.0);
-            this.SetSkill(SkillName.Parry, 64.0, 80.0);
-            this.SetSkill(SkillName.Swords, 64.0, 85.0);
+            this.SetSkill(SkillName.WiedzaOUzbrojeniu, 64.0, 80.0);
+            this.SetSkill(SkillName.Fanatyzm, 64.0, 85.0);
+            this.SetSkill(SkillName.Parowanie, 64.0, 80.0);
+            this.SetSkill(SkillName.WalkaMieczami, 64.0, 85.0);
 
             this.SpeechHue = Utility.RandomDyedHue();
 
@@ -26,11 +26,13 @@ namespace Server.Mobiles
             {
                 this.Body = 0x191;
                 this.Name = NameList.RandomName("female");
+                this.Title = "- Wojowniczka (fanatyk)";
             }
             else
             {
                 this.Body = 0x190;
                 this.Name = NameList.RandomName("male");
+                this.Title = "- Wojownik (fanatyk)";
             }
 
             switch ( Utility.Random(3) )

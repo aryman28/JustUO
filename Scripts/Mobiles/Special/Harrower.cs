@@ -70,12 +70,12 @@ namespace Server.Mobiles
             this.SetResistance(ResistanceType.Poison, 60, 80);
             this.SetResistance(ResistanceType.Energy, 60, 80);
 
-            this.SetSkill(SkillName.Wrestling, 90.1, 100.0);
-            this.SetSkill(SkillName.Tactics, 90.2, 110.0);
-            this.SetSkill(SkillName.MagicResist, 120.2, 160.0);
-            this.SetSkill(SkillName.Magery, 120.0);
-            this.SetSkill(SkillName.EvalInt, 120.0);
-            this.SetSkill(SkillName.Meditation, 120.0);
+            this.SetSkill(SkillName.Boks, 90.1, 100.0);
+            this.SetSkill(SkillName.Taktyka, 90.2, 110.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 120.2, 160.0);
+            this.SetSkill(SkillName.Magia, 120.0);
+            this.SetSkill(SkillName.Intelekt, 120.0);
+            this.SetSkill(SkillName.Medytacja, 120.0);
 
             this.m_Tentacles = new List<HarrowerTentacles>();
 

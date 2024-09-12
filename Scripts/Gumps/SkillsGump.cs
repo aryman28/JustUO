@@ -424,82 +424,82 @@ namespace Server.Gumps
         {
             new SkillsGumpGroup("Crafting", new SkillName[]
             {
-                SkillName.Alchemy,
-                SkillName.Blacksmith,
-                SkillName.Cartography,
-                SkillName.Carpentry,
-                SkillName.Cooking,
-                SkillName.Fletching,
-                SkillName.Inscribe,
-                SkillName.Tailoring,
-                SkillName.Tinkering,
-                SkillName.Imbuing
+                SkillName.Alchemia,
+                SkillName.Kowalstwo,
+                SkillName.Kartografia,
+                SkillName.Stolarstwo,
+                SkillName.Gotowanie,
+                SkillName.Lukmistrzostwo,
+                SkillName.Inskrypcja,
+                SkillName.Krawiectwo,
+                SkillName.Majsterkowanie,
+                SkillName.Umagicznianie
             }),
             new SkillsGumpGroup("Bardic", new SkillName[]
             {
-                SkillName.Discordance,
-                SkillName.Musicianship,
-                SkillName.Peacemaking,
-                SkillName.Provocation
+                SkillName.Manipulacja,
+                SkillName.Muzykowanie,
+                SkillName.Uspokajanie,
+                SkillName.Prowokacja
             }),
             new SkillsGumpGroup("Magical", new SkillName[]
             {
-                SkillName.Chivalry,
-                SkillName.EvalInt,
-                SkillName.Magery,
-                SkillName.MagicResist,
-                SkillName.Meditation,
-                SkillName.Necromancy,
-                SkillName.SpiritSpeak,
-                SkillName.Ninjitsu,
-                SkillName.Bushido,
-                SkillName.Spellweaving,
-                SkillName.Mysticism
+                SkillName.Rycerstwo,
+                SkillName.Intelekt,
+                SkillName.Magia,
+                SkillName.ObronaPrzedMagia,
+                SkillName.Medytacja,
+                SkillName.Nekromancja,
+                SkillName.MowaDuchow,
+                SkillName.Skrytobojstwo,
+                SkillName.Fanatyzm,
+                SkillName.Druidyzm,
+                SkillName.Mistycyzm
             }),
             new SkillsGumpGroup("Miscellaneous", new SkillName[]
             {
-                SkillName.Camping,
-                SkillName.Fishing,
-                SkillName.Focus,
-                SkillName.Healing,
-                SkillName.Herding,
-                SkillName.Lockpicking,
-                SkillName.Lumberjacking,
-                SkillName.Mining,
-                SkillName.Snooping,
-                SkillName.Veterinary
+                SkillName.Obozowanie,
+                SkillName.Rybactwo,
+                SkillName.Logistyka,
+                SkillName.Leczenie,
+                SkillName.Zielarstwo,
+                SkillName.Wlamywanie,
+                SkillName.Drwalnictwo,
+                SkillName.Gornictwo,
+                SkillName.Zagladanie,
+                SkillName.Weterynaria
             }),
             new SkillsGumpGroup("Combat Ratings", new SkillName[]
             {
-                SkillName.Archery,
-                SkillName.Fencing,
-                SkillName.Macing,
-                SkillName.Parry,
-                SkillName.Swords,
-                SkillName.Tactics,
-                SkillName.Wrestling,
-                SkillName.Throwing
+                SkillName.Lucznictwo,
+                SkillName.WalkaSzpadami,
+                SkillName.WalkaObuchami,
+                SkillName.Parowanie,
+                SkillName.WalkaMieczami,
+                SkillName.Taktyka,
+                SkillName.Boks,
+                SkillName.Rzucanie
             }),
             new SkillsGumpGroup("Actions", new SkillName[]
             {
-                SkillName.AnimalTaming,
-                SkillName.Begging,
-                SkillName.DetectHidden,
-                SkillName.Hiding,
-                SkillName.RemoveTrap,
-                SkillName.Poisoning,
-                SkillName.Stealing,
-                SkillName.Stealth,
-                SkillName.Tracking
+                SkillName.Oswajanie,
+                SkillName.Rolnictwo,
+                SkillName.Wykrywanie,
+                SkillName.Ukrywanie,
+                SkillName.UsuwaniePulapek,
+                SkillName.Zatruwanie,
+                SkillName.Okradanie,
+                SkillName.Zakradanie,
+                SkillName.Tropienie
             }),
             new SkillsGumpGroup("Lore & Knowledge", new SkillName[]
             {
-                SkillName.Anatomy,
-                SkillName.AnimalLore,
-                SkillName.ArmsLore,
-                SkillName.Forensics,
-                SkillName.ItemID,
-                SkillName.TasteID
+                SkillName.Anatomia,
+                SkillName.WiedzaOBestiach,
+                SkillName.WiedzaOUzbrojeniu,
+                SkillName.Kryminalistyka,
+                SkillName.Identyfikacja,
+                SkillName.OcenaSmaku
             })
         };
         private readonly string m_Name;

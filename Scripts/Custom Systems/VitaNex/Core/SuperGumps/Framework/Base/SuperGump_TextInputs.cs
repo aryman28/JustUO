@@ -17,8 +17,6 @@ using System.Linq;
 using Server.Gumps;
 #endregion
 
-#pragma warning disable 109
-
 namespace VitaNex.SuperGumps
 {
 	public abstract partial class SuperGump
@@ -85,7 +83,7 @@ namespace VitaNex.SuperGumps
 			return (input != null);
 		}
 
-		public new GumpTextEntry GetTextEntry(int inputID)
+		public GumpTextEntry GetTextEntry(int inputID)
 		{
 			return TextInputs.Keys.FirstOrDefault(input => input.EntryID == inputID);
 		}

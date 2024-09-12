@@ -14,7 +14,7 @@ namespace Server.Items
             this.Attributes.BonusHits = 5;
             this.Attributes.RegenHits = 1;
 
-            this.SkillBonuses.SetValues(0, SkillName.Parry, 5);
+            this.SkillBonuses.SetValues(0, SkillName.Parowanie, 5);
         }
 
         public DupresShield(Serial serial)

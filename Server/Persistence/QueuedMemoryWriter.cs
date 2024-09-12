@@ -72,7 +72,6 @@ namespace Server
 					int serial = info.serial;
 					int length = info.size;
 					*/
-
 					indexBuffer[0] = (byte)(info.typeCode);
 					indexBuffer[1] = (byte)(info.typeCode >> 8);
 					indexBuffer[2] = (byte)(info.typeCode >> 16);

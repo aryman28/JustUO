@@ -10,8 +10,8 @@ namespace Server.Factions
         public FactionBottleVendor(Town town, Faction faction)
             : base(town, faction, "the Bottle Seller")
         {
-            this.SetSkill(SkillName.Alchemy, 85.0, 100.0);
-            this.SetSkill(SkillName.TasteID, 65.0, 88.0);
+            this.SetSkill(SkillName.Alchemia, 85.0, 100.0);
+            this.SetSkill(SkillName.OcenaSmaku, 65.0, 88.0);
         }
 
         public FactionBottleVendor(Serial serial)

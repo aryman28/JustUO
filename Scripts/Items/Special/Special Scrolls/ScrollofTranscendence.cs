@@ -41,7 +41,7 @@ namespace Server.Items
         }
 
         public ScrollofTranscendence()
-            : this(SkillName.Alchemy, 0.0)
+            : this(SkillName.Alchemia, 0.0)
         {
         }
 		

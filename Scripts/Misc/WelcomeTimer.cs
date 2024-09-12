@@ -21,8 +21,8 @@ namespace Server.Misc
             "A bag of PowerScrolls has been placed in your bank box."
         } : new string[]
             { //Yes, this message is a pathetic message, It's suggested that you change it.
-                "Welcome to this shard.",
-                "Please enjoy your stay."
+                //"Welcome to this shard.",
+                "Witaj na Serwerze UO Born In Mortality!"
             });
         private readonly Mobile m_Mobile;
         private readonly int m_Count;

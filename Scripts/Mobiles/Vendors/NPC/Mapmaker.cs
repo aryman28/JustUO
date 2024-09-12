@@ -8,9 +8,9 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Mapmaker()
-            : base("the mapmaker")
+            : base("- Kartograf")
         {
-            this.SetSkill(SkillName.Cartography, 90.0, 100.0);
+            this.SetSkill(SkillName.Kartografia, 90.0, 100.0);
         }
 
         public Mapmaker(Serial serial)

@@ -248,8 +248,8 @@ namespace Server.Items
 
 						a.BeingRepaired = true;
 
-						double smithskill = from.Skills[SkillName.Blacksmith].Value;
-						double carpentryskill = from.Skills[SkillName.Carpentry].Value;
+						double smithskill = from.Skills[SkillName.Kowalstwo].Value;
+						double carpentryskill = from.Skills[SkillName.Stolarstwo].Value;
 
 						double timepenalty = 1;
 						if (a.Hits == 0)

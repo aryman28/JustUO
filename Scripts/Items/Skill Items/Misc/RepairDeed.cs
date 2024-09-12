@@ -55,10 +55,10 @@ namespace Server.Items
         public enum RepairSkillType
         {
             Smithing,
-            Tailoring,
-            Tinkering,
-            Carpentry,
-            Fletching
+            Krawiectwo,
+            Majsterkowanie,
+            Stolarstwo,
+            Lukmistrzostwo
         }
         public override bool DisplayLootType
         {

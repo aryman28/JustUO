@@ -272,7 +272,7 @@ namespace Server.Items
                 if (this.m_From == null)
                     return;
 
-                int alchemySkill = this.m_From.Skills.Alchemy.Fixed;
+                int alchemySkill = this.m_From.Skills.Alchemia.Fixed;
                 int alchemyBonus = alchemySkill / 125 + alchemySkill / 250 ;
 
                 this.m_MinDamage = Scale(this.m_From, this.m_MinDamage + alchemyBonus);

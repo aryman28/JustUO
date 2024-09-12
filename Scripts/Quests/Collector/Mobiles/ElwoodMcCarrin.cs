@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -18,107 +19,107 @@ namespace Server.Engines.Quests.Collector
 
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
+            this.InitStats(100, 100, 25);
 
-            Hue = 0x83ED;
+            this.Hue = 0x83ED;
 
-            Female = false;
-            Body = 0x190;
-            Name = "Elwood McCarrin";
+            this.Female = false;
+            this.Body = 0x190;
+            this.Name = "Elwood McCarrin";
         }
 
         public override void InitOutfit()
         {
-            AddItem(new FancyShirt());
-            AddItem(new LongPants(0x544));
-            AddItem(new Shoes(0x454));
-            AddItem(new JesterHat(0x4D2));
-            AddItem(new FullApron(0x4D2));
+            this.AddItem(new FancyShirt());
+            this.AddItem(new LongPants(0x544));
+            this.AddItem(new Shoes(0x454));
+            this.AddItem(new JesterHat(0x4D2));
+            this.AddItem(new FullApron(0x4D2));
 
-            HairItemID = 0x203D; // Pony Tail
-            HairHue = 0x47D;
+            this.HairItemID = 0x203D; // Pony Tail
+            this.HairHue = 0x47D;
 
-            FacialHairItemID = 0x2040; // Goatee
-            FacialHairHue = 0x47D;
+            this.FacialHairItemID = 0x2040; // Goatee
+            this.FacialHairHue = 0x47D;
         }
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
         {
-            Direction = GetDirectionTo(player);
+            this.Direction = this.GetDirectionTo(player);
 
-            var qs = player.Quest;
+            QuestSystem qs = player.Quest;
 
             if (qs is CollectorQuest)
             {
-                if (qs.IsObjectiveInProgress(typeof (FishPearlsObjective)))
+                if (qs.IsObjectiveInProgress(typeof(FishPearlsObjective)))
                 {
                     qs.AddConversation(new ElwoodDuringFishConversation());
                 }
                 else
                 {
-                    var obj = qs.FindObjective(typeof (ReturnPearlsObjective));
+                    QuestObjective obj = qs.FindObjective(typeof(ReturnPearlsObjective));
 
                     if (obj != null && !obj.Completed)
                     {
                         obj.Complete();
                     }
-                    else if (qs.IsObjectiveInProgress(typeof (FindAlbertaObjective)))
+                    else if (qs.IsObjectiveInProgress(typeof(FindAlbertaObjective)))
                     {
                         qs.AddConversation(new ElwoodDuringPainting1Conversation());
                     }
-                    else if (qs.IsObjectiveInProgress(typeof (SitOnTheStoolObjective)))
+                    else if (qs.IsObjectiveInProgress(typeof(SitOnTheStoolObjective)))
                     {
                         qs.AddConversation(new ElwoodDuringPainting2Conversation());
                     }
                     else
                     {
-                        obj = qs.FindObjective(typeof (ReturnPaintingObjective));
+                        obj = qs.FindObjective(typeof(ReturnPaintingObjective));
 
                         if (obj != null && !obj.Completed)
                         {
                             obj.Complete();
                         }
-                        else if (qs.IsObjectiveInProgress(typeof (FindGabrielObjective)))
+                        else if (qs.IsObjectiveInProgress(typeof(FindGabrielObjective)))
                         {
                             qs.AddConversation(new ElwoodDuringAutograph1Conversation());
                         }
-                        else if (qs.IsObjectiveInProgress(typeof (FindSheetMusicObjective)))
+                        else if (qs.IsObjectiveInProgress(typeof(FindSheetMusicObjective)))
                         {
                             qs.AddConversation(new ElwoodDuringAutograph2Conversation());
                         }
-                        else if (qs.IsObjectiveInProgress(typeof (ReturnSheetMusicObjective)))
+                        else if (qs.IsObjectiveInProgress(typeof(ReturnSheetMusicObjective)))
                         {
                             qs.AddConversation(new ElwoodDuringAutograph3Conversation());
                         }
                         else
                         {
-                            obj = qs.FindObjective(typeof (ReturnAutographObjective));
+                            obj = qs.FindObjective(typeof(ReturnAutographObjective));
 
                             if (obj != null && !obj.Completed)
                             {
                                 obj.Complete();
                             }
-                            else if (qs.IsObjectiveInProgress(typeof (FindTomasObjective)))
+                            else if (qs.IsObjectiveInProgress(typeof(FindTomasObjective)))
                             {
                                 qs.AddConversation(new ElwoodDuringToys1Conversation());
                             }
-                            else if (qs.IsObjectiveInProgress(typeof (CaptureImagesObjective)))
+                            else if (qs.IsObjectiveInProgress(typeof(CaptureImagesObjective)))
                             {
                                 qs.AddConversation(new ElwoodDuringToys2Conversation());
                             }
-                            else if (qs.IsObjectiveInProgress(typeof (ReturnImagesObjective)))
+                            else if (qs.IsObjectiveInProgress(typeof(ReturnImagesObjective)))
                             {
                                 qs.AddConversation(new ElwoodDuringToys3Conversation());
                             }
                             else
                             {
-                                obj = qs.FindObjective(typeof (ReturnToysObjective));
+                                obj = qs.FindObjective(typeof(ReturnToysObjective));
 
                                 if (obj != null && !obj.Completed)
                                 {
                                     obj.Complete();
 
-                                    if (GiveReward(player))
+                                    if (this.GiveReward(player))
                                     {
                                         qs.AddConversation(new EndConversation());
                                     }
@@ -129,11 +130,11 @@ namespace Server.Engines.Quests.Collector
                                 }
                                 else
                                 {
-                                    obj = qs.FindObjective(typeof (MakeRoomObjective));
+                                    obj = qs.FindObjective(typeof(MakeRoomObjective));
 
                                     if (obj != null && !obj.Completed)
                                     {
-                                        if (GiveReward(player))
+                                        if (this.GiveReward(player))
                                         {
                                             obj.Complete();
                                             qs.AddConversation(new EndConversation());
@@ -153,7 +154,7 @@ namespace Server.Engines.Quests.Collector
             {
                 QuestSystem newQuest = new CollectorQuest(player);
 
-                if (qs == null && QuestSystem.CanOfferQuest(player, typeof (CollectorQuest)))
+                if (qs == null && QuestSystem.CanOfferQuest(player, typeof(CollectorQuest)))
                 {
                     newQuest.SendOffer();
                 }
@@ -166,13 +167,13 @@ namespace Server.Engines.Quests.Collector
 
         public bool GiveReward(Mobile to)
         {
-            var bag = new Bag();
+            Bag bag = new Bag();
 
             bag.DropItem(new Gold(Utility.RandomMinMax(500, 1000)));
 
             if (Utility.RandomBool())
             {
-                var weapon = Loot.RandomWeapon();
+                BaseWeapon weapon = Loot.RandomWeapon();
 
                 if (Core.AOS)
                 {
@@ -180,9 +181,9 @@ namespace Server.Engines.Quests.Collector
                 }
                 else
                 {
-                    weapon.DamageLevel = (WeaponDamageLevel) RandomMinMaxScaled(2, 3);
-                    weapon.AccuracyLevel = (WeaponAccuracyLevel) RandomMinMaxScaled(2, 3);
-                    weapon.DurabilityLevel = (WeaponDurabilityLevel) RandomMinMaxScaled(2, 3);
+                    weapon.DamageLevel = (WeaponDamageLevel)BaseCreature.RandomMinMaxScaled(2, 3);
+                    weapon.AccuracyLevel = (WeaponAccuracyLevel)BaseCreature.RandomMinMaxScaled(2, 3);
+                    weapon.DurabilityLevel = (WeaponDurabilityLevel)BaseCreature.RandomMinMaxScaled(2, 3);
                 }
 
                 bag.DropItem(weapon);
@@ -196,17 +197,17 @@ namespace Server.Engines.Quests.Collector
                     item = Loot.RandomArmorOrShieldOrJewelry();
 
                     if (item is BaseArmor)
-                        BaseRunicTool.ApplyAttributesTo((BaseArmor) item, 2, 20, 30);
+                        BaseRunicTool.ApplyAttributesTo((BaseArmor)item, 2, 20, 30);
                     else if (item is BaseJewel)
-                        BaseRunicTool.ApplyAttributesTo((BaseJewel) item, 2, 20, 30);
+                        BaseRunicTool.ApplyAttributesTo((BaseJewel)item, 2, 20, 30);
                 }
                 else
                 {
-                    var armor = Loot.RandomArmorOrShield();
+                    BaseArmor armor = Loot.RandomArmorOrShield();
                     item = armor;
 
-                    armor.ProtectionLevel = (ArmorProtectionLevel) RandomMinMaxScaled(2, 3);
-                    armor.Durability = (ArmorDurabilityLevel) RandomMinMaxScaled(2, 3);
+                    armor.ProtectionLevel = (ArmorProtectionLevel)BaseCreature.RandomMinMaxScaled(2, 3);
+                    armor.Durability = (ArmorDurabilityLevel)BaseCreature.RandomMinMaxScaled(2, 3);
                 }
 
                 bag.DropItem(item);
@@ -218,22 +219,25 @@ namespace Server.Engines.Quests.Collector
             {
                 return true;
             }
-            bag.Delete();
-            return false;
+            else
+            {
+                bag.Delete();
+                return false;
+            }
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Server.Items
         {
             this.Weight = 9.0;
             this.Layer = Layer.OneHanded;
+            this.Name = "Młot bojowy";
         }
 
         public HammerPick(Serial serial)

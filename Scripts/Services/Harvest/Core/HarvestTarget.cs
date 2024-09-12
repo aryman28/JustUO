@@ -22,7 +22,7 @@ namespace Server.Engines.Harvest
 
         protected override void OnTarget(Mobile from, object targeted)
         {
-            if (this.m_System is Mining && targeted is StaticTarget)
+            if (this.m_System is Gornictwo && targeted is StaticTarget)
             {
                 int itemID = ((StaticTarget)targeted).ItemID;
 
@@ -51,9 +51,9 @@ namespace Server.Engines.Harvest
                 }
             }
 
-            if (this.m_System is Lumberjacking && targeted is IChopable)
+            if (this.m_System is Drwalnictwo && targeted is IChopable)
                 ((IChopable)targeted).OnChop(from);
-            else if (this.m_System is Lumberjacking && targeted is IAxe && this.m_Tool is BaseAxe)
+            else if (this.m_System is Drwalnictwo && targeted is IAxe && this.m_Tool is BaseAxe)
             {
                 IAxe obj = (IAxe)targeted;
                 Item item = (Item)targeted;
@@ -63,11 +63,11 @@ namespace Server.Engines.Harvest
                 else if (obj.Axe(from, (BaseAxe)this.m_Tool))
                     from.PlaySound(0x13E);
             }
-            else if (this.m_System is Lumberjacking && targeted is ICarvable)
+            else if (this.m_System is Drwalnictwo && targeted is ICarvable)
                 ((ICarvable)targeted).Carve(from, (Item)this.m_Tool);
-            else if (this.m_System is Lumberjacking && FurnitureAttribute.Check(targeted as Item))
+            else if (this.m_System is Drwalnictwo && FurnitureAttribute.Check(targeted as Item))
                 this.DestroyFurniture(from, (Item)targeted);
-            else if (this.m_System is Mining && targeted is TreasureMap)
+            else if (this.m_System is Gornictwo && targeted is TreasureMap)
                 ((TreasureMap)targeted).OnBeginDig(from);
             else
                 this.m_System.StartHarvesting(from, this.m_Tool, targeted);

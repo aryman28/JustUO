@@ -1,3 +1,4 @@
+using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Ninja
@@ -8,7 +9,7 @@ namespace Server.Engines.Quests.Ninja
         public EminosKatana()
             : base(0x13FF)
         {
-            Weight = 1.0;
+            this.Weight = 1.0;
         }
 
         public EminosKatana(Serial serial)
@@ -18,12 +19,14 @@ namespace Server.Engines.Quests.Ninja
 
         public override int LabelNumber
         {
-            get { return 1063214; }
-        } // Daimyo Emino's Katana
-
+            get
+            {
+                return 1063214;
+            }
+        }// Daimyo Emino's Katana
         public override bool CanDrop(PlayerMobile player)
         {
-            var qs = player.Quest as EminosUndertakingQuest;
+            EminosUndertakingQuest qs = player.Quest as EminosUndertakingQuest;
 
             if (qs == null)
                 return true;
@@ -45,7 +48,7 @@ namespace Server.Engines.Quests.Ninja
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
         }
     }
 }

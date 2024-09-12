@@ -58,7 +58,7 @@ namespace Server.Spells.Third
                     {
                         if (this.Caster.InRange(m, 2))
                         {
-                            int total = (this.Caster.Skills.Magery.Fixed + this.Caster.Skills.Poisoning.Fixed) / 2;
+                            int total = (this.Caster.Skills.Magia.Fixed + this.Caster.Skills.Zatruwanie.Fixed) / 2;
 
                             if (total >= 1000)
                                 level = 3;
@@ -76,25 +76,25 @@ namespace Server.Spells.Third
                     }
                     else
                     {
-                        //double total = Caster.Skills[SkillName.Magery].Value + Caster.Skills[SkillName.Poisoning].Value;
+                        //double total = Caster.Skills[SkillName.Magia].Value + Caster.Skills[SkillName.Zatruwanie].Value;
                         #region Dueling
-                        double total = this.Caster.Skills[SkillName.Magery].Value;
+                        double total = this.Caster.Skills[SkillName.Magia].Value;
 
                         if (this.Caster is Mobiles.PlayerMobile)
                         {
                             Mobiles.PlayerMobile pm = (Mobiles.PlayerMobile)this.Caster;
 
-                            if (pm.DuelContext != null && pm.DuelContext.Started && !pm.DuelContext.Finished && !pm.DuelContext.Ruleset.GetOption("Skills", "Poisoning"))
+                            if (pm.DuelContext != null && pm.DuelContext.Started && !pm.DuelContext.Finished && !pm.DuelContext.Ruleset.GetOption("Skills", "Zatruwanie"))
                             {
                             }
                             else
                             {
-                                total += this.Caster.Skills[SkillName.Poisoning].Value;
+                                total += this.Caster.Skills[SkillName.Zatruwanie].Value;
                             }
                         }
                         else
                         {
-                            total += this.Caster.Skills[SkillName.Poisoning].Value;
+                            total += this.Caster.Skills[SkillName.Zatruwanie].Value;
                         }
                         #endregion
 

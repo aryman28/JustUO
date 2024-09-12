@@ -115,7 +115,7 @@
 -arms: 1475 3865 0 Call to Arms
 +scenic: 768 1284 3 campfire
 -carpenter: 3642 2504 2 Carpenters of Haven
--carpenter: 5691 3209 0 The Carpentry House
+-carpenter: 5691 3209 0 The Stolarstwo House
 -tavern: 1427 1716 0 The Cat's Lair
 -cavalry guild: 1578 1558 0 Cavalry Guild
 +dungeon: 314 1329 3 cave passage
@@ -199,7 +199,7 @@
 -point of interest: 3715 1383 0 Debtor's Prison
 +dungeon: 4111 429 0 Deceit
 -exit: 5188 638 0 Deceit
--healer: 647 1087 0 Deep Forest Healing
+-healer: 647 1087 0 Deep Forest Leczenie
 +town: 5227 3978 0 Delucia
 -stable: 5297 4007 0 Delucia Stable
 -tailor: 5234 4025 0 Delucia Tailor
@@ -286,7 +286,7 @@
 -tinker: 2899 790 0 The Gadget's Corner
 -tinker: 1404 3805 0 Gadgets and Things
 -point of interest: 3633 2597 2 Garden with Waterfall
-+landmark: 946 427 3 Gargoyle Mining Camp
++landmark: 946 427 3 Gargoyle Gornictwo Camp
 +teleporter: 2618 980 0 gate to Buccaneer's Den
 +teleporter: 2728 2133 0 gate to mainland
 -point of interest: 1635 1561 0 Gazebo
@@ -337,9 +337,9 @@
 -healer: 1628 548 3 healer's hut
 -healer: 1518 619 3 healer's hut
 -healer: 3665 2581 2 The Healers of Haven
--healer: 2577 599 0 The Healing Hand
--healer: 2245 1231 0 The Healing Hand
--healer: 5737 3222 0 The Healing Hand
+-healer: 2577 599 0 The Leczenie Hand
+-healer: 2245 1231 0 The Leczenie Hand
+-healer: 5737 3222 0 The Leczenie Hand
 -healer: 1093 955 3 a healing temple
 -arms: 1443 1650 0 Heavy Metal Armorer
 +scenic: 1146 2215 0 Hedge Maze
@@ -388,7 +388,7 @@
 -library: 1387 3771 0 Jhelom Library
 -mage: 1425 3980 0 Jhelom Mage
 +moongate: 1500 3772 0 Jhelom Moongate
--tailor: 1455 4006 0 Jhelom's Fine Tailoring
+-tailor: 1455 4006 0 Jhelom's Fine Krawiectwo
 -baker: 554 991 0 The Jolly Baker
 -inn: 5775 3161 0 The Just Inn
 +moongate: 987 1011 3 Justice
@@ -457,9 +457,9 @@
 +Minax's Fortress: 5778 3376 1 Minax's Fortress
 -miners guild: 1417 1578 0 The Miner's Guild
 -miners guild: 3754 2704 2 Miners
-+landmark: 2590 532 0 Mining Camp
-+landmark: 3498 2844 2 Mining Cave
-+landmark: 3610 2740 2 Mining Cave
++landmark: 2590 532 0 Gornictwo Camp
++landmark: 3498 2844 2 Gornictwo Cave
++landmark: 3610 2740 2 Gornictwo Cave
 +town: 2502 522 0 Minoc
 +moongate: 2702 692 0 Minoc Moongate
 -point of interest: 2429 528 0 Minoc Town Hall
@@ -475,7 +475,7 @@
 +moongate: 4468 1284 0 Moonglow Moongate
 -reagents: 4412 1111 0 Moonglow Reagent Shop
 -inn: 4484 1064 0 Moonglow Student Hostel
--mage: 4448 1090 0 Moonglow's Finest Alchemy
+-mage: 4448 1090 0 Moonglow's Finest Alchemia
 -arms: 586 2170 0 More Than Just Mail
 -inn: 1360 3815 0 The Morning Star Inn
 +Terrain: 3690 2760 2 Mountain Pass
@@ -569,7 +569,7 @@
 -provisioner: 1602 1712 0 Profuse Provisions
 -provisioner: 1598 539 3 a provisioner
 -blacksmith: 3554 1202 0 Public Smithing
--fletcher: 1470 1578 0 Quality Fletching
+-fletcher: 1470 1578 0 Quality Lukmistrzostwo
 -fletcher: 2861 812 0 The Ranger's Tool
 -warriors guild: 3740 2692 2 Rangers Cabin
 -archers guild: 554 2145 0 Rangers' Guild
@@ -810,7 +810,7 @@
 -gate: 1831 2779 0 West Trinsic Gate
 +dungeon: 1361 890 0 Wind
 +town: 5252 104 0 Wind
--mage: 5148 60 0 Wind Alchemy
+-mage: 5148 60 0 Wind Alchemia
 -bank: 5346 74 0 Wind Bank
 -healer: 5263 129 0 Wind Healer
 -tailor: 5203 86 0 Windy Clothes

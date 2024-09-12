@@ -9,7 +9,7 @@ namespace Server.Items
         {
             this.Hue = 0x493;
 
-            this.SkillBonuses.SetValues(0, SkillName.Musicianship, 10.0);
+            this.SkillBonuses.SetValues(0, SkillName.Muzykowanie, 10.0);
 
             this.Attributes.Luck = 100;
             this.Attributes.DefendChance = 5;

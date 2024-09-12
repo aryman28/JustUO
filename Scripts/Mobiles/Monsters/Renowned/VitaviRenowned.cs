@@ -4,7 +4,7 @@ using Server.Misc;
 
 namespace Server.Mobiles
 {
-    [CorpseName("Vitavi [Renowned] corpse")]
+    [CorpseName("Vitavi [Renowned] corpse")] 
     public class VitaviRenowned : BaseRenowned
     {
         [Constructable]
@@ -32,14 +32,16 @@ namespace Server.Mobiles
             SetResistance(ResistanceType.Poison, 20, 30);
             SetResistance(ResistanceType.Energy, 30, 40);
 
-            SetSkill(SkillName.EvalInt, 70.1, 80.0);
-            SetSkill(SkillName.Magery, 70.1, 80.0);
-            SetSkill(SkillName.MagicResist, 75.1, 100.0);
-            SetSkill(SkillName.Tactics, 70.1, 75.0);
-            SetSkill(SkillName.Wrestling, 50.1, 75.0);
+            SetSkill(SkillName.Intelekt, 70.1, 80.0);
+            SetSkill(SkillName.Magia, 70.1, 80.0);
+            SetSkill(SkillName.ObronaPrzedMagia, 75.1, 100.0);
+            SetSkill(SkillName.Taktyka, 70.1, 75.0);
+            SetSkill(SkillName.Boks, 50.1, 75.0);
 
             Fame = 7500;
             Karma = -7500;
+
+            QLPoints = 50;
 
             VirtualArmor = 44;
 
@@ -57,39 +59,60 @@ namespace Server.Mobiles
 
         public override Type[] UniqueSAList
         {
-            get { return new Type[] {}; }
+            get
+            {
+                return new Type[] { };
+            }
         }
-
         public override Type[] SharedSAList
         {
-            get { return new[] {typeof (AxeOfAbandon), typeof (DemonBridleRing), typeof (VoidInfusedKilt)}; }
+            get
+            {
+                return new Type[] { typeof(AxeOfAbandon), typeof(DemonBridleRing), typeof(VoidInfusedKilt) };
+            }
         }
-
         public override InhumanSpeech SpeechType
         {
-            get { return InhumanSpeech.Ratman; }
+            get
+            {
+                return InhumanSpeech.Ratman;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
+        public override bool AllureImmune
+        {
+            get
+            {
+                return true;
+            }
+        }
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override int Hides
         {
-            get { return 8; }
+            get
+            {
+                return 8;
+            }
         }
-
         public override HideType HideType
         {
-            get { return HideType.Spined; }
+            get
+            {
+                return HideType.Spined;
+            }
         }
-
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Rich);
@@ -99,13 +122,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
             if (Body == 42)
             {

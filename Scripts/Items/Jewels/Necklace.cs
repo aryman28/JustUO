@@ -42,12 +42,28 @@ namespace Server.Items
         public Necklace()
             : base(0x1085)
         {
+            this.Name = "Naszyjnik";
             this.Weight = 0.1;
         }
 
         public Necklace(Serial serial)
             : base(serial)
         {
+        }
+
+        public override int InitMinHits
+        {
+            get
+            {
+                return 12;
+            }
+        }
+        public override int InitMaxHits
+        {
+            get
+            {
+                return 12;
+            }
         }
 
         public override void Serialize(GenericWriter writer)
@@ -71,12 +87,28 @@ namespace Server.Items
         public GoldNecklace()
             : base(0x1088)
         {
+            this.Name = "Naszyjnik";
             this.Weight = 0.1;
         }
 
         public GoldNecklace(Serial serial)
             : base(serial)
         {
+        }
+
+        public override int InitMinHits
+        {
+            get
+            {
+                return 12;
+            }
+        }
+        public override int InitMaxHits
+        {
+            get
+            {
+                return 12;
+            }
         }
 
         public override void Serialize(GenericWriter writer)
@@ -100,12 +132,28 @@ namespace Server.Items
         public GoldBeadNecklace()
             : base(0x1089)
         {
+            this.Name = "Koralowy Naszyjnik";
             this.Weight = 0.1;
         }
 
         public GoldBeadNecklace(Serial serial)
             : base(serial)
         {
+        }
+
+        public override int InitMinHits
+        {
+            get
+            {
+                return 12;
+            }
+        }
+        public override int InitMaxHits
+        {
+            get
+            {
+                return 12;
+            }
         }
 
         public override void Serialize(GenericWriter writer)
@@ -129,12 +177,28 @@ namespace Server.Items
         public SilverNecklace()
             : base(0x1F08)
         {
+            this.Name = "Naszyjnik";
             this.Weight = 0.1;
         }
 
         public SilverNecklace(Serial serial)
             : base(serial)
         {
+        }
+
+        public override int InitMinHits
+        {
+            get
+            {
+                return 12;
+            }
+        }
+        public override int InitMaxHits
+        {
+            get
+            {
+                return 12;
+            }
         }
 
         public override void Serialize(GenericWriter writer)
@@ -158,12 +222,28 @@ namespace Server.Items
         public SilverBeadNecklace()
             : base(0x1F05)
         {
+            this.Name = "Koralowy Naszyjnik";
             this.Weight = 0.1;
         }
 
         public SilverBeadNecklace(Serial serial)
             : base(serial)
         {
+        }
+
+        public override int InitMinHits
+        {
+            get
+            {
+                return 12;
+            }
+        }
+        public override int InitMaxHits
+        {
+            get
+            {
+                return 12;
+            }
         }
 
         public override void Serialize(GenericWriter writer)

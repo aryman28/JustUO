@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x1443)
         {
             this.Weight = 8.0;
+            this.Name = "Dwuręczny topór";
         }
 
         public TwoHandedAxe(Serial serial)

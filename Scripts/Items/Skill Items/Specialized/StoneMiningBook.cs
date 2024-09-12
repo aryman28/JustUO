@@ -21,7 +21,7 @@ namespace Server.Items
         {
             get
             {
-                return "Mining For Quality Stone";
+                return "Gornictwo For Quality Stone";
             }
         }
         public override void Serialize(GenericWriter writer)
@@ -46,7 +46,7 @@ namespace Server.Items
             {
                 from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
             }
-            else if (pm == null || from.Skills[SkillName.Mining].Base < 100.0)
+            else if (pm == null || from.Skills[SkillName.Gornictwo].Base < 100.0)
             {
                 from.SendMessage("Only a Grandmaster Miner can learn from this book.");
             }

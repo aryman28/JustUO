@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x13B6)
         {
             this.Weight = 5.0;
+            this.Name = "Sejmitar";
         }
 
         public Scimitar(Serial serial)

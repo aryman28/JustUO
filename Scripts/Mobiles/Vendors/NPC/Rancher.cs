@@ -8,12 +8,12 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Rancher()
-            : base("the rancher")
+            : base("- Farmer")
         {
-            this.SetSkill(SkillName.AnimalLore, 55.0, 78.0);
-            this.SetSkill(SkillName.AnimalTaming, 55.0, 78.0);
-            this.SetSkill(SkillName.Herding, 64.0, 100.0);
-            this.SetSkill(SkillName.Veterinary, 60.0, 83.0);
+            this.SetSkill(SkillName.WiedzaOBestiach, 55.0, 78.0);
+            this.SetSkill(SkillName.Oswajanie, 55.0, 78.0);
+            this.SetSkill(SkillName.Zielarstwo, 64.0, 100.0);
+            this.SetSkill(SkillName.Weterynaria, 60.0, 83.0);
         }
 
         public Rancher(Serial serial)

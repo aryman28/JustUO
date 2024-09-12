@@ -4,7 +4,7 @@ using Server.Mobiles;
 using Server.Spells.Fifth;
 using Server.Spells.First;
 using Server.Spells.Fourth;
-using Server.Spells.Necromancy;
+using Server.Spells.Nekromancja;
 using Server.Spells.Second;
 using Server.Targeting;
 
@@ -359,7 +359,7 @@ namespace Server.Items
             return base.CanEquip(from);
         }
 
-		public override void OnAdded(IEntity parent)
+        public override void OnAdded(object parent)
         {
             if (parent is Mobile)
             {
@@ -384,7 +384,7 @@ namespace Server.Items
             this.InvalidateProperties();
         }
 
-		public override void OnRemoved(IEntity parent)
+        public override void OnRemoved(object parent)
         {
             if (parent is Mobile)
             {
@@ -1055,15 +1055,15 @@ namespace Server.Items
 
         private static readonly SkillName[] m_Skills = new SkillName[]
         {
-            SkillName.Alchemy,
-            SkillName.Blacksmith,
-            SkillName.Carpentry,
-            SkillName.Cartography,
-            SkillName.Cooking,
-            SkillName.Fletching,
-            SkillName.Inscribe,
-            SkillName.Tailoring,
-            SkillName.Tinkering,
+            SkillName.Alchemia,
+            SkillName.Kowalstwo,
+            SkillName.Stolarstwo,
+            SkillName.Kartografia,
+            SkillName.Gotowanie,
+            SkillName.Lukmistrzostwo,
+            SkillName.Inskrypcja,
+            SkillName.Krawiectwo,
+            SkillName.Majsterkowanie,
         };
 
         public static SkillName GetRandomSkill()

@@ -65,7 +65,7 @@ namespace Server.Spells.Sixth
 
                 int itemID = eastToWest ? 0x3967 : 0x3979;
 
-                TimeSpan duration = TimeSpan.FromSeconds(3.0 + (this.Caster.Skills[SkillName.Magery].Value / 3.0));
+                TimeSpan duration = TimeSpan.FromSeconds(3.0 + (this.Caster.Skills[SkillName.Magia].Value / 3.0));
 
                 for (int i = -2; i <= 2; ++i)
                 {
@@ -180,7 +180,7 @@ namespace Server.Spells.Sixth
 
                     if (Core.AOS)
                     {
-                        duration = 2.0 + ((int)(this.m_Caster.Skills[SkillName.EvalInt].Value / 10) - (int)(m.Skills[SkillName.MagicResist].Value / 10));
+                        duration = 2.0 + ((int)(this.m_Caster.Skills[SkillName.Intelekt].Value / 10) - (int)(m.Skills[SkillName.ObronaPrzedMagia].Value / 10));
 
                         if (!m.Player)
                             duration *= 3.0;
@@ -190,7 +190,7 @@ namespace Server.Spells.Sixth
                     }
                     else
                     {
-                        duration = 7.0 + (this.m_Caster.Skills[SkillName.Magery].Value * 0.2);
+                        duration = 7.0 + (this.m_Caster.Skills[SkillName.Magia].Value * 0.2);
                     }
 
                     m.Paralyze(TimeSpan.FromSeconds(duration));

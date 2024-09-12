@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x26C1)
         {
             this.Weight = 1.0;
+            this.Name = "Ostrze półksiężycowe";
         }
 
         public CrescentBlade(Serial serial)

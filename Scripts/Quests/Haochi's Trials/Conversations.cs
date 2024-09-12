@@ -1,7 +1,13 @@
+using System;
+
 namespace Server.Engines.Quests.Samurai
 {
     public class AcceptConversation : QuestConversation
     {
+        public AcceptConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -31,15 +37,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1049092;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FindHaochiObjective());
+            this.System.AddObjective(new FindHaochiObjective());
         }
     }
 
     public class RadarConversation : QuestConversation
     {
+        public RadarConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -57,15 +66,21 @@ namespace Server.Engines.Quests.Samurai
                 return 1063033;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class FirstTrialIntroConversation : QuestConversation
     {
+        public FirstTrialIntroConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -79,7 +94,7 @@ namespace Server.Engines.Quests.Samurai
                 * 
                 * Learning how to master weapons, and even more importantly when not to use
                 * them, is the Way of the Warrior. The Way of the Samurai. The Code of the
-                * Bushido. That is why you are here. <BR><BR>
+                * Fanatyzm. That is why you are here. <BR><BR>
                 * 
                 * You will go through 7 trials to prove your adherence to the Samurai code. <BR><BR>
                 * 
@@ -96,15 +111,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1063029;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FirstTrialIntroObjective());
+            this.System.AddObjective(new FirstTrialIntroObjective());
         }
     }
 
     public class FirstTrialKillConversation : QuestConversation
     {
+        public FirstTrialKillConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -131,20 +149,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1063031;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FirstTrialKillObjective());
+            this.System.AddObjective(new FirstTrialKillObjective());
         }
     }
 
     public class GainKarmaConversation : QuestConversation
     {
         private bool m_CursedSoul;
-
         public GainKarmaConversation(bool cursedSoul)
         {
-            m_CursedSoul = cursedSoul;
+            this.m_CursedSoul = cursedSoul;
         }
 
         public GainKarmaConversation()
@@ -155,43 +171,46 @@ namespace Server.Engines.Quests.Samurai
         {
             get
             {
-                if (m_CursedSoul)
+                if (this.m_CursedSoul)
                 {
                     // You have just gained some <a href="?ForceTopic45">Karma</a> for killing a Cursed Soul.
                     return 1063040;
                 }
-                // You have just gained some <a href="?ForceTopic45">Karma</a> for killing a Young Ronin.
-                return 1063041;
+                else
+                {
+                    // You have just gained some <a href="?ForceTopic45">Karma</a> for killing a Young Ronin.
+                    return 1063041;
+                }
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            m_CursedSoul = reader.ReadBool();
+            this.m_CursedSoul = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(m_CursedSoul);
+            writer.Write((bool)this.m_CursedSoul);
         }
     }
 
     public class SecondTrialIntroConversation : QuestConversation
     {
         private bool m_CursedSoul;
-
         public SecondTrialIntroConversation(bool cursedSoul)
         {
-            m_CursedSoul = cursedSoul;
+            this.m_CursedSoul = cursedSoul;
         }
 
         public SecondTrialIntroConversation()
@@ -202,7 +221,7 @@ namespace Server.Engines.Quests.Samurai
         {
             get
             {
-                if (m_CursedSoul)
+                if (this.m_CursedSoul)
                 {
                     /* It is good that you rid the land of the Cursed Souls so they can
                     * be at peace in death. They had been cursed for doing what they
@@ -215,7 +234,9 @@ namespace Server.Engines.Quests.Samurai
                     */
                     return 1063045;
                 }
-                /* It is good that you rid the land of those dishonorable Samurai.
+                else
+                {
+                    /* It is good that you rid the land of those dishonorable Samurai.
                     * Perhaps they will learn a greater lesson in death.<BR><BR>
                     * 
                     * I have placed a reward in your pack.<BR><BR>
@@ -223,32 +244,36 @@ namespace Server.Engines.Quests.Samurai
                     * The second trial will test your courage. You only have to follow
                     * the yellow path to see what awaits you.
                     */
-                return 1063046;
+                    return 1063046;
+                }
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new SecondTrialIntroObjective());
+            this.System.AddObjective(new SecondTrialIntroObjective());
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            m_CursedSoul = reader.ReadBool();
+            this.m_CursedSoul = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(m_CursedSoul);
+            writer.Write((bool)this.m_CursedSoul);
         }
     }
 
     public class SecondTrialAttackConversation : QuestConversation
     {
+        public SecondTrialAttackConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -266,20 +291,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1063057;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new SecondTrialAttackObjective());
+            this.System.AddObjective(new SecondTrialAttackObjective());
         }
     }
 
     public class ThirdTrialIntroConversation : QuestConversation
     {
         private bool m_Dragon;
-
         public ThirdTrialIntroConversation(bool dragon)
         {
-            m_Dragon = dragon;
+            this.m_Dragon = dragon;
         }
 
         public ThirdTrialIntroConversation()
@@ -290,7 +313,7 @@ namespace Server.Engines.Quests.Samurai
         {
             get
             {
-                if (m_Dragon)
+                if (this.m_Dragon)
                 {
                     /* You faced the dragon knowing it would be your certain death.
                     * That is the courage of a Samurai. <BR><BR>
@@ -306,7 +329,9 @@ namespace Server.Engines.Quests.Samurai
                     */
                     return 1063060;
                 }
-                /* Fear remains in your eyes but you have learned that not all is
+                else
+                {
+                    /* Fear remains in your eyes but you have learned that not all is
                     * what it appears to be. <BR><BR>
                     * 
                     * You must have known the dragon would slay you instantly.
@@ -320,32 +345,36 @@ namespace Server.Engines.Quests.Samurai
                     * 
                     * The next trial will test your benevolence. You only have to walk the blue path.
                     */
-                return 1063059;
+                    return 1063059;
+                }
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new ThirdTrialIntroObjective());
+            this.System.AddObjective(new ThirdTrialIntroObjective());
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            m_Dragon = reader.ReadBool();
+            this.m_Dragon = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(m_Dragon);
+            writer.Write((bool)this.m_Dragon);
         }
     }
 
     public class ThirdTrialKillConversation : QuestConversation
     {
+        public ThirdTrialKillConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -359,15 +388,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1063062;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new ThirdTrialKillObjective());
+            this.System.AddObjective(new ThirdTrialKillObjective());
         }
     }
 
     public class FourthTrialIntroConversation : QuestConversation
     {
+        public FourthTrialIntroConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -386,15 +418,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1063065;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FourthTrialIntroObjective());
+            this.System.AddObjective(new FourthTrialIntroObjective());
         }
     }
 
     public class FourthTrialCatsConversation : QuestConversation
     {
+        public FourthTrialCatsConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -416,20 +451,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1063067;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FourthTrialCatsObjective());
+            this.System.AddObjective(new FourthTrialCatsObjective());
         }
     }
 
     public class FifthTrialIntroConversation : QuestConversation
     {
         private bool m_KilledCat;
-
         public FifthTrialIntroConversation(bool killedCat)
         {
-            m_KilledCat = killedCat;
+            this.m_KilledCat = killedCat;
         }
 
         public FifthTrialIntroConversation()
@@ -440,7 +473,7 @@ namespace Server.Engines.Quests.Samurai
         {
             get
             {
-                if (m_KilledCat)
+                if (this.m_KilledCat)
                 {
                     /* Respect comes from allowing another to make their own decisions.
                     * By denying the gypsy her animals, you negate the respect she is due.
@@ -452,7 +485,9 @@ namespace Server.Engines.Quests.Samurai
                     */
                     return 1063071;
                 }
-                /* You showed respect by helping another out while allowing the gypsy
+                else
+                {
+                    /* You showed respect by helping another out while allowing the gypsy
                     * what little dignity she has left. <BR><BR>
                     * 
                     * Now she will be able to feed herself and gain enough energy to walk
@@ -467,32 +502,36 @@ namespace Server.Engines.Quests.Samurai
                     * prove yourself again. <BR><BR>Please retrieve my katana from the
                     * treasure room and return it to me.
                     */
-                return 1063070;
+                    return 1063070;
+                }
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FifthTrialIntroObjective());
+            this.System.AddObjective(new FifthTrialIntroObjective());
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            m_KilledCat = reader.ReadBool();
+            this.m_KilledCat = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(m_KilledCat);
+            writer.Write((bool)this.m_KilledCat);
         }
     }
 
     public class FifthTrialReturnConversation : QuestConversation
     {
+        public FifthTrialReturnConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -508,15 +547,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1063248;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FifthTrialReturnObjective());
+            this.System.AddObjective(new FifthTrialReturnObjective());
         }
     }
 
     public class LostSwordConversation : QuestConversation
     {
+        public LostSwordConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -525,20 +567,21 @@ namespace Server.Engines.Quests.Samurai
                 return 1063074;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class SixthTrialIntroConversation : QuestConversation
     {
         private bool m_StolenTreasure;
-
         public SixthTrialIntroConversation(bool stolenTreasure)
         {
-            m_StolenTreasure = stolenTreasure;
+            this.m_StolenTreasure = stolenTreasure;
         }
 
         public SixthTrialIntroConversation()
@@ -549,7 +592,7 @@ namespace Server.Engines.Quests.Samurai
         {
             get
             {
-                if (m_StolenTreasure)
+                if (this.m_StolenTreasure)
                 {
                     /* I thank you for returning this sword. However, you should admonished
                     * for also taking treasure that was not asked for nor given back.  <BR><BR>
@@ -564,7 +607,9 @@ namespace Server.Engines.Quests.Samurai
                     */
                     return 1063077;
                 }
-                /* Thank you for returning this sword to me and leaving the remaining
+                else
+                {
+                    /* Thank you for returning this sword to me and leaving the remaining
                     * treasure alone. <BR><BR>
                     * 
                     * Your training is nearly complete. Before you have your final trial,
@@ -572,32 +617,36 @@ namespace Server.Engines.Quests.Samurai
                     * 
                     * Go into the Altar Room and light a candle for them. Afterwards, return to me.
                     */
-                return 1063076;
+                    return 1063076;
+                }
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new SixthTrialIntroObjective());
+            this.System.AddObjective(new SixthTrialIntroObjective());
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            m_StolenTreasure = reader.ReadBool();
+            this.m_StolenTreasure = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(m_StolenTreasure);
+            writer.Write((bool)this.m_StolenTreasure);
         }
     }
 
     public class SeventhTrialIntroConversation : QuestConversation
     {
+        public SeventhTrialIntroConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -614,15 +663,18 @@ namespace Server.Engines.Quests.Samurai
                 return 1063079;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new SeventhTrialIntroObjective());
+            this.System.AddObjective(new SeventhTrialIntroObjective());
         }
     }
 
     public class EndConversation : QuestConversation
     {
+        public EndConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -645,10 +697,9 @@ namespace Server.Engines.Quests.Samurai
                 return 1063125;
             }
         }
-
         public override void OnRead()
         {
-            System.Complete();
+            this.System.Complete();
         }
     }
 }

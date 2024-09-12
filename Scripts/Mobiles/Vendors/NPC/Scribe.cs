@@ -8,10 +8,10 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Scribe()
-            : base("the scribe")
+            : base("- Skryba")
         {
-            this.SetSkill(SkillName.EvalInt, 60.0, 83.0);
-            this.SetSkill(SkillName.Inscribe, 90.0, 100.0);
+            this.SetSkill(SkillName.Intelekt, 60.0, 83.0);
+            this.SetSkill(SkillName.Inskrypcja, 90.0, 100.0);
         }
 
         public Scribe(Serial serial)

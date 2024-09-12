@@ -12,7 +12,7 @@ namespace Server.Mobiles
 
 		[Constructable]
 		public GypsyMaiden()
-			: base("the gypsy maiden")
+			: base("- Cygañski S³uga")
 		{ }
 
 		public GypsyMaiden(Serial serial)

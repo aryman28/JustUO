@@ -1,3 +1,4 @@
+using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Haven
@@ -8,7 +9,7 @@ namespace Server.Engines.Quests.Haven
         public QuestDaemonBlood()
             : base(0xF7D)
         {
-            Weight = 1.0;
+            this.Weight = 1.0;
         }
 
         public QuestDaemonBlood(Serial serial)
@@ -18,7 +19,7 @@ namespace Server.Engines.Quests.Haven
 
         public override bool CanDrop(PlayerMobile player)
         {
-            var qs = player.Quest as UzeraanTurmoilQuest;
+            UzeraanTurmoilQuest qs = player.Quest as UzeraanTurmoilQuest;
 
             if (qs == null)
                 return true;
@@ -31,14 +32,14 @@ namespace Server.Engines.Quests.Haven
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

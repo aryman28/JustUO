@@ -15,7 +15,7 @@ namespace Server.Items
 			
             this.SetAttributes.LowerManaCost = 10;
 			
-            this.SetSkillBonuses.SetValues(0, SkillName.Necromancy, 10);
+            this.SetSkillBonuses.SetValues(0, SkillName.Nekromancja, 10);
 			
             this.SetSelfRepair = 3;
 			

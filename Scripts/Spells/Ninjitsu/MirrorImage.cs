@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
 using Server.Spells;
-using Server.Spells.Necromancy;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Nekromancja;
+using Server.Spells.Skrytobojstwo;
 
-namespace Server.Spells.Ninjitsu
+namespace Server.Spells.Skrytobojstwo
 {
     public class MirrorImage : NinjaSpell
     {
@@ -184,7 +184,7 @@ namespace Server.Mobiles
             this.ControlOrder = OrderType.Follow;
             this.ControlTarget = caster;
 
-            TimeSpan duration = TimeSpan.FromSeconds(30 + caster.Skills.Ninjitsu.Fixed / 40);
+            TimeSpan duration = TimeSpan.FromSeconds(30 + caster.Skills.Skrytobojstwo.Fixed / 40);
 
             new UnsummonTimer(caster, this, duration).Start();
             this.SummonEnd = DateTime.UtcNow + duration;

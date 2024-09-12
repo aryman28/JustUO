@@ -10,7 +10,7 @@ namespace Server.Items
         private readonly int m_Damage = 15;
         private Mobile m_Target;
         private Mobile m_Mobile;
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -19,7 +19,7 @@ namespace Server.Items
         }
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
         {
-            if (!this.CheckMana(attacker, true) && defender != null)
+            if (!this.CheckStam(attacker, true) && defender != null)
                 return;
 
             BaseThrown weapon = attacker.Weapon as BaseThrown;

@@ -13,9 +13,11 @@ using Server.Items;
 using Server.Network;
 using Server.Regions;
 using Server.Spells;
-using Server.Spells.Spellweaving;
+using Server.Spells.Druidyzm;
 using Server.Targets;
 using Server.XMLConfiguration;
+
+using System.Text.RegularExpressions;
 
 using MoveImpl = Server.Movement.MovementImpl;
 #endregion
@@ -37,7 +39,11 @@ namespace Server.Mobiles
 		AI_NecroMage,
 		AI_OrcScout,
 		AI_Spellbinder,
-		AI_OmniAI
+		AI_OmniAI,
+		AI_Guard,
+    AI_Necro,
+		AI_Paladin,
+    AI_Ninja
 	}
 
 	public enum ActionType
@@ -184,10 +190,7 @@ namespace Server.Mobiles
 								}
 								else
 								{
-                                    if (m_Mobile.IsDeadPet)
-                                        m_From.SendGump(new Gumps.ConfirmReleaseDeadPetGump(m_From, m_Mobile));
-                                    else
-                                        m_From.SendGump(new Gumps.ConfirmReleaseGump(m_From, m_Mobile));
+									m_From.SendGump(new ConfirmReleaseGump(m_From, m_Mobile));
 								}
 
 								break;
@@ -372,16 +375,16 @@ namespace Server.Mobiles
 
 		private static readonly SkillName[] m_KeywordTable = new[]
 		{
-			SkillName.Parry, SkillName.Healing, SkillName.Hiding, SkillName.Stealing, SkillName.Alchemy, SkillName.AnimalLore,
-			SkillName.ItemID, SkillName.ArmsLore, SkillName.Begging, SkillName.Blacksmith, SkillName.Fletching,
-			SkillName.Peacemaking, SkillName.Camping, SkillName.Carpentry, SkillName.Cartography, SkillName.Cooking,
-			SkillName.DetectHidden, SkillName.Discordance, //??
-			SkillName.EvalInt, SkillName.Fishing, SkillName.Provocation, SkillName.Lockpicking, SkillName.Magery,
-			SkillName.MagicResist, SkillName.Tactics, SkillName.Snooping, SkillName.RemoveTrap, SkillName.Musicianship,
-			SkillName.Poisoning, SkillName.Archery, SkillName.SpiritSpeak, SkillName.Tailoring, SkillName.AnimalTaming,
-			SkillName.TasteID, SkillName.Tinkering, SkillName.Veterinary, SkillName.Forensics, SkillName.Herding,
-			SkillName.Tracking, SkillName.Stealth, SkillName.Inscribe, SkillName.Swords, SkillName.Macing, SkillName.Fencing,
-			SkillName.Wrestling, SkillName.Lumberjacking, SkillName.Mining, SkillName.Meditation
+			SkillName.Parowanie, SkillName.Leczenie, SkillName.Ukrywanie, SkillName.Okradanie, SkillName.Alchemia, SkillName.WiedzaOBestiach,
+			SkillName.Identyfikacja, SkillName.WiedzaOUzbrojeniu, SkillName.Rolnictwo, SkillName.Kowalstwo, SkillName.Lukmistrzostwo,
+			SkillName.Uspokajanie, SkillName.Obozowanie, SkillName.Stolarstwo, SkillName.Kartografia, SkillName.Gotowanie,
+			SkillName.Wykrywanie, SkillName.Manipulacja, SkillName.Zielarstwo, //??
+			SkillName.Intelekt, SkillName.Rybactwo, SkillName.Prowokacja, SkillName.Wlamywanie, SkillName.Magia,
+			SkillName.ObronaPrzedMagia, SkillName.Taktyka, SkillName.Zagladanie, SkillName.UsuwaniePulapek, SkillName.Muzykowanie,
+			SkillName.Zatruwanie, SkillName.Lucznictwo, SkillName.MowaDuchow, SkillName.Krawiectwo, SkillName.Oswajanie,
+			SkillName.OcenaSmaku, SkillName.Majsterkowanie, SkillName.Weterynaria, SkillName.Kryminalistyka, SkillName.Zielarstwo,
+			SkillName.Tropienie, SkillName.Zakradanie, SkillName.Inskrypcja, SkillName.WalkaMieczami, SkillName.WalkaObuchami, SkillName.WalkaSzpadami,
+			SkillName.Boks, SkillName.Drwalnictwo, SkillName.Gornictwo, SkillName.Medytacja
 		};
 
 		public virtual void OnSpeech(SpeechEventArgs e)
@@ -419,7 +422,9 @@ namespace Server.Mobiles
 						m_Mobile.PublicOverheadMessage(MessageType.Regular, 0x3B2, generalNumber);
 					}
 				}
-				else if (e.HasKeyword(0x6C) && WasNamed(e.Speech)) // *train
+                                  else if( Insensitive.Contains( e.Speech, "nauczy" ) )
+                                //else if( Regex.IsMatch( e.Speech, "ucz", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "naucz", RegexOptions.IgnoreCase ) || e.HasKeyword( 0x6C ) && WasNamed( e.Speech ) ) // *train
+				//else if (e.HasKeyword(0x6C) && WasNamed(e.Speech)) // *train
 				{
 					if (m_Mobile.Combatant != null)
 					{
@@ -476,54 +481,495 @@ namespace Server.Mobiles
 				}
 				else
 				{
-					SkillName toTrain = (SkillName)(-1);
 
-					for (int i = 0; toTrain == (SkillName)(-1) && i < e.Keywords.Length; ++i)
-					{
-						int keyword = e.Keywords[i];
+  if( Insensitive.Contains( e.Speech, "rolnictwo" ) )
+  {
+  m_Mobile.Teach(SkillName.Rolnictwo, e.Mobile, 0, false);
+  }
 
-						if (keyword == 0x154)
-						{
-							toTrain = SkillName.Anatomy;
-						}
-						else if (keyword >= 0x6D && keyword <= 0x9C)
-						{
-							int index = keyword - 0x6D;
+  if( Insensitive.Contains( e.Speech, "zielarstwo" ) )
+  {
+  m_Mobile.Teach(SkillName.Zielarstwo, e.Mobile, 0, false);
+  }
 
-							if (index >= 0 && index < m_KeywordTable.Length)
-							{
-								toTrain = m_KeywordTable[index];
-							}
-						}
-					}
+  if( Insensitive.Contains( e.Speech, "alchemia" ) )
+  {
+  m_Mobile.Teach(SkillName.Alchemia, e.Mobile, 0, false);
+  }
 
-					if (toTrain != (SkillName)(-1) && WasNamed(e.Speech))
-					{
-						if (m_Mobile.Combatant != null)
-						{
-							// I am too busy fighting to deal with thee!
-							m_Mobile.PublicOverheadMessage(MessageType.Regular, 0x3B2, 501482);
-						}
-						else
-						{
-							Skills skills = m_Mobile.Skills;
-							Skill skill = skills[toTrain];
+  if( Insensitive.Contains( e.Speech, "anatomia" ) )
+  {
+  m_Mobile.Teach(SkillName.Anatomia, e.Mobile, 0, false);
+  }
 
-							if (skill == null || skill.Base < 60.0 || !m_Mobile.CheckTeach(toTrain, e.Mobile))
-							{
-								m_Mobile.Say(501507); // 'Tis not something I can teach thee of.
-							}
-							else
-							{
-								m_Mobile.Teach(toTrain, e.Mobile, 0, false);
-							}
-						}
-					}
+  if( Insensitive.Contains( e.Speech, "wiedza o bestiach" ) )
+  {
+  m_Mobile.Teach(SkillName.WiedzaOBestiach, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "identyfikacja" ) )
+  {
+  m_Mobile.Teach(SkillName.Identyfikacja, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "wiedza o uzbrojeniu" ) )
+  {
+  m_Mobile.Teach(SkillName.WiedzaOUzbrojeniu, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "parowanie" ) )
+  {
+  m_Mobile.Teach(SkillName.Parowanie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "kowalstwo" ) )
+  {
+  m_Mobile.Teach(SkillName.Kowalstwo, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "lukmistrzostwo" ) || Insensitive.Contains( e.Speech, "³ukmistrzostwo" ) )
+  {
+  m_Mobile.Teach(SkillName.Lukmistrzostwo, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "uspokajanie" ) )
+  {
+  m_Mobile.Teach(SkillName.Uspokajanie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "obozowanie" ) )
+  {
+  m_Mobile.Teach(SkillName.Obozowanie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "stolarstwo" ) )
+  {
+  m_Mobile.Teach(SkillName.Stolarstwo, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "kartografia" ) )
+  {
+  m_Mobile.Teach(SkillName.Kartografia, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "gotowanie" ) )
+  {
+  m_Mobile.Teach(SkillName.Gotowanie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "wykrywanie" ) )
+  {
+  m_Mobile.Teach(SkillName.Wykrywanie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "manipulacja" ) )
+  {
+  m_Mobile.Teach(SkillName.Manipulacja, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "intelekt" ) )
+  {
+  m_Mobile.Teach(SkillName.Intelekt, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "leczenie" ) )
+  {
+  m_Mobile.Teach(SkillName.Leczenie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "rybactwo" ) )
+  {
+  m_Mobile.Teach(SkillName.Rybactwo, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "kryminalistyka" ) )
+  {
+  m_Mobile.Teach(SkillName.Kryminalistyka, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "ukrywanie" ) )
+  {
+  m_Mobile.Teach(SkillName.Ukrywanie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "prowokacja" ) )
+  {
+  m_Mobile.Teach(SkillName.Prowokacja, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "inskrypcja" ) )
+  {
+  m_Mobile.Teach(SkillName.Inskrypcja, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "wlamywanie" ) || Insensitive.Contains( e.Speech, "w³amywanie" ) )
+  {
+  m_Mobile.Teach(SkillName.Wlamywanie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "magia" ) )
+  {
+  m_Mobile.Teach(SkillName.Magia, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "obrona przed magia" ) || Insensitive.Contains( e.Speech, "obrona przed magi¹" ) )
+  {
+  m_Mobile.Teach(SkillName.ObronaPrzedMagia, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "taktyka" ) )
+  {
+  m_Mobile.Teach(SkillName.Taktyka, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "zagladanie" ) || Insensitive.Contains( e.Speech, "zagl¹danie" ) )
+  {
+  m_Mobile.Teach(SkillName.Zagladanie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "muzykowanie" ) )
+  {
+  m_Mobile.Teach(SkillName.Muzykowanie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "zatruwanie" ) )
+  {
+  m_Mobile.Teach(SkillName.Zatruwanie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "lucznictwo" ) )
+  {
+  m_Mobile.Teach(SkillName.Lucznictwo, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "mowa duchow" ) || Insensitive.Contains( e.Speech, "mowa duchów" ) )
+  {
+  m_Mobile.Teach(SkillName.MowaDuchow, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "okradanie" ) )
+  {
+  m_Mobile.Teach(SkillName.Okradanie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "krawiectwo" ) )
+  {
+  m_Mobile.Teach(SkillName.Krawiectwo, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "oswajanie" ) )
+  {
+  m_Mobile.Teach(SkillName.Oswajanie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "ocena smaku" ) )
+  {
+  m_Mobile.Teach(SkillName.OcenaSmaku, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "majsterkowanie" ) )
+  {
+  m_Mobile.Teach(SkillName.Majsterkowanie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "tropienie" ) )
+  {
+  m_Mobile.Teach(SkillName.Tropienie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "weterynaria" ) )
+  {
+  m_Mobile.Teach(SkillName.Weterynaria, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "walka mieczami" ) )
+  {
+  m_Mobile.Teach(SkillName.WalkaMieczami, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "walka obuchami" ) )
+  {
+  m_Mobile.Teach(SkillName.WalkaObuchami, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "walka szpadami" ) )
+  {
+  m_Mobile.Teach(SkillName.WalkaSzpadami, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "boks" ) )
+  {
+  m_Mobile.Teach(SkillName.Boks, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "drwalnictwo" ) )
+  {
+  m_Mobile.Teach(SkillName.Drwalnictwo, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "gornictwo" ) || Insensitive.Contains( e.Speech, "górnictwo" ) )
+  {
+  m_Mobile.Teach(SkillName.Gornictwo, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "medytacja" ) )
+  {
+  m_Mobile.Teach(SkillName.Medytacja, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "zakradanie" ) )
+  {
+  m_Mobile.Teach(SkillName.Zakradanie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "usuwanie pulapek" ) || Insensitive.Contains( e.Speech, "usuwanie pu³apek" ) )
+  {
+  m_Mobile.Teach(SkillName.UsuwaniePulapek, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "nekromancja" ) )
+  {
+  m_Mobile.Teach(SkillName.Nekromancja, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "rycerstwo" ) )
+  {
+  m_Mobile.Teach(SkillName.Rycerstwo, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "fanatyzm" ) )
+  {
+  m_Mobile.Teach(SkillName.Fanatyzm, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "skrytobojstwo" ) || Insensitive.Contains( e.Speech, "skrytobójstwo" ) )
+  {
+  m_Mobile.Teach(SkillName.Skrytobojstwo, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "druidyzm" ) )
+  {
+  m_Mobile.Teach(SkillName.Druidyzm, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "mistycyzm" ) )
+  {
+  m_Mobile.Teach(SkillName.Mistycyzm, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "umagicznianie" ) )
+  {
+  m_Mobile.Teach(SkillName.Umagicznianie, e.Mobile, 0, false);
+  }
+
+  if( Insensitive.Contains( e.Speech, "rzucanie" ) )
+  {
+  m_Mobile.Teach(SkillName.Rzucanie, e.Mobile, 0, false);
+  }
 				}
 			}
 
-			if (m_Mobile.Controlled && m_Mobile.Commandable)
+			if( m_Mobile.Controlled && m_Mobile.Commandable )
 			{
+		        
+		        if ( !e.Handled && e.Mobile.Alive && e.Mobile == m_Mobile.ControlMaster )
+				{
+					int[] keywords = e.Keywords; 
+	              			string speech = e.Speech.ToLower(); 
+
+					if ( Regex.IsMatch( e.Speech, "zabijcie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "atakujcie", RegexOptions.IgnoreCase ) ) 
+					{ 
+						BeginPickTarget( e.Mobile, OrderType.Attack );
+						return;
+							
+
+					}
+
+					else if ( Regex.IsMatch( e.Speech, "broncie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "chroncie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "chroncie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "broncie", RegexOptions.IgnoreCase ) ) 
+					{ 
+						if ( m_Mobile.CheckControlChance( e.Mobile ) )
+								{
+									m_Mobile.ControlTarget = null;
+									m_Mobile.ControlOrder = OrderType.Guard;
+								}
+								return;	
+					}
+
+					else if ( Regex.IsMatch( e.Speech, "chodzcie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "chodzmy", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "chodzcie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "chodzmy", RegexOptions.IgnoreCase ) ) 
+					{ 
+						if ( m_Mobile.CheckControlChance( e.Mobile ) )
+								{
+									m_Mobile.ControlTarget = null;
+									m_Mobile.ControlOrder = OrderType.Come;
+								}
+								return;
+					}
+
+					else if ( Regex.IsMatch( e.Speech, "idzcie za", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "idzcie za", RegexOptions.IgnoreCase ) ) 
+					{ 						BeginPickTarget( e.Mobile, OrderType.Follow );
+						return;
+					}
+					else if ( Regex.IsMatch( e.Speech, "stojcie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "stac", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "stojcie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "stac", RegexOptions.IgnoreCase ) ) 
+					{ 
+																						if ( m_Mobile.CheckControlChance( e.Mobile ) )
+								{
+									m_Mobile.ControlTarget = null;
+									m_Mobile.ControlOrder = OrderType.Stay;
+								}
+								return;
+					}
+
+
+					else if ( Regex.IsMatch( e.Speech, "stop", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "zatrzymajcie sie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "zatrzymajcie sie", RegexOptions.IgnoreCase ) ) 
+					{ 
+																						if ( m_Mobile.CheckControlChance( e.Mobile ) )
+						{
+							m_Mobile.ControlTarget = null;
+							m_Mobile.ControlOrder = OrderType.Stop;
+						}
+						return;
+					}
+
+
+					else if ( Regex.IsMatch( e.Speech, "chroncie mnie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "broncie mnie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "chroncie mnie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "broncie mnie", RegexOptions.IgnoreCase )) 
+					{ 
+																						if ( m_Mobile.CheckControlChance( e.Mobile ) )
+						{
+							m_Mobile.ControlTarget = e.Mobile;
+							m_Mobile.ControlOrder = OrderType.Guard;
+						}
+						return;
+					}
+
+					else if ( Regex.IsMatch( e.Speech, "za mna", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "za mna", RegexOptions.IgnoreCase ) ) 
+					{ 
+																						if ( m_Mobile.CheckControlChance( e.Mobile ) )
+						{
+							m_Mobile.ControlTarget = e.Mobile;
+							m_Mobile.ControlOrder = OrderType.Follow;
+						}
+						return;
+					}
+					else if ( ( WasNamed( speech ) && m_Mobile.CheckControlChance( e.Mobile ) ) && ( Regex.IsMatch( e.Speech, "zabij", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "atakuj", RegexOptions.IgnoreCase ) ) )
+					{
+																						if ( !m_Mobile.IsDeadPet )
+							BeginPickTarget( e.Mobile, OrderType.Attack );
+							return;
+					}
+					else if ( ( WasNamed( speech ) && m_Mobile.CheckControlChance( e.Mobile ) ) && ( Regex.IsMatch( e.Speech, "bron", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "chron", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "chron", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "bron", RegexOptions.IgnoreCase ) ) )
+					{
+																						if ( !m_Mobile.IsDeadPet )
+						{
+							BeginPickTarget( e.Mobile, OrderType.Guard );
+							return;
+						}
+					}			
+					else if ( ( WasNamed( speech ) && m_Mobile.CheckControlChance( e.Mobile ) ) && ( Regex.IsMatch( e.Speech, "chodz", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "chodz", RegexOptions.IgnoreCase ) ) )
+					{
+						
+						if ( m_Mobile.CheckControlChance( e.Mobile ) )
+						{
+							m_Mobile.ControlTarget = e.Mobile;
+							m_Mobile.ControlOrder = OrderType.Come;
+						}
+							return;														}		
+					else if ( ( WasNamed( speech ) && m_Mobile.CheckControlChance( e.Mobile ) ) && ( Regex.IsMatch( e.Speech, "idz za", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "idz za", RegexOptions.IgnoreCase ) ) )
+					{
+						
+						BeginPickTarget( e.Mobile, OrderType.Follow );
+						return;															
+					}
+					else if ( ( WasNamed( speech ) && m_Mobile.CheckControlChance( e.Mobile ) ) && ( Regex.IsMatch( e.Speech, "stoj", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "stój", RegexOptions.IgnoreCase ) ) )
+					{
+						
+						if ( m_Mobile.CheckControlChance( e.Mobile ) )
+						{
+							m_Mobile.ControlTarget = null;
+							m_Mobile.ControlOrder = OrderType.Stay;
+						}
+							return;
+					}		
+					else if ( ( WasNamed( speech ) && m_Mobile.CheckControlChance( e.Mobile ) ) && ( Regex.IsMatch( e.Speech, "zatrzymaj sie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "zatrzymaj sie", RegexOptions.IgnoreCase ) ) )
+					{
+						
+						if ( m_Mobile.CheckControlChance( e.Mobile ) )
+						{
+							m_Mobile.ControlTarget = null;
+							m_Mobile.ControlOrder = OrderType.Stop;
+						}
+							return;
+					}		
+					else if ( ( WasNamed( speech ) && m_Mobile.CheckControlChance( e.Mobile ) ) && ( Regex.IsMatch( e.Speech, "chron mnie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "chron mnie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "bron mnie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "bron mnie", RegexOptions.IgnoreCase ) ) )
+					{
+						
+						if ( m_Mobile.CheckControlChance( e.Mobile ) )
+								{
+									m_Mobile.ControlTarget = e.Mobile;
+									m_Mobile.ControlOrder = OrderType.Guard;
+								}
+								return;
+					}
+					else if ( ( WasNamed( speech ) && m_Mobile.CheckControlChance( e.Mobile ) ) && ( Regex.IsMatch( e.Speech, "upusc", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "upusc", RegexOptions.IgnoreCase ) ) )
+					{
+						
+						if ( !m_Mobile.IsDeadPet && !m_Mobile.Summoned && WasNamed( speech ) && m_Mobile.CheckControlChance( e.Mobile ) )
+						{
+							m_Mobile.ControlTarget = null;
+							m_Mobile.ControlOrder = OrderType.Drop;
+						}
+							return;
+					}
+					else if ( ( WasNamed( speech ) && m_Mobile.CheckControlChance( e.Mobile ) ) && ( Regex.IsMatch( e.Speech, "uwalniam cie", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "uwalniam cie", RegexOptions.IgnoreCase ) ) )
+					{
+						
+						if ( WasNamed( speech ) && m_Mobile.CheckControlChance( e.Mobile ) )
+						{
+							if ( !m_Mobile.Summoned )
+							{
+								e.Mobile.SendGump( new Gumps.ConfirmReleaseGump( e.Mobile, m_Mobile ) );
+							}
+							else
+							{
+								m_Mobile.ControlTarget = null;
+								m_Mobile.ControlOrder = OrderType.Release;
+							}
+						}
+							return;
+					}
+					else if ( ( Regex.IsMatch( e.Speech, "jestescie wolne", RegexOptions.IgnoreCase ) || Regex.IsMatch( e.Speech, "jestescie wolne", RegexOptions.IgnoreCase ) ) )
+					{
+						
+						if ( m_Mobile.CheckControlChance( e.Mobile ) )
+						{
+							if ( !m_Mobile.Summoned )
+							{
+								e.Mobile.SendGump( new Gumps.ConfirmReleaseGump( e.Mobile, m_Mobile ) );
+							}
+							else
+							{
+								m_Mobile.ControlTarget = null;
+								m_Mobile.ControlOrder = OrderType.Release;
+							}
+						}
+							return;
+					}
+
+					else if ( ( WasNamed( speech ) && m_Mobile.CheckControlChance( e.Mobile ) ) && ( Regex.IsMatch( e.Speech, "przekaz", RegexOptions.IgnoreCase ) ) )
+					{
+						
+						if ( !m_Mobile.IsDeadPet && WasNamed( speech ) && m_Mobile.CheckControlChance( e.Mobile ) )
+						{
+							                if( m_Mobile.Summoned )
+										e.Mobile.SendMessage( 37, "Nie mozesz przekazac przywolanego towarzysza" ); // You cannot transfer ownership of a summoned creature.
+									else if( e.Mobile.HasTrade )
+										e.Mobile.SendLocalizedMessage( 1010507 ); // You cannot transfer a pet with a trade pending
+									else
+										BeginPickTarget( e.Mobile, OrderType.Transfer );
+						}
+							return;
+					}
+
+				}
 				m_Mobile.DebugSay("Listening...");
 
 				bool isOwner = (e.Mobile == m_Mobile.ControlMaster);
@@ -554,6 +1000,7 @@ namespace Server.Mobiles
 									{
 										m_Mobile.ControlTarget = null;
 										m_Mobile.ControlOrder = OrderType.Come;
+										
 									}
 
 									return;
@@ -766,10 +1213,7 @@ namespace Server.Mobiles
 									{
 										if (!m_Mobile.Summoned)
 										{
-                                            if (m_Mobile.IsDeadPet)
-                                                e.Mobile.SendGump(new Gumps.ConfirmReleaseDeadPetGump(e.Mobile, m_Mobile));
-                                            else
-                                                e.Mobile.SendGump(new Gumps.ConfirmReleaseGump(e.Mobile, m_Mobile));
+											e.Mobile.SendGump(new ConfirmReleaseGump(e.Mobile, m_Mobile));
 										}
 										else
 										{
@@ -2738,6 +3182,122 @@ namespace Server.Mobiles
 			Map map = m_Mobile.Map;
 
 			if (map != null)
+			
+			// + Kri guard system
+
+		if ( acqType == FightMode.Crim )
+		{	
+			if ( map != null )
+			{
+				IPooledEnumerable eable = map.GetMobilesInRange( m_Mobile.Location, iRange);
+
+				foreach ( Mobile m in eable )
+				{
+					if ( m is BaseCreature )
+						if ( ((BaseCreature)m).IsDeadPet )
+							continue;
+					if ( !m_Mobile.InLOS( m ) )
+						continue;
+
+					if( m.Alive && m.Criminal && m.AccessLevel == AccessLevel.Player )
+					{
+						m_Mobile.FocusMob = m;
+		}
+		else if ( m.Alive && !(m is PlayerMobile) && m.Karma <= -1000 && m.AccessLevel == AccessLevel.Player )
+		{
+		    m_Mobile.FocusMob = m;
+		}
+				}
+				eable.Free();
+				return ( m_Mobile.FocusMob != null );
+			}
+		}
+
+            if ( acqType == FightMode.Red )
+            {
+                if ( map != null )
+                {
+                    IPooledEnumerable eable = map.GetMobilesInRange( m_Mobile.Location, iRange );
+
+                    foreach ( Mobile m in eable )
+                    {
+						if ( m is BaseCreature )
+							if ( ((BaseCreature)m).IsDeadPet )
+								continue;
+						if ( !m_Mobile.InLOS( m ) )
+							continue;
+
+                        if ( m.Alive && (m.Criminal || (m.ShortTermMurders >= 5)) && m.AccessLevel == AccessLevel.Player )
+                        {
+                            m_Mobile.FocusMob = m;
+                        }
+                        else if ( m.Alive && m.Kills >= 5 && m.AccessLevel == AccessLevel.Player )
+                        {
+                            m_Mobile.FocusMob = m;
+                        }
+
+                        //Straz atakuje mobki z karma mniejsza niz -1000 
+                        else if ( m.Alive && m is BaseCreature && m.Karma <= -1000 )
+                        {
+                            m_Mobile.FocusMob = m;
+                        }
+
+                    }
+                    eable.Free();
+                    return (m_Mobile.FocusMob != null);
+                }
+            }
+// - Kri
+// + attack Only Good
+		if ( acqType == FightMode.Good )
+		{	
+			if ( map != null )
+			{
+				IPooledEnumerable eable = map.GetMobilesInRange( m_Mobile.Location, iRange);
+
+				foreach ( Mobile m in eable )
+				{
+
+					if(m is PlayerMobile && m.Alive && m.Kills < 5 && m.AccessLevel == AccessLevel.Player )
+					{
+						m_Mobile.FocusMob = m;
+
+					}
+
+
+				}
+				eable.Free();
+				return ( m_Mobile.FocusMob != null );
+			}
+		}
+// - Good
+// + attack Only Blue
+
+	    if ( acqType == FightMode.Blue )
+	    {
+		if ( map != null )
+		{
+		    IPooledEnumerable eable = map.GetMobilesInRange( m_Mobile.Location, iRange );
+
+		    foreach ( Mobile m in eable )
+		    {
+						if ( m is BaseCreature )
+							if ( ((BaseCreature)m).IsDeadPet )
+								continue;
+						if ( !m_Mobile.InLOS( m ) )
+							continue;
+
+			if ( m.Alive && m.Kills < 5 && m.AccessLevel == AccessLevel.Player )
+			{
+			    m_Mobile.FocusMob = m;
+			}
+		    }
+		    eable.Free();
+		    return (m_Mobile.FocusMob != null);
+		}
+	    }
+// - Blue
+			
 			{
 				Mobile newFocusMob = null;
 				double val = double.MinValue;
@@ -2921,7 +3481,7 @@ namespace Server.Mobiles
 			return false;
 		}
 
-		public virtual void DetectHidden()
+		public virtual void Wykrywanie()
 		{
 			if (m_Mobile.Deleted || m_Mobile.Map == null)
 			{
@@ -2930,7 +3490,7 @@ namespace Server.Mobiles
 
 			m_Mobile.DebugSay("Checking for hidden players");
 
-			double srcSkill = m_Mobile.Skills[SkillName.DetectHidden].Value;
+			double srcSkill = m_Mobile.Skills[SkillName.Wykrywanie].Value;
 
 			if (srcSkill <= 0)
 			{
@@ -2944,8 +3504,8 @@ namespace Server.Mobiles
 				{
 					m_Mobile.DebugSay("Trying to detect {0}", trg.Name);
 
-					double trgHiding = trg.Skills[SkillName.Hiding].Value / 2.9;
-					double trgStealth = trg.Skills[SkillName.Stealth].Value / 1.8;
+					double trgHiding = trg.Skills[SkillName.Ukrywanie].Value / 2.9;
+					double trgStealth = trg.Skills[SkillName.Zakradanie].Value / 1.8;
 
 					double chance = srcSkill / 1.2 - Math.Min(trgHiding, trgStealth);
 
@@ -3030,7 +3590,7 @@ namespace Server.Mobiles
 
 		private long m_NextDetectHidden;
 
-		public virtual bool CanDetectHidden { get { return m_Mobile.Skills[SkillName.DetectHidden].Value > 0; } }
+		public virtual bool CanDetectHidden { get { return m_Mobile.Skills[SkillName.Wykrywanie].Value > 0; } }
 
 		/*
         *  The Timer object
@@ -3116,7 +3676,7 @@ namespace Server.Mobiles
 
 				if (m_Owner.CanDetectHidden && Core.TickCount - m_Owner.m_NextDetectHidden >= 0)
 				{
-					m_Owner.DetectHidden();
+					m_Owner.Wykrywanie();
 
 					// Not exactly OSI style, approximation.
 					int delay = (15000 / m_Owner.m_Mobile.Int);

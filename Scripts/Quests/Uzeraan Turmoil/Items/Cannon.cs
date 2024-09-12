@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Engines.Quests.Haven
@@ -12,45 +13,47 @@ namespace Server.Engines.Quests.Haven
 
     public class Cannon : BaseAddon
     {
+        private CannonDirection m_CannonDirection;
+        private MilitiaCanoneer m_Canoneer;
         [Constructable]
         public Cannon(CannonDirection direction)
         {
-            CannonDirection = direction;
+            this.m_CannonDirection = direction;
 
-            switch (direction)
+            switch ( direction )
             {
                 case CannonDirection.North:
-                {
-                    AddComponent(new CannonComponent(0xE8D), 0, 0, 0);
-                    AddComponent(new CannonComponent(0xE8C), 0, 1, 0);
-                    AddComponent(new CannonComponent(0xE8B), 0, 2, 0);
+                    {
+                        this.AddComponent(new CannonComponent(0xE8D), 0, 0, 0);
+                        this.AddComponent(new CannonComponent(0xE8C), 0, 1, 0);
+                        this.AddComponent(new CannonComponent(0xE8B), 0, 2, 0);
 
-                    break;
-                }
+                        break;
+                    }
                 case CannonDirection.East:
-                {
-                    AddComponent(new CannonComponent(0xE96), 0, 0, 0);
-                    AddComponent(new CannonComponent(0xE95), -1, 0, 0);
-                    AddComponent(new CannonComponent(0xE94), -2, 0, 0);
+                    {
+                        this.AddComponent(new CannonComponent(0xE96), 0, 0, 0);
+                        this.AddComponent(new CannonComponent(0xE95), -1, 0, 0);
+                        this.AddComponent(new CannonComponent(0xE94), -2, 0, 0);
 
-                    break;
-                }
+                        break;
+                    }
                 case CannonDirection.South:
-                {
-                    AddComponent(new CannonComponent(0xE91), 0, 0, 0);
-                    AddComponent(new CannonComponent(0xE92), 0, -1, 0);
-                    AddComponent(new CannonComponent(0xE93), 0, -2, 0);
+                    {
+                        this.AddComponent(new CannonComponent(0xE91), 0, 0, 0);
+                        this.AddComponent(new CannonComponent(0xE92), 0, -1, 0);
+                        this.AddComponent(new CannonComponent(0xE93), 0, -2, 0);
 
-                    break;
-                }
+                        break;
+                    }
                 default:
-                {
-                    AddComponent(new CannonComponent(0xE8E), 0, 0, 0);
-                    AddComponent(new CannonComponent(0xE8F), 1, 0, 0);
-                    AddComponent(new CannonComponent(0xE90), 2, 0, 0);
+                    {
+                        this.AddComponent(new CannonComponent(0xE8E), 0, 0, 0);
+                        this.AddComponent(new CannonComponent(0xE8F), 1, 0, 0);
+                        this.AddComponent(new CannonComponent(0xE90), 2, 0, 0);
 
-                    break;
-                }
+                        break;
+                    }
             }
         }
 
@@ -60,96 +63,112 @@ namespace Server.Engines.Quests.Haven
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
-        public CannonDirection CannonDirection { get; private set; }
-
+        public CannonDirection CannonDirection
+        {
+            get
+            {
+                return this.m_CannonDirection;
+            }
+        }
         [CommandProperty(AccessLevel.GameMaster)]
-        public MilitiaCanoneer Canoneer { get; set; }
-
+        public MilitiaCanoneer Canoneer
+        {
+            get
+            {
+                return this.m_Canoneer;
+            }
+            set
+            {
+                this.m_Canoneer = value;
+            }
+        }
         public override bool HandlesOnMovement
         {
-            get { return Canoneer != null && !Canoneer.Deleted && Canoneer.Active; }
+            get
+            {
+                return this.m_Canoneer != null && !this.m_Canoneer.Deleted && this.m_Canoneer.Active;
+            }
         }
-
         public void DoFireEffect(IPoint3D target)
         {
             Point3D from;
-            switch (CannonDirection)
+            switch ( this.m_CannonDirection )
             {
                 case CannonDirection.North:
-                    from = new Point3D(X, Y - 1, Z);
+                    from = new Point3D(this.X, this.Y - 1, this.Z);
                     break;
                 case CannonDirection.East:
-                    from = new Point3D(X + 1, Y, Z);
+                    from = new Point3D(this.X + 1, this.Y, this.Z);
                     break;
                 case CannonDirection.South:
-                    from = new Point3D(X, Y + 1, Z);
+                    from = new Point3D(this.X, this.Y + 1, this.Z);
                     break;
                 default:
-                    from = new Point3D(X - 1, Y, Z);
+                    from = new Point3D(this.X - 1, this.Y, this.Z);
                     break;
             }
 
-            Effects.SendLocationEffect(from, Map, 0x36B0, 16, 1);
-            Effects.PlaySound(from, Map, 0x11D);
+            Effects.SendLocationEffect(from, this.Map, 0x36B0, 16, 1);
+            Effects.PlaySound(from, this.Map, 0x11D);
 
-            Effects.SendLocationEffect(target, Map, 0x36B0, 16, 1);
-            Effects.PlaySound(target, Map, 0x11D);
+            Effects.SendLocationEffect(target, this.Map, 0x36B0, 16, 1);
+            Effects.PlaySound(target, this.Map, 0x11D);
         }
 
         public void Fire(Mobile from, Mobile target)
         {
-            DoFireEffect(target);
+            this.DoFireEffect(target);
 
             target.Damage(9999, from);
         }
 
         public override void OnMovement(Mobile m, Point3D oldLocation)
         {
-            if (Canoneer == null || Canoneer.Deleted || !Canoneer.Active)
+            if (this.m_Canoneer == null || this.m_Canoneer.Deleted || !this.m_Canoneer.Active)
                 return;
 
             bool canFire;
-            switch (CannonDirection)
+            switch ( this.m_CannonDirection )
             {
                 case CannonDirection.North:
-                    canFire = m.X >= X - 7 && m.X <= X + 7 && m.Y == Y - 7 && oldLocation.Y < Y - 7;
+                    canFire = m.X >= this.X - 7 && m.X <= this.X + 7 && m.Y == this.Y - 7 && oldLocation.Y < this.Y - 7;
                     break;
                 case CannonDirection.East:
-                    canFire = m.Y >= Y - 7 && m.Y <= Y + 7 && m.X == X + 7 && oldLocation.X > X + 7;
+                    canFire = m.Y >= this.Y - 7 && m.Y <= this.Y + 7 && m.X == this.X + 7 && oldLocation.X > this.X + 7;
                     break;
                 case CannonDirection.South:
-                    canFire = m.X >= X - 7 && m.X <= X + 7 && m.Y == Y + 7 && oldLocation.Y > Y + 7;
+                    canFire = m.X >= this.X - 7 && m.X <= this.X + 7 && m.Y == this.Y + 7 && oldLocation.Y > this.Y + 7;
                     break;
                 default:
-                    canFire = m.Y >= Y - 7 && m.Y <= Y + 7 && m.X == X - 7 && oldLocation.X < X - 7;
+                    canFire = m.Y >= this.Y - 7 && m.Y <= this.Y + 7 && m.X == this.X - 7 && oldLocation.X < this.X - 7;
                     break;
             }
 
-            if (canFire && Canoneer.WillFire(this, m))
-                Fire(Canoneer, m);
+            if (canFire && this.m_Canoneer.WillFire(this, m))
+                this.Fire(this.m_Canoneer, m);
         }
 
         public override void Serialize(GenericWriter writer)
         {
-            if (Canoneer != null && Canoneer.Deleted)
-                Canoneer = null;
+            if (this.m_Canoneer != null && this.m_Canoneer.Deleted)
+                this.m_Canoneer = null;
 
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
 
-            writer.WriteEncodedInt((int) CannonDirection);
-            writer.Write(Canoneer);
+            writer.WriteEncodedInt((int)this.m_CannonDirection);
+            writer.Write((Mobile)this.m_Canoneer);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            CannonDirection = (CannonDirection) reader.ReadEncodedInt();
-            Canoneer = (MilitiaCanoneer) reader.ReadMobile();
+            this.m_CannonDirection = (CannonDirection)reader.ReadEncodedInt();
+            this.m_Canoneer = (MilitiaCanoneer)reader.ReadMobile();
         }
     }
 
@@ -168,26 +187,28 @@ namespace Server.Engines.Quests.Haven
         [CommandProperty(AccessLevel.GameMaster)]
         public MilitiaCanoneer Canoneer
         {
-            get { return Addon is Cannon ? ((Cannon) Addon).Canoneer : null; }
+            get
+            {
+                return this.Addon is Cannon ? ((Cannon)this.Addon).Canoneer : null;
+            }
             set
             {
-                if (Addon is Cannon)
-                    ((Cannon) Addon).Canoneer = value;
+                if (this.Addon is Cannon)
+                    ((Cannon)this.Addon).Canoneer = value;
             }
         }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

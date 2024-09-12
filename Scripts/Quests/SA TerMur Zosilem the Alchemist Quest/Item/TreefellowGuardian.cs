@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,36 +10,36 @@ namespace Server.Mobiles
         public TreefellowGuardian()
             : base(AIType.AI_Melee, FightMode.Evil, 10, 1, 0.2, 0.4)
         {
-            Name = "a Treefellow Guardian";
-            Body = 301;
+            this.Name = "a Treefellow Guardian";
+            this.Body = 301;
 
-            SetStr(511, 695);
-            SetDex(30, 55);
-            SetInt(403, 491);
+            this.SetStr(511, 695);
+            this.SetDex(30, 55);
+            this.SetInt(403, 491);
 
-            SetHits(724, 900);
+            this.SetHits(724, 900);
 
-            SetDamage(12, 16);
+            this.SetDamage(12, 16);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 30, 35);
-            SetResistance(ResistanceType.Cold, 50, 60);
-            SetResistance(ResistanceType.Poison, 20, 30);
-            SetResistance(ResistanceType.Energy, 80, 90);
+            this.SetResistance(ResistanceType.Physical, 30, 35);
+            this.SetResistance(ResistanceType.Cold, 50, 60);
+            this.SetResistance(ResistanceType.Poison, 20, 30);
+            this.SetResistance(ResistanceType.Energy, 80, 90);
 
-            SetSkill(SkillName.MagicResist, 40.1, 55.0);
-            SetSkill(SkillName.Tactics, 65.1, 90.0);
-            SetSkill(SkillName.Wrestling, 65.1, 85.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 40.1, 55.0);
+            this.SetSkill(SkillName.Taktyka, 65.1, 90.0);
+            this.SetSkill(SkillName.Boks, 65.1, 85.0);
 
-            Fame = 500;
-            Karma = 1500;
+            this.Fame = 500;
+            this.Karma = 1500;
 
-            VirtualArmor = 24;
-            PackItem(new Log(Utility.RandomMinMax(23, 34)));
+            this.VirtualArmor = 24;
+            this.PackItem(new Log(Utility.RandomMinMax(23, 34)));
 
             if (0.05 > Utility.RandomDouble())
-                PackItem(new TreefellowWood());
+                this.PackItem(new TreefellowWood()); 
         }
 
         public TreefellowGuardian(Serial serial)
@@ -48,14 +49,18 @@ namespace Server.Mobiles
 
         public override OppositionGroup OppositionGroup
         {
-            get { return OppositionGroup.FeyAndUndead; }
+            get
+            {
+                return OppositionGroup.FeyAndUndead;
+            }
         }
-
         public override bool BleedImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override WeaponAbility GetWeaponAbility()
         {
             return WeaponAbility.Dismount;
@@ -78,22 +83,22 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Average);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            if (BaseSoundID == 442)
-                BaseSoundID = -1;
+            if (this.BaseSoundID == 442)
+                this.BaseSoundID = -1;
         }
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Server.Targeting;
 
-namespace Server.Spells.Necromancy
+namespace Server.Spells.Nekromancja
 {
     public class CorpseSkinSpell : NecromancerSpell
     {
@@ -89,7 +89,7 @@ namespace Server.Spells.Necromancy
 
                 double ss = this.GetDamageSkill(this.Caster);
                 double mr = (this.Caster == m ? 0.0 : this.GetResistSkill(m));
-                m.CheckSkill(SkillName.MagicResist, 0.0, 120.0);	//Skill check for gain
+                m.CheckSkill(SkillName.ObronaPrzedMagia, 0.0, 120.0);	//Skill check for gain
 
                 TimeSpan duration = TimeSpan.FromSeconds(((ss - mr) / 2.5) + 40.0);
 

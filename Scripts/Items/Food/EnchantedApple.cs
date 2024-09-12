@@ -1,6 +1,6 @@
 using System;
 using Server.Spells.Fourth;
-using Server.Spells.Necromancy;
+using Server.Spells.Nekromancja;
 
 namespace Server.Items
 {

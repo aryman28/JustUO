@@ -1,3 +1,4 @@
+using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Samurai
@@ -8,32 +9,32 @@ namespace Server.Engines.Quests.Samurai
         public FierceDragon()
             : base(AIType.AI_Melee, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            Name = "a fierce dragon";
-            Body = 103;
-            BaseSoundID = 362;
+            this.Name = "a fierce dragon";
+            this.Body = 103;
+            this.BaseSoundID = 362;
 
-            SetStr(6000, 6020);
-            SetDex(0);
-            SetInt(850, 870);
+            this.SetStr(6000, 6020);
+            this.SetDex(0);
+            this.SetInt(850, 870);
 
-            SetDamage(50, 80);
+            this.SetDamage(50, 80);
 
-            SetDamageType(ResistanceType.Fire, 100);
+            this.SetDamageType(ResistanceType.Fire, 100);
 
-            SetResistance(ResistanceType.Physical, 95, 98);
-            SetResistance(ResistanceType.Fire, 95, 98);
-            SetResistance(ResistanceType.Cold, 95, 98);
-            SetResistance(ResistanceType.Poison, 95, 98);
-            SetResistance(ResistanceType.Energy, 95, 98);
+            this.SetResistance(ResistanceType.Physical, 95, 98);
+            this.SetResistance(ResistanceType.Fire, 95, 98);
+            this.SetResistance(ResistanceType.Cold, 95, 98);
+            this.SetResistance(ResistanceType.Poison, 95, 98);
+            this.SetResistance(ResistanceType.Energy, 95, 98);
 
-            SetSkill(SkillName.Tactics, 120.0);
-            SetSkill(SkillName.Wrestling, 120.0);
-            SetSkill(SkillName.Magery, 120.0);
+            this.SetSkill(SkillName.Taktyka, 120.0);
+            this.SetSkill(SkillName.Boks, 120.0);
+            this.SetSkill(SkillName.Magia, 120.0);
 
-            Fame = 15000;
-            Karma = 15000;
+            this.Fame = 15000;
+            this.Karma = 15000;
 
-            CantWalk = true;
+            this.CantWalk = true;
         }
 
         public FierceDragon(Serial serial)
@@ -70,13 +71,13 @@ namespace Server.Engines.Quests.Samurai
         {
             base.AggressiveAction(aggressor, criminal);
 
-            var player = aggressor as PlayerMobile;
+            PlayerMobile player = aggressor as PlayerMobile;
             if (player != null)
             {
-                var qs = player.Quest;
+                QuestSystem qs = player.Quest;
                 if (qs is HaochisTrialsQuest)
                 {
-                    var obj = qs.FindObjective(typeof (SecondTrialAttackObjective));
+                    QuestObjective obj = qs.FindObjective(typeof(SecondTrialAttackObjective));
                     if (obj != null && !obj.Completed)
                     {
                         obj.Complete();
@@ -97,7 +98,7 @@ namespace Server.Engines.Quests.Samurai
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
         }
     }
 }

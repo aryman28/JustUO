@@ -1,5 +1,5 @@
 using System;
-using Server.Spells.Spellweaving;
+using Server.Spells.Druidyzm;
 
 namespace Server.Items
 {

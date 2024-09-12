@@ -21,7 +21,7 @@ namespace Server.Items
             {
                 return 1074572;
             }
-        }// Crafty's Fishing Hat
+        }// Crafty's Rybactwo Hat
         public override int BasePhysicalResistance
         {
             get

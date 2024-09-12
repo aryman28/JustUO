@@ -19,7 +19,7 @@ namespace Server.Mobiles
         [Constructable]
         public SeekerOfAdventure()
         {
-            this.Title = "the seeker of adventure";
+            this.Title = "- Poszukiwacz przygód";
         }
 
         public SeekerOfAdventure(Serial serial)

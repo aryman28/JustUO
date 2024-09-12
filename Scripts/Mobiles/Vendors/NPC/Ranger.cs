@@ -8,14 +8,14 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Ranger()
-            : base("the ranger")
+            : base("- Stra¿nik Lasu")
         {
-            this.SetSkill(SkillName.Camping, 55.0, 78.0);
-            this.SetSkill(SkillName.DetectHidden, 65.0, 88.0);
-            this.SetSkill(SkillName.Hiding, 45.0, 68.0);
-            this.SetSkill(SkillName.Archery, 65.0, 88.0);
-            this.SetSkill(SkillName.Tracking, 65.0, 88.0);
-            this.SetSkill(SkillName.Veterinary, 60.0, 83.0);
+            this.SetSkill(SkillName.Obozowanie, 55.0, 78.0);
+            this.SetSkill(SkillName.Wykrywanie, 65.0, 88.0);
+            this.SetSkill(SkillName.Ukrywanie, 45.0, 68.0);
+            this.SetSkill(SkillName.Lucznictwo, 65.0, 88.0);
+            this.SetSkill(SkillName.Tropienie, 65.0, 88.0);
+            this.SetSkill(SkillName.Weterynaria, 60.0, 83.0);
         }
 
         public Ranger(Serial serial)

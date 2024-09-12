@@ -8,10 +8,10 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Carpenter()
-            : base("the carpenter")
+            : base("- Stolarz")
         {
-            this.SetSkill(SkillName.Carpentry, 85.0, 100.0);
-            this.SetSkill(SkillName.Lumberjacking, 60.0, 83.0);
+            this.SetSkill(SkillName.Stolarstwo, 85.0, 100.0);
+            this.SetSkill(SkillName.Drwalnictwo, 60.0, 83.0);
         }
 
         public Carpenter(Serial serial)

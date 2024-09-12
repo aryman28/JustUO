@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Server.Targeting;
 
-namespace Server.Spells.Necromancy
+namespace Server.Spells.Nekromancja
 {
     public class StrangleSpell : NecromancerSpell
     {
@@ -99,7 +99,7 @@ namespace Server.Spells.Necromancy
             }
 
             //Calculations for the buff bar
-            double spiritlevel = this.Caster.Skills[SkillName.SpiritSpeak].Value / 10;
+            double spiritlevel = this.Caster.Skills[SkillName.MowaDuchow].Value / 10;
             if (spiritlevel < 4)
                 spiritlevel = 4;
             int d_MinDamage = 4;
@@ -156,7 +156,7 @@ namespace Server.Spells.Necromancy
                 this.m_Target = target;
                 this.m_From = from;
 
-                double spiritLevel = from.Skills[SkillName.SpiritSpeak].Value / 10;
+                double spiritLevel = from.Skills[SkillName.MowaDuchow].Value / 10;
 
                 this.m_MinBaseDamage = spiritLevel - 2;
                 this.m_MaxBaseDamage = spiritLevel + 1;

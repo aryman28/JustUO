@@ -11,6 +11,7 @@ namespace Server.Items
         {
             this.Weight = 12.0;
             this.Layer = Layer.TwoHanded;
+            this.Name = "Zdobiony topór";
         }
 
         public OrnateAxe(Serial serial)

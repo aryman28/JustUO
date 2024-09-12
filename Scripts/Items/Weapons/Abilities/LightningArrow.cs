@@ -13,7 +13,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Server.Items
             if (weapon == null)
                 return;
 
-            if (!this.CheckMana(attacker, true))
+            if (!this.CheckStam(attacker, true))
                 return;
 
             ArrayList list = new ArrayList();

@@ -6,10 +6,10 @@ namespace Server.Mobiles
     {
         [Constructable]
         public MinerGuildmaster()
-            : base("miner")
+            : base("- Mistrz Gildii Górnictwa")
         {
-            this.SetSkill(SkillName.ItemID, 60.0, 83.0);
-            this.SetSkill(SkillName.Mining, 90.0, 100.0);
+            this.SetSkill(SkillName.Identyfikacja, 60.0, 83.0);
+            this.SetSkill(SkillName.Gornictwo, 120.0, 150.0);
         }
 
         public MinerGuildmaster(Serial serial)

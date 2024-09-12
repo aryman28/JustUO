@@ -25,15 +25,15 @@ namespace Server.Mobiles
 
         [Constructable]
         public Blacksmith()
-            : base("the blacksmith")
+            : base("- Kowal")
         {
-            this.SetSkill(SkillName.ArmsLore, 36.0, 68.0);
-            this.SetSkill(SkillName.Blacksmith, 65.0, 88.0);
-            this.SetSkill(SkillName.Fencing, 60.0, 83.0);
-            this.SetSkill(SkillName.Macing, 61.0, 93.0);
-            this.SetSkill(SkillName.Swords, 60.0, 83.0);
-            this.SetSkill(SkillName.Tactics, 60.0, 83.0);
-            this.SetSkill(SkillName.Parry, 61.0, 93.0);
+            this.SetSkill(SkillName.WiedzaOUzbrojeniu, 36.0, 68.0);
+            this.SetSkill(SkillName.Kowalstwo, 65.0, 88.0);
+            this.SetSkill(SkillName.WalkaSzpadami, 60.0, 83.0);
+            this.SetSkill(SkillName.WalkaObuchami, 61.0, 93.0);
+            this.SetSkill(SkillName.WalkaMieczami, 60.0, 83.0);
+            this.SetSkill(SkillName.Taktyka, 60.0, 83.0);
+            this.SetSkill(SkillName.Parowanie, 61.0, 93.0);
         }
 
         public override void InitSBInfo()
@@ -94,7 +94,7 @@ namespace Server.Mobiles
 
             if (pm != null && pm.NextSmithBulkOrder == TimeSpan.Zero && (fromContextMenu || 0.2 > Utility.RandomDouble()))
             {
-                double theirSkill = pm.Skills[SkillName.Blacksmith].Base;
+                double theirSkill = pm.Skills[SkillName.Kowalstwo].Base;
 
                 if (theirSkill >= 70.1)
                     pm.NextSmithBulkOrder = TimeSpan.FromHours(6.0);
@@ -119,7 +119,7 @@ namespace Server.Mobiles
 
         public override bool SupportsBulkOrders(Mobile from)
         {
-            return (from is PlayerMobile && from.Skills[SkillName.Blacksmith].Base > 0);
+            return (from is PlayerMobile && from.Skills[SkillName.Kowalstwo].Base > 0);
         }
 
         public override TimeSpan GetNextBulkOrder(Mobile from)

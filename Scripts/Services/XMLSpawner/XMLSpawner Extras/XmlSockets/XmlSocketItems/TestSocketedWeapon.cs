@@ -22,8 +22,8 @@ namespace Server.Items
                     break;
                 case 1:
                     // make the weapon socketable up to 4 sockets, and set specific socketing requirements
-                    // minimum of 100 skill in Tinkering required to socket it, and it uses 50 Agapipe ingots
-                    XmlAttach.AttachTo(this, new XmlSocketable(4, SkillName.Tinkering, 100.0, typeof(AgapiteIngot), 50));
+                    // minimum of 100 skill in Majsterkowanie required to socket it, and it uses 50 Agapipe ingots
+                    XmlAttach.AttachTo(this, new XmlSocketable(4, SkillName.Majsterkowanie, 100.0, typeof(AgapiteIngot), 50));
                     break;
                 case 2:
                     // give it 2 sockets and dont allow it to be further socketed

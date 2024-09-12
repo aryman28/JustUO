@@ -32,8 +32,8 @@ namespace Server.Mobiles
             this.SetResistance(ResistanceType.Poison, 10, 15);
             this.SetResistance(ResistanceType.Energy, 99);
 
-            this.SetSkill(SkillName.Wrestling, 40.0);
-            this.SetSkill(SkillName.Tactics, 40.0);
+            this.SetSkill(SkillName.Boks, 40.0);
+            this.SetSkill(SkillName.Taktyka, 40.0);
 
             this.ControlSlots = 1;
         }

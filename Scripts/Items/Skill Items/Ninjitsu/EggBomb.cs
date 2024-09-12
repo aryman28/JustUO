@@ -28,7 +28,7 @@ namespace Server.Items
 				// The item must be in your backpack to use it.
 				from.SendLocalizedMessage(1060640);
 			}
-			else if (from.Skills.Ninjitsu.Value < 50.0)
+			else if (from.Skills.Skrytobojstwo.Value < 50.0)
 			{
 				// You need at least ~1_SKILL_REQUIREMENT~ ~2_SKILL_NAME~ skill to use that ability.
 				from.SendLocalizedMessage(1063013, "50\tNinjitsu");
@@ -45,9 +45,9 @@ namespace Server.Items
 			}
 			else
 			{
-				Hiding.CombatOverride = true;
+				Ukrywanie.CombatOverride = true;
 
-				if (from.UseSkill(SkillName.Hiding))
+				if (from.UseSkill(SkillName.Ukrywanie))
 				{
 					from.Mana -= 10;
 
@@ -57,7 +57,7 @@ namespace Server.Items
 					Consume();
 				}
 
-				Hiding.CombatOverride = false;
+				Ukrywanie.CombatOverride = false;
 			}
 		}
 

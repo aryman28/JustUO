@@ -20,7 +20,7 @@ namespace Server.Items
                 return m_Registry;
             }
         }
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -36,9 +36,9 @@ namespace Server.Items
         }
         public override bool CheckSkills(Mobile from)
         {
-            if (this.GetSkill(from, SkillName.Ninjitsu) < 50.0)
+            if (this.GetSkill(from, SkillName.Skrytobojstwo) < 50.0)
             {
-                from.SendLocalizedMessage(1063352, "50"); // You need ~1_SKILL_REQUIREMENT~ Ninjitsu skill to perform that attack!
+                from.SendLocalizedMessage(1063352, "50"); // You need ~1_SKILL_REQUIREMENT~ Skrytobojstwo skill to perform that attack!
                 return false;
             }
 
@@ -47,7 +47,7 @@ namespace Server.Items
 
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
         {
-            if (Registry.Contains(defender) || !this.Validate(attacker) || !this.CheckMana(attacker, true))
+            if (Registry.Contains(defender) || !this.Validate(attacker) || !this.CheckStam(attacker, true))
                 return;
 
             ClearCurrentAbility(attacker);
@@ -57,7 +57,7 @@ namespace Server.Items
 
             defender.FixedParticles(0x373A, 1, 17, 0x26BC, 0x662, 0, EffectLayer.Waist);
 
-            Timer t = new InternalTimer(defender, (int)(10.0 * (attacker.Skills[SkillName.Ninjitsu].Value - 50.0) / 70.0 + 5), attacker);	//5 - 15 damage
+            Timer t = new InternalTimer(defender, (int)(10.0 * (attacker.Skills[SkillName.Skrytobojstwo].Value - 50.0) / 70.0 + 5), attacker);	//5 - 15 damage
 
             t.Start();
 

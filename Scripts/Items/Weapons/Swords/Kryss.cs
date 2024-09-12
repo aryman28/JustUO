@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x1401)
         {
             this.Weight = 2.0;
+            this.Name = "Kris";
         }
 
         public Kryss(Serial serial)
@@ -126,7 +127,7 @@ namespace Server.Items
         {
             get
             {
-                return SkillName.Fencing;
+                return SkillName.WalkaSzpadami;
             }
         }
         public override WeaponType DefType

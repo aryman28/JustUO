@@ -500,11 +500,8 @@ namespace Server
 						int length = idxReader.ReadInt32();
 
 						createEventArgs.Id = id;
-
 						EventSink.InvokeCreateGuild(createEventArgs);
-
 						BaseGuild guild = createEventArgs.Guild;
-
 						if (guild != null)
 						{
 							guilds.Add(new GuildEntry(guild, pos, length));

@@ -10,9 +10,9 @@ namespace Server.Mobiles
         {
             this.Title = "a Gargish noble";
 
-            this.SetSkill(SkillName.Parry, 80.0, 100.0);
-            this.SetSkill(SkillName.Swords, 80.0, 100.0);
-            this.SetSkill(SkillName.Tactics, 80.0, 100.0);
+            this.SetSkill(SkillName.Parowanie, 80.0, 100.0);
+            this.SetSkill(SkillName.WalkaMieczami, 80.0, 100.0);
+            this.SetSkill(SkillName.Taktyka, 80.0, 100.0);
 		
             if (this.Female = Utility.RandomBool())
             {

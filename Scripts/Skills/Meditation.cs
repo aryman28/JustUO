@@ -3,7 +3,7 @@ using Server.Items;
 
 namespace Server.SkillHandlers
 {
-    class Meditation
+    class Medytacja
     {
         public static void Initialize()
         {
@@ -75,12 +75,12 @@ namespace Server.SkillHandlers
                     return TimeSpan.FromSeconds(2.5);
                 }
 
-                double skillVal = m.Skills[SkillName.Meditation].Value;
+                double skillVal = m.Skills[SkillName.Medytacja].Value;
                 double chance = (50.0 + ((skillVal - (m.ManaMax - m.Mana)) * 2)) / 100;
 
                 if (chance > Utility.RandomDouble())
                 {
-                    m.CheckSkill(SkillName.Meditation, 0.0, 100.0);
+                    m.CheckSkill(SkillName.Medytacja, 0.0, 100.0);
 
                     m.SendLocalizedMessage(501851); // You enter a meditative trance.
                     m.Meditating = true;

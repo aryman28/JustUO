@@ -1,6 +1,6 @@
 using System;
 
-namespace Server.Spells.Spellweaving
+namespace Server.Spells.Druidyzm
 {
     public abstract class ArcaneForm : ArcanistSpell, ITransformationSpell
     {

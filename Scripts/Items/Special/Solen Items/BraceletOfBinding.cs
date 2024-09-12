@@ -142,7 +142,7 @@ namespace Server.Items
                 list.Add(new BraceletEntry(new BraceletCallback(Activate), 6170, bound != null));
                 list.Add(new BraceletEntry(new BraceletCallback(Search), 6171, bound != null));
                 list.Add(new BraceletEntry(new BraceletCallback(Bind), bound == null ? 6173 : 6174, true));
-                list.Add(new BraceletEntry(new BraceletCallback(Inscribe), 6175, true));
+                list.Add(new BraceletEntry(new BraceletCallback(Inskrypcja), 6175, true));
             }
         }
 
@@ -220,7 +220,7 @@ namespace Server.Items
             }
         }
 
-        public void Inscribe(Mobile from)
+        public void Inskrypcja(Mobile from)
         {
             if (this.Deleted)
                 return;

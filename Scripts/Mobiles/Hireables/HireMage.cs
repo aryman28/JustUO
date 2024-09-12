@@ -11,7 +11,7 @@ namespace Server.Mobiles
         {
             this.SpeechHue = Utility.RandomDyedHue();
             this.Hue = Utility.RandomSkinHue();
-            this.Title = "the mage";
+            this.Title = "- Mag (najemnik)";
             if (this.Female = Utility.RandomBool()) 
             {
                 this.Body = 0x191;
@@ -34,12 +34,12 @@ namespace Server.Mobiles
 
             this.SetDamage(10, 23);
 
-            this.SetSkill(SkillName.EvalInt, 100.0, 125);
-            this.SetSkill(SkillName.Magery, 100, 125);
-            this.SetSkill(SkillName.Meditation, 100, 125);
-            this.SetSkill(SkillName.MagicResist, 100, 125);
-            this.SetSkill(SkillName.Tactics, 100, 125);
-            this.SetSkill(SkillName.Macing, 100, 125);
+            this.SetSkill(SkillName.Intelekt, 100.0, 125);
+            this.SetSkill(SkillName.Magia, 100, 125);
+            this.SetSkill(SkillName.Medytacja, 100, 125);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 100, 125);
+            this.SetSkill(SkillName.Taktyka, 100, 125);
+            this.SetSkill(SkillName.WalkaObuchami, 100, 125);
 
             this.Fame = 100;
             this.Karma = 100;

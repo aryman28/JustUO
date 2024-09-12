@@ -1,7 +1,13 @@
+using System;
+
 namespace Server.Engines.Quests.Ambitious
 {
     public class DontOfferConversation : QuestConversation
     {
+        public DontOfferConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -15,15 +21,21 @@ namespace Server.Engines.Quests.Ambitious
                 return 1054059;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class AcceptConversation : QuestConversation
     {
+        public AcceptConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -45,15 +57,18 @@ namespace Server.Engines.Quests.Ambitious
                 return 1054061;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new KillQueensObjective());
+            this.System.AddObjective(new KillQueensObjective());
         }
     }
 
     public class DuringKillQueensConversation : QuestConversation
     {
+        public DuringKillQueensConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -71,15 +86,21 @@ namespace Server.Engines.Quests.Ambitious
                 return 1054066;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class GatherFungiConversation : QuestConversation
     {
+        public GatherFungiConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -98,15 +119,18 @@ namespace Server.Engines.Quests.Ambitious
                 return 1054068;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new GatherFungiObjective());
+            this.System.AddObjective(new GatherFungiObjective());
         }
     }
 
     public class DuringFungiGatheringConversation : QuestConversation
     {
+        public DuringFungiGatheringConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -120,15 +144,21 @@ namespace Server.Engines.Quests.Ambitious
                 return 1054070;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class EndConversation : QuestConversation
     {
+        public EndConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -146,45 +176,43 @@ namespace Server.Engines.Quests.Ambitious
                 return 1054073;
             }
         }
-
         public override void OnRead()
         {
-            var bagOfSending = true;
-            var powderOfTranslocation = true;
-            var gold = true;
+            bool bagOfSending = true;
+            bool powderOfTranslocation = true;
+            bool gold = true;
 
-            AmbitiousQueenQuest.GiveRewardTo(System.From, ref bagOfSending, ref powderOfTranslocation, ref gold);
+            AmbitiousQueenQuest.GiveRewardTo(this.System.From, ref bagOfSending, ref powderOfTranslocation, ref gold);
 
             if (!bagOfSending && !powderOfTranslocation && !gold)
             {
-                System.Complete();
+                this.System.Complete();
             }
             else
             {
-                System.AddConversation(new FullBackpackConversation(true, bagOfSending, powderOfTranslocation, gold));
+                this.System.AddConversation(new FullBackpackConversation(true, bagOfSending, powderOfTranslocation, gold));
             }
         }
     }
 
     public class FullBackpackConversation : QuestConversation
     {
-        private bool m_BagOfSending;
-        private bool m_Gold;
-        private bool m_PowderOfTranslocation;
         private readonly bool m_Logged;
-
+        private bool m_BagOfSending;
+        private bool m_PowderOfTranslocation;
+        private bool m_Gold;
         public FullBackpackConversation(bool logged, bool bagOfSending, bool powderOfTranslocation, bool gold)
         {
-            m_Logged = logged;
+            this.m_Logged = logged;
 
-            m_BagOfSending = bagOfSending;
-            m_PowderOfTranslocation = powderOfTranslocation;
-            m_Gold = gold;
+            this.m_BagOfSending = bagOfSending;
+            this.m_PowderOfTranslocation = powderOfTranslocation;
+            this.m_Gold = gold;
         }
 
         public FullBackpackConversation()
         {
-            m_Logged = true;
+            this.m_Logged = true;
         }
 
         public override object Message
@@ -201,39 +229,44 @@ namespace Server.Engines.Quests.Ambitious
                 return 1054077;
             }
         }
-
         public override bool Logged
         {
-            get { return m_Logged; }
+            get
+            {
+                return this.m_Logged;
+            }
         }
-
         public override void OnRead()
         {
-            if (m_Logged)
-                System.AddObjective(new GetRewardObjective(m_BagOfSending, m_PowderOfTranslocation, m_Gold));
+            if (this.m_Logged)
+                this.System.AddObjective(new GetRewardObjective(this.m_BagOfSending, this.m_PowderOfTranslocation, this.m_Gold));
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            m_BagOfSending = reader.ReadBool();
-            m_PowderOfTranslocation = reader.ReadBool();
-            m_Gold = reader.ReadBool();
+            this.m_BagOfSending = reader.ReadBool();
+            this.m_PowderOfTranslocation = reader.ReadBool();
+            this.m_Gold = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(m_BagOfSending);
-            writer.Write(m_PowderOfTranslocation);
-            writer.Write(m_Gold);
+            writer.Write((bool)this.m_BagOfSending);
+            writer.Write((bool)this.m_PowderOfTranslocation);
+            writer.Write((bool)this.m_Gold);
         }
     }
 
     public class End2Conversation : QuestConversation
     {
+        public End2Conversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -246,10 +279,9 @@ namespace Server.Engines.Quests.Ambitious
                 return 1054078;
             }
         }
-
         public override void OnRead()
         {
-            System.Complete();
+            this.System.Complete();
         }
     }
 }

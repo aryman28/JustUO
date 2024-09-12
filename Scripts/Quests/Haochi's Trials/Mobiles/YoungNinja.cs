@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -10,38 +11,38 @@ namespace Server.Engines.Quests.Samurai
         public YoungNinja()
             : base(AIType.AI_Melee, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            InitStats(45, 30, 5);
-            SetHits(20, 30);
+            this.InitStats(45, 30, 5);
+            this.SetHits(20, 30);
 
-            Hue = Utility.RandomSkinHue();
-            Body = 0x190;
-            Name = "a young ninja";
+            this.Hue = Utility.RandomSkinHue();
+            this.Body = 0x190;
+            this.Name = "a young ninja";
 
             Utility.AssignRandomHair(this);
             Utility.AssignRandomFacialHair(this);
 
-            AddItem(new NinjaTabi());
-            AddItem(new LeatherNinjaPants());
-            AddItem(new LeatherNinjaJacket());
-            AddItem(new LeatherNinjaBelt());
+            this.AddItem(new NinjaTabi());
+            this.AddItem(new LeatherNinjaPants());
+            this.AddItem(new LeatherNinjaJacket());
+            this.AddItem(new LeatherNinjaBelt());
 
-            AddItem(new Bandana(Utility.RandomNondyedHue()));
+            this.AddItem(new Bandana(Utility.RandomNondyedHue()));
 
-            switch (Utility.Random(3))
+            switch ( Utility.Random(3) )
             {
                 case 0:
-                    AddItem(new Tessen());
+                    this.AddItem(new Tessen());
                     break;
                 case 1:
-                    AddItem(new Kama());
+                    this.AddItem(new Kama());
                     break;
                 default:
-                    AddItem(new Lajatang());
+                    this.AddItem(new Lajatang());
                     break;
             }
 
-            SetSkill(SkillName.Swords, 50.0);
-            SetSkill(SkillName.Tactics, 50.0);
+            this.SetSkill(SkillName.WalkaMieczami, 50.0);
+            this.SetSkill(SkillName.Taktyka, 50.0);
         }
 
         public YoungNinja(Serial serial)
@@ -51,9 +52,11 @@ namespace Server.Engines.Quests.Samurai
 
         public override bool AlwaysMurderer
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
@@ -65,7 +68,7 @@ namespace Server.Engines.Quests.Samurai
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
         }
     }
 }

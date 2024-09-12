@@ -10,12 +10,12 @@ namespace Server.Factions
         public FactionReagentVendor(Town town, Faction faction)
             : base(town, faction, "the Reagent Man")
         {
-            this.SetSkill(SkillName.EvalInt, 65.0, 88.0);
-            this.SetSkill(SkillName.Inscribe, 60.0, 83.0);
-            this.SetSkill(SkillName.Magery, 64.0, 100.0);
-            this.SetSkill(SkillName.Meditation, 60.0, 83.0);
-            this.SetSkill(SkillName.MagicResist, 65.0, 88.0);
-            this.SetSkill(SkillName.Wrestling, 36.0, 68.0);
+            this.SetSkill(SkillName.Intelekt, 65.0, 88.0);
+            this.SetSkill(SkillName.Inskrypcja, 60.0, 83.0);
+            this.SetSkill(SkillName.Magia, 64.0, 100.0);
+            this.SetSkill(SkillName.Medytacja, 60.0, 83.0);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 65.0, 88.0);
+            this.SetSkill(SkillName.Boks, 36.0, 68.0);
         }
 
         public FactionReagentVendor(Serial serial)

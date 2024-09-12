@@ -86,80 +86,135 @@ namespace Server.Spells
             Register(62, typeof(Eighth.FireElementalSpell));
             Register(63, typeof(Eighth.WaterElementalSpell));
 
+            //Bard
+
+                Register(351, typeof(Song.BalladaMaga));
+                Register(352, typeof(Song.BohaterskaEtiuda));
+                Register(353, typeof(Song.MagicznyFinal));
+                Register(354, typeof(Song.OgnistaZemsta));
+                Register(355, typeof(Song.PiesnZywiolow));
+                Register(356, typeof(Song.PonuryZywiol));
+                Register(357, typeof(Song.RzekaZycia));
+                Register(358, typeof(Song.TarczaOdwagi));
+
+            //Berserker
+
+            //Register(251, typeof(Berserker.SzalBitewny));
+        
+
+            //Msciciel
+
+                /*Register(251, typeof (Msciciel.DuszenieSpell));
+                Register(252, typeof (Msciciel.FuriaSpell));
+                Register(253, typeof (Msciciel.LeczenieRanSpell));
+                Register(254, typeof (Msciciel.MrocznyKielSpell));
+                Register(255, typeof (Msciciel.PoswieconaBronSpell));
+                Register(256, typeof (Msciciel.PrzekletaBronSpell));
+                Register(257, typeof (Msciciel.PrzywolanieUmarlychSpell));
+                Register(258, typeof (Msciciel.ZemstaSpell));*/
+
+                
+
             if (Core.AOS)
             {
-                // Necromancy spells
-                Register(100, typeof(Necromancy.AnimateDeadSpell));
-                Register(101, typeof(Necromancy.BloodOathSpell));
-                Register(102, typeof(Necromancy.CorpseSkinSpell));
-                Register(103, typeof(Necromancy.CurseWeaponSpell));
-                Register(104, typeof(Necromancy.EvilOmenSpell));
-                Register(105, typeof(Necromancy.HorrificBeastSpell));
-                Register(106, typeof(Necromancy.LichFormSpell));
-                Register(107, typeof(Necromancy.MindRotSpell));
-                Register(108, typeof(Necromancy.PainSpikeSpell));
-                Register(109, typeof(Necromancy.PoisonStrikeSpell));
-                Register(110, typeof(Necromancy.StrangleSpell));
-                Register(111, typeof(Necromancy.SummonFamiliarSpell));
-                Register(112, typeof(Necromancy.VampiricEmbraceSpell));
-                Register(113, typeof(Necromancy.VengefulSpiritSpell));
-                Register(114, typeof(Necromancy.WitherSpell));
-                Register(115, typeof(Necromancy.WraithFormSpell));
+                // Nekromancja spells
+                Register(100, typeof(Nekromancja.AnimateDeadSpell));
+                Register(101, typeof(Nekromancja.BloodOathSpell));
+                Register(102, typeof(Nekromancja.CorpseSkinSpell));
+                Register(103, typeof(Nekromancja.CurseWeaponSpell));
+                Register(104, typeof(Nekromancja.EvilOmenSpell));
+                Register(105, typeof(Nekromancja.HorrificBeastSpell));
+                Register(106, typeof(Nekromancja.LichFormSpell));
+                Register(107, typeof(Nekromancja.MindRotSpell));
+                Register(108, typeof(Nekromancja.PainSpikeSpell));
+                Register(109, typeof(Nekromancja.PoisonStrikeSpell));
+                Register(110, typeof(Nekromancja.StrangleSpell));
+                Register(111, typeof(Nekromancja.SummonFamiliarSpell));
+                Register(112, typeof(Nekromancja.VampiricEmbraceSpell));
+                Register(113, typeof(Nekromancja.VengefulSpiritSpell));
+                Register(114, typeof(Nekromancja.WitherSpell));
+                Register(115, typeof(Nekromancja.WraithFormSpell));
 
                 if (Core.SE)
-                    Register(116, typeof(Necromancy.ExorcismSpell));
+                    Register(116, typeof(Nekromancja.ExorcismSpell));
 
                 // Paladin abilities
-                Register(200, typeof(Chivalry.CleanseByFireSpell));
-                Register(201, typeof(Chivalry.CloseWoundsSpell));
-                Register(202, typeof(Chivalry.ConsecrateWeaponSpell));
-                Register(203, typeof(Chivalry.DispelEvilSpell));
-                Register(204, typeof(Chivalry.DivineFurySpell));
-                Register(205, typeof(Chivalry.EnemyOfOneSpell));
-                Register(206, typeof(Chivalry.HolyLightSpell));
-                Register(207, typeof(Chivalry.NobleSacrificeSpell));
-                Register(208, typeof(Chivalry.RemoveCurseSpell));
-                Register(209, typeof(Chivalry.SacredJourneySpell));
+                Register(200, typeof(Rycerstwo.CleanseByFireSpell));
+                Register(201, typeof(Rycerstwo.CloseWoundsSpell));
+                Register(202, typeof(Rycerstwo.ConsecrateWeaponSpell));
+                Register(203, typeof(Rycerstwo.DispelEvilSpell));
+                Register(204, typeof(Rycerstwo.DivineFurySpell));
+                Register(205, typeof(Rycerstwo.EnemyOfOneSpell));
+                Register(206, typeof(Rycerstwo.HolyLightSpell));
+                Register(207, typeof(Rycerstwo.NobleSacrificeSpell));
+                Register(208, typeof(Rycerstwo.RemoveCurseSpell));
+                Register(209, typeof(Rycerstwo.SacredJourneySpell));
+
+                // Druid Spells
+                Register(301, typeof(Druid.ShieldOfEarthSpell));
+                Register(302, typeof(Druid.HollowReedSpell));
+                //Register(303, typeof(Druid.PackOfBeastSpell));
+                Register(303, typeof(Druid.SpringOfLifeSpell));
+                Register(304, typeof(Druid.GraspingRootsSpell));
+                Register(305, typeof(Druid.CircleOfThornsSpell));
+                //Register(307, typeof(Druid.SwarmOfInsectsSpell));
+                //Register(308, typeof(Druid.VolcanicEruptionSpell));
+                //Register(309, typeof(Druid.TreefellowSpell));
+                //Register(310, typeof(Druid.DeadlySporesSpell));
+                Register(306, typeof(Druid.EnchantedGroveSpell));
+                Register(307, typeof(Druid.LureStoneSpell));
+                Register(308, typeof(Druid.HurricaneSpell));
+                Register(309, typeof(Druid.MushroomGatewaySpell));
+                Register(310, typeof(Druid.RestorativeSoilSpell));
+                //Register(316, typeof(Druid.FireflySpell));
+                Register(311, typeof(Druid.ForestKinSpell));
+                Register(312, typeof(Druid.BarkSkinSpell));
+                Register(313, typeof(Druid.ManaSpringSpell));
+                Register(314, typeof(Druid.HibernateSpell));
+
+                         
 
                 if (Core.SE)
                 {
                     // Samurai abilities
-                    Register(400, typeof(Bushido.HonorableExecution));
-                    Register(401, typeof(Bushido.Confidence));
-                    Register(402, typeof(Bushido.Evasion));
-                    Register(403, typeof(Bushido.CounterAttack));
-                    Register(404, typeof(Bushido.LightningStrike));
-                    Register(405, typeof(Bushido.MomentumStrike));
+                    Register(400, typeof(Fanatyzm.HonorableExecution));
+                    Register(401, typeof(Fanatyzm.Confidence));
+                    Register(402, typeof(Fanatyzm.Evasion));
+                    Register(403, typeof(Fanatyzm.CounterAttack));
+                    Register(404, typeof(Fanatyzm.LightningStrike));
+                    Register(405, typeof(Fanatyzm.MomentumStrike));
 
                     // Ninja abilities
-                    Register(500, typeof(Ninjitsu.FocusAttack));
-                    Register(501, typeof(Ninjitsu.DeathStrike));
-                    Register(502, typeof(Ninjitsu.AnimalForm));
-                    Register(503, typeof(Ninjitsu.KiAttack));
-                    Register(504, typeof(Ninjitsu.SurpriseAttack));
-                    Register(505, typeof(Ninjitsu.Backstab));
-                    Register(506, typeof(Ninjitsu.Shadowjump));
-                    Register(507, typeof(Ninjitsu.MirrorImage));
+                    Register(500, typeof(Skrytobojstwo.FocusAttack));
+                    Register(501, typeof(Skrytobojstwo.DeathStrike));
+                    Register(502, typeof(Skrytobojstwo.AnimalForm));
+                    Register(503, typeof(Skrytobojstwo.KiAttack));
+                    Register(504, typeof(Skrytobojstwo.SurpriseAttack));
+                    Register(505, typeof(Skrytobojstwo.Backstab));
+                    Register(506, typeof(Skrytobojstwo.Shadowjump));
+                    Register(507, typeof(Skrytobojstwo.MirrorImage));
                 }
 
                 if (Core.ML)
                 {
-                    Register(600, typeof(Spellweaving.ArcaneCircleSpell));
-                    Register(601, typeof(Spellweaving.GiftOfRenewalSpell));
-                    Register(602, typeof(Spellweaving.ImmolatingWeaponSpell));
-                    Register(603, typeof(Spellweaving.AttuneWeaponSpell));
-                    Register(604, typeof(Spellweaving.ThunderstormSpell));
-                    Register(605, typeof(Spellweaving.NatureFurySpell));
-                    Register(606, typeof(Spellweaving.SummonFeySpell));
-                    Register(607, typeof(Spellweaving.SummonFiendSpell));
-                    Register(608, typeof(Spellweaving.ReaperFormSpell));
-                    //Register( 609, typeof( Spellweaving.WildfireSpell ) );
-                    Register(610, typeof(Spellweaving.EssenceOfWindSpell));
-                    Register( 611, typeof( Spellweaving.DryadAllureSpell ) );
-                    Register(612, typeof(Spellweaving.EtherealVoyageSpell));
-                    Register(613, typeof(Spellweaving.WordOfDeathSpell));
-                    Register(614, typeof(Spellweaving.GiftOfLifeSpell));
-                    //Register( 615, typeof( Spellweaving.ArcaneEmpowermentSpell ) );
+                    Register(600, typeof(Druidyzm.ArcaneCircleSpell));
+                    Register(601, typeof(Druidyzm.GiftOfRenewalSpell));
+                    Register(602, typeof(Druidyzm.ImmolatingWeaponSpell));
+                    Register(603, typeof(Druidyzm.AttuneWeaponSpell));
+                    Register(604, typeof(Druidyzm.ThunderstormSpell));
+                    Register(605, typeof(Druidyzm.NatureFurySpell));
+                    Register(606, typeof(Druidyzm.SummonFeySpell));
+                    Register(607, typeof(Druidyzm.SummonFiendSpell));
+                    Register(608, typeof(Druidyzm.ReaperFormSpell));
+                    Register( 609, typeof( Druidyzm.WildfireSpell ) );
+                    Register(610, typeof(Druidyzm.EssenceOfWindSpell));
+                    Register( 611, typeof( Druidyzm.DryadAllureSpell ) );
+                    Register(612, typeof(Druidyzm.EtherealVoyageSpell));
+                    Register(613, typeof(Druidyzm.WordOfDeathSpell));
+                    Register(614, typeof(Druidyzm.GiftOfLifeSpell));
+                    Register( 615, typeof( Druidyzm.ArcaneEmpowermentSpell ) );
+
+                    
                 }
                 #region Stygian Abyss
                 if (Core.SA)
@@ -182,6 +237,7 @@ namespace Server.Spells
                     Register(692, typeof(Mystic.RisingColossusSpell));
                 }
                 #endregion
+ 
             }
         }
 

@@ -83,7 +83,7 @@ namespace Server.Mobiles
                     this.Add(new GenericBuyInfo(typeof(NoxCrystal), 6, 999, 0xF8E, 0));
                     this.Add(new GenericBuyInfo(typeof(PigIron), 5, 999, 0xF8A, 0));
 
-                    this.Add(new GenericBuyInfo(typeof(NecromancerSpellbook), 115, 10, 0x2253, 0));
+                    //this.Add(new GenericBuyInfo(typeof(NecromancerSpellbook), 115, 10, 0x2253, 0));
                 }
 
                 this.Add(new GenericBuyInfo(typeof(RecallRune), 15, 10, 0x1f14, 0));

@@ -1,16 +1,16 @@
 using System;
 
 namespace Server.Engines.Quests
-{
+{ 
     public class Arielle : MondainQuester
-    {
+    { 
         [Constructable]
         public Arielle()
             : base("Arielle")
-        {
-            BaseSoundID = 0x46F;
-
-            SetSkill(SkillName.Focus, 60.0, 83.0);
+        { 
+            this.BaseSoundID = 0x46F;
+			
+            this.SetSkill(SkillName.Logistyka, 60.0, 83.0);
         }
 
         public Arielle(Serial serial)
@@ -22,33 +22,32 @@ namespace Server.Engines.Quests
         {
             get
             {
-                return new[]
+                return new Type[] 
                 {
-                    typeof (TheJoysOfLifeQuest)
+                    typeof(TheJoysOfLifeQuest)
                 };
             }
         }
-
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
-
-            Female = true;
-            Body = 128;
+            this.InitStats(100, 100, 25);
+			
+            this.Female = true;			
+            this.Body = 128;
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

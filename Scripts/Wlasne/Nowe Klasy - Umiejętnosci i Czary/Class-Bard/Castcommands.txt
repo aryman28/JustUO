@@ -1,0 +1,19 @@
+
+. + name of the skill
+
+.ArmysPaeon
+.EnchantingEtude
+.EnergyCarol
+.EnergyThrenody
+.FireCarol
+.FireThrenody
+.FoeRequiem
+.IceCarol
+.IceThrenody
+.KnightsMinne
+.MagesBallad
+.MagicFinale
+.PoisonCarol
+.PoisonThrenody
+.SheepfoeMambo
+.SinewyEtude

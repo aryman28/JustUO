@@ -1,7 +1,7 @@
 using System.Xml;
 using Server.Network;
 using Server.Spells;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Skrytobojstwo;
 
 namespace Server.Regions
 {
@@ -29,7 +29,7 @@ namespace Server.Regions
         {
             if (m.NetState != null &&
                 !TransformationSpellHelper.UnderTransformation(m, typeof(AnimalForm)) &&
-                !TransformationSpellHelper.UnderTransformation(m, typeof(Server.Spells.Spellweaving.ReaperFormSpell)))
+                !TransformationSpellHelper.UnderTransformation(m, typeof(Server.Spells.Druidyzm.ReaperFormSpell)))
                 m.Send(SpeedControl.Disable);
         }
 

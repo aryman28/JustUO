@@ -8,10 +8,13 @@ using Server.Mobiles;
 using Server.Multis;
 using Server.Regions;
 using Server.Spells.Fifth;
-using Server.Spells.Necromancy;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Nekromancja;
+using Server.Spells.Skrytobojstwo;
 using Server.Spells.Seventh;
 using Server.Targeting;
+using Server.Spells.Druid;
+using Server.Spells.Song;
+
 
 namespace Server
 {
@@ -65,15 +68,16 @@ namespace Server.Spells
             //Publish 71 PVP Spell damage increase cap changes. If you have GM of one school of magic and no others, you are "focused" in that school of magic and have 30% sdi cap instead of 15%.
             List<SkillName> schools = new List<SkillName>()
             {
-                SkillName.Magery,
-                SkillName.AnimalTaming,
-                SkillName.Musicianship,
-                SkillName.Mysticism,
-                SkillName.Spellweaving,
-                SkillName.Chivalry,
-                SkillName.Necromancy,
-                SkillName.Bushido,
-                SkillName.Ninjitsu
+                SkillName.Magia,
+                SkillName.Oswajanie,
+                SkillName.Muzykowanie,
+                SkillName.Mistycyzm,
+                SkillName.Druidyzm,
+                SkillName.Rycerstwo,
+                SkillName.Nekromancja,
+                SkillName.Fanatyzm,
+                SkillName.Skrytobojstwo,
+                SkillName.Muzykowanie
             };
 
             bool spellMastery = false;
@@ -302,9 +306,9 @@ namespace Server.Spells
         public static TimeSpan GetDuration(Mobile caster, Mobile target)
         {
             if (Core.AOS)
-                return TimeSpan.FromSeconds(((6 * caster.Skills.EvalInt.Fixed) / 50) + 1);
+                return TimeSpan.FromSeconds(((6 * caster.Skills.Intelekt.Fixed) / 50) + 1);
 
-            return TimeSpan.FromSeconds(caster.Skills[SkillName.Magery].Value * 1.2);
+            return TimeSpan.FromSeconds(caster.Skills[SkillName.Magia].Value * 1.2);
         }
 
         private static bool m_DisableSkillCheck;
@@ -326,9 +330,9 @@ namespace Server.Spells
             double percent;
 
             if (curse)
-                percent = 8 + (caster.Skills.EvalInt.Fixed / 100) - (target.Skills.MagicResist.Fixed / 100);
+                percent = 8 + (caster.Skills.Intelekt.Fixed / 100) - (target.Skills.ObronaPrzedMagia.Fixed / 100);
             else
-                percent = 1 + (caster.Skills.EvalInt.Fixed / 100);
+                percent = 1 + (caster.Skills.Intelekt.Fixed / 100);
 
             percent *= 0.01;
 
@@ -344,10 +348,10 @@ namespace Server.Spells
             {
                 if (!m_DisableSkillCheck)
                 {
-                    caster.CheckSkill(SkillName.EvalInt, 0.0, 120.0);
+                    caster.CheckSkill(SkillName.Intelekt, 0.0, 120.0);
 
                     if (curse)
-                        target.CheckSkill(SkillName.MagicResist, 0.0, 120.0);
+                        target.CheckSkill(SkillName.ObronaPrzedMagia, 0.0, 120.0);
                 }
 
                 double percent = GetOffsetScalar(caster, target, curse);
@@ -363,7 +367,7 @@ namespace Server.Spells
                 }
             }
 
-            return 1 + (int)(caster.Skills[SkillName.Magery].Value * 0.1);
+            return 1 + (int)(caster.Skills[SkillName.Magia].Value * 0.1);
         }
 
         public static Guild GetGuildFor(Mobile m)
@@ -493,7 +497,7 @@ namespace Server.Spells
             if (map == null)
                 return;
 
-            double scale = 1.0 + ((caster.Skills[SkillName.Magery].Value - 100.0) / 200.0);
+            double scale = 1.0 + ((caster.Skills[SkillName.Magia].Value - 100.0) / 200.0);
 
             if (scaleDuration)
                 duration = TimeSpan.FromSeconds(duration.TotalSeconds * scale);
@@ -1124,7 +1128,7 @@ namespace Server.Spells
             {
                 if (context.Type == typeof(WraithFormSpell))
                 {
-                    int wraithLeech = (5 + (int)((15 * from.Skills.SpiritSpeak.Value) / 100)); // Wraith form gives 5-20% mana leech
+                    int wraithLeech = (5 + (int)((15 * from.Skills.MowaDuchow.Value) / 100)); // Wraith form gives 5-20% mana leech
                     int manaLeech = AOS.Scale(damageGiven, wraithLeech);
                     if (manaLeech != 0)
                     {
@@ -1147,7 +1151,7 @@ namespace Server.Spells
 
         public static void Heal(int amount, Mobile target, Mobile from, bool message)
         {
-            //TODO: All Healing *spells* go through ArcaneEmpowerment
+            //TODO: All Leczenie *spells* go through ArcaneEmpowerment
             target.Heal(amount, from, message);
         }
 

@@ -31,7 +31,7 @@ namespace Server.Engines.Craft
         {
             get
             {
-                return SkillName.Fletching;
+                return SkillName.Lukmistrzostwo;
             }
         }
 
@@ -122,54 +122,54 @@ namespace Server.Engines.Craft
             int index = -1;
 
             // Materials
-            this.AddCraft(typeof(Kindling), 1044457, 1023553, 0.0, 00.0, typeof(Board), 1044041, 1, 1044351);
+            this.AddCraft(typeof(Kindling), 1044457, "Sterta patyków", 0.0, 00.0, typeof(Board), 1044041, 1, 1044351);
 
-            index = this.AddCraft(typeof(Shaft), 1044457, 1027124, 0.0, 40.0, typeof(Board), 1044041, 1, 1044351);
+            index = this.AddCraft(typeof(Shaft), 1044457, "Promień strzały z grotem", 0.0, 40.0, typeof(Board), 1044041, 1, 1044351);
             this.SetUseAllRes(index, true);
 
             // Ammunition
-            index = this.AddCraft(typeof(Arrow), 1044565, 1023903, 0.0, 40.0, typeof(Shaft), 1044560, 1, 1044561);
+            index = this.AddCraft(typeof(Arrow), 1044565, "Strzały", 0.0, 40.0, typeof(Shaft), 1044560, 1, 1044561);
             this.AddRes(index, typeof(Feather), 1044562, 1, 1044563);
             this.SetUseAllRes(index, true);
 
-            index = this.AddCraft(typeof(Bolt), 1044565, 1027163, 0.0, 40.0, typeof(Shaft), 1044560, 1, 1044561);
+            index = this.AddCraft(typeof(Bolt), 1044565, "Bełty", 0.0, 40.0, typeof(Shaft), 1044560, 1, 1044561);
             this.AddRes(index, typeof(Feather), 1044562, 1, 1044563);
             this.SetUseAllRes(index, true);
 
             if (Core.SE)
             {
-                index = this.AddCraft(typeof(FukiyaDarts), 1044565, 1030246, 50.0, 90.0, typeof(Board), 1044041, 1, 1044351);
+                index = this.AddCraft(typeof(FukiyaDarts), 1044565, "Strzałki", 50.0, 90.0, typeof(Board), 1044041, 1, 1044351);
                 this.SetUseAllRes(index, true);
                 this.SetNeededExpansion(index, Expansion.SE);
             }
 
             // Weapons
-            this.AddCraft(typeof(Bow), 1044566, 1025042, 30.0, 70.0, typeof(Board), 1044041, 7, 1044351);
-            this.AddCraft(typeof(Crossbow), 1044566, 1023919, 60.0, 100.0, typeof(Board), 1044041, 7, 1044351);
-            this.AddCraft(typeof(HeavyCrossbow), 1044566, 1025117, 80.0, 120.0, typeof(Board), 1044041, 10, 1044351);
+            this.AddCraft(typeof(Bow), 1044566, "Krłótki łuk", 30.0, 70.0, typeof(Board), 1044041, 7, 1044351);
+            this.AddCraft(typeof(Crossbow), 1044566, "Kusza", 60.0, 100.0, typeof(Board), 1044041, 7, 1044351);
+            this.AddCraft(typeof(HeavyCrossbow), 1044566, "Ciężka kusza", 80.0, 120.0, typeof(Board), 1044041, 10, 1044351);
 
             if (Core.AOS)
             {
-                this.AddCraft(typeof(CompositeBow), 1044566, 1029922, 70.0, 110.0, typeof(Board), 1044041, 7, 1044351);
-                this.AddCraft(typeof(RepeatingCrossbow), 1044566, 1029923, 90.0, 130.0, typeof(Board), 1044041, 10, 1044351);
+                this.AddCraft(typeof(CompositeBow), 1044566, "Řuk kompozytowy", 70.0, 110.0, typeof(Board), 1044041, 7, 1044351);
+                this.AddCraft(typeof(RepeatingCrossbow), 1044566, "Powtarzalna kusza", 90.0, 130.0, typeof(Board), 1044041, 10, 1044351);
             }
 
             if (Core.SE)
             {
-                index = this.AddCraft(typeof(Yumi), 1044566, 1030224, 90.0, 130.0, typeof(Board), 1044041, 10, 1044351);
+                index = this.AddCraft(typeof(Yumi), 1044566, "Długi łuk", 90.0, 130.0, typeof(Board), 1044041, 10, 1044351);
                 this.SetNeededExpansion(index, Expansion.SE);
             }
 
             #region Mondain's Legacy
             if (Core.ML)
             {
-                index = this.AddCraft(typeof(ElvenCompositeLongbow), 1044566, 1031562, 95.0, 145.0, typeof(Board), 1044041, 20, 1044351);
+                index = this.AddCraft(typeof(ElvenCompositeLongbow), 1044566, "Elfii łuk kompozytowy", 95.0, 145.0, typeof(Board), 1044041, 20, 1044351);
                 this.SetNeededExpansion(index, Expansion.ML);
 
-                index = this.AddCraft(typeof(MagicalShortbow), 1044566, 1031551, 85.0, 135.0, typeof(Board), 1044041, 15, 1044351);
+                index = this.AddCraft(typeof(MagicalShortbow), 1044566, "Elfii krótki łuk", 85.0, 135.0, typeof(Board), 1044041, 15, 1044351);
                 this.SetNeededExpansion(index, Expansion.ML);
 
-                index = this.AddCraft(typeof(BlightGrippedLongbow), 1044566, 1072907, 75.0, 125.0, typeof(Board), 1044041, 20, 1044351);
+                /*index = this.AddCraft(typeof(BlightGrippedLongbow), 1044566, 1072907, 75.0, 125.0, typeof(Board), 1044041, 20, 1044351);
                 this.AddRes(index, typeof(LardOfParoxysmus), 1032681, 1, 1053098);
                 this.AddRes(index, typeof(Blight), 1032675, 10, 1053098);
                 this.AddRes(index, typeof(Corruption), 1032676, 10, 1053098);
@@ -247,7 +247,7 @@ namespace Server.Engines.Craft
                 index = this.AddCraft(typeof(AssassinsShortbow), 1044566, 1073512, 75.0, 125.0, typeof(Board), 1044041, 15, 1044351);
                 this.AddRes(index, typeof(DarkSapphire), 1026249, 1, 1053098);
                 this.AddRecipe(index, (int)BowRecipes.AssassinsShortbow);
-                this.SetNeededExpansion(index, Expansion.ML);
+                this.SetNeededExpansion(index, Expansion.ML);*/
             }
 
             this.SetSubRes(typeof(Board), 1072643);

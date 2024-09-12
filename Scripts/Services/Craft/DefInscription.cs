@@ -10,7 +10,7 @@ namespace Server.Engines.Craft
         {
             get
             {
-                return SkillName.Inscribe;
+                return SkillName.Inskrypcja;
             }
         }
 
@@ -146,7 +146,7 @@ namespace Server.Engines.Craft
             typeof(Nightshade),
             typeof(SulfurousAsh),
             typeof(SpidersSilk),
-            //Mysticism
+            //Mistycyzm
             typeof(DaemonBone),
             typeof(FertileDirt),
             typeof(DragonBlood),
@@ -226,7 +226,7 @@ namespace Server.Engines.Craft
 		
         private void AddMysticSpell(string spell, int mana, double minSkill, Type type, params Type[] regs)
         {
-            int index = this.AddCraft(type, "Spells of Mysticism", spell, minSkill, minSkill + 1.0, regs[0], 1020000 + CraftItem.ItemIDOf(regs[0]), 1, 501627);	//Yes, on OSI it's only 1.0 skill diff'.  Don't blame me, blame OSI.
+            int index = this.AddCraft(type, "Spells of Mistycyzm", spell, minSkill, minSkill + 1.0, regs[0], 1020000 + CraftItem.ItemIDOf(regs[0]), 1, 501627);	//Yes, on OSI it's only 1.0 skill diff'.  Don't blame me, blame OSI.
 
             for (int i = 1; i < regs.Length; ++i)
                 this.AddRes(index, regs[i], 1020000 + CraftItem.ItemIDOf(regs[i]), 1, 501627);
@@ -373,9 +373,9 @@ namespace Server.Engines.Craft
                 this.ForceNonExceptional(index);
                 this.SetNeededExpansion(index, Expansion.ML);
 				
-                //Mysticism Scrolls
+                //Mistycyzm Scrolls
                 this.AddMysticSpell("Nether Bolt", 4, 0.0, typeof(NetherBoltScroll), Reagent.SulfurousAsh, Reagent.BlackPearl);
-                this.AddMysticSpell("Healing Stone", 4, 0.0, typeof(HealingStoneScroll), Reagent.Bone, Reagent.Garlic, Reagent.Ginseng, Reagent.SpidersSilk);
+                this.AddMysticSpell("Leczenie Stone", 4, 0.0, typeof(HealingStoneScroll), Reagent.Bone, Reagent.Garlic, Reagent.Ginseng, Reagent.SpidersSilk);
                 this.AddMysticSpell("Purge Magic", 6, 0.0, typeof(PurgeMagicScroll), Reagent.FertileDirt, Reagent.Garlic, Reagent.MandrakeRoot, Reagent.SulfurousAsh);
                 this.AddMysticSpell("Enchant", 6, 0.0, typeof(EnchantScroll), Reagent.SpidersSilk, Reagent.MandrakeRoot, Reagent.SulfurousAsh);
                 this.AddMysticSpell("Sleep", 9, 3.5, typeof(SleepScroll), Reagent.SpidersSilk, Reagent.BlackPearl, Reagent.Nightshade);
@@ -405,7 +405,8 @@ namespace Server.Engines.Craft
 
             if (Core.SE)
             {
-                this.AddCraft(typeof(Spellbook), 1044294, 1023834, 50.0, 126, typeof(BlankScroll), 1044377, 10, 1044378);
+                //this.AddCraft(typeof(Spellbook), 1044294, 1023834, 50.0, 126, typeof(BlankScroll), 1044377, 10, 1044378);
+                this.AddCraft(typeof(IdentificationScroll), "Identyfikacja", "Zwój identyfikacji", 30.0, 126, typeof(BlankScroll), 1044377, 5, 1044378);
             }
 			
             #region Mondain's Legacy	
@@ -423,13 +424,13 @@ namespace Server.Engines.Craft
                 this.AddRes(index, typeof(BlackPearl), 1015001, 7, 1044253);
                 this.SetNeededExpansion(index, Expansion.ML);
 				
-                this.AddCraft(typeof(NecromancerSpellbook), 1044294, "Necromancer spellbook", 50.0, 100.0, typeof(BlankScroll), 1044377, 10, 1044378);
-                //	AddCraft(typeof(SpellweavingBook), 1044294, "Spellweaving book", 50.0, 100.0, typeof(BlankScroll), 1044377, 10, 1044378);
-                this.AddCraft(typeof(MysticBook), 1044294, "Mysticism spellbook", 50.0, 100.0, typeof(BlankScroll), 1044377, 10, 1044378);
+                //this.AddCraft(typeof(NecromancerSpellbook), 1044294, "Necromancer spellbook", 50.0, 100.0, typeof(BlankScroll), 1044377, 10, 1044378);
+                //	AddCraft(typeof(SpellweavingBook), 1044294, "Druidyzm book", 50.0, 100.0, typeof(BlankScroll), 1044377, 10, 1044378);
+                //this.AddCraft(typeof(MysticBook), 1044294, "Mistycyzm spellbook", 50.0, 100.0, typeof(BlankScroll), 1044377, 10, 1044378);
             }
             #endregion
 
-            #region OS-Edit for SA items
+            /*#region OS-Edit for SA items
             if (Core.SA)
             {
                 index = this.AddCraft(typeof(GargoyleBook100), 1044294, 1113290, 60.0, 100.0, typeof(BlankScroll), 1044377, 40, 1044378);
@@ -440,7 +441,7 @@ namespace Server.Engines.Craft
 
                 index = AddCraft(typeof(ScrollBinderDeed), 1044294, ("Scroll Binder"), 75.0, 100.0, typeof(WoodPulp), ("Wood Pulp"), 1, ("You do not have enough Wood Pulp")); //Todo check Clilocs
             }
-            #endregion
+            #endregion*/
 
             this.MarkOption = true;
         }

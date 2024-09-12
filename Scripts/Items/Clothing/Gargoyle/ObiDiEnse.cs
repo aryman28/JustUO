@@ -13,7 +13,7 @@ namespace Server.Items
             this.Hue = 0;
             this.Attributes.BonusInt = 5;
             this.Attributes.NightSight = 1;
-            this.SkillBonuses.SetValues(0, SkillName.Focus, 5.0);
+            this.SkillBonuses.SetValues(0, SkillName.Logistyka, 5.0);
         }
 
         public ObiDiEnse(Serial serial)
@@ -65,10 +65,8 @@ namespace Server.Items
             return false;
         }
 
-		public override void OnRemoved(IEntity parent)
-		{
-			base.OnRemoved(parent);
-
+        public override void OnRemoved(object parent) 
+        { 
             if (parent is Mobile) 
             { 
                 if (this.m_SkillMod0 != null) 
@@ -95,7 +93,7 @@ namespace Server.Items
 
         private void DefineMods()
         {
-            this.m_SkillMod0 = new DefaultSkillMod(SkillName.Stealth, true, 20); 
+            this.m_SkillMod0 = new DefaultSkillMod(SkillName.Zakradanie, true, 20); 
         }
 
         private void SetMods(Mobile wearer)

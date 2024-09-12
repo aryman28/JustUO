@@ -9,7 +9,7 @@ namespace Server.Mobiles
 		[Constructable]
 		public GypsyBanker()
 		{
-			Title = "the gypsy banker";
+			Title = "- Cygañski Bankier";
 		}
 
 		public GypsyBanker(Serial serial)

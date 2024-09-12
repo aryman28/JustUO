@@ -1,3 +1,4 @@
+using System;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
@@ -19,34 +20,34 @@ namespace Server.Engines.Quests.Haven
 
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
+            this.InitStats(100, 100, 25);
 
-            Hue = 0x83F3;
+            this.Hue = 0x83F3;
 
-            Female = false;
-            Body = 0x190;
-            Name = "Schmendrick";
+            this.Female = false;
+            this.Body = 0x190;
+            this.Name = "Schmendrick";
         }
 
         public override void InitOutfit()
         {
-            AddItem(new Robe(0x4DD));
-            AddItem(new WizardsHat(0x482));
-            AddItem(new Shoes(0x482));
+            this.AddItem(new Robe(0x4DD));
+            this.AddItem(new WizardsHat(0x482));
+            this.AddItem(new Shoes(0x482));
 
-            HairItemID = 0x203C;
-            HairHue = 0x455;
+            this.HairItemID = 0x203C;
+            this.HairHue = 0x455;
 
-            FacialHairItemID = 0x203E;
-            FacialHairHue = 0x455;
+            this.FacialHairItemID = 0x203E;
+            this.FacialHairHue = 0x455;
 
-            var staff = new GlacialStaff();
+            GlacialStaff staff = new GlacialStaff();
             staff.Movable = false;
-            AddItem(staff);
+            this.AddItem(staff);
 
-            var pack = new Backpack();
+            Backpack pack = new Backpack();
             pack.Movable = false;
-            AddItem(pack);
+            this.AddItem(pack);
         }
 
         public override int GetAutoTalkRange(PlayerMobile pm)
@@ -56,35 +57,35 @@ namespace Server.Engines.Quests.Haven
 
         public override bool CanTalkTo(PlayerMobile to)
         {
-            var qs = to.Quest as UzeraanTurmoilQuest;
+            UzeraanTurmoilQuest qs = to.Quest as UzeraanTurmoilQuest;
 
-            return (qs != null && qs.FindObjective(typeof (FindSchmendrickObjective)) != null);
+            return (qs != null && qs.FindObjective(typeof(FindSchmendrickObjective)) != null);
         }
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
         {
-            var qs = player.Quest;
+            QuestSystem qs = player.Quest;
 
             if (qs is UzeraanTurmoilQuest)
             {
                 if (UzeraanTurmoilQuest.HasLostScrollOfPower(player))
                 {
-                    FocusTo(player);
+                    this.FocusTo(player);
                     qs.AddConversation(new LostScrollOfPowerConversation(false));
                 }
                 else
                 {
-                    var obj = qs.FindObjective(typeof (FindSchmendrickObjective));
+                    QuestObjective obj = qs.FindObjective(typeof(FindSchmendrickObjective));
 
                     if (obj != null && !obj.Completed)
                     {
-                        FocusTo(player);
+                        this.FocusTo(player);
                         obj.Complete();
                     }
                     else if (contextMenu)
                     {
-                        FocusTo(player);
-                        SayTo(player, 1049357); // I have nothing more for you at this time.
+                        this.FocusTo(player);
+                        this.SayTo(player, 1049357); // I have nothing more for you at this time.
                     }
                 }
             }
@@ -94,21 +95,22 @@ namespace Server.Engines.Quests.Haven
         {
             if (dropped is BlankScroll && UzeraanTurmoilQuest.HasLostScrollOfPower(from))
             {
-                FocusTo(from);
+                this.FocusTo(from);
 
                 Item scroll = new SchmendrickScrollOfPower();
 
                 if (!from.PlaceInBackpack(scroll))
                 {
                     scroll.Delete();
-                    from.SendLocalizedMessage(1046260);
-                        // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                    from.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                     return false;
                 }
-                dropped.Consume();
-                @from.SendLocalizedMessage(1049346);
-                    // Schmendrick scribbles on the scroll for a few moments and hands you the finished product.
-                return dropped.Deleted;
+                else
+                {
+                    dropped.Consume();
+                    from.SendLocalizedMessage(1049346); // Schmendrick scribbles on the scroll for a few moments and hands you the finished product.
+                    return dropped.Deleted;
+                }
             }
 
             return base.OnDragDrop(from, dropped);
@@ -118,7 +120,7 @@ namespace Server.Engines.Quests.Haven
         {
             base.OnMovement(m, oldLocation);
 
-            if (m is PlayerMobile && !m.Frozen && !m.Alive && InRange(m, 4) && !InRange(oldLocation, 4) && InLOS(m))
+            if (m is PlayerMobile && !m.Frozen && !m.Alive && this.InRange(m, 4) && !this.InRange(oldLocation, 4) && this.InLOS(m))
             {
                 if (m.Map == null || !m.Map.CanFit(m.Location, 16, false, false))
                 {
@@ -126,12 +128,12 @@ namespace Server.Engines.Quests.Haven
                 }
                 else
                 {
-                    Direction = GetDirectionTo(m);
+                    this.Direction = this.GetDirectionTo(m);
 
                     m.PlaySound(0x214);
                     m.FixedEffect(0x376A, 10, 16);
 
-                    m.CloseGump(typeof (ResurrectGump));
+                    m.CloseGump(typeof(ResurrectGump));
                     m.SendGump(new ResurrectGump(m, ResurrectMessage.Healer));
                 }
             }
@@ -141,14 +143,14 @@ namespace Server.Engines.Quests.Haven
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

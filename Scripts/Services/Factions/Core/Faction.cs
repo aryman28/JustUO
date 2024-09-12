@@ -1299,7 +1299,7 @@ namespace Server.Factions
             CheckLeaveTimer(mob);
         }
 
-        public static readonly Map Facet = Map.Felucca;
+        public static readonly Map Facet = Map.Trammel;
 
         public static void WriteReference(GenericWriter writer, Faction fact)
         {

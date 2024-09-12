@@ -5,33 +5,32 @@ namespace Server.Engines.Quests.Hag
 {
     public class WitchApprenticeQuest : QuestSystem
     {
-        private static readonly Type[] m_TypeReferenceTable =
+        private static readonly Type[] m_TypeReferenceTable = new Type[]
         {
-            typeof (FindApprenticeObjective),
-            typeof (FindGrizeldaAboutMurderObjective),
-            typeof (KillImpsObjective),
-            typeof (FindZeefzorpulObjective),
-            typeof (ReturnRecipeObjective),
-            typeof (FindIngredientObjective),
-            typeof (ReturnIngredientsObjective),
-            typeof (DontOfferConversation),
-            typeof (AcceptConversation),
-            typeof (HagDuringCorpseSearchConversation),
-            typeof (ApprenticeCorpseConversation),
-            typeof (MurderConversation),
-            typeof (HagDuringImpSearchConversation),
-            typeof (ImpDeathConversation),
-            typeof (ZeefzorpulConversation),
-            typeof (RecipeConversation),
-            typeof (HagDuringIngredientsConversation),
-            typeof (BlackheartFirstConversation),
-            typeof (BlackheartNoPirateConversation),
-            typeof (BlackheartPirateConversation),
-            typeof (EndConversation),
-            typeof (RecentlyFinishedConversation)
+            typeof(Hag.FindApprenticeObjective),
+            typeof(Hag.FindGrizeldaAboutMurderObjective),
+            typeof(Hag.KillImpsObjective),
+            typeof(Hag.FindZeefzorpulObjective),
+            typeof(Hag.ReturnRecipeObjective),
+            typeof(Hag.FindIngredientObjective),
+            typeof(Hag.ReturnIngredientsObjective),
+            typeof(Hag.DontOfferConversation),
+            typeof(Hag.AcceptConversation),
+            typeof(Hag.HagDuringCorpseSearchConversation),
+            typeof(Hag.ApprenticeCorpseConversation),
+            typeof(Hag.MurderConversation),
+            typeof(Hag.HagDuringImpSearchConversation),
+            typeof(Hag.ImpDeathConversation),
+            typeof(Hag.ZeefzorpulConversation),
+            typeof(Hag.RecipeConversation),
+            typeof(Hag.HagDuringIngredientsConversation),
+            typeof(Hag.BlackheartFirstConversation),
+            typeof(Hag.BlackheartNoPirateConversation),
+            typeof(Hag.BlackheartPirateConversation),
+            typeof(Hag.EndConversation),
+            typeof(Hag.RecentlyFinishedConversation)
         };
-
-        private static readonly Point3D[] m_ZeefzorpulLocations =
+        private static readonly Point3D[] m_ZeefzorpulLocations = new Point3D[]
         {
             new Point3D(1226, 1573, 0),
             new Point3D(1929, 1148, 0),
@@ -54,7 +53,6 @@ namespace Server.Engines.Quests.Hag
             new Point3D(3346, 572, 0),
             new Point3D(569, 1309, 0)
         };
-
         public WitchApprenticeQuest(PlayerMobile from)
             : base(from)
         {
@@ -67,9 +65,11 @@ namespace Server.Engines.Quests.Hag
 
         public override Type[] TypeReferenceTable
         {
-            get { return m_TypeReferenceTable; }
+            get
+            {
+                return m_TypeReferenceTable;
+            }
         }
-
         public override object Name
         {
             get
@@ -78,7 +78,6 @@ namespace Server.Engines.Quests.Hag
                 return 1055042;
             }
         }
-
         public override object OfferMessage
         {
             get
@@ -121,25 +120,30 @@ namespace Server.Engines.Quests.Hag
                 return 1055001;
             }
         }
-
         public override TimeSpan RestartDelay
         {
-            get { return TimeSpan.FromMinutes(5.0); }
+            get
+            {
+                return TimeSpan.FromMinutes(5.0);
+            }
         }
-
         public override bool IsTutorial
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override int Picture
         {
-            get { return 0x15D3; }
+            get
+            {
+                return 0x15D3;
+            }
         }
-
         public static Point3D RandomZeefzorpulLocation()
         {
-            var index = Utility.Random(m_ZeefzorpulLocations.Length);
+            int index = Utility.Random(m_ZeefzorpulLocations.Length);
 
             return m_ZeefzorpulLocations[index];
         }
@@ -148,7 +152,7 @@ namespace Server.Engines.Quests.Hag
         {
             base.Accept();
 
-            AddConversation(new AcceptConversation());
+            this.AddConversation(new AcceptConversation());
         }
     }
 }

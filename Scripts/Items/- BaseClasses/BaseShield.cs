@@ -30,7 +30,7 @@ namespace Server.Items
                 double ar = base.ArmorRating;
 
                 if (m != null)
-                    return ((m.Skills[SkillName.Parry].Value * ar) / 200.0) + 1.0;
+                    return ((m.Skills[SkillName.Parowanie].Value * ar) / 200.0) + 1.0;
                 else
                     return ar;
             }
@@ -124,20 +124,20 @@ namespace Server.Items
                     return damage;
 
                 double ar = this.ArmorRating;
-                double chance = (owner.Skills[SkillName.Parry].Value - (ar * 2.0)) / 100.0;
+                double chance = ((owner.Skills[SkillName.Parowanie].Value * ar) / 200.0) + 1.0;
 
                 if (chance < 0.01)
                     chance = 0.01;
                 /*
-                FORMULA: Displayed AR = ((Parrying Skill * Base AR of Shield) ÷ 200) + 1 
+                FORMULA: Displayed AR = ((Parrying Skill * Base AR of Shield) ï¿½ 200) + 1 
 
                 FORMULA: % Chance of Blocking = parry skill - (shieldAR * 2)
 
-                FORMULA: Melee Damage Absorbed = (AR of Shield) / 2 | Archery Damage Absorbed = AR of Shield 
+                FORMULA: Melee Damage Absorbed = (AR of Shield) / 2 | Lucznictwo Damage Absorbed = AR of Shield 
                 */
-                if (owner.CheckSkill(SkillName.Parry, chance))
+                if (owner.CheckSkill(SkillName.Parowanie, chance))
                 {
-                    if (weapon.Skill == SkillName.Archery)
+                    if (weapon.Skill == SkillName.Lucznictwo)
                         damage -= (int)ar;
                     else
                         damage -= (int)(ar / 2.0);
@@ -145,7 +145,10 @@ namespace Server.Items
                     if (damage < 0)
                         damage = 0;
 
-                    owner.FixedEffect(0x37B9, 10, 16);
+                    //owner.FixedEffect(0x37B9, 10, 16);
+                    owner.FixedEffect(0x374A, 10, 16);         
+                    
+
 
                     if (25 > Utility.Random(100)) // 25% chance to lower durability
                     {

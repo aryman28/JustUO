@@ -1,8 +1,8 @@
 using System;
 using Server.ContextMenus;
 using Server.Mobiles;
-using Server.Spells.Necromancy;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Nekromancja;
+using Server.Spells.Skrytobojstwo;
 using Server.Targeting;
 
 /*
@@ -198,10 +198,10 @@ namespace Server.Items
         {
             BaseWeapon defWeapon = defender.Weapon as BaseWeapon;
 
-            Skill atkSkill = defender.Skills.Ninjitsu;
+            Skill atkSkill = defender.Skills.Skrytobojstwo;
             Skill defSkill = defender.Skills[defWeapon.Skill];
 
-            double atSkillValue = attacker.Skills.Ninjitsu.Value;
+            double atSkillValue = attacker.Skills.Skrytobojstwo.Value;
             double defSkillValue = defWeapon.GetDefendSkillValue(attacker, defender);
 
             double attackValue = AosAttributes.GetValue(attacker, AosAttribute.AttackChance);
@@ -211,7 +211,7 @@ namespace Server.Items
                 defSkillValue = -19.9;
             }
 
-            if (Spells.Chivalry.DivineFurySpell.UnderEffect(attacker))
+            if (Spells.Rycerstwo.DivineFurySpell.UnderEffect(attacker))
             {
                 attackValue += 10;
             }
@@ -235,7 +235,7 @@ namespace Server.Items
 
             double defenseValue = AosAttributes.GetValue(defender, AosAttribute.DefendChance);
 
-            if (Spells.Chivalry.DivineFurySpell.UnderEffect(defender))
+            if (Spells.Rycerstwo.DivineFurySpell.UnderEffect(defender))
             {
                 defenseValue -= 20;
             }
@@ -252,7 +252,7 @@ namespace Server.Items
                 defenseValue += refBonus;
             }
 
-            if (SkillHandlers.Discordance.GetEffect(attacker, ref refBonus))
+            if (SkillHandlers.Manipulacja.GetEffect(attacker, ref refBonus))
             {
                 defenseValue -= refBonus;
             }

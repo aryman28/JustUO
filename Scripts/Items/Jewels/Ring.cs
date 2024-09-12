@@ -42,12 +42,28 @@ namespace Server.Items
         public GoldRing()
             : base(0x108a)
         {
+            this.Name = "Pierœcieñ";
             this.Weight = 0.1;
         }
 
         public GoldRing(Serial serial)
             : base(serial)
         {
+        }
+
+        public override int InitMinHits
+        {
+            get
+            {
+                return 12;
+            }
+        }
+        public override int InitMaxHits
+        {
+            get
+            {
+                return 12;
+            }
         }
 
         public override void Serialize(GenericWriter writer)
@@ -71,12 +87,28 @@ namespace Server.Items
         public SilverRing()
             : base(0x1F09)
         {
+            this.Name = "Pierœcieñ";
             this.Weight = 0.1;
         }
 
         public SilverRing(Serial serial)
             : base(serial)
         {
+        }
+
+        public override int InitMinHits
+        {
+            get
+            {
+                return 12;
+            }
+        }
+        public override int InitMaxHits
+        {
+            get
+            {
+                return 12;
+            }
         }
 
         public override void Serialize(GenericWriter writer)

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Server.Targeting;
 
-namespace Server.Spells.Necromancy
+namespace Server.Spells.Nekromancja
 {
     public class PainSpikeSpell : NecromancerSpell
     {
@@ -69,7 +69,7 @@ namespace Server.Spells.Necromancy
                 m.PlaySound(0x210);
 
                 double damage = ((this.GetDamageSkill(this.Caster) - this.GetResistSkill(m)) / 10) + (m.Player ? 18 : 30);
-                m.CheckSkill(SkillName.MagicResist, 0.0, 120.0);	//Skill check for gain
+                m.CheckSkill(SkillName.ObronaPrzedMagia, 0.0, 120.0);	//Skill check for gain
 
                 if (damage < 1)
                     damage = 1;

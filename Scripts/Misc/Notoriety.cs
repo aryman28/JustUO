@@ -168,18 +168,6 @@ namespace Server.Misc
             if (from == null || target == null || from.IsStaff() || target.IsStaff())
                 return true;
 
-            Map map = from.Map;
-
-            #region Factions
-            Faction targetFaction = Faction.Find(target, true);
-
-            if ((!Core.ML || map == Faction.Facet) && targetFaction != null)
-            {
-                if (Faction.Find(from, true) != targetFaction)
-                    return true; // In factions, anything goes
-            }
-            #endregion
-
             #region Mondain's Legacy
             if (target is Gregorio)
             {
@@ -239,6 +227,8 @@ namespace Server.Misc
             if (sz != null /*&& sz.IsDisabled()*/)
                 return false;
             #endregion
+
+            Map map = from.Map;
 
             if (map != null && (map.Rules & MapRules.HarmfulRestrictions) == 0)
                 return true; // In felucca, anything goes
@@ -485,7 +475,7 @@ namespace Server.Misc
             if (srcFaction != null && trgFaction != null && srcFaction != trgFaction && source.Map == Faction.Facet)
                 return Notoriety.Enemy;
 
-            if (SkillHandlers.Stealing.ClassicMode && target is PlayerMobile && ((PlayerMobile)target).PermaFlags.Contains(source))
+            if (SkillHandlers.Okradanie.ClassicMode && target is PlayerMobile && ((PlayerMobile)target).PermaFlags.Contains(source))
                 return Notoriety.CanBeAttacked;
 
             if (target is BaseCreature && ((BaseCreature)target).AlwaysAttackable)

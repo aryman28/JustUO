@@ -23,11 +23,11 @@ updated 3/10/05
 [b]- added the option to specify a second skill requirement for socketing[/b] (thanks to Greystar for the suggestion). The XmlSocketable attachment now has 2 additional properties, RequiredSkill2 and MinSkillLevel2.  By default MinSkillLevel2 is 0 so there is no second skill requirement.
 To support the requirement for a second skill, several new methods and constructors have been added.  You can spawn an object with a second socketable skill requirement like this
 
-buckler/ATTACH/xmlsocketable,2,Tinkering,115,ArmsLore,70,gold,2000
+buckler/ATTACH/xmlsocketable,2,Majsterkowanie,115,WiedzaOUzbrojeniu,70,gold,2000
 
 You can also randomly configure a socketed/socketable object with two skill requirements in scripts using the new ConfigureRandom overload method, like this
 
-XmlSockets.ConfigureRandom(this, 2.0, 0.1, 0.5, 3.0, 15.0, 50.0, SkillName.Veterinary, 100.0, SkillName.AnimalLore, 90.0, typeof(Emerald), 30);
+XmlSockets.ConfigureRandom(this, 2.0, 0.1, 0.5, 3.0, 15.0, 50.0, SkillName.Weterynaria, 100.0, SkillName.WiedzaOBestiach, 90.0, typeof(Emerald), 30);
 
 which will add a random socketable/socketed configuration to the target with a minimum 100 veterinary skill as well as a minimum 90 animal lore skill on socketing.
 
@@ -80,19 +80,19 @@ Here are the recipes that it has defined:
 Req - 50 str, 30 dex
 
 [b]BoltsToArrows:[/b] will change any amount of bolts into half the quantity of arrows
-Req - 50 ArmsLore, 70 str, 30 dex
+Req - 50 WiedzaOUzbrojeniu, 70 str, 30 dex
 
 [b]ArrowsToBolts:[/b] will change any amount of arrows into half the quantity of bolts
-Req - 50 ArmsLore, 70 str, 30 dex
+Req - 50 WiedzaOUzbrojeniu, 70 str, 30 dex
 
 [b]UpgradeAncientAugment:[/b] will take 6 Ancient augments and convert them to a Legendary augment of the same type.
-Req - 50 Alchemy, 70 str, 30 dex, 40 int
+Req - 50 Alchemia, 70 str, 30 dex, 40 int
  
 [b]UpgradeLegendaryAugment:[/b] will take 3 Legendary augments and convert them to a Mythic augment of the same type.
-Req - 70 Alchemy, 70 str, 30 dex, 40 int
+Req - 70 Alchemia, 70 str, 30 dex, 40 int
 
 [b]UpgradeCrystalAugment: will take 3 Crystal augments and convert them to a Radiant augment of the same type.[/b]
-Req - 70 Alchemy, 70 str, 30 dex, 40 int
+Req - 70 Alchemia, 70 str, 30 dex, 40 int
 
 [b]SocketWeapon:[/b] will take any unsocketed weapon and a Rho rune augment and add a single socket to the weapon.
 Req - 50 Blacksmith, 70 str, 30 dex, 40 int
@@ -226,9 +226,9 @@ public override void OnBeforeSpawn( Point3D location, Map m )
             // 15% chance of 2 sockets
             // 50% chance of 1 socket
             // the remainder will be 0 socket (31.4% in this case)
-	    // Adding new sockets will require a minimum of 100 Veterinary skill and 30 emeralds
+	    // Adding new sockets will require a minimum of 100 Weterynaria skill and 30 emeralds
             if(Tamable)
-                XmlSockets.ConfigureRandom(this, 2.0, 0.1, 0.5, 3.0, 15.0, 50.0, SkillName.Veterinary, 100.0, typeof(Emerald), 30);
+                XmlSockets.ConfigureRandom(this, 2.0, 0.1, 0.5, 3.0, 15.0, 50.0, SkillName.Weterynaria, 100.0, typeof(Emerald), 30);
 
 		base.OnBeforeSpawn( location, m );
 	}
@@ -337,9 +337,9 @@ katana/ATTACH/xmlsocketable,4
 
 which would spawn a katana supporting a maximum of 4 player-added sockets.  
 
-buckler/ATTACH/xmlsocketable,2,Tinkering,115,gold,2000
+buckler/ATTACH/xmlsocketable,2,Majsterkowanie,115,gold,2000
 
-which would spawn a buckler supporting a maximum of 2 player-added sockets that require a minimum of 115 Tinkering and 2000 gold to add.  
+which would spawn a buckler supporting a maximum of 2 player-added sockets that require a minimum of 115 Majsterkowanie and 2000 gold to add.  
 
 
 Changelog
@@ -380,7 +380,7 @@ This can be useful for allowing items in the world such as doors to be augmented
 
 - added a new augmentation called a "keyaugment".  This can be used to open doors and chests by assigning it a KeyValue that matches the KeyValue of the door/chest, and then using it to augment a socket on the door/chest.  A skill requirement can also be assigned to it as can the number of uses.  This is an example of placing additional constraints on the use of augmentations in the OnAugment method.
 
-- added an example of a socketed door and socketed chest that open when a master thief places the proper keyaugment into the socket.  This can be tested by loading the keyaugment.xml example.  Use item identify on the door named "Sesame" to bring up the socket gump, and then augment it with the special "Sesame" rune (you must have at least 100 lockpicking).   After opening, the door resockets itself so that it has to be augmented again to be opened.  The chest can be opened in the same way with the "Sesame's treasure" keyaugment that has the form of a skull.  That one requires 100 Stealing to use.  Notice how the keyaugment to open the door does not get destroyed after it is used, while the one to the chest does.  This is due to the UsesRemaining property that has been set on it.  Setting this to a value < 0, gives it unlimited uses.  Setting it to a value > 0 gives it the specified number of uses (a value of 1 would be the default single-use case).
+- added an example of a socketed door and socketed chest that open when a master thief places the proper keyaugment into the socket.  This can be tested by loading the keyaugment.xml example.  Use item identify on the door named "Sesame" to bring up the socket gump, and then augment it with the special "Sesame" rune (you must have at least 100 lockpicking).   After opening, the door resockets itself so that it has to be augmented again to be opened.  The chest can be opened in the same way with the "Sesame's treasure" keyaugment that has the form of a skull.  That one requires 100 Okradanie to use.  Notice how the keyaugment to open the door does not get destroyed after it is used, while the one to the chest does.  This is due to the UsesRemaining property that has been set on it.  Setting this to a value < 0, gives it unlimited uses.  Setting it to a value > 0 gives it the specified number of uses (a value of 1 would be the default single-use case).
 
 - shifted the SocketAugmentations entries in the optional LootPack.cs mods to the ends of each lootpack list to reduce luck-enhanced chance of dropping augments.  The way lootpacks work, entries near the top of the list have the greatest chance of being added due to luck, and the luck-computed drop probability is generally much higher than the drop chance specified for each entry (particularly if the entry chance is supposed to be low which is why you get so many luck-related magic item drops on poor lootpack mobs). 
 

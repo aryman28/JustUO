@@ -6,7 +6,7 @@ namespace Server.Engines.Quests.Hag
 {
     public class FindApprenticeObjective : QuestObjective
     {
-        private static readonly Point3D[] m_CorpseLocations =
+        private static readonly Point3D[] m_CorpseLocations = new Point3D[]
         {
             new Point3D(778, 1158, 0),
             new Point3D(698, 1443, 0),
@@ -14,13 +14,12 @@ namespace Server.Engines.Quests.Hag
             new Point3D(734, 1504, 0),
             new Point3D(819, 1266, 0)
         };
-
+        private Corpse m_Corpse;
         private Point3D m_CorpseLocation;
-
         public FindApprenticeObjective(bool init)
         {
             if (init)
-                m_CorpseLocation = RandomCorpseLocation();
+                this.m_CorpseLocation = RandomCorpseLocation();
         }
 
         public FindApprenticeObjective()
@@ -38,28 +37,31 @@ namespace Server.Engines.Quests.Hag
                 return 1055014;
             }
         }
-
-        public Corpse Corpse { get; private set; }
-
+        public Corpse Corpse
+        {
+            get
+            {
+                return this.m_Corpse;
+            }
+        }
         public override void CheckProgress()
         {
-            var player = System.From;
-            var map = player.Map;
+            PlayerMobile player = this.System.From;
+            Map map = player.Map;
 
-            if ((Corpse == null || Corpse.Deleted) && (map == Map.Trammel || map == Map.Felucca) &&
-                player.InRange(m_CorpseLocation, 8))
+            if ((this.m_Corpse == null || this.m_Corpse.Deleted) && (map == Map.Trammel || map == Map.Felucca) && player.InRange(this.m_CorpseLocation, 8))
             {
-                Corpse = new HagApprenticeCorpse();
-                Corpse.MoveToWorld(m_CorpseLocation, map);
+                this.m_Corpse = new HagApprenticeCorpse();
+                this.m_Corpse.MoveToWorld(this.m_CorpseLocation, map);
 
-                Effects.SendLocationEffect(m_CorpseLocation, map, 0x3728, 10, 10);
-                Effects.PlaySound(m_CorpseLocation, map, 0x1FE);
+                Effects.SendLocationEffect(this.m_CorpseLocation, map, 0x3728, 10, 10);
+                Effects.PlaySound(this.m_CorpseLocation, map, 0x1FE);
 
                 Mobile imp = new Zeefzorpul();
-                imp.MoveToWorld(m_CorpseLocation, map);
+                imp.MoveToWorld(this.m_CorpseLocation, map);
 
                 // * You see a strange imp stealing a scrap of paper from the bloodied corpse *
-                Corpse.SendLocalizedMessageTo(player, 1055049);
+                this.m_Corpse.SendLocalizedMessageTo(player, 1055049);
 
                 Timer.DelayCall(TimeSpan.FromSeconds(3.0), new TimerStateCallback(DeleteImp), imp);
             }
@@ -67,52 +69,52 @@ namespace Server.Engines.Quests.Hag
 
         public override void OnComplete()
         {
-            System.AddConversation(new ApprenticeCorpseConversation());
+            this.System.AddConversation(new ApprenticeCorpseConversation());
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            switch (version)
+            switch ( version )
             {
                 case 1:
-                {
-                    m_CorpseLocation = reader.ReadPoint3D();
-                    goto case 0;
-                }
+                    {
+                        this.m_CorpseLocation = reader.ReadPoint3D();
+                        goto case 0;
+                    }
                 case 0:
-                {
-                    Corpse = (Corpse) reader.ReadItem();
-                    break;
-                }
+                    {
+                        this.m_Corpse = (Corpse)reader.ReadItem();
+                        break;
+                    }
             }
 
             if (version == 0)
-                m_CorpseLocation = RandomCorpseLocation();
+                this.m_CorpseLocation = RandomCorpseLocation();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            if (Corpse != null && Corpse.Deleted)
-                Corpse = null;
+            if (this.m_Corpse != null && this.m_Corpse.Deleted)
+                this.m_Corpse = null;
 
-            writer.WriteEncodedInt(1); // version
+            writer.WriteEncodedInt((int)1); // version
 
-            writer.Write(m_CorpseLocation);
-            writer.Write(Corpse);
+            writer.Write((Point3D)this.m_CorpseLocation);
+            writer.Write((Item)this.m_Corpse);
         }
 
         private static Point3D RandomCorpseLocation()
         {
-            var index = Utility.Random(m_CorpseLocations.Length);
+            int index = Utility.Random(m_CorpseLocations.Length);
 
             return m_CorpseLocations[index];
         }
 
         private void DeleteImp(object imp)
         {
-            var m = imp as Mobile;
+            Mobile m = imp as Mobile;
 
             if (m != null && !m.Deleted)
             {
@@ -126,6 +128,10 @@ namespace Server.Engines.Quests.Hag
 
     public class FindGrizeldaAboutMurderObjective : QuestObjective
     {
+        public FindGrizeldaAboutMurderObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -137,21 +143,19 @@ namespace Server.Engines.Quests.Hag
                 return 1055015;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new MurderConversation());
+            this.System.AddConversation(new MurderConversation());
         }
     }
 
     public class KillImpsObjective : QuestObjective
     {
         private int m_MaxProgress;
-
         public KillImpsObjective(bool init)
         {
             if (init)
-                m_MaxProgress = Utility.RandomMinMax(1, 4);
+                this.m_MaxProgress = Utility.RandomMinMax(1, 4);
         }
 
         public KillImpsObjective()
@@ -169,15 +173,16 @@ namespace Server.Engines.Quests.Hag
                 return 1055016;
             }
         }
-
         public override int MaxProgress
         {
-            get { return m_MaxProgress; }
+            get
+            {
+                return this.m_MaxProgress;
+            }
         }
-
         public override bool IgnoreYoungProtection(Mobile from)
         {
-            if (!Completed && from is Imp)
+            if (!this.Completed && from is Imp)
                 return true;
 
             return false;
@@ -186,16 +191,16 @@ namespace Server.Engines.Quests.Hag
         public override void OnKill(BaseCreature creature, Container corpse)
         {
             if (creature is Imp)
-                CurProgress++;
+                this.CurProgress++;
         }
 
         public override void OnComplete()
         {
-            var from = System.From;
+            PlayerMobile from = this.System.From;
 
-            var loc = WitchApprenticeQuest.RandomZeefzorpulLocation();
+            Point3D loc = WitchApprenticeQuest.RandomZeefzorpulLocation();
 
-            var mapItem = new MapItem();
+            MapItem mapItem = new MapItem();
             mapItem.SetDisplay(loc.X - 200, loc.Y - 200, loc.X + 200, loc.Y + 200, 200, 200);
             mapItem.AddWorldPin(loc.X, loc.Y);
             from.AddToBackpack(mapItem);
@@ -204,29 +209,30 @@ namespace Server.Engines.Quests.Hag
 
             from.SendLocalizedMessage(1055061); // You have received a map and a magic flute.
 
-            System.AddConversation(new ImpDeathConversation(loc));
+            this.System.AddConversation(new ImpDeathConversation(loc));
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            m_MaxProgress = reader.ReadInt();
+            this.m_MaxProgress = reader.ReadInt();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(m_MaxProgress);
+            writer.Write((int)this.m_MaxProgress);
         }
     }
 
     public class FindZeefzorpulObjective : QuestObjective
     {
+        private Point3D m_ImpLocation;
         public FindZeefzorpulObjective(Point3D impLocation)
         {
-            ImpLocation = impLocation;
+            this.m_ImpLocation = impLocation;
         }
 
         public FindZeefzorpulObjective()
@@ -244,19 +250,23 @@ namespace Server.Engines.Quests.Hag
                 return 1055017;
             }
         }
-
-        public Point3D ImpLocation { get; private set; }
-
+        public Point3D ImpLocation
+        {
+            get
+            {
+                return this.m_ImpLocation;
+            }
+        }
         public override void OnComplete()
         {
-            Mobile from = System.From;
-            var map = from.Map;
+            Mobile from = this.System.From;
+            Map map = from.Map;
 
-            Effects.SendLocationEffect(ImpLocation, map, 0x3728, 10, 10);
-            Effects.PlaySound(ImpLocation, map, 0x1FE);
+            Effects.SendLocationEffect(this.m_ImpLocation, map, 0x3728, 10, 10);
+            Effects.PlaySound(this.m_ImpLocation, map, 0x1FE);
 
             Mobile imp = new Zeefzorpul();
-            imp.MoveToWorld(ImpLocation, map);
+            imp.MoveToWorld(this.m_ImpLocation, map);
 
             imp.Direction = imp.GetDirectionTo(from);
 
@@ -265,21 +275,21 @@ namespace Server.Engines.Quests.Hag
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            ImpLocation = reader.ReadPoint3D();
+            this.m_ImpLocation = reader.ReadPoint3D();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(ImpLocation);
+            writer.Write((Point3D)this.m_ImpLocation);
         }
 
         private void DeleteImp(object imp)
         {
-            var m = imp as Mobile;
+            Mobile m = imp as Mobile;
 
             if (m != null && !m.Deleted)
             {
@@ -289,14 +299,18 @@ namespace Server.Engines.Quests.Hag
                 m.Delete();
             }
 
-            System.From.SendLocalizedMessage(1055062); // You have received the Magic Brew Recipe.
+            this.System.From.SendLocalizedMessage(1055062); // You have received the Magic Brew Recipe.
 
-            System.AddConversation(new ZeefzorpulConversation());
+            this.System.AddConversation(new ZeefzorpulConversation());
         }
     }
 
     public class ReturnRecipeObjective : QuestObjective
     {
+        public ReturnRecipeObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -307,15 +321,16 @@ namespace Server.Engines.Quests.Hag
                 return 1055018;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new RecipeConversation());
+            this.System.AddConversation(new RecipeConversation());
         }
     }
 
     public class FindIngredientObjective : QuestObjective
     {
+        private Ingredient[] m_Ingredients;
+        private bool m_BlackheartMet;
         public FindIngredientObjective(Ingredient[] oldIngredients)
             : this(oldIngredients, false)
         {
@@ -325,22 +340,22 @@ namespace Server.Engines.Quests.Hag
         {
             if (!blackheartMet)
             {
-                Ingredients = new Ingredient[oldIngredients.Length + 1];
+                this.m_Ingredients = new Ingredient[oldIngredients.Length + 1];
 
-                for (var i = 0; i < oldIngredients.Length; i++)
-                    Ingredients[i] = oldIngredients[i];
+                for (int i = 0; i < oldIngredients.Length; i++)
+                    this.m_Ingredients[i] = oldIngredients[i];
 
-                Ingredients[Ingredients.Length - 1] = IngredientInfo.RandomIngredient(oldIngredients);
+                this.m_Ingredients[this.m_Ingredients.Length - 1] = IngredientInfo.RandomIngredient(oldIngredients);
             }
             else
             {
-                Ingredients = new Ingredient[oldIngredients.Length];
+                this.m_Ingredients = new Ingredient[oldIngredients.Length];
 
-                for (var i = 0; i < oldIngredients.Length; i++)
-                    Ingredients[i] = oldIngredients[i];
+                for (int i = 0; i < oldIngredients.Length; i++)
+                    this.m_Ingredients[i] = oldIngredients[i];
             }
 
-            BlackheartMet = blackheartMet;
+            this.m_BlackheartMet = blackheartMet;
         }
 
         public FindIngredientObjective()
@@ -351,9 +366,9 @@ namespace Server.Engines.Quests.Hag
         {
             get
             {
-                if (!BlackheartMet)
+                if (!this.m_BlackheartMet)
                 {
-                    switch (Step)
+                    switch ( this.Step )
                     {
                         case 1:
                             /* You must gather each ingredient on the Hag's list so that she can cook
@@ -372,47 +387,62 @@ namespace Server.Engines.Quests.Hag
                             return 1055045;
                     }
                 }
-                /* You are still attempting to obtain a jug of Captain Blackheart's
+                else
+                {
+                    /* You are still attempting to obtain a jug of Captain Blackheart's
                     * Whiskey, but the drunkard Captain refuses to share his unique brew.
                     * You must prove your worthiness as a pirate to Blackheart before he'll
                     * offer you a jug.
                     */
-                return 1055055;
+                    return 1055055;
+                }
             }
         }
-
         public override int MaxProgress
         {
             get
             {
-                var info = IngredientInfo.Get(Ingredient);
+                IngredientInfo info = IngredientInfo.Get(this.Ingredient);
 
                 return info.Quantity;
             }
         }
-
-        public Ingredient[] Ingredients { get; private set; }
-
+        public Ingredient[] Ingredients
+        {
+            get
+            {
+                return this.m_Ingredients;
+            }
+        }
         public Ingredient Ingredient
         {
-            get { return Ingredients[Ingredients.Length - 1]; }
+            get
+            {
+                return this.m_Ingredients[this.m_Ingredients.Length - 1];
+            }
         }
-
         public int Step
         {
-            get { return Ingredients.Length; }
+            get
+            {
+                return this.m_Ingredients.Length;
+            }
         }
-
-        public bool BlackheartMet { get; private set; }
-
+        public bool BlackheartMet
+        {
+            get
+            {
+                return this.m_BlackheartMet;
+            }
+        }
         public override void RenderProgress(BaseQuestGump gump)
         {
-            if (!Completed)
+            if (!this.Completed)
             {
-                var info = IngredientInfo.Get(Ingredient);
+                IngredientInfo info = IngredientInfo.Get(this.Ingredient);
 
                 gump.AddHtmlLocalized(70, 260, 270, 100, info.Name, BaseQuestGump.Blue, false, false);
-                gump.AddLabel(70, 280, 0x64, CurProgress.ToString());
+                gump.AddLabel(70, 280, 0x64, this.CurProgress.ToString());
                 gump.AddLabel(100, 280, 0x64, "/");
                 gump.AddLabel(130, 280, 0x64, info.Quantity.ToString());
             }
@@ -424,13 +454,13 @@ namespace Server.Engines.Quests.Hag
 
         public override bool IgnoreYoungProtection(Mobile from)
         {
-            if (Completed)
+            if (this.Completed)
                 return false;
 
-            var info = IngredientInfo.Get(Ingredient);
-            var fromType = from.GetType();
+            IngredientInfo info = IngredientInfo.Get(this.Ingredient);
+            Type fromType = from.GetType();
 
-            for (var i = 0; i < info.Creatures.Length; i++)
+            for (int i = 0; i < info.Creatures.Length; i++)
             {
                 if (fromType == info.Creatures[i])
                     return true;
@@ -441,18 +471,17 @@ namespace Server.Engines.Quests.Hag
 
         public override void OnKill(BaseCreature creature, Container corpse)
         {
-            var info = IngredientInfo.Get(Ingredient);
+            IngredientInfo info = IngredientInfo.Get(this.Ingredient);
 
-            for (var i = 0; i < info.Creatures.Length; i++)
+            for (int i = 0; i < info.Creatures.Length; i++)
             {
-                var type = info.Creatures[i];
+                Type type = info.Creatures[i];
 
                 if (creature.GetType() == type)
                 {
-                    System.From.SendLocalizedMessage(1055043, "#" + info.Name);
-                        // You gather a ~1_INGREDIENT_NAME~ from the corpse.
+                    this.System.From.SendLocalizedMessage(1055043, "#" + info.Name); // You gather a ~1_INGREDIENT_NAME~ from the corpse.
 
-                    CurProgress++;
+                    this.CurProgress++;
 
                     break;
                 }
@@ -461,48 +490,51 @@ namespace Server.Engines.Quests.Hag
 
         public override void OnComplete()
         {
-            if (Ingredient != Ingredient.Whiskey)
+            if (this.Ingredient != Ingredient.Whiskey)
             {
-                NextStep();
+                this.NextStep();
             }
         }
 
         public void NextStep()
         {
-            System.From.SendLocalizedMessage(1055046);
-                // You have completed your current task on the Hag's Magic Brew Recipe list.
-
-            if (Step < 3)
-                System.AddObjective(new FindIngredientObjective(Ingredients));
+            this.System.From.SendLocalizedMessage(1055046); // You have completed your current task on the Hag's Magic Brew Recipe list.
+			
+            if (this.Step < 3)
+                this.System.AddObjective(new FindIngredientObjective(this.m_Ingredients));
             else
-                System.AddObjective(new ReturnIngredientsObjective());
+                this.System.AddObjective(new ReturnIngredientsObjective());
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            Ingredients = new Ingredient[reader.ReadEncodedInt()];
-            for (var i = 0; i < Ingredients.Length; i++)
-                Ingredients[i] = (Ingredient) reader.ReadEncodedInt();
+            this.m_Ingredients = new Ingredient[reader.ReadEncodedInt()];
+            for (int i = 0; i < this.m_Ingredients.Length; i++)
+                this.m_Ingredients[i] = (Ingredient)reader.ReadEncodedInt();
 
-            BlackheartMet = reader.ReadBool();
+            this.m_BlackheartMet = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.WriteEncodedInt(Ingredients.Length);
-            for (var i = 0; i < Ingredients.Length; i++)
-                writer.WriteEncodedInt((int) Ingredients[i]);
+            writer.WriteEncodedInt((int)this.m_Ingredients.Length);
+            for (int i = 0; i < this.m_Ingredients.Length; i++)
+                writer.WriteEncodedInt((int)this.m_Ingredients[i]);
 
-            writer.Write(BlackheartMet);
+            writer.Write((bool)this.m_BlackheartMet);
         }
     }
 
     public class ReturnIngredientsObjective : QuestObjective
     {
+        public ReturnIngredientsObjective()
+        {
+        }
+
         public override object Message
         {
             get
@@ -513,10 +545,9 @@ namespace Server.Engines.Quests.Hag
                 return 1055050;
             }
         }
-
         public override void OnComplete()
         {
-            System.AddConversation(new EndConversation());
+            this.System.AddConversation(new EndConversation());
         }
     }
 }

@@ -1,7 +1,14 @@
+using System;
+using Server.Items;
+
 namespace Server.Engines.Quests.Necro
 {
     public class AcceptConversation : QuestConversation
     {
+        public AcceptConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -31,27 +38,29 @@ namespace Server.Engines.Quests.Necro
                 return 1049092;
             }
         }
-
         public override void OnRead()
         {
-            var bag = BaseQuester.GetNewContainer();
+            Container bag = Mardoth.GetNewContainer();
 
             bag.DropItem(new DarkTidesHorn());
 
-            System.From.AddToBackpack(bag);
+            this.System.From.AddToBackpack(bag);
 
-            System.AddConversation(new ReanimateMaabusConversation());
+            this.System.AddConversation(new ReanimateMaabusConversation());
         }
     }
 
     public class ReanimateMaabusConversation : QuestConversation
     {
-        private static readonly QuestItemInfo[] m_Info =
+        private static readonly QuestItemInfo[] m_Info = new QuestItemInfo[]
         {
             new QuestItemInfo(1026153, 6178), // teleporter
             new QuestItemInfo(1049117, 4036), // Horn of Retreat
-            new QuestItemInfo(1048032, 3702) // a bag
+            new QuestItemInfo(1048032, 3702)// a bag
         };
+        public ReanimateMaabusConversation()
+        {
+        }
 
         public override object Message
         {
@@ -96,24 +105,28 @@ namespace Server.Engines.Quests.Necro
                 return 1060099;
             }
         }
-
         public override QuestItemInfo[] Info
         {
-            get { return m_Info; }
+            get
+            {
+                return m_Info;
+            }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FindMaabusTombObjective());
+            this.System.AddObjective(new FindMaabusTombObjective());
         }
     }
 
     public class MaabasConversation : QuestConversation
     {
-        private static readonly QuestItemInfo[] m_Info =
+        private static readonly QuestItemInfo[] m_Info = new QuestItemInfo[]
         {
-            new QuestItemInfo(1026153, 6178) // teleporter
+            new QuestItemInfo(1026153, 6178)// teleporter
         };
+        public MaabasConversation()
+        {
+        }
 
         public override object Message
         {
@@ -146,20 +159,25 @@ namespace Server.Engines.Quests.Necro
                 return 1060103;
             }
         }
-
         public override QuestItemInfo[] Info
         {
-            get { return m_Info; }
+            get
+            {
+                return m_Info;
+            }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FindCrystalCaveObjective());
+            this.System.AddObjective(new FindCrystalCaveObjective());
         }
     }
 
     public class HorusConversation : QuestConversation
     {
+        public HorusConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -191,15 +209,18 @@ namespace Server.Engines.Quests.Necro
                 return 1060105;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FindMardothAboutVaultObjective());
+            this.System.AddObjective(new FindMardothAboutVaultObjective());
         }
     }
 
     public class MardothVaultConversation : QuestConversation
     {
+        public MardothVaultConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -226,19 +247,21 @@ namespace Server.Engines.Quests.Necro
                 return 1060107;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FindCityOfLightObjective());
+            this.System.AddObjective(new FindCityOfLightObjective());
         }
     }
 
     public class VaultOfSecretsConversation : QuestConversation
     {
-        private static readonly QuestItemInfo[] m_Info =
+        private static readonly QuestItemInfo[] m_Info = new QuestItemInfo[]
         {
-            new QuestItemInfo(1023643, 8787) // spellbook
+            new QuestItemInfo(1023643, 8787)// spellbook
         };
+        public VaultOfSecretsConversation()
+        {
+        }
 
         public override object Message
         {
@@ -262,20 +285,25 @@ namespace Server.Engines.Quests.Necro
                 return 1060110;
             }
         }
-
         public override QuestItemInfo[] Info
         {
-            get { return m_Info; }
+            get
+            {
+                return m_Info;
+            }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FetchAbraxusScrollObjective());
+            this.System.AddObjective(new FetchAbraxusScrollObjective());
         }
     }
 
     public class ReadAbraxusScrollConversation : QuestConversation
     {
+        public ReadAbraxusScrollConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -294,15 +322,18 @@ namespace Server.Engines.Quests.Necro
                 return 1060114;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new ReadAbraxusScrollObjective());
+            this.System.AddObjective(new ReadAbraxusScrollObjective());
         }
     }
 
     public class SecondHorusConversation : QuestConversation
     {
+        public SecondHorusConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -328,15 +359,18 @@ namespace Server.Engines.Quests.Necro
                 return 1060118;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FindCallingScrollObjective());
+            this.System.AddObjective(new FindCallingScrollObjective());
         }
     }
 
     public class HealConversation : QuestConversation
     {
+        public HealConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -356,6 +390,10 @@ namespace Server.Engines.Quests.Necro
 
     public class HorusRewardConversation : QuestConversation
     {
+        public HorusRewardConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -370,20 +408,21 @@ namespace Server.Engines.Quests.Necro
                 return 1060717;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 
     public class LostCallingScrollConversation : QuestConversation
     {
         private bool m_FromMardoth;
-
         public LostCallingScrollConversation(bool fromMardoth)
         {
-            m_FromMardoth = fromMardoth;
+            this.m_FromMardoth = fromMardoth;
         }
 
         // Serialization
@@ -395,7 +434,7 @@ namespace Server.Engines.Quests.Necro
         {
             get
             {
-                if (m_FromMardoth)
+                if (this.m_FromMardoth)
                 {
                     /* You return without the scroll of Calling?  I'm afraid that
                     * won't do.  You must return to the Crystal Cave and fetch
@@ -405,36 +444,44 @@ namespace Server.Engines.Quests.Necro
                     */
                     return 1062058;
                 }
-                /* You have arrived at the well, but no longer have the scroll
+                else // from well of tears
+                {
+                    /* You have arrived at the well, but no longer have the scroll
                     * of calling.  Use Mardoth's teleporter to return to the
                     * Crystal Cave and fetch another scroll from the box.
                     */
-                return 1060129;
+                    return 1060129;
+                }
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override void ChildDeserialize(GenericReader reader)
         {
-            var version = reader.ReadEncodedInt();
+            int version = reader.ReadEncodedInt();
 
-            m_FromMardoth = reader.ReadBool();
+            this.m_FromMardoth = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt(0); // version
+            writer.WriteEncodedInt((int)0); // version
 
-            writer.Write(m_FromMardoth);
+            writer.Write((bool)this.m_FromMardoth);
         }
     }
 
     public class MardothKronusConversation : QuestConversation
     {
+        public MardothKronusConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -456,15 +503,18 @@ namespace Server.Engines.Quests.Necro
                 return 1060121;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FindWellOfTearsObjective());
+            this.System.AddObjective(new FindWellOfTearsObjective());
         }
     }
 
     public class MardothEndConversation : QuestConversation
     {
+        public MardothEndConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -495,15 +545,18 @@ namespace Server.Engines.Quests.Necro
                 return 1060133;
             }
         }
-
         public override void OnRead()
         {
-            System.AddObjective(new FindBankObjective());
+            this.System.AddObjective(new FindBankObjective());
         }
     }
 
     public class BankerConversation : QuestConversation
     {
+        public BankerConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -528,15 +581,18 @@ namespace Server.Engines.Quests.Necro
                 return 1060137;
             }
         }
-
         public override void OnRead()
         {
-            System.Complete();
+            this.System.Complete();
         }
     }
 
     public class RadarConversation : QuestConversation
     {
+        public RadarConversation()
+        {
+        }
+
         public override object Message
         {
             get
@@ -552,10 +608,12 @@ namespace Server.Engines.Quests.Necro
                 return 1061692;
             }
         }
-
         public override bool Logged
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 }

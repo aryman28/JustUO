@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0xF45)
         {
             this.Weight = 8.0;
+            this.Name = "Katowski topór";
         }
 
         public ExecutionersAxe(Serial serial)

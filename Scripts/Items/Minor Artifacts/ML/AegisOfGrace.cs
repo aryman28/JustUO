@@ -7,7 +7,7 @@ namespace Server.Items
         [Constructable]
         public AegisOfGrace()
         {
-            this.SkillBonuses.SetValues(0, SkillName.MagicResist, 10.0);
+            this.SkillBonuses.SetValues(0, SkillName.ObronaPrzedMagia, 10.0);
 
             this.Attributes.DefendChance = 20;
 

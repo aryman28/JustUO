@@ -6,6 +6,8 @@
 * CREATED : 10-07.2002                 *
 * **************************************/
 
+using System;
+
 namespace Server.Items
 {
     public class AcidWall : BaseWall
@@ -14,7 +16,7 @@ namespace Server.Items
         public AcidWall()
             : base(969)
         {
-            Hue = 1828;
+            this.Hue = 1828;
         }
 
         public AcidWall(Serial serial)
@@ -24,11 +26,11 @@ namespace Server.Items
 
         public override void OnDoubleClick(Mobile from)
         {
-            if (from.InRange(GetWorldLocation(), 1))
+            if (from.InRange(this.GetWorldLocation(), 1))
             {
                 from.SendMessage("You try to examine the strange wall but the vines get in your way.");
             }
-            else if (!from.InRange(GetWorldLocation(), 1))
+            else if (!from.InRange(this.GetWorldLocation(), 1))
             {
                 from.SendMessage("I can't reach that.");
             }
@@ -39,14 +41,14 @@ namespace Server.Items
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

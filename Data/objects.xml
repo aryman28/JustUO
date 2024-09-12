@@ -9,7 +9,7 @@
 					<object type="Server.Items.SmallBedEastAddon" gfx="1" />
 					<object type="Server.Items.SmallBedSouthAddon" gfx="1" />
 				</category>
-				<category title="Cooking">
+				<category title="Gotowanie">
 					<object type="Server.Items.FlourMillEastAddon" gfx="1" />
 					<object type="Server.Items.FlourMillSouthAddon" gfx="1" />
 					<object type="Server.Items.StoneOvenEastAddon" gfx="1" />
@@ -198,7 +198,7 @@
 					<object type="Server.Items.PentagramAddon" gfx="1" />
 					<object type="Server.Engines.Quests.Doom.SummoningAltar" gfx="1" />
 				</category>
-				<category title="Tailoring">
+				<category title="Krawiectwo">
 					<object type="Server.Items.LoomEastAddon" gfx="1" />
 					<object type="Server.Items.LoomSouthAddon" gfx="1" />
 					<object type="Server.Items.SpinningwheelEastAddon" gfx="4121" />
@@ -219,7 +219,7 @@
 					<object type="Server.Items.SmallBedEastDeed" gfx="5360" />
 					<object type="Server.Items.SmallBedSouthDeed" gfx="5360" />
 				</category>
-				<category title="Cooking">
+				<category title="Gotowanie">
 					<object type="Server.Items.FlourMillEastDeed" gfx="5360" />
 					<object type="Server.Items.FlourMillSouthDeed" gfx="5360" />
 					<object type="Server.Items.StoneOvenEastDeed" gfx="5360" />
@@ -402,7 +402,7 @@
 					<object type="Server.Items.AbbatoirDeed" gfx="5360" />
 					<object type="Server.Items.PentagramDeed" gfx="5360" />
 				</category>
-				<category title="Tailoring">
+				<category title="Krawiectwo">
 					<object type="Server.Items.LoomEastDeed" gfx="5360" />
 					<object type="Server.Items.LoomSouthDeed" gfx="5360" />
 					<object type="Server.Items.SpinningwheelEastDeed" gfx="5360" />
@@ -447,7 +447,7 @@
 				<object type="Server.Items.SturdyPickaxe" gfx="3718" hue="2419" />
 				<object type="Server.Items.SturdyShovel" gfx="3897" hue="2419" />
 			</category>
-			<category title="Tailoring">
+			<category title="Krawiectwo">
 				<category title="Addons">
 					<category title="Constructed">
 						<object type="Server.Items.BrownBearRugEastAddon" gfx="1" />
@@ -570,7 +570,7 @@
 			<object type="Server.Multis.OrcCamp" gfx="4334" />
 			<object type="Server.Multis.RatCamp" gfx="4334" />
 		</category>
-		<category title="Cartography">
+		<category title="Kartografia">
 			<object type="Server.Items.BlankMap" gfx="5356" />
 			<object type="Server.Items.CityMap" gfx="5356" />
 			<object type="Server.Items.IndecipherableMap" gfx="5356" hue="2405" />
@@ -1249,7 +1249,7 @@
 				<object type="Server.Items.NightSightPotion" gfx="3846" />
 			</category>
 			<category title="Scrolls">
-				<category title="Necromancy">
+				<category title="Nekromancja">
 					<object type="Server.Items.AnimateDeadScroll" gfx="8800" />
 					<object type="Server.Items.BloodOathScroll" gfx="8801" />
 					<object type="Server.Items.CorpseSkinScroll" gfx="8802" />
@@ -1434,7 +1434,7 @@
 				<object type="Server.Items.TrulyRareFish" gfx="3542" hue="76" />
 				<object type="Server.Items.WondrousFish" gfx="3542" hue="86" />
 			</category>
-			<category title="Fletching">
+			<category title="Lukmistrzostwo">
 				<object type="Server.Items.Arrow" gfx="3903" />
 				<object type="Server.Items.Bolt" gfx="7163" />
 				<object type="Server.Items.Feather" gfx="7121" />
@@ -1474,7 +1474,7 @@
 				<object type="Server.Items.VeriteOre" gfx="6583" hue="2207" />
 			</category>
 			<category title="Reagents">
-				<category title="Necromancy">
+				<category title="Nekromancja">
 					<object type="Server.Items.BatWing" gfx="3960" />
 					<object type="Server.Items.DaemonBlood" gfx="3965" />
 					<object type="Server.Items.GraveDust" gfx="3983" />
@@ -1511,7 +1511,7 @@
 				<object type="Server.Items.SmithStone" gfx="3796" hue="1142" />
 				<object type="Server.Items.TailorStone" gfx="3796" hue="789" />
 			</category>
-			<category title="Tailoring">
+			<category title="Krawiectwo">
 				<category title="Cloth">
 					<object type="Server.Items.BoltOfCloth" gfx="3989" />
 					<object type="Server.Items.Cloth" gfx="5990" />
@@ -3602,7 +3602,7 @@
 					<object type="Server.Items.WildStaff" gfx="11557" />
 					<object type="Server.Items.WrathOfTheDryad" gfx="5112" hue="668" />
 				</category>
-				<category title="Swords">
+				<category title="WalkaMieczami">
 					<object type="Server.Items.AbyssalBlade" gfx="2304" hue="2404" />
 					<object type="Server.Items.AdventurersMachete" gfx="11573" />
 					<object type="Server.Items.BlackthornsKryss" gfx="5121" hue="1509" />

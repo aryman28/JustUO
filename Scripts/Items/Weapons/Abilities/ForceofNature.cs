@@ -13,7 +13,7 @@ namespace Server.Items
         {
         }
 
-        public override int BaseMana
+        public override int BaseStam
         {
             get
             {
@@ -36,7 +36,7 @@ namespace Server.Items
 
         public override void OnHit(Mobile attacker, Mobile defender, int damage)
         {
-            if (!this.Validate(attacker) || !this.CheckMana(attacker, true))
+            if (!this.Validate(attacker) || !this.CheckStam(attacker, true))
                 return;
 
             ClearCurrentAbility(attacker);
@@ -74,7 +74,7 @@ namespace Server.Items
                 this.m_Target = target;
                 this.m_From = from;
 
-                double spiritLevel = from.Skills[SkillName.SpiritSpeak].Value / 15;
+                double spiritLevel = from.Skills[SkillName.MowaDuchow].Value / 15;
 
                 this.m_MinBaseDamage = spiritLevel - 2;
                 this.m_MaxBaseDamage = spiritLevel + 1;

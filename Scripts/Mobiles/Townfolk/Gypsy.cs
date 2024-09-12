@@ -13,9 +13,9 @@ namespace Server.Mobiles
 
             this.SpeechHue = Utility.RandomDyedHue();
 
-            this.SetSkill(SkillName.Cooking, 65, 88);
-            this.SetSkill(SkillName.Snooping, 65, 88);
-            this.SetSkill(SkillName.Stealing, 65, 88);
+            this.SetSkill(SkillName.Gotowanie, 65, 88);
+            this.SetSkill(SkillName.Zagladanie, 65, 88);
+            this.SetSkill(SkillName.Okradanie, 65, 88);
 
             this.Hue = Utility.RandomSkinHue();
 
@@ -26,7 +26,7 @@ namespace Server.Mobiles
                 this.AddItem(new Kilt(Utility.RandomDyedHue()));
                 this.AddItem(new Shirt(Utility.RandomDyedHue()));
                 this.AddItem(new ThighBoots());
-                this.Title = "the gypsy";
+                this.Title = "- Cyganka";
             }
             else
             {
@@ -35,7 +35,7 @@ namespace Server.Mobiles
                 this.AddItem(new ShortPants(Utility.RandomNeutralHue()));
                 this.AddItem(new Shirt(Utility.RandomDyedHue()));
                 this.AddItem(new Sandals());
-                this.Title = "the gypsy";
+                this.Title = "- Cygan";
             }
 
             this.AddItem(new Bandana(Utility.RandomDyedHue()));

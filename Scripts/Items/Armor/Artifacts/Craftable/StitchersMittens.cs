@@ -9,7 +9,7 @@ namespace Server.Items
         {
             this.Hue = 0x481;
 
-            this.SkillBonuses.SetValues(0, SkillName.Healing, 10.0);
+            this.SkillBonuses.SetValues(0, SkillName.Leczenie, 10.0);
 
             this.Attributes.BonusDex = 5;
             this.Attributes.LowerRegCost = 30;

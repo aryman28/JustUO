@@ -21,7 +21,8 @@ namespace Server
         Luck,
         Knights,
         Scout,
-        Sorcerer
+        Sorcerer,
+        Giermek
     }
 
     public interface ISetItem

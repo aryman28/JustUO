@@ -8,10 +8,10 @@ namespace Server.Mobiles
         private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
         [Constructable]
         public Provisioner()
-            : base("the provisioner")
+            : base("- Zaopatrzeniowiec")
         {
-            this.SetSkill(SkillName.Camping, 45.0, 68.0);
-            this.SetSkill(SkillName.Tactics, 45.0, 68.0);
+            this.SetSkill(SkillName.Obozowanie, 45.0, 68.0);
+            this.SetSkill(SkillName.Taktyka, 45.0, 68.0);
         }
 
         public Provisioner(Serial serial)

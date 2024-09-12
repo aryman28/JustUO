@@ -12,7 +12,6 @@
 #region References
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -32,14 +31,18 @@ namespace VitaNex
 
 		static VitaNexCore()
 		{
+			_INITVersion = "2.2.0.0";
+
+			#if MONO
+			Version = _INITVersion;
+			#endif
+			
 			_INITQueue = new Queue<Tuple<string, string>>();
 			_INITHandlers = new Dictionary<string, Action<string>>();
 
-			_INITVersion = "2.2.0.0";
-
-			Version = null;
-
-			if (!Directory.Exists(IOUtility.GetSafeDirectoryPath(Core.BaseDirectory + "/VitaNexCore")))
+			//ensuring simply "VitaNexCore" exists causes Mono to look in system root folder "/", so we
+			// concatenate to give path relative to Server.  --sith
+			if (!Directory.Exists(Core.BaseDirectory + "/VitaNexCore"))
 			{
 				FirstBoot = true;
 			}
@@ -59,9 +62,15 @@ namespace VitaNex
 							 "file before starting the application.");
 			}
 
-			// HACK: See FindRootDirectory summary.
-			var root = FindRootDirectory(Core.BaseDirectory + "/Scripts/VitaNex");
 
+			#if !MONO
+			// Someone moved VitaNex from Scripts/VitaNex to Scripts/Custom Systems/VitaNex/Core
+			//  but this path was not updated... does this cause problems on Windows?  --Sith
+			var root = FindRootDirectory("Scripts/VitaNex");
+			#else
+			var root = new DirectoryInfo(Core.BaseDirectory + @"/Scripts/Custom Systems/VitaNex/Core");
+			#endif
+			
 			if (root == null || !root.Exists)
 			{
 				return;
@@ -89,21 +98,13 @@ namespace VitaNex
 				});
 		}
 
-		/// <summary>
-		/// Looks for the critical Vita-Nex: Core source files in the given path to determin the project's root directory.
-		/// If the given path directory does not exist, the parent chain will be traversed until an existing directory is 
-		/// found and a deep recursive search will be performed.
-		/// If the given path contains the /Scripts/ directory, a deep search should find the required project files.
-		/// </summary>
-		/// <param name="path">A directory path to search for critical project files</param>
-		/// <returns>An absolute root directory for the Vita-Nex: Core project source files</returns>
 		private static DirectoryInfo FindRootDirectory(string path)
 		{
 			if (String.IsNullOrWhiteSpace(path))
 			{
 				return null;
 			}
-
+			
 			path = IOUtility.GetSafeDirectoryPath(path);
 
 			var root = TryCatchGet(
@@ -147,11 +148,7 @@ namespace VitaNex
 				string corePath = IOUtility.GetSafeDirectoryPath(Core.BaseDirectory);
 				string rootPath = IOUtility.GetSafeDirectoryPath(root.FullName.Replace(corePath, String.Empty));
 
-				#if !MONO
 				root = new DirectoryInfo(rootPath);
-				#else
-				root = new DirectoryInfo(IOUtility.GetSafeDirectoryPath(corePath + rootPath));
-				#endif
 			}
 
 			return root;
@@ -200,15 +197,15 @@ namespace VitaNex
 
 				var lines = file.ReadAllLines();
 
-				foreach (string line in lines.Select(l => (l ?? String.Empty).Trim()))
+				foreach (string line in lines)
 				{
-					if (!parse && line.StartsWith("[VNC_INIT]", true, CultureInfo.InvariantCulture))
+					if (!parse && line.StartsWith("[VNC_INIT]"))
 					{
 						parse = true;
 						die = true;
 					}
 
-					if (parse && line.StartsWith("[VNC_EXIT]", true, CultureInfo.InvariantCulture))
+					if (parse && line.StartsWith("[VNC_EXIT]"))
 					{
 						parse = false;
 					}

@@ -49,14 +49,14 @@ namespace Server.Mobiles
             this.SetResistance(ResistanceType.Poison, 70, 80);
             this.SetResistance(ResistanceType.Energy, 70, 80);
 
-            this.SetSkill(SkillName.Anatomy, 116.1, 120.6);
-            this.SetSkill(SkillName.EvalInt, 113.8, 124.7);
-            this.SetSkill(SkillName.Magery, 110.1, 123.2);
-            this.SetSkill(SkillName.Spellweaving, 110.1, 123.2);
-            this.SetSkill(SkillName.Meditation, 118.2, 127.8);
-            this.SetSkill(SkillName.MagicResist, 110.0, 123.2);
-            this.SetSkill(SkillName.Tactics, 112.2, 122.6);
-            this.SetSkill(SkillName.Wrestling, 118.9, 128.6);
+            this.SetSkill(SkillName.Anatomia, 116.1, 120.6);
+            this.SetSkill(SkillName.Intelekt, 113.8, 124.7);
+            this.SetSkill(SkillName.Magia, 110.1, 123.2);
+            this.SetSkill(SkillName.Druidyzm, 110.1, 123.2);
+            this.SetSkill(SkillName.Medytacja, 118.2, 127.8);
+            this.SetSkill(SkillName.ObronaPrzedMagia, 110.0, 123.2);
+            this.SetSkill(SkillName.Taktyka, 112.2, 122.6);
+            this.SetSkill(SkillName.Boks, 118.9, 128.6);
         }
 
         public SlasherOfVeils(Serial serial)

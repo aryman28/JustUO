@@ -2,7 +2,7 @@ using System;
 using Server.Mobiles;
 using Server.Network;
 using Server.Targeting;
-using Server.Spells.Ninjitsu;
+using Server.Spells.Skrytobojstwo;
 
 namespace Server.Items
 {
@@ -50,7 +50,7 @@ namespace Server.Items
             {
                 from.SendLocalizedMessage(1040016); // You cannot use this while riding a mount
             }
-            else if (Server.Spells.Ninjitsu.AnimalForm.UnderTransformation(from))
+            else if (Server.Spells.Skrytobojstwo.AnimalForm.UnderTransformation(from))
             {
                 from.SendLocalizedMessage(1070902); // You can't use this while in an animal form!
             }
@@ -128,7 +128,7 @@ namespace Server.Items
 			
 			if ( AnimalForm.UnderTransformation( to ) && context != null )
 			{
-				Server.Spells.Ninjitsu.AnimalForm.RemoveContext( to, context, true );
+				Server.Spells.Skrytobojstwo.AnimalForm.RemoveContext( to, context, true );
 				to.SendMessage("{0} knocked you out of animal form!", from.Name);
 				from.SendMessage("You've knocked {0} out of animal form!", to.Name);
 			}
@@ -175,7 +175,7 @@ namespace Server.Items
                     {
                         from.SendLocalizedMessage(1040016); // You cannot use this while riding a mount
                     }
-                    else if (Server.Spells.Ninjitsu.AnimalForm.UnderTransformation(from))
+                    else if (Server.Spells.Skrytobojstwo.AnimalForm.UnderTransformation(from))
                     {
                         from.SendLocalizedMessage(1070902); // You can't use this while in an animal form!
                     }

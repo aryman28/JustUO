@@ -22,10 +22,8 @@ namespace Server
 	public sealed class SequentialFileWriter : Stream
 	{
 		private readonly SaveMetrics metrics;
-
 		private FileStream fileStream;
 		private FileQueue fileQueue;
-
 		private AsyncCallback writeCallback;
 
 		public SequentialFileWriter(string path, SaveMetrics metrics)

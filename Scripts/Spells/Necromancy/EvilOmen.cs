@@ -3,7 +3,7 @@ using System.Collections;
 using Server.Mobiles;
 using Server.Targeting;
 
-namespace Server.Spells.Necromancy
+namespace Server.Spells.Nekromancja
 {
     public class EvilOmenSpell : NecromancerSpell
     {
@@ -92,15 +92,15 @@ namespace Server.Spells.Necromancy
 
                 if (!m_Table.Contains(m))
                 {
-                    SkillMod mod = new DefaultSkillMod(SkillName.MagicResist, false, 50.0);
+                    SkillMod mod = new DefaultSkillMod(SkillName.ObronaPrzedMagia, false, 50.0);
 
-                    if (m.Skills[SkillName.MagicResist].Base > 50.0)
+                    if (m.Skills[SkillName.ObronaPrzedMagia].Base > 50.0)
                         m.AddSkillMod(mod);
 
                     m_Table[m] = mod;
                 }
 
-                TimeSpan duration = TimeSpan.FromSeconds((this.Caster.Skills[SkillName.SpiritSpeak].Value / 12) + 1.0);
+                TimeSpan duration = TimeSpan.FromSeconds((this.Caster.Skills[SkillName.MowaDuchow].Value / 12) + 1.0);
 
                 Timer.DelayCall(duration, new TimerStateCallback(EffectExpire_Callback), m);
 

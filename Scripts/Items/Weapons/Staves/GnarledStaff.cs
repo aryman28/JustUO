@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x13F8)
         {
             this.Weight = 3.0;
+            this.Name = "Kostur";
         }
 
         public GnarledStaff(Serial serial)

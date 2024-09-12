@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Items
 {
     public class PileofInspectedVeriteIngots : Item
@@ -6,9 +8,9 @@ namespace Server.Items
         public PileofInspectedVeriteIngots()
             : base(0x1BEA)
         {
-            Name = "Pile of Inspected Agapite Ingots";
+            this.Name = "Pile of Inspected Agapite Ingots";
 
-            Hue = 2207;
+            this.Hue = 2207;
         }
 
         public PileofInspectedVeriteIngots(Serial serial)
@@ -20,14 +22,14 @@ namespace Server.Items
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

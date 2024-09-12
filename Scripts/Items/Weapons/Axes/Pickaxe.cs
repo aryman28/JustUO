@@ -24,7 +24,7 @@ namespace Server.Items
         {
             get
             {
-                return Mining.System;
+                return Gornictwo.System;
             }
         }
         public override WeaponAbility PrimaryAbility

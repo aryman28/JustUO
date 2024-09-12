@@ -21,7 +21,7 @@
     <ProximityRange>5</ProximityRange>
     <ProximityTriggerSound>500</ProximityTriggerSound>
     <TriggerProbability>1</TriggerProbability>
-    <SkillTrigger>Musicianship</SkillTrigger>
+    <SkillTrigger>Muzykowanie</SkillTrigger>
     <InContainer>False</InContainer>
     <ContainerX>0</ContainerX>
     <ContainerY>0</ContainerY>

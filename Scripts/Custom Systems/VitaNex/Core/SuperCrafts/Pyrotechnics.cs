@@ -26,7 +26,7 @@ namespace VitaNex.SuperCrafts
 		public static Type PowderType = Type.GetType("BlackPowder") ??
 										ScriptCompiler.FindTypeByName("BlackPowder") ?? typeof(SulfurousAsh);
 
-		public override SkillName MainSkill { get { return SkillName.Alchemy; } }
+		public override SkillName MainSkill { get { return SkillName.Alchemia; } }
 
 		public override TextDefinition GumpTitle { get { return "<BASEFONT COLOR=#FFFFFF><CENTER>PYROTECHNICS MENU</CENTER>"; } }
 
